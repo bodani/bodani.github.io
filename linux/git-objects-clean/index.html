@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
-	<title>etcd 访问控制</title>
+	<title>Git 文件过大清理</title>
 	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
 	<base href="https://zhangeamon.top/">
 	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
@@ -87,139 +87,35 @@
 
 <div class="main-content container">
 	<div class="post">
-		<h1 class="post-title">etcd 访问控制</h1>
+		<h1 class="post-title">Git 文件过大清理</h1>
 		<div class="post-meta">
-			<p>2021年1月29日</p>
+			<p>2021年2月8日</p>
 		</div>
-		<h5 id="介绍">介绍</h5>
-<p>etcd 默认没有开启访问控制。 在生产环境中使用属于裸奔。</p>
-<p>开启访问控制有两种方式</p>
-<ul>
-<li>
-<p>密钥证书验证</p>
-</li>
-<li>
-<p>用户名密码验证</p>
-</li>
-</ul>
-<p>本篇实验用户名密码验证方式</p>
-<h5 id="用户">用户</h5>
-<p>开启访问认证需要创建root 用户，root 用户默认自动拥有root角色的权限，及超级管理员。</p>
-<h5 id="角色">角色</h5>
-<p>角色理解为指定权限的集合，权限包括 read 、write、 readwrite</p>
-<p>角色用于对访问权限的管理控制。</p>
-<p>系统默认拥有角色root 、guest。</p>
-<p>系统通过授权用户不同权限的角色，实现对用户的访问控制。</p>
-<h5 id="用户管理">用户管理</h5>
-<pre><code> etcdctl user --help
-NAME:
-   etcdctl user - user add, grant and revoke subcommands
+		<p>git目录下object文件过大清理</p>
+<p>一、删除仓库上的项目，重新提交代码。</p>
+<p>二、彻底清除历史记录</p>
+<pre><code>查询大文件的文件名
+git rev-list --objects --all | grep &quot;$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -5 | awk '{print$1}')&quot;
+删除历史记录
+git filter-branch --force --index-filter 'git rm -rf --cached --ignore-unmatch 你的大文件名' --prune-empty --tag-name-filter cat -- --all
 
-USAGE:
-   etcdctl user command [command options] [arguments...]
+rm -rf .git/refs/original/
 
-COMMANDS:
-     add     add a new user for the etcd cluster
-     get     get details for a user
-     list    list all current users
-     remove  remove a user for the etcd cluster
-     grant   grant roles to an etcd user
-     revoke  revoke roles for an etcd user
-     passwd  change password for a user
+git reflog expire --expire=now --all
 
-OPTIONS:
-   --help, -h  show help
-</code></pre><h5 id="角色管理">角色管理</h5>
-<pre><code>etcdctl role --help
-NAME:
-   etcdctl role - role add, grant and revoke subcommands
+git fsck --full --unreachable
 
-USAGE:
-   etcdctl role command [command options] [arguments...]
+git repack -A -d
+本地空间变小
+git gc --aggressive --prune=now
+推送远端 ，本地远端空间都变小
+git push --force
+</code></pre><p>git 还是尽量不保存大文件，及时删除了遗留历史包袱。</p>
 
-COMMANDS:
-     add     add a new role for the etcd cluster
-     get     get details for a role
-     list    list all roles
-     remove  remove a role from the etcd cluster
-     grant   grant path matches to an etcd role
-     revoke  revoke path matches for an etcd role
-
-OPTIONS:
-   --help, -h  show help
-</code></pre><h5 id="一个例子">一个例子</h5>
-<pre><code>-- 创建测试目录
-etcdctl mkdir /service001
-
--- 添加角色
-etcdctl role add r001
-Role r001 created
-
--- 角色设置权限
-etcdctl role grant --path /service001/* --rw r001
-Role r001 updated
-
--- 添加用户
-etcdctl  user add u001
-New password: 
-User u001 created
-
--- 用户绑定角色
-etcdctl  user grant --roles r001 u001
-User u001 updated
-
--- 查看用户角色
-etcdctl  user get u001
-User: u001
-Roles:  r001
-
--- 查看角色权限
-etcdctl role get r001
-Role: r001
-KV Read:
-	/service001/*
-KV Write:
-	/service001/*
-
-</code></pre><h5 id="开启认证访问">开启认证访问</h5>
-<pre><code>-- 开启认证需要系统拥有root用户，创建root用户会自动关联root角色
-etcdctl user add root 
-New password: 
-User root created
-</code></pre><pre><code>-- 开启认证模式
-etcdctl auth enable
-Authentication Enabled
-</code></pre><pre><code>-- 无认证仍然可访问。。。
-etcdctl ls /service001
-</code></pre><h6 id="注意事项">注意事项</h6>
-<p>因为在 Etcd 开启 Basic Auth 之后，默认会启用两个角色 root 和 guest， root 和 guest 角色都拥有所有权限，</p>
-<p>当我们未指定身份的时候其实是通过 guest 角色进行的操作，这里需要注意的是两个角色都不要删除，否则你可能会遇到意想不到的Bug，既然无法删除，</p>
-<p>那么为们可以通过收回权限的方式对 guest 的权限进行限制</p>
-<pre><code>-- 回收guest角色的所有权限
-etcdctl --username root role revoke guest --path=/* --readwrite
-Password: 
-Role guest updated
-
--- 查看guest角色权限
-etcdctl --username root role  get guest
-Password: 
-Role: guest
-KV Read:
-KV Write:
-</code></pre><pre><code>-- 无认禁止证访问
-etcdctl get /service001/a
-Error:  110: The request requires user authentication (Insufficient credentials) [0]
-</code></pre><pre><code>-- 使用认证访问 用户名 u001 密码 123456
-etcdctl --username u001:123456 set /service001/a 1
-1
-
-etcdctl --username u001:123456 get /service001/a
-2
-</code></pre>
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/hotupdate/">«hot update</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/git-objects-clean/">Git 文件过大清理»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/etcd_auth/">«etcd 访问控制</a></li>
+		
 	</ul>
 </div>
 <footer class="site-footer">
