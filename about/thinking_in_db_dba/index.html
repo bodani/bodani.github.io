@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
-	<title>unlogged table</title>
+	<title>数据库管理目录概览</title>
 	<link href="%3cnil%3e" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
 	<base href="https://zhangeamon.top/">
 	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
@@ -87,55 +87,23 @@
 
 <div class="main-content container">
 	<div class="post">
-		<h1 class="post-title">unlogged table</h1>
+		<h1 class="post-title">数据库管理目录概览</h1>
 		<div class="post-meta">
-			<p>2021年1月12日</p>
+			<p>2021年2月8日</p>
 		</div>
-		<h5 id="介绍">介绍</h5>
-<p>在写数据的时候不记录wal的表。</p>
-<p>在意外发生时表中的数据被trunce 。如断电、 主进程kill 、scrash 等。</p>
-<p>正常关闭重启数据库时数据不会丢失。</p>
-<p>优点： 提高写入效率</p>
-<p>不足： 数据安全性不能得到保障。 由于没有wal 流复制从库不能同步</p>
-<p>应用场景：</p>
-<p>数据可丢失，如频繁更新，只保留最后状态信息的表。</p>
-<p>导入表数据，后将表改为正常表。</p>
-<h5 id="使用">使用</h5>
-<pre><code>-- 创建unlogged table,与创建普通的表类似。加个unlogged 关键字
-postgres=# create unlogged table ult (id int,name text);
-CREATE TABLE
-postgres=# \d+ ult 
-                      不记录日志的表 &quot;public.ult&quot;
- 栏位 |  类型   | 校对规则 | 可空的 | 预设 |   存储   | 统计目标 | 描述 
-------+---------+----------+--------+------+----------+----------+------
- id   | integer |          |        |      | plain    |          | 
- name | text    |          |        |      | extended |          | 
+		<h5 id="基础知识">基础知识</h5>
+<h5 id="维护管理">维护管理</h5>
+<h5 id="监控系统">监控系统</h5>
+<h5 id="日志系统">日志系统</h5>
+<h5 id="高可用">高可用</h5>
+<h5 id="分布式">分布式</h5>
+<h5 id="优化">优化</h5>
+<h5 id="安全管理">安全管理</h5>
 
-
--- 将普通表与unlogged table 之间转换
-postgres=# alter table ult set logged ;
-ALTER TABLE
-postgres=# \d+ ult 
-                          数据表 &quot;public.ult&quot;
- 栏位 |  类型   | 校对规则 | 可空的 | 预设 |   存储   | 统计目标 | 描述 
-------+---------+----------+--------+------+----------+----------+------
- id   | integer |          |        |      | plain    |          | 
- name | text    |          |        |      | extended |          | 
-
-postgres=# alter table ult set unlogged ;
-ALTER TABLE
-postgres=# \d+ ult 
-                      不记录日志的表 &quot;public.ult&quot;
- 栏位 |  类型   | 校对规则 | 可空的 | 预设 |   存储   | 统计目标 | 描述 
-------+---------+----------+--------+------+----------+----------+------
- id   | integer |          |        |      | plain    |          | 
- name | text    |          |        |      | extended |          | 
-
-</code></pre>
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/reback/">«误操作闪回</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/thinking_in_db_tune/">数据库优化思考 - 模块调优»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/etcd_auth/">«etcd 访问控制</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/git-objects-clean/">Git 文件过大清理»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">
