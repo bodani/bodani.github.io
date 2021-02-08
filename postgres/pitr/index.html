@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>时间点恢复</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">时间点恢复</h1>
+		<div class="post-meta">
+			<p>2019年1月24日</p>
+		</div>
+		<h5 id="pitr">PITR</h5>
+<p>Point-in-time recovery</p>
+<p><a href="https://blog.csdn.net/a964921988/article/details/84957241">https://blog.csdn.net/a964921988/article/details/84957241</a></p>
+<p><a href="https://github.com/digoal/blog/blob/master/201608/20160823_03.md">https://github.com/digoal/blog/blob/master/201608/20160823_03.md</a></p>
+<p><a href="https://github.com/digoal/blog/blob/master/201608/20160823_04.md">https://github.com/digoal/blog/blob/master/201608/20160823_04.md</a></p>
+<h5 id="依赖条件">依赖条件</h5>
+<ul>
+<li>历史完整备份</li>
+<li>不间断wal日志</li>
+</ul>
+<p>以上都可有wal-g 备份系统提供支持</p>
+<h5 id="恢复到指定点">恢复到指定点</h5>
+<ul>
+<li>指定标签</li>
+<li>具体时间点</li>
+<li>具体事务</li>
+</ul>
+<h6 id="指定标签">指定标签</h6>
+<pre><code>recovery.conf
+recovery_target_action= 'pause'  # promote ,shutdown
+</code></pre><pre><code>--- 打lable 
+select pg_create_restore_point('my_daily_process_ended');
+
+--- 恢复到指定的lable
+recovery.conf
+recovery_target_name = 'my_daily_process_ended'
+</code></pre><h6 id="具体时间">具体时间</h6>
+<pre><code>restore_command = 'cp /data/arch/%f %p'            # e.g. 'cp /mnt/server/archivedir/%f %p'
+recovery_target_time = '2020-12-23 09:37:17.010268'
+recovery_target_inclusive = false
+recovery_target_timeline = 'latest'
+</code></pre><h6 id="具体事务">具体事务</h6>
+<pre><code>restore_command = 'cp /data/arch/%f %p'            # e.g. 'cp /mnt/server/archivedir/%f %p'
+recovery_target_xid = '26897309' 
+recovery_target_inclusive = false    
+recovery_target_timeline = 'latest
+</code></pre><h6 id="wal内容解析具体位置时间事务">wal内容解析具体位置，时间、事务</h6>
+<pre><code>select pg_current_wal_lsn();
+ pg_current_wal_lsn 
+--------------------
+ 59/15000090
+(1 行记录)
+
+</code></pre><pre><code>-- 当前wal位置
+select pg_walfile_name(pg_current_wal_lsn());
+     pg_walfile_name      
+--------------------------
+ 000000020000005900000015
+(1 行记录)
+
+-- 00000002 TimeLine
+-- 00000059 逻辑位置
+-- 00000015 偏移
+</code></pre><pre><code>-- 解析wal内容
+/usr/pgsql-10/bin/pg_waldump ./000000020000005900000013
+rmgr: Heap        len (rec/tot):     54/    54, tx:   26897309, lsn: 59/13000028, prev 59/120007D8, desc: DELETE off 1 KEYS_UPDATED , blkref #0: rel 1663/389916/1276307 blk 0
+rmgr: Heap        len (rec/tot):     54/    54, tx:   26897309, lsn: 59/13000060, prev 59/13000028, desc: DELETE off 2 KEYS_UPDATED , blkref #0: rel 1663/389916/1276307 blk 0
+rmgr: Heap        len (rec/tot):     54/    54, tx:   26897309, lsn: 59/13000098, prev 59/13000060, desc: DELETE off 3 KEYS_UPDATED , blkref #0: rel 1663/389916/1276307 blk 0
+rmgr: Heap        len (rec/tot):     54/    54, tx:   26897309, lsn: 59/130000D0, prev 59/13000098, desc: DELETE off 5 KEYS_UPDATED , blkref #0: rel 1663/389916/1276307 blk 0
+rmgr: Transaction len (rec/tot):     46/    46, tx:   26897309, lsn: 59/13000108, prev 59/130000D0, desc: COMMIT 2020-12-23 09:37:17.010268 CST
+
+-- 事务 tx： 26897309
+-- 时间 2020-12-23 09:37:17.010268 CST
+</code></pre><pre><code>-- 根据 rel 1663/389916/1276307  查看具体是哪个表
+select datname from pg_database where oid = 389916;
+ datname 
+---------
+ test1
+(1 行记录)
+
+select relname from pg_class where oid=1276307;
+ relname 
+---------
+ t_1
+(1 行记录)
+</code></pre>
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_pathman/">«pg_pathman 分区表</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pg_lock/">锁机制»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

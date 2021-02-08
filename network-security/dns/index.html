@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>DNS</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">DNS</h1>
+		<div class="post-meta">
+			<p>2019年10月28日</p>
+		</div>
+		<p>DNS：Domain Name System 域名管理系统</p>
+<p>A记录 A（Address）记录是用来指定主机名（或域名）对应的IP地址记录</p>
+<p>NS记录 NS（Name Server）记录是域名服务器记录，用来指定该域名由哪个DNS服务器来进行解析</p>
+<p>MX记录 MX（Mail Exchanger）记录是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据收信人的地址后缀来定位邮件服务器。</p>
+<p>CNAME记录 CNAME（Canonical Name ）别名记录，允许您将多个名字映射到同一台计算机。</p>
+<p>TXT记录，一般指某个主机名或域名的说明</p>
+<p>TTL值 TTL（Time-To-Live）</p>
+<p>PTR值 PTR是pointer的简写，用于将一个IP地址映射到对应的域名，也可以看成是A记录的反向，IP地址的反向解析</p>
+<h4 id="skydns">skydns</h4>
+<h5 id="软件安装">软件安装</h5>
+<p>skydns rpm 下载 for centos 7</p>
+<p>etcd 使用 centos7 官方自带软件</p>
+<h5 id="skydns-配置">skydns 配置</h5>
+<p>/etc/skydns/skydns.conf</p>
+<pre><code>ETCD_MACHINES=&quot;http://127.0.0.01:2379&quot;
+SKYDNS_ADDR=&quot;0.0.0.0:53&quot;
+SKYDNS_NAMESERVERS=&quot;119.29.29.29:53&quot;
+</code></pre><p>说明</p>
+<p>ETCD_MACHINES
+指定当前 etcd 集群地址</p>
+<p>SKYDNS_ADDR
+本地 dns 监听地址</p>
+<p>SKYDNS_NAMESERVERS
+上层 DNS 服务器</p>
+<h5 id="etcd-配置方法">etcd 配置方法</h5>
+<p>另一种配置方法, 只需要在 skydns.conf 中配置对应的 etcd 连接地址即可.</p>
+<p>其他配置选项在 etcd 中进行配置</p>
+<pre><code> etcdctl set /skydns/config '{&quot;dns_addr&quot;:&quot;0.0.0.0:53&quot;,&quot;ttl&quot;:30, &quot;nameservers&quot;: [&quot;119.29.29.29:53&quot;], &quot;domain&quot;:&quot;mydomain.com.&quot;}'
+</code></pre><h5 id="参考作用">参考作用</h5>
+<pre><code>dns_addr: IP:port on which SkyDNS should listen, defaults to 127.0.0.1:53.
+domain: domain for which SkyDNS is authoritative, defaults to skydns.local..
+dnssec: enable DNSSEC
+hostmaster: hostmaster email address to use.
+local: optional unique value for this skydns instance, default is none. This is returned when queried for local.dns.skydns.local.
+round_robin: enable round-robin sorting for A and AAAA responses, defaults to true. Note that packets containing more than one CNAME are exempt from this (see issue #128 on Github).
+nameservers: forward DNS requests to these (recursive) nameservers (array of IP:port combination), when not authoritative for a domain. This defaults to the servers listed in /etc/resolv.conf. Also see no_rec.
+no_rec: never (ever) provide a recursive service (i.e. forward to the servers provided in -nameservers).
+read_timeout: network read timeout, for DNS and talking with etcd.
+ttl: default TTL in seconds to use on replies when none is set in etcd, defaults to 3600.
+min_ttl: minimum TTL in seconds to use on NXDOMAIN, defaults to 30.
+scache: the capacity of the DNSSEC signature cache, defaults to 10000 signatures if not set.
+rcache: the capacity of the response cache, defaults to 0 messages if not set.
+rcache_ttl: the TTL of the response cache, defaults to 60 if not set.
+ndots: how many labels a name should have before we allow forwarding. Default to 2.
+systemd: bind to socket(s) activated by systemd (ignores -addr).
+path-prefix: backend(etcd) path prefix, defaults to skydns (i.e. if it is set to mydns, the SkyDNS's configuration object should be stored under the key /mydns/config).
+etcd3: flag that toggles the etcd version 3 support by skydns during runtime. Defaults to false.
+</code></pre><h5 id="service-文件">service 文件</h5>
+<pre><code>[Unit]
+Description=SkyDNS service
+#After=etcd.service             &lt;- 假如 etcd 不在本地, 那么这里需要屏蔽
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/skydns/skydns.conf
+User=skydns                      &lt;- 默认使用 skydns 用户启动, 但该用户无法启用 &lt; 1024 端口的服务
+ExecStart=/usr/bin/skydns
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><h5 id="授权服务启动">授权服务启动</h5>
+<pre><code>setcap cap_net_bind_service+ep /usr/bin/skydns   (允许该命令可以监听 53 端口)
+systemctl daemon-reload
+</code></pre><h5 id="服务管理">服务管理</h5>
+<pre><code>systemctl start skydns
+systemctl stop skydns
+</code></pre><h5 id="添加a记录">添加A记录</h5>
+<pre><code>ectctl set /skydns/com/mydomain/test/x1 '{&quot;host&quot;:&quot;10.1.0.1&quot;}'
+ectctl set /skydns/com/mydomain/test/x2 '{&quot;host&quot;:&quot;10.1.0.2&quot;}'
+
+</code></pre>
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/cmd-vim/">«vi 编辑</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/postgres12/">postgres 12»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

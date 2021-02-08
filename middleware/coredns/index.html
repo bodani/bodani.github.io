@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>coredns</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">coredns</h1>
+		<div class="post-meta">
+			<p>2020年6月22日</p>
+		</div>
+		<h4 id="背景">背景</h4>
+<p>致力于打造云原生中的dns服务和服务发现。</p>
+<p>各种功能都是通过插件方式实现</p>
+<h4 id="简单例子">简单例子</h4>
+<p>服务</p>
+<p>cat /usr/lib/systemd/system/coredns.service</p>
+<pre><code>[Unit]
+Description=CoreDNS DNS server
+Documentation=https://coredns.io
+After=network.target
+
+[Service]
+PermissionsStartOnly=true
+LimitNOFILE=1048576
+LimitNPROC=512
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+User=coredns
+WorkingDirectory=~
+ExecStart=/usr/local/bin/coredns -conf=/etc/coredns/Corefile
+ExecReload=/bin/kill -SIGUSR1 $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><p>配置文件
+cat /etc/coredns/Corefile</p>
+<pre><code>.:53 {
+  # 绑定interface ip
+  bind 127.0.0.1
+  # 先走本机的hosts
+  # https://coredns.io/plugins/hosts/
+  
+  hosts {
+    # 自定义sms.service search.service 的解析
+    # 因为解析的域名少我们这里直接用hosts插件即可完成需求
+    # 如果有大量自定义域名解析那么建议用file插件使用 符合RFC 1035规范的DNS解析配置文件
+    10.6.6.2 sms.service
+    10.6.6.3 search.service
+    # ttl
+    ttl 60
+    # 重载hosts配置
+    reload 1m
+    # 继续执行
+    fallthrough
+  }
+  # 通过 curl localhost:9253/metrics 获取监控指标
+  # 插件
+  prometheus localhost:9253
+  # file enables serving zone data from an RFC 1035-style master file.
+  # https://coredns.io/plugins/file/
+  # file service.signed service
+  # 最后所有的都转发到系统配置的上游dns服务器去解析
+  forward . /etc/resolv.conf
+  # 缓存时间ttl
+  cache 120
+  # 自动加载配置文件的间隔时间
+  reload 6s
+  # 输出日志
+  log
+  # 输出错误
+  errors
+  # 健康检查插件
+  health localhost:8092 {
+        lameduck 1s
+    }
+}
+
+</code></pre><h4 id="更多">更多</h4>
+<p>将服务注册在etcd中</p>
+<h4 id="遗留">遗留</h4>
+<p>不支持对后端服务的健康检查</p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/redis/install/">«Redis 6.0安装配置管理</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/consul/">Consul DNS 服务发现»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

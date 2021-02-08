@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>APM</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">APM</h1>
+		<div class="post-meta">
+			<p>2018年11月6日</p>
+		</div>
+		<p><a href="https://www.elastic.co/solutions/apm">https://www.elastic.co/solutions/apm</a></p>
+<h5 id="应用程序性能监控">应用程序性能监控</h5>
+<h6 id="整体架构">整体架构</h6>
+<p><!-- raw HTML omitted --></p>
+<h6 id="先搞起来">先搞起来</h6>
+<ul>
+<li>agent 收集信息</li>
+<li>apm-server 接受agent信息并发送到ES</li>
+<li>ES 存储信息</li>
+<li>Kibana 信息检索展示</li>
+</ul>
+<p>agent python django</p>
+<pre><code>安装扩展包
+ pip install elastic-apm
+
+django 配置
+# Add the agent to the installed apps
+INSTALLED_APPS = (
+   'elasticapm.contrib.django',
+   #...
+ 
+)
+
+
+ELASTIC_APM = {
+ #  Set required service name.
+ # Allowed characters:
+  # a-z, A-Z, 0-9, -, _, and space
+  'SERVICE_NAME': 'my-app',
+  #后台进程
+  'TRANSPORT_CLASS': 'elasticapm.transport.http.AsyncTransport',
+  # Use if APM Server requires a token
+  #'SECRET_TOKEN': '',
+ # 没有数据可以开启debug查看
+ # 'DEBUG': True,
+  # Set custom APM Server URL (
+  # default: http://localhost:8200)
+  #
+  'SERVER_URL': 'http://10.1.88.73:8200',
+
+}
+# To send performance metrics, add our tracing middleware:
+MIDDLEWARE = (
+   'elasticapm.contrib.django.middleware.TracingMiddleware',
+   #...
+)
+
+
+</code></pre><p>ElasticSearch</p>
+<pre><code>docker run -d -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+</code></pre><p>Kibana</p>
+<pre><code>docker run -d -e ELASTICSEARCH_URL=http://10.1.88.73:9200 -p 5601:5601 docker.elastic.co/kibana/kibana:6.2.4
+</code></pre><p>APM-Server</p>
+<pre><code>
+wget https://artifacts.elastic.co/downloads/apm-server/apm-server-6.4.2-linux-x86_64.tar.gz
+tar xf apm-server-6.4.2-linux-x86_64.tar.gz
+cd apm-server-6.4.2-linux-x86_64
+./apm-server setup
+./apm-server -e
+
+</code></pre><p>完成之后，打开Kibana，就能看到APM增加的Dashboard和APM UI。</p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/stat/">«Postgresql指标查看&amp;stat统计信息</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/kvm/kvm01/">KVM»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

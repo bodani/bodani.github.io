@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>日志审计 audit</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">日志审计 audit</h1>
+		<div class="post-meta">
+			<p>2020年5月8日</p>
+		</div>
+		<h4 id="介绍">介绍</h4>
+<p>auditd是Linux审计系统中用户空间的一个组件，负责将审计记录写到磁盘中。在CentOS7上默认就会有安装这个服务。</p>
+<p>如果被卸载，可以直接使用yum进行安装：</p>
+<pre><code>yum -y install audit auditd-libs
+</code></pre><h4 id="常用命令">常用命令</h4>
+<pre><code>1、auditctl : 即时控制审计守护进程的行为的工具，比如如添加规则等等。
+audtitctl -l #查看规则
+auditctl -D #清空规则
+2、aureport : 查看和生成审计报告的工具。
+aureport -l #生成登录审计报告
+3、ausearch : 查找审计事件的工具
+ausearch -i -p 4096
+4、autrace : 一个用于跟踪进程的命令。
+autrace -r /usr/sbin/anacron
+
+</code></pre><h4 id="简单应用">简单应用</h4>
+<h6 id="监控文件或者目录的更改">监控文件或者目录的更改</h6>
+<pre><code>auditctl -w /etc/passwd -p rwxa -k passwd
+
+-w path : 指定要监控的路径，上面的命令指定了监控的文件路径 /etc/passwd
+-p : 指定触发审计的文件或者目录的访问权限
+rwxa ： 指定的触发条件，r 读取权限，w 写入权限，x 执行权限，a 属性（attr）
+</code></pre><p>运行这条命令之后就开始监控了，但是机器重启之后就失效了，因此要永久生效就需要写到规则文件里面。
+vim /etc/auditd/rules.d/auditd.rules
+将auditctl的命令参数写到这个文件里面即可。</p>
+<h6 id="重启服务">重启服务</h6>
+<pre><code>service auditd restart
+</code></pre><p>systemctl restart auditd 不可用</p>
+<h6 id="查找日志ausearch">查找日志ausearch</h6>
+<pre><code>-a number #只显示事件ID为指定数字的日志信息，如只显示926事件：ausearch -a 926
+-c commond #只显示和指定命令有关的事件，如只显示rm命令产生的事件：auserach -c rm
+-i #显示出的信息更清晰，如事件时间、相关用户名都会直接显示出来，而不再是数字形式
+-k #显示出和之前auditctl -k所定义的关键词相匹配的事件信息
+</code></pre><h5 id="日志字段说明">日志字段说明</h5>
+<pre><code>参数说明：
+time :审计时间。
+name :审计对象
+cwd :当前路径
+syscall :相关的系统调用
+auid :审计用户ID
+uid和 gid :访问文件的用户ID和用户组ID
+comm :用户访问文件的命令
+exe :上面命令的可执行文件路径
+</code></pre><h6 id="查看登陆信息">查看登陆信息</h6>
+<p>默认支持</p>
+<pre><code>aureport -l
+aureport -h
+</code></pre><p>类似命令</p>
+<pre><code>last  登陆成功
+lastb 登陆失败
+</code></pre>
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/dengbao3/">«等保三指南</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/syslog/">系统日志 syslog»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

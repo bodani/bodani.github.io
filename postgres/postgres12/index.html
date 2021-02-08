@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>postgres 12</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">postgres 12</h1>
+		<div class="post-meta">
+			<p>2019年11月19日</p>
+		</div>
+		<h5 id="安装启动">安装&amp;启动</h5>
+<pre><code>#下载源
+yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+#安装服务
+yum install postgresql12 postgresql12-server postgresql12-contrib
+#初始化
+/usr/pgsql-12/bin/postgresql-12-setup initdb
+#启动服务
+systemctl enable postgresql-12
+systemctl start postgresql-12
+</code></pre><h5 id="流复制">流复制</h5>
+<pre><code>#从机 建立从库
+pg_basebackup -h 10.1.30.13 -U postgres -F p -P -R -D /var/lib/pgsql/12/data/ --checkpoint=fast -l postgresback
+#从库升级为主库
+sudo su postgres -c  &quot;/usr/pgsql-12/bin/pg_ctl promote -D /var/lib/pgsql/12/data/&quot;
+</code></pre><ul>
+<li>recovery.conf 配置文件不再支持，此文件中的参数合并到 postgresql.conf(postgresql.auto.conf) Recovery Target, 若 recovery.conf 存在，数据库无法启动</li>
+<li>新增 recovery.signal 标识文件，表示数据库处于 recovery 模式</li>
+<li>新增加 standby.signal 标识文件，表示数据库处于 standby 模式</li>
+<li>trigger_file 参数更名为 promote_trigger_file</li>
+<li>standby_mode 参数不再支持</li>
+</ul>
+<p>在postgres 12 版本中新增一个激活从库为主库的方式。pg_promote 函数，相比原有的两种方式，这种方法的优点在于不需要登陆到实体机上，可远程通过sql进行操作。
+pg_promote() 函数有两个参数:</p>
+<ul>
+<li>wait: 表示是否等待备库的 promotion 完成或者 wait_seconds 秒之后返回成功，默认值为 true。</li>
+<li>wait_seconds: 等待时间，单位秒，默认 60</li>
+</ul>
+<p>流复制主备切换主要步骤如下:</p>
+<p>步骤1 关闭主库</p>
+<p>步骤2 激活备库: 三种方式任选一种: 1) pg_ctl promote 命令方式; 2) 创建触发器文件方式; 3) pg_promote()函数方式。</p>
+<p>步骤3 老主库角色转换成备库: 在老主库主机 pghost1 的 $PGDATA 目录下创建 standby.signal 标识文件,postgresql.auto.conf 类似于以前版本的recovery.conf。</p>
+<p>步骤4 启动老主库并验证</p>
+<p><a href="https://postgres.fun/20190719084100.html">具体操作</a></p>
+<h5 id="分区表">分区表</h5>
+<p>支持类型</p>
+<ul>
+<li>Range</li>
+<li>List</li>
+<li>Hash</li>
+</ul>
+<p>创建表</p>
+<pre><code>CREATE TABLE measurement (
+    city_id         int not null,
+    logdate         date not null,
+    peaktemp        int,
+    unitsales       int
+) PARTITION BY RANGE (logdate);
+</code></pre><p>创建分区</p>
+<pre><code>CREATE TABLE measurement_y2006m02 PARTITION OF measurement
+    FOR VALUES FROM ('2006-02-01') TO ('2006-03-01');
+
+CREATE TABLE measurement_y2006m03 PARTITION OF measurement
+    FOR VALUES FROM ('2006-03-01') TO ('2006-04-01');
+
+--- 默认分区
+CREATE TABLE measurement_y2006m02 PARTITION OF measurement
+    default;
+</code></pre><p>插入数据</p>
+<pre><code>select  cast(random()*10 as integer), date'2006-02-01'  + (id||' hour')::interval,cast(random()*30 as integer),cast(random()*10000 as integer) 
+    from generate_series(1,2000) t(id);
+</code></pre><p>创建索引,与以前版本的区别可以在父表上统一创建索引。也可以在每个子表上根据需求分别创建索引。更灵活。<br>
+建议在分区列上创建索引，利用分区裁剪（enable_partition_pruning）提高效率。</p>
+<pre><code>CREATE INDEX ON measurement (logdate);
+</code></pre><p>维护分区表</p>
+<pre><code>--- 删除分区表,会锁主表
+DROP TABLE measurement_y2006m02;
+--- 通常方式，将分区表脱离出主表，然后在对分区表进行操作
+ALTER TABLE measurement DETACH PARTITION measurement_y2006m02;
+
+--- 将已有表作为分区表加入到主表中, 直接加入会锁主表
+ALTER TABLE measurement ATTACH PARTITION measurement_y2008m02
+    FOR VALUES FROM ('2008-02-01') TO ('2008-03-01' );
+
+--- 通常做法，对需要对加入的分区表加检查约束，然后在将分区表加入到主表中
+
+ALTER TABLE measurement_y2008m02 ADD CONSTRAINT y2008m02
+   CHECK ( logdate &gt;= DATE '2008-02-01' AND logdate &lt; DATE '2008-03-01' );
+
+ALTER TABLE measurement ATTACH PARTITION measurement_y2008m02
+    FOR VALUES FROM ('2008-02-01') TO ('2008-03-01' );
+</code></pre><p>分区表可以存在于不同的表空间中，这样的特性方便数据的冷热区分处理。</p>
+<p>对索引的管理</p>
+<p>通常情况下如果对一张表加入索引会堵塞该表的dml操作，特别是对一张大表的操作。</p>
+<p>默认情况下，如果在主表中加入一个索引，该索引也会加入到索引的子表中，无论是现有的子表还是将来新加入的字表。这样极大的方便了对分区表的维护。目前在分区表上建立索引时不支持CONCURRENTLY</p>
+<p>但是考虑的对在线业务的影响，在分区表中建议的操作流程。</p>
+<p>首先在主表上使用 create index on only 语句创建索引，然后分别在子表上创建索引。当所有子表上的索引都建立完毕后主表上的索引被激活。</p>
+<p>该方式也适用于其他（约束）等</p>
+<pre><code>CREATE INDEX measurement_usls_idx ON ONLY measurement (unitsales);
+
+CREATE INDEX measurement_usls_200602_idx
+    ON measurement_y2006m02 (unitsales);
+ALTER INDEX measurement_usls_idx
+    ATTACH PARTITION measurement_usls_200602_idx;
+
+</code></pre><h5 id="其他">其他</h5>
+<p><a href="https://yq.aliyun.com/articles/720247?spm=a2c4e.11153940.0.0.48cf2f79tPuOrL">https://yq.aliyun.com/articles/720247?spm=a2c4e.11153940.0.0.48cf2f79tPuOrL</a></p>
+<p><a href="https://github.com/digoal/blog/blob/0ef02248fe7419c55a98a425feefd2421ad25537/201906/20190624_02.md">https://github.com/digoal/blog/blob/0ef02248fe7419c55a98a425feefd2421ad25537/201906/20190624_02.md</a></p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/dns/">«DNS</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/vm-config/">内核设置»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

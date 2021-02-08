@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>安装 Postgresql</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">安装 Postgresql</h1>
+		<div class="post-meta">
+			<p>2018年10月17日</p>
+		</div>
+		<p><a href="https://www.postgresql.org/download/linux/redhat/">官网</a></p>
+<p>1.准备源</p>
+<pre><code>清除历史残余，有些是系统自带的旧版本数据库
+
+rpm -qa | grep postgres
+
+rpm -r ****
+
+安装新数据源
+
+yum install https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+
+yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+可将所有的软件更新到最新版本如 ， postgresql-10.2 更新到当前最新的postgresql-10.6
+
+yum update -y 
+
+</code></pre><p>2.安装</p>
+<pre><code>yum install -y postgresql10-server postgresql10  postgresql10-contrib
+</code></pre><p>3.初始化</p>
+<pre><code>默认
+/usr/pgsql-10/bin/postgresql-10-setup initdb
+
+自定义
+/usr/pgsql-10/bin/initdb -D $PGDATA -U postgres -E UTF-8 --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8 -k
+
+-D 数据存放位置
+-U 超级用户
+-E 默认编码
+--lc-collate 区域 Collate会影响中文的排序，在zh_CN的区域下中文按拼音排序，其它区域按字符编码排序。
+--lc-ctype 字符类型Ctype会影响pg_trgm和部分正则匹配的结果，比如Ctype为'C'时，pg_trgm将无法支持中文。
+-k 使用 data checksums
+</code></pre><p>可将数据存放到其他目录下，使用<a href="linux/ln-s">软连接</a>的方式。</p>
+<p>为什么会使用软连接而不是更改PGDATA环境变量，因为升级数据库的时 PGDATA 被指回默认值。</p>
+<p>通过软连接的方式不改变初始值:<br>
+1 升级的时候不用修改PGDATA<br>
+2 数据位置存放固定，便于以后管理。</p>
+<p>4.启动服务　＆　开机自启</p>
+<pre><code>systemctl start postgresql-10.service
+
+systemctl enable postgresql-10.service
+</code></pre><p>5.设置访问权限</p>
+<p>　  vi postgresql.conf</p>
+<pre><code>  listen_addresses ='*'
+</code></pre><p>　vi pg_hba.conf</p>
+<pre><code>  # &quot;local&quot; is for Unix domain socket connections only
+  local   all             all                                     trust
+  # IPv4 local connections:
+  host    all             all             127.0.0.1/32            trust
+  host    all             all             0.0.0.0/0               md5
+  # IPv6 local connections:
+  host    all             all             ::1/128                 ident
+
+</code></pre><pre><code>systemctl restart postgresql-10.service
+</code></pre><p>6.设置密码</p>
+<pre><code>  #psql -U postgres
+  
+  postgres=# ALTER USER postgres WITH PASSWORD 'postgres'
+  \q
+
+</code></pre><h4 id="进一步优化">进一步优化</h4>
+<h5 id="系统linux-内核参数">系统Linux 内核参数</h5>
+<p>vi /etc/sysctl.conf</p>
+<pre><code>kernel.shmall = 4294967296  
+kernel.shmmax=135497418752  
+kernel.shmmni = 4096  
+kernel.sem = 50100 64128000 50100 1280  
+fs.file-max = 7672460  
+fs.aio-max-nr = 1048576  
+net.ipv4.ip_local_port_range = 9000 65000  
+net.core.rmem_default = 262144  
+net.core.rmem_max = 4194304  
+net.core.wmem_default = 262144  
+net.core.wmem_max = 4194304  
+net.ipv4.tcp_max_syn_backlog = 4096  
+net.core.netdev_max_backlog = 10000  
+#net.ipv4.netfilter.ip_conntrack_max = 655360  
+net.ipv4.tcp_timestamps = 0  
+net.ipv4.tcp_tw_recycle=1  
+net.ipv4.tcp_timestamps=1  
+net.ipv4.tcp_keepalive_time = 72   
+net.ipv4.tcp_keepalive_probes = 9   
+net.ipv4.tcp_keepalive_intvl = 7  
+vm.zone_reclaim_mode=0  
+vm.dirty_background_bytes = 40960000  
+vm.dirty_ratio = 80  
+vm.dirty_expire_centisecs = 6000  
+vm.dirty_writeback_centisecs = 50  
+vm.swappiness=0  
+vm.overcommit_memory = 0  
+vm.overcommit_ratio = 90  
+</code></pre><p>sysctl -p 生效</p>
+<h5 id="系统linux-最大句柄数">系统Linux 最大句柄数</h5>
+<p>vi /etc/security/limits.conf</p>
+<pre><code>* soft    nofile  131072  
+* hard    nofile  131072  
+* soft    nproc   131072  
+* hard    nproc   131072  
+* soft    core    unlimited  
+* hard    core    unlimited  
+* soft    memlock 500000000  
+* hard    memlock 500000000 
+
+</code></pre><h4 id="ntp">ntp</h4>
+<pre><code>yum install ntp -y
+
+systemctl start ntpd
+systemctl enable ntpd
+</code></pre><p>reboot 生效</p>
+<h4 id="数据库参数">数据库参数</h4>
+<p><a href="postgres/params/">参见</a></p>
+<h4 id="常见问题">常见问题</h4>
+<pre><code>Package: postgresql12-devel-12.3-1PGDG.rhel7.x86_64 (pgdg12)
+           Requires: llvm-toolset-7-clang &gt;= 4.0.1
+install CentOS SCLo RH repository and install llvm-toolset-7-clang to resolve it.
+yum install centos-release-scl-rh
+yum install llvm-toolset-7-clang
+</code></pre>
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/about/tech/">«技术图谱</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/replication01/">主从流复制»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

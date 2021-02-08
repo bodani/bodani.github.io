@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>pgbench 压力测试</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">pgbench 压力测试</h1>
+		<div class="post-meta">
+			<p>2019年1月9日</p>
+		</div>
+		<h4 id="介绍">介绍</h4>
+<p>pgbench是一种在PostgreSQL上运行基准测试的简单程序。<br>
+<a href="http://www.postgres.cn/docs/9.6/pgbench.html">官方文档</a></p>
+<ul>
+<li>默认测试</li>
+<li>自定义测试</li>
+</ul>
+<h4 id="默认测试">默认测试</h4>
+<p>pgbench中默认自带一套测试数据库和测试sql脚本。</p>
+<h6 id="初始化默认数据库">初始化默认数据库</h6>
+<pre><code>使用 -i 初始化数据库
+
+#pgbench -U postgres -i -s 10 pgbenchdb
+NOTICE:  table &quot;pgbench_history&quot; does not exist, skipping
+NOTICE:  table &quot;pgbench_tellers&quot; does not exist, skipping
+NOTICE:  table &quot;pgbench_accounts&quot; does not exist, skipping
+NOTICE:  table &quot;pgbench_branches&quot; does not exist, skipping
+creating tables...
+100000 of 1000000 tuples (10%) done (elapsed 0.14 s, remaining 1.23 s)
+200000 of 1000000 tuples (20%) done (elapsed 0.27 s, remaining 1.06 s)
+300000 of 1000000 tuples (30%) done (elapsed 0.42 s, remaining 0.99 s)
+400000 of 1000000 tuples (40%) done (elapsed 0.51 s, remaining 0.77 s)
+500000 of 1000000 tuples (50%) done (elapsed 0.72 s, remaining 0.72 s)
+600000 of 1000000 tuples (60%) done (elapsed 0.87 s, remaining 0.58 s)
+700000 of 1000000 tuples (70%) done (elapsed 0.97 s, remaining 0.42 s)
+800000 of 1000000 tuples (80%) done (elapsed 1.15 s, remaining 0.29 s)
+900000 of 1000000 tuples (90%) done (elapsed 1.30 s, remaining 0.14 s)
+1000000 of 1000000 tuples (100%) done (elapsed 1.46 s, remaining 0.00 s)
+set primary keys...
+done.
+
+参数说明：
+-i --initialize 表示初始化数据,注意原来的数据如果存在将被覆盖。
+-s scale_factor 规模因子 数据量规模
+
+查看初始化后的数据库
+
+psql -U postgres -d pgbenchdb
+pgbenchdb=# \d+
+                               关联列表
+ 架构模式 |        名称        |  类型  |  拥有者  |    大小    | 描述 
+----------+--------------------+--------+----------+------------+------
+ public   | pg_stat_statements | 视图   | postgres | 0 bytes    | 
+ public   | pgbench_accounts   | 数据表 | postgres | 128 MB     | 
+ public   | pgbench_branches   | 数据表 | postgres | 8192 bytes | 
+ public   | pgbench_history    | 数据表 | postgres | 0 bytes    | 
+ public   | pgbench_tellers    | 数据表 | postgres | 8192 bytes | 
+(5 行记录)
+
+</code></pre><h5 id="开始测试">开始测试</h5>
+<pre><code>pgbench -M prepared -r -n -c 100 -j 100 -T 100 -U postgres   pgbenchdb 
+transaction type: &lt;builtin: TPC-B (sort of)&gt;
+scaling factor: 10
+query mode: prepared
+number of clients: 100
+number of threads: 100
+duration: 100 s
+number of transactions actually processed: 375474
+latency average = 26.667 ms
+tps = 3749.964314 (including connections establishing)
+tps = 3754.003534 (excluding connections establishing)
+script statistics:
+ - statement latencies in milliseconds:
+         0.002  \set aid random(1, 100000 * :scale)
+         0.000  \set bid random(1, 1 * :scale)
+         0.000  \set tid random(1, 10 * :scale)
+         0.000  \set delta random(-5000, 5000)
+         0.252  BEGIN;
+         0.299  UPDATE pgbench_accounts SET abalance = abalance + :delta WHERE aid = :aid;
+         0.199  SELECT abalance FROM pgbench_accounts WHERE aid = :aid;
+        13.609  UPDATE pgbench_tellers SET tbalance = tbalance + :delta WHERE tid = :tid;
+         9.879  UPDATE pgbench_branches SET bbalance = bbalance + :delta WHERE bid = :bid;
+         0.252  INSERT INTO pgbench_history (tid, bid, aid, delta, mtime) VALUES (:tid, :bid, :aid, :delta, CURRENT_TIMESTAMP);
+         2.100  END;
+
+参数说明：
+-M 模式 simple extended prepared
+-r 每一个语句花费的事务时间
+-n 运行前不执行vaccumun ,自定义的脚本运行中必须要使用
+-c 客户端数量
+-j 线程数量 客户端共用所有的线程 -j &lt;= -c 
+-T 运行的时间 单位秒 。 时间太短会导致结果不是很准确，至少要运行几分钟，消除噪声对结果的影响。
+-t 运行的事务数 每个客户端
+</code></pre><h5 id="结果解读">结果解读</h5>
+<p>略 ，一看就懂</p>
+<h4 id="自定义测试">自定义测试</h4>
+<p>示例说明</p>
+<pre><code>pgbench -M prepared -n -r -c 32 -j 32 -P 5 -C -f ./test.sql -U postgres pgbenchdb -T 300
+</code></pre><p>注意事项: pgbench与pg不要在同一台机器上</p>
+<p>各种场景压力测试
+<a href="https://github.com/digoal/blog/blob/362b84417ca8b7aaf1add31fe7689c347642bb9a/201706/20170601_02.md">https://github.com/digoal/blog/blob/362b84417ca8b7aaf1add31fe7689c347642bb9a/201706/20170601_02.md</a></p>
+<h4 id="遇见问题">遇见问题</h4>
+<p>测试 -C 参数时 使用的pgbouncer作为连接池出现如下错误</p>
+<pre><code>Cannot assign requested address
+</code></pre><p>原因客户端频繁的连服务器，由于每次连接都在很短的时间内结束，导致很多的TIME_WAIT，以至于用光了可用的端口号，所以新的连接没办法绑定端口，即“Cannot assign requested address”。<br>
+是客户端的问题不是服务器端的问题。通过netstat，的确看到很多TIME_WAIT状态的连接。</p>
+<p>client端频繁建立连接，而端口释放较慢，导致建立新连接时无可用端口。</p>
+<p>解决方法：</p>
+<p>执行命令修改如下2个内核参数 （需要root权限）<br>
+sysctl -w net.ipv4.tcp_timestamps=1  开启对于TCP时间戳的支持,若该项设置为0，则下面一项设置不起作用<br>
+sysctl -w net.ipv4.tcp_tw_recycle=1  表示开启TCP连接中TIME-WAIT sockets的快速回收</p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/at-crontab/">«定时任务</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgfincore/">pgfincore»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

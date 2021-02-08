@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>Centos 初始化配置</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">Centos 初始化配置</h1>
+		<div class="post-meta">
+			<p>2018年12月3日</p>
+		</div>
+		<h4 id="网络配置">网络配置</h4>
+<h5 id="设置ip">设置IP</h5>
+<p>略</p>
+<h5 id="ip_froward">ip_froward</h5>
+<p>查看 sysctl -a | grep ip_ <br>
+修改 vi /etc/sysctl.conf</p>
+<pre><code>net.ipv4.ip_forward = 1
+</code></pre><h5 id="最大使用内存">最大使用内存</h5>
+<pre><code>vm.max_map_count=262144
+</code></pre><p>生效 sysctl -p</p>
+<h4 id="系统更新">系统更新</h4>
+<pre><code>yum -y update
+</code></pre><h4 id="安装扩展及工具">安装扩展及工具</h4>
+<pre><code>yum -y install epel-release net-tools bind-utils telnet wget 
+</code></pre><h4 id="文件链接限制">文件链接限制</h4>
+<p>查看</p>
+<pre><code>ulimit -n
+</code></pre><p>修改
+vi /etc/security/limits.conf</p>
+<pre><code>* - nofile 65536
+* soft nproc 65536
+* hard nproc 65536
+* soft nofile 65536
+* hard nofile 65536
+</code></pre><pre><code>rm /etc/security/limits.d/*  -rf
+</code></pre><h4 id="安全">安全</h4>
+<h5 id="selinux">selinux</h5>
+<p>查看</p>
+<pre><code>getenforce
+</code></pre><p>修改 临时 setenforce 0
+永久 vi /etc/sysconfig/selinux</p>
+<h5 id="设置-firewalld">设置 firewalld</h5>
+<h5 id="设置-ssh">设置 ssh</h5>
+<p>禁用root用户，密钥登陆 切换为其他用户登录</p>
+<pre><code>PermitRootLogin without-password
+#PermitRootLogin yes
+</code></pre><p>修改22端口</p>
+<p>登陆加速</p>
+<pre><code>GSSAPIAuthentication no
+UseDNS no
+</code></pre><h4 id="系统时间">系统时间</h4>
+<p>ntp</p>
+<pre><code>yum install chrony
+systemctl enable chronyd.service
+systemctl start chronyd.service
+</code></pre><p>建议使用 yum install ntp</p>
+<pre><code>systemctl start ntpd
+systemctl enable ntpd
+</code></pre><h5 id="总归">总归</h5>
+<pre><code>#!/bin/bash
+
+echo &quot;===============更新系统 `date`&quot;          
+yum -y update
+echo &quot;===============安装拓展工具 `date`&quot; 
+yum -y install epel-release net-tools bind-utils
+echo &quot;===============修改文件连接数限制 `date`&quot; 
+
+cat &gt;&gt; /etc/security/limits.conf &lt;&lt; EOF
+* - nofile 65536
+* soft nproc 65536
+* hard nproc 65536
+* soft nofile 65536
+* hard nofile 65536
+EOF
+
+rm /etc/security/limits.d/*  -rf
+
+
+echo &quot;===============禁用selinux `date`&quot; 
+
+sed 's/SELINUX=/#SELINUX=/g'  /etc/selinux/config -i
+echo &quot;SELINUX=disabled&quot; &gt;&gt; /etc/selinux/config
+
+echo &quot;===============禁用firewalld `date`&quot;
+systemctl disable firewalld
+
+echo &quot;===============安装ntp服务 `date`&quot;
+
+yum install ntp -y
+
+systemctl enable ntpd 
+
+echo &quot;===============初始化系统完毕，重启系统后生效 `date`&quot;
+</code></pre>
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/template/">«模板数据库</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/mdadm/">mdadm 软Raid 管理»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

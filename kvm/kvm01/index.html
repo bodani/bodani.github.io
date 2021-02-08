@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>KVM</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">KVM</h1>
+		<div class="post-meta">
+			<p>2018年11月6日</p>
+		</div>
+		<ul>
+<li>安装</li>
+</ul>
+<h4 id="ubuntu1404">ubuntu14.04</h4>
+<hr>
+<p>.安装kvm</p>
+<p>apt-get install qemu-kvm libvirt0 virtinst bridge-utils virt-viewer</p>
+<p>.配置实体机网络</p>
+<p>cat /etc/network/interfaces</p>
+<pre><code>auto lo
+iface lo inet loopback
+auto br0
+iface br0 inet static
+address 10.0.*.*
+netmask 255.255.0.0
+gateway 10.1.0.1
+type bridge
+bridge_ports eth0
+dns-nameservers 114.114.114.114
+</code></pre><p>.创建一个虚拟机</p>
+<pre><code>virt-install --connect qemu:///system -n test01 -r 1024 -f /home/kvm/test01.qcow2 -s 20 -c /home/kvm/ubuntu-12.04.1-server-amd64.iso --vnc --noautoconsole --os-type linux --os-variant ubuntuPrecise --accelerate --network=bridge:br0 
+</code></pre><h4 id="centos7">centos7</h4>
+<hr>
+<p>yum install qemu-kvm libvirt virt-install bridge-utils</p>
+<p>.配置实体机网络</p>
+<p>cat ifcfg-enp7s0</p>
+<pre><code>DEVICE=&quot;enp7s0&quot;
+ONBOOT=yes
+BOOTPROTO=static
+UUID=96a09db3-9b06-4a50-8d0c-9868cf531b84
+#HWADDR=&quot;08:60:6E:06:C7:1A&quot;
+TYPE=Ethernet
+BRIDGE=br0
+IPADDR=0.0.0.0
+</code></pre><p>cat ifcfg-br0</p>
+<pre><code>DEVICE=br0
+ONBOOT=yes
+BOOTPROTO=static
+TYPE=Bridge
+IPADDR=10.1.*.*
+PREFIX=16
+GATEWAY=10.1.0.1
+DNS1=223.5.5.5
+</code></pre><p>查看 brctl show</p>
+<p>.启动 libvirt</p>
+<p>systemctl start libvirtd</p>
+<p>systemctl enable libvirtd</p>
+<p>.创建虚拟机</p>
+<pre><code>virt-install --virt-type kvm --name test01 --ram 1024 --vcpus 1 --cdrom=/home/kvm/CentOS-7.0-1406-x86_64-DVD.iso --disk path=/home/kvm/test01.qcow2,size=10,format=qcow2 --network bridge=br0 --graphics vnc,listen=0.0.0.0 --noautoconsole --os-type=linux --os-variant=rhel7 
+</code></pre><p>.连接道virth</p>
+<p>virsh &ndash;connect qemu:///system<br>
+.virt-viewer<br>
+连接本机的虚拟机:virt-viewer -c qemu:///system 虚拟机名<br>
+连接远程的虚拟机:virt-viewer -c qemu+ssh://ip/system 虚拟机名</p>
+<p>设置开机自启动 virsh autostart server01</p>
+<ul>
+<li>克隆</li>
+</ul>
+<hr>
+<pre><code>virt-clone --connect=qemu:///system -o server-02 -n server-clone -f /var/lib/libvirt/images/server-clone.img
+</code></pre><p>参数说明<br>
+-o &ndash;original 原始被克隆镜像
+-n &ndash;name 新镜像名称
+-f &ndash;file 镜像文件存放的物理地址</p>
+<p>注意事项
+被克隆镜像为关闭或停止状态<br>
+virsh destroy server-02</p>
+<p>其他说明</p>
+<p>cat /etc/libvirt/qemu/server-02.xml | grep &ldquo;source&rdquo;
+cat /etc/libvirt/qemu/server-02.xml | grep &ldquo;mac&rdquo;</p>
+<p>在 vi /etc/sysconfig/network-scripts/ifcfg-eth0 中修改相应的mac</p>
+<ul>
+<li>修改磁盘大小</li>
+</ul>
+<hr>
+<p>qemu-img resize [-q] filename [+ | -]size</p>
+<p>1.修改前查看</p>
+<pre><code>qemu-img info test01.qcow2
+image: test01.qcow2
+file format: qcow2
+virtual size: 10G (10737418240 bytes)
+disk size: 9.0G
+cluster_size: 65536
+Format specific information:
+    compat: 1.1
+    lazy refcounts: true
+</code></pre><p>2.关闭虚拟机</p>
+<pre><code>virsh shutdown test01
+</code></pre><p>3.修改磁盘文件大小</p>
+<pre><code>qemu-img resize test01.qcow2 +10G
+Image resized.
+</code></pre><p>4.查看 结果</p>
+<pre><code>qemu-img info test01.qcow2
+image: test01.qcow2
+file format: qcow2
+virtual size: 20G (21474836480 bytes)
+disk size: 9.0G
+cluster_size: 65536
+Format specific information:
+    compat: 1.1
+    lazy refcounts: true
+</code></pre><p>5.重新启动虚拟机 进入虚拟机查看
+virsh start test01</p>
+<pre><code>fdisk -l
+ 
+磁盘 /dev/vda：42.9 GB, 42949672960 字节，83886080 个扇区
+Units = 扇区 of 1 * 512 = 512 bytes
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：dos
+磁盘标识符：0x000a4b0b
+ 
+   设备 Boot      Start         End      Blocks   Id  System
+/dev/vda1   *        2048     1026047      512000   83  Linux
+/dev/vda2         1026048     3123199     1048576   82  Linux swap / Solaris
+/dev/vda3         3123200    20971519     8924160   83  Linux
+</code></pre><p>磁盘空间变大</p>
+<ul>
+<li>扩容分区</li>
+</ul>
+<hr>
+<p>1 fdisk 修改分区表　，　删除最后一个分区，新建分区，保持退出
+echo d; echo n; echo ; echo ; echo ; echo ; echo w;) | fdisk $rootdevicepath
+重启</p>
+<p>resize2fs $partedpath　扩磁盘空间</p>
+<ul>
+<li>修改内存和CUP</li>
+</ul>
+<hr>
+<p>1 查看 virsh dominfo test01<br>
+2 改内存 virsh setmem [domain-id or domain-name] [count]<br>
+3 改CUP virsh setvcpus test01 2</p>
+<p><a href="https://www.cnblogs.com/zhangeamon/p/6734275.html">原文</a></p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/elk/apm/">«APM</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/istio/concept02/">蓝绿、A/B测试、金丝雀发布»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

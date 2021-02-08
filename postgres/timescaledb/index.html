@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>TimescaleDB 时序数据库</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">TimescaleDB 时序数据库</h1>
+		<div class="post-meta">
+			<p>2019年1月30日</p>
+		</div>
+		<p>时序数据库
+<a href="https://github.com/timescale/timescaledb">https://github.com/timescale/timescaledb</a></p>
+<p>数据库配置
+<a href="https://github.com/timescale/timescaledb-tune">https://github.com/timescale/timescaledb-tune</a></p>
+<p>copy并行导入数据
+<a href="https://github.com/timescale/timescaledb-parallel-copy">https://github.com/timescale/timescaledb-parallel-copy</a></p>
+<h4 id="常用方法">常用方法</h4>
+<p>创建拓展</p>
+<pre><code>CREATE EXTENSION timescaledb;
+</code></pre><p>创建一个普通的表</p>
+<pre><code>CREATE TABLE conditions (
+  time        TIMESTAMPTZ       NOT NULL,
+  location    TEXT              NOT NULL,
+  temperature DOUBLE PRECISION  NULL,
+  humidity    DOUBLE PRECISION  NULL
+);
+</code></pre><p>转换成时序数据库表</p>
+<pre><code>SELECT create_hypertable('conditions', 'time');
+</code></pre><ul>
+<li>conditions 表名</li>
+<li>time 时序字段</li>
+</ul>
+<p>修改时序间隔 对新表生效</p>
+<pre><code>SELECT set_chunk_time_interval('conditions', INTERVAL '24 hours');
+</code></pre><p>查看分区</p>
+<pre><code>SELECT show_chunks('conditions');
+
+SELECT show_chunks('conditions', older_than =&gt; INTERVAL '3 months')
+
+SELECT show_chunks('conditions', older_than =&gt; DATE '2017-01-01');
+
+SELECT show_chunks(newer_than =&gt; INTERVAL '3 months');
+
+SELECT show_chunks(older_than =&gt; INTERVAL '3 months', newer_than =&gt; INTERVAL '4 months');
+
+</code></pre><p>查看数据大小</p>
+<pre><code>SELECT * FROM timescaledb_information.hypertable;
+</code></pre><p>自动删除</p>
+<pre><code>添加规则
+SELECT add_drop_chunks_policy('conditions', INTERVAL '6 months');
+删除规则
+SELECT remove_drop_chunks_policy('conditions');
+</code></pre><h4 id="注意事项">注意事项</h4>
+<pre><code>When creating hypertables, one constraing that TimescaleDB imposes is that the partitioning column (in your case 'date_time') must be included in any unique indexes (and Primary Keys) for that table.
+</code></pre><p><a href="https://stackoverflow.com/questions/61205063/error-cannot-create-a-unique-index-without-the-column-date-time-used-in-part">https://stackoverflow.com/questions/61205063/error-cannot-create-a-unique-index-without-the-column-date-time-used-in-part</a></p>
+<h4 id="时序数据特征">时序数据特征</h4>
+<ul>
+<li>have a timestamp</li>
+<li>append only ,less update or delete</li>
+<li>recent hot</li>
+</ul>
+<h4 id="限制">限制</h4>
+<p>除分区列外不可以在其他列中有唯一约束</p>
+<p>原数据库中的唯一约束为全局表内唯一约束，在分区表（chunks）中不能够保证全局唯一</p>
+<pre><code>When converting a normal SQL table to a hypertable, pay attention to how you handle constraints.
+A hypertable can contain foreign keys to normal SQL table columns, but the reverse is not allowed. UNIQUE and PRIMARY constraints must include the partitioning key.
+</code></pre><h4 id="最佳实践">最佳实践</h4>
+<h5 id="chunk-时间范围">chunk 时间范围</h5>
+<p>与数据量有关，一个chunk容量约1/4 内存大小</p>
+<pre><code>SELECT * FROM create_hypertable('conditions', 'time',
+       chunk_time_interval =&gt; INTERVAL '1 day');
+</code></pre><h5 id="组合索引">组合索引</h5>
+<p>1 等值查询 （e,time）e 为等值查询列 time 为分区时间列<br>
+2 范围查询  (time,c) c 为连续值列</p>
+<h5 id="排序">排序</h5>
+<h5 id="压缩">压缩</h5>
+<p>设置历史数据压缩策略，压缩后变成列存，且为只读</p>
+<pre><code> alter table conditions set( timescaledb.compress);
+
+ timescaledb.compress_segmentby
+ timescaledb.compress_orderby
+</code></pre><p>设置压缩策略</p>
+<pre><code> SELECT add_compress_chunks_policy('conditions', INTERVAL '60d'); 
+</code></pre><p>删除压缩策略</p>
+<pre><code> remove_compress_chunks_policy()
+</code></pre><p>手动压缩</p>
+<pre><code>SELECT compress_chunk('_timescaledb_internal._hyper_1_2_chunk');
+</code></pre><p>解压缩</p>
+<pre><code>SELECT compress_chunk('_timescaledb_internal._hyper_1_2_chunk');
+</code></pre><p>查看压缩情况</p>
+<pre><code>SELECT * FROM timescaledb_information.compressed_chunk_stats;
+</code></pre><p>手动批量压缩</p>
+<pre><code>SELECT compress_chunk(i) from show_chunks('conditions', newer_than, older_than) i;	
+</code></pre><h5 id="保留策略">保留策略</h5>
+<p>设置保留数据策略</p>
+<pre><code>SELECT add_drop_chunks_policy('conditions', INTERVAL '24 hours');
+</code></pre><h5 id="连续分析窗口">连续分析窗口</h5>
+<p>物化视图自动持续更新</p>
+<h4 id="更多信息查看">更多信息查看</h4>
+<p>比如压缩策略，保留策略，持续集成策略等</p>
+<pre><code>\dv timescaledb_information.*
+                            List of relations
+         Schema          |            Name             | Type |  Owner   
+-------------------------+-----------------------------+------+----------
+ timescaledb_information | compressed_chunk_stats      | view | postgres
+ timescaledb_information | compressed_hypertable_stats | view | postgres
+ timescaledb_information | continuous_aggregate_stats  | view | postgres
+ timescaledb_information | continuous_aggregates       | view | postgres
+ timescaledb_information | drop_chunks_policies        | view | postgres
+ timescaledb_information | hypertable                  | view | postgres
+ timescaledb_information | license                     | view | postgres
+ timescaledb_information | policy_stats                | view | postgres
+ timescaledb_information | reorder_policies            | view | postgres
+</code></pre>
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_rewind/">«pg_rewind</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/archive/">Archive wal归档»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

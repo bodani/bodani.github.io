@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linuxes on Let&#39;s Go!</title>
+    <link>https://zhangeamon.top/linux/</link>
+    <description>Recent content in Linuxes on Let&#39;s Go!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 21 Sep 2020 16:48:24 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhangeamon.top/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ubuntu 20.04 网络配置</title>
+      <link>https://zhangeamon.top/linux/ubuntu2004-network/</link>
+      <pubDate>Mon, 21 Sep 2020 16:48:24 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/ubuntu2004-network/</guid>
+      <description>配置 vim /etc/netplan/00-installer-config.yaml
+# This is the network config written by &#39;subiquity&#39; network: ethernets: enp2s0: addresses: - 192.168.6.111/24 gateway4: 192.168.6.1 nameservers: addresses: [119.29.29.29] version: 2 生效 netplan apply </description>
+    </item>
+    
+    <item>
+      <title>Centos7 私有源搭建</title>
+      <link>https://zhangeamon.top/linux/repo/</link>
+      <pubDate>Tue, 19 May 2020 10:32:33 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/repo/</guid>
+      <description>介绍 为了保证IDC内所有主机版本一致。
+目前问题， 当主机执行yum update 时，软件版本不可控。每个主机版本完全取决于更新的时机。
+造成了同一个IDC内的版本的差异，比如有的数据库的版本为10.06,有的为10.13。尤其是使用了如postgis等拓展的时候。版本混乱，甚至主从之间都不一致。
+实现方法 思路 一台机器做源服务统一管理所有软件的版本，更新策略（私有源服务中心）。其他主机指向私有源。
+方法  reposync , yumdownloader 下载源，将远程服务源下载到本地 nginx 将本地源对外提供服务 createrepo 生成本地源   </description>
+    </item>
+    
+    <item>
+      <title>带宽检测 - iperf</title>
+      <link>https://zhangeamon.top/linux/iperf/</link>
+      <pubDate>Tue, 12 May 2020 16:37:38 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/iperf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>系统日志 syslog</title>
+      <link>https://zhangeamon.top/linux/syslog/</link>
+      <pubDate>Sat, 09 May 2020 11:43:18 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/syslog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux 获取CPU温度</title>
+      <link>https://zhangeamon.top/linux/cpu_temp/</link>
+      <pubDate>Thu, 07 May 2020 14:02:02 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/cpu_temp/</guid>
+      <description>直接读取系统信息 可以通过读取如下路径中的数据来获取cpu的温度信息，不过读取的数据没有经过处理。
+cpu0： cat /sys/class/thermal/thermal_zone0/temp cpu1： cat /sys/class/thermal/thermal_zone1/temp 通过命令行的方式获取 安装 lm_sensors 软件包：
+# rpm yum install lm_sensors # deb apt-get install lm-sensors 执行命令sensors-detect，进行简单配置，此命令执行后会出现一系列选项，一直yes即可；
+执行命令sensors，查看cpu的温度。
+sensors i350bb-pci-0200 Adapter: PCI adapter loc1: +42.0°C (high = +120.0°C, crit = +110.0°C)
+i350bb-pci-0300 Adapter: PCI adapter loc1: +38.0°C (high = +120.0°C, crit = +110.0°C)
+power_meter-acpi-0 Adapter: ACPI interface power1: 4.29 MW (interval = 1.00 s)
+coretemp-isa-0000 Adapter: ISA adapter Physical id 0: +31.0°C (high = +85.</description>
+    </item>
+    
+    <item>
+      <title>软件安装</title>
+      <link>https://zhangeamon.top/linux/install-cmd/</link>
+      <pubDate>Fri, 20 Mar 2020 09:35:08 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/install-cmd/</guid>
+      <description>Centos7 查看是否存在需要安装的软件 yum search xxxx 查看具体版本详情 yum list xxxx 查看已安装 rpm -qa | grep xxxx 安装 yum install xxxx rpm -i xxxx.rpm 删除 yum erase xxxx rpm -r xxxx Unbuntu 查看是否存在需要安装的软件 apt-cache search xxxx 查看具体版本及信息 apt show xxxx 查看已安装 dpkg -l 安装 apt-get install xxxx dpkg -l 删除 apt-get remove xxxx </description>
+    </item>
+    
+    <item>
+      <title>Git 免输入密码</title>
+      <link>https://zhangeamon.top/linux/git-nopassword/</link>
+      <pubDate>Thu, 19 Mar 2020 15:10:15 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/git-nopassword/</guid>
+      <description>一、配置Git的
+git config --global user.name [userName] git config --global user.email [userEmail] 二、配置存储模式
+git config --global credential.helper store 执行之后会在linux用户主目录下的.gitconfig文件中多加 helper = store
+[user] name = eamonzhang email = xxxx@xxxx.com [credential] helper = store 之后cd到项目目录，执行git pull命令，会提示输入账号密码。输完这一次以后就不再需要，并且会在根目录生成一个.git-credentials文件
+三、注意事项
+git config --global 全局设置生效 </description>
+    </item>
+    
+    <item>
+      <title>linux分区命令parted的用法</title>
+      <link>https://zhangeamon.top/linux/parted/</link>
+      <pubDate>Fri, 27 Dec 2019 17:13:00 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/parted/</guid>
+      <description>linux分区命令parted的用法 parted的适用场景 创建操作大于2T的分区 一般情况下，我们都是选择使用fdisk工具来进行分区，但是目前在实际生产环境中使用的磁盘空间越来越大，呈TiB级别增长；而常用的fdisk这个工具对分区是有大小限制的，它只能划分小于2T的磁盘，所以在划大于2T磁盘分区的时候fdisk就无法满足要求了；这个时候有2个方法，其一是通过卷管理来实现，其二就是通过parted工具来实现对GPT磁盘进行分区操作；这里我们采用parted的方法来实现管理。
+环境 操作系统 CentOS 7.5 磁盘信息 待管理磁盘 /dev/sdb 磁盘总大小 18T 分区需求 将整个/dev/sdb划分到同一个分区里，并挂载到**/gfsdata01目录下。
+选择操作磁盘 parted命令后跟上欲操作磁盘的名字即可选择此设备进行操作。
+[root@kvm ~]# parted /dev/sdb GNU Parted 3.1 Using /dev/sdb Welcome to GNU Parted! Type &#39;help&#39; to view a list of commands. 新建磁盘标签类型为GPT
+因为parted命令只能针对gpt格式的磁盘进行操作，所以这里必须将新建的磁盘标签格式设为gpt。
+(parted) mklabel gpt 分区 命令格式
+mkpart PART-TYPE [FS-TYPE] START END PART-TYPE(分区类型) primary 主分区 logical 逻辑分区 extended 扩展分区 FS-TYPE(文件系统类型) ext4 ext3 ext2 xfs 其他...... START 设定磁盘分区起始点；可以为0，numberMiB/GiB/TiB； 0 设定当前分区的起始点为磁盘的第一个扇区； 1G 设定当前分区的起始点为磁盘的1G处开始； END 设定磁盘分区结束点； -1 设定当前分区的结束点为磁盘的最后一个扇区； 10G 设定当前分区的结束点为磁盘的10G处； 将/dev/sdb整个空间分给同一个分区 (parted) mkpart primary 0 -1 Warning: The resulting partition is not properly aligned for best performance.</description>
+    </item>
+    
+    <item>
+      <title>linux time 命令</title>
+      <link>https://zhangeamon.top/linux/time-cmd/</link>
+      <pubDate>Tue, 10 Dec 2019 09:04:09 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/time-cmd/</guid>
+      <description>Linux time命令的用途，在于量测特定指令执行时所需消耗的时间及系统资源等资讯。
+例如 CPU 时间、记忆体、输入输出等等。需要特别注意的是，部分资讯在 Linux 上显示不出来。这是因为在 Linux 上部分资源的分配函式与 time 指令所预设的方式并不相同，以致于 time 指令无法取得这些资料。
+语法
+time [options] COMMAND [arguments] 参数：
+-o 或 &amp;ndash;output=FILE：设定结果输出档。这个选项会将 time 的输出写入 所指定的档案中。如果档案已经存在，系统将覆写其内容。
+-a 或 &amp;ndash;append：配合 -o 使用，会将结果写到档案的末端，而不会覆盖掉原来的内容。
+-f FORMAT 或 &amp;ndash;format=FORMAT：以 FORMAT 字串设定显示方式。当这个选项没有被设定的时候，会用系统预设的格式。不过你可以用环境变数 time 来设定这个格式，如此一来就不必每次登入系统都要设定一次。
+time 指令可以显示的资源有四大项，分别是：
+  Time resources
+  Memory resources
+  IO resources
+  Command info
+  举例 # time date Sun Mar 26 22:45:34 GMT-8 2006 real 0m0.136s user 0m0.</description>
+    </item>
+    
+    <item>
+      <title>内核设置</title>
+      <link>https://zhangeamon.top/linux/vm-config/</link>
+      <pubDate>Tue, 26 Nov 2019 10:14:41 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/vm-config/</guid>
+      <description>参数vm.dirty_ratio和vm.dirty_background_ratio https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/
+文件缓存是一项重要的性能改进，在大多数情况下，读缓存在绝大多数情况下是有益无害的（程序可以直接从RAM中读取数据）。写缓存比较复杂，Linux内核将磁盘写入缓存，过段时间再异步将它们刷新到磁盘。这对加速磁盘I/O有很好的效果，但是当数据未写入磁盘时，丢失数据的可能性会增加。
+当然，也存在缓存被写爆的情况。还可能出现一次性往磁盘写入过多数据，以致使系统卡顿。这些卡顿是因为系统认为，缓存太大用异步的方式来不及把它们都写进磁盘，于是切换到同步的方式写入。
+这些都是可控制的选项，根据工作负载和数据，你可以决定如何设置它们：
+$ sysctl -a | grep dirty vm.dirty_background_bytes = 0 vm.dirty_background_ratio = 10 vm.dirty_bytes = 0 vm.dirty_ratio = 20 vm.dirty_writeback_centisecs = 500 vm.dirty_expire_centisecs = 3000 vm.dirtytime_expire_seconds = 43200 vm.dirty_background_ratio 是内存可以填充脏数据的百分比。这些脏数据稍后会写入磁盘，pdflush/flush/kdmflush这些后台进程会稍后清理脏数据。比如，我有32G内存，那么有3.2G的脏数据可以待着内存里，超过3.2G的话就会有后台进程来清理。
+vm.dirty_ratio是可以用脏数据填充的绝对最大系统内存量，当系统到达此点时，必须将所有脏数据提交到磁盘，同时所有新的I/O块都会被阻塞，直到脏数据被写入磁盘。这通常是长I/O卡顿的原因，但这也是保证内存中不会存在过量脏数据的保护机制。
+vm.dirty_background_bytes和vm.dirty_bytes是另一种指定这些参数的方法。如果设置_bytes版本，则_ratio版本将变为0，反之亦然。
+vm.dirty_expire_centisecs 指定脏数据能存活的时间。在这里它的值是30秒。当 pdflush/flush/kdmflush 在运行的时候，他们会检查是否有数据超过这个时限，如果有则会把它异步地写到磁盘中。毕竟数据在内存里待太久也会有丢失风险。
+vm.dirty_writeback_centisecs 指定多长时间 pdflush/flush/kdmflush 这些进程会唤醒一次，然后检查是否有缓存需要清理。
+可以通过下面方式看内存中有多少脏数据：一共有106页的脏数据
+$ cat /proc/vmstat | egrep &amp;quot;dirty|writeback&amp;quot; nr_dirty 106 nr_writeback 0 nr_writeback_temp 0 nr_dirty_threshold 3934012 nr_dirty_background_threshold 1964604 方法1：减少缓存 在很多情况下，我们有快速的磁盘子系统，它们有自己的大电池支持的NVRAM缓存，所以将东西保存在系统页面缓存中是有风险的。让我们尝试以更及时的方式向磁盘发送I/O，并减少本地操作系统(借用服务行业的话)“陷入困境”的机会。为了做到这一点，我们减小/etc/sysctl.conf中vm.dirty_background_ratio和vm.dirty_ratio的数值，并执行sysctl -p命令:
+vm.dirty_background_ratio = 5 vm.dirty_ratio = 10 这是基于Linux的虚拟机管理程序的典型方法。不建议将这些参数设置为0，一些后台I/O可以很好地将应用程序性能与磁盘阵列在SAN(“峰值”)上的较短时间的较高延迟解耦。</description>
+    </item>
+    
+    <item>
+      <title>vi 编辑</title>
+      <link>https://zhangeamon.top/linux/cmd-vim/</link>
+      <pubDate>Tue, 22 Oct 2019 10:01:42 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/cmd-vim/</guid>
+      <description>字符串查找 a.查找一个字符串使用：“/你要查询的内容”
+b.查找下一个 ：“/你要查询的内容” 再输入”n“跳到下一个
+字符串替换 a. 文件内全部替换：
+%s#abc#def#g（用def替换文件中所有的abc）
+例如把一个文本文件里面的“linuxidc.com”全部替换成“linuxidc.net”：
+:%s#linuxidc.com#xwen.net#g (如文件内有#，可用/替换,比如:%s/linuxidc.com/xwen.net/g)
+b. 文件内局部替换：
+把10行到50行内的“abc”全部替换成“def”
+:10,50s#abc#def#g（如文件内有#，可用/替换,:%s/abc/def/g）
+以上命令如果在g后面再加上c，则会在替换之前显示提示符给用户确认（conform）是否需要替换。 比如
+:%s#linuxidc.com#linuxidc.net#gc</description>
+    </item>
+    
+    <item>
+      <title>wget</title>
+      <link>https://zhangeamon.top/linux/wget/</link>
+      <pubDate>Thu, 19 Sep 2019 14:07:59 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/wget/</guid>
+      <description> 断点续传 后台运行 限速  wget -cb --limit-rate=300k &amp;quot;http://...&amp;quot; </description>
+    </item>
+    
+    <item>
+      <title>tcpdump 网络抓包工具</title>
+      <link>https://zhangeamon.top/linux/tcpdump/</link>
+      <pubDate>Tue, 19 Mar 2019 13:25:27 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/tcpdump/</guid>
+      <description>http://www.cnblogs.com/ggjucheng/archive/2012/01/14/2322659.html</description>
+    </item>
+    
+    <item>
+      <title>pmap Linux 进程内存分析</title>
+      <link>https://zhangeamon.top/linux/pmap/</link>
+      <pubDate>Tue, 19 Mar 2019 08:58:40 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/pmap/</guid>
+      <description>介绍 pmap - report memory map of a process(查看进程的内存映像信息)
+参数说明    x extended Show the extended format. 显示扩展格式     d device Show the deviceformat. 显示设备格式    结果查看说明   Address: start address ofmap 映像起始地址
+  Kbytes: size of map in kilobytes 映像大小
+  RSS: resident set size inkilobytes 驻留集大小
+  Dirty: dirty pages (both sharedand private) in kilobytes 脏页大小
+  Mode: permissions on map 映像权限: r=read,w=write, x=execute, s=shared, p=private (copy on write)</description>
+    </item>
+    
+    <item>
+      <title>dos 常用命令</title>
+      <link>https://zhangeamon.top/linux/wind-run/</link>
+      <pubDate>Mon, 25 Feb 2019 10:45:06 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/wind-run/</guid>
+      <description>运行   cmd command regedit 注册表 calc 计算器 notepad 笔记本 mspaint 图画板 winver window版本 shutdown 60秒关机  cmd  ipconfig/all ip信息 cd 切换目录 D: 切换到D目录 dir 当前目录下文件信息  </description>
+    </item>
+    
+    <item>
+      <title>Linux 常用命令</title>
+      <link>https://zhangeamon.top/linux/fu-cmd/</link>
+      <pubDate>Mon, 18 Feb 2019 11:17:06 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/fu-cmd/</guid>
+      <description>线上查询及帮助命令  man 查看命令帮助，命令的词典，更复杂的还有info，但不常用。 help 查看Linux内置命令的帮助，比如cd命令。  文件和目录操作命令  ls 全拼list，功能是列出目录的内容及其内容属性信息。 cd 全拼change directory，功能是从当前工作目录切换到指定的工作目录。  cp 全拼copy，其功能为复制文件或目录。 find 查找的意思，用于查找目录及目录下的文件。 mkdir 全拼make directories，其功能是创建目录。 mv 全拼move，其功能是移动或重命名文件。 pwd 全拼print working directory，其功能是显示当前工作目录的绝对路径。 rename 用于重命名文件。 rm 全拼remove，其功能是删除一个或多个文件或目录。 rmdir 全拼remove empty directories，功能是删除空目录。 touch 创建新的空文件，改变已有文件的时间戳属性。 tree 功能是以树形结构显示目录下的内容。 basename 显示文件名或目录名。 dirname 显示文件或目录路径。 chattr 改变文件的扩展属性。 lsattr 查看文件扩展属性。 file 显示文件的类型。 md5sum 计算和校验文件的MD5值。 查看文件及内容处理命令（21个） cat 全拼concatenate，功能是用于连接多个文件并且打印到屏幕输出或重定向到指定文件中。 tac tac是cat的反向拼写，因此命令的功能为反向显示文件内容。 more 分页显示文件内容。 less 分页显示文件内容，more命令的相反用法。 head 显示文件内容的头部。 tail 显示文件内容的尾部。 cut 将文件的每一行按指定分隔符分割并输出。 split 分割文件为不同的小片段。 paste 按行合并文件内容。 sort 对文件的文本内容排序。 uniq 去除重复行。oldboy wc 统计文件的行数、单词数或字节数。 iconv 转换文件的编码格式。 dos2unix 将DOS格式文件转换成UNIX格式。 diff 全拼difference，比较文件的差异，常用于文本文件。 vimdiff 命令行可视化文件比较工具，常用于文本文件。 rev 反向输出文件内容。 grep/egrep 过滤字符串，三剑客老三。 join 按两个文件的相同字段合并。 tr 替换或删除字符。 vi/vim 命令行文本编辑器。 文件压缩及解压缩命令（4个） tar 打包压缩。oldboy unzip 解压文件。 gzip gzip压缩工具。 zip 压缩工具。 信息显示命令（11个） uname 显示操作系统相关信息的命令。 hostname 显示或者设置当前系统的主机名。 dmesg 显示开机信息，用于诊断系统故障。 uptime 显示系统运行时间及负载。 stat 显示文件或文件系统的状态。 du 计算磁盘空间使用情况。 df 报告文件系统磁盘空间的使用情况。 top 实时显示系统资源使用情况。 free 查看系统内存。 date 显示与设置系统时间。 cal 查看日历等时间信息。 搜索文件命令（4个） which 查找二进制命令，按环境变量PATH路径查找。 find 从磁盘遍历查找文件或目录。 whereis 查找二进制命令，按环境变量PATH路径查找。 locate 从数据库 (/var/lib/mlocate/mlocate.</description>
+    </item>
+    
+    <item>
+      <title>八种进程通信</title>
+      <link>https://zhangeamon.top/linux/process-comm/</link>
+      <pubDate>Wed, 13 Feb 2019 14:07:39 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/process-comm/</guid>
+      <description>1.无名管道( pipe )：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。
+2.高级管道(popen)：将另一个程序当做一个新的进程在当前程序进程中启动，则它算是当前程序的子进程，这种方式我们成为高级管道方式。
+3.有名管道 (named pipe) ： 有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。
+4.消息队列( message queue ) ： 消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。
+5.信号量( semophore ) ： 信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。
+6.信号 ( sinal ) ： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。
+7.共享内存( shared memory ) ：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号两，配合使用，来实现进程间的同步和通信。
+8.套接字( socket ) ： 套解字也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同机器间的进程通信。</description>
+    </item>
+    
+    <item>
+      <title>进程管理</title>
+      <link>https://zhangeamon.top/linux/pid_m/</link>
+      <pubDate>Thu, 31 Jan 2019 10:56:47 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/pid_m/</guid>
+      <description>监控进程 查看系统TOP(f进入field选择)
+top 打印系统进程
+ps -efwL 统计每个进程的开销
+pidstat -d -r -u -w -l -h -p ALL 5 1 打印进程stack
+pstack -p pid 打印进程系统调用
+strace -p pid 结束和管理进程 结束进程
+kill pid 强制结束进程(用户进程无法捕获-9信号，可能崩溃. -15信号稳妥些)
+kill -9 pid 管理周期进程
+任务调度进程的管理
+查看当前用户的当前调度任务
+crontab -l 配置当前用户的调度任务(命令一定要有user:x权限，否则不会被执行)
+crontab -e # * 表示所有，支持-号范围，支持,号枚举 # Example of job definition: # .---------------- minute (0 - 59) # | .------------- hour (0 - 23) # | | .---------- day of month (1 - 31) # | | | .</description>
+    </item>
+    
+    <item>
+      <title>Qos</title>
+      <link>https://zhangeamon.top/linux/qos/</link>
+      <pubDate>Mon, 21 Jan 2019 17:26:20 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/qos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSD 4k对齐写放大</title>
+      <link>https://zhangeamon.top/linux/4k-wa/</link>
+      <pubDate>Thu, 17 Jan 2019 16:12:11 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/4k-wa/</guid>
+      <description>4k对齐 早期硬盘每个扇区以512字节为标准，新一代硬盘扇区容量为4096个字节，也就是所说的4k扇区。
+硬盘标准更新，但操作系统一直使用的是512字节扇区的标准，所以硬盘厂商为了保证兼容性，把4k扇区模拟成512字节扇区。
+通常文件系统的块（簇）是512字节的倍数，新的系统基本上都设成了4k的倍数。比如Linux的簇一般也是4k。
+簇到扇区的映射关系变成了 簇（4k）-&amp;gt;512B扇区-&amp;gt;4k扇区
+这就可能造成簇到扇区映射错位。
+写放大 SSD(WA) 由于闪存必须先擦除才能再写入的特性，如果需要在写入钱清理被删除的数据，则需要把整个分块读出，然后擦除整个块，再写回去。
+举个最简单的例子：
+当要写入一个4KB的数据时，最坏的情况是一个块里已经没有干净空间了，但有无效的数据可以擦除，所以主控就把所有的数据读到缓存，擦除块，缓存里更新整个块的数据，再把新数据写回去，
+这个操作带来的写入放大就是: 实际写4K的数据，造成了整个块（共1024KB）的写入操作，那就是放大了256倍。
+同时还带来了原本只需要简单一步写入4KB的操作变成：闪存读取 (1024KB)→缓存改（4KB）→闪存擦除（1024KB）→闪存写入（1024KB），共四步操作，造成延迟大大增加，速度变慢。
+所以说WA是影响 SSD随机写入性能和寿命的关键因素。
+如何实现4K对齐 查看系统中磁盘物理大小扇区和逻辑大小扇区 cat /sys/block/vdg/queue/physical_block_size 512 cat /sys/block/vdg/queue/logical_block_size 512 可以看到我的这块测试磁盘的物理扇区大小是512字节，逻辑扇区大小也是512字节，这样我们物理块到逻辑块的映射都是512字节的。
+linux查看现有磁盘是否是4k对齐，可以用fdisk -l -u fdisk -lu /dev/sde 磁盘 /dev/sde：256.1 GB, 256060514304 字节，500118192 个扇区 Units = 扇区 of 1 * 512 = 512 bytes 扇区大小(逻辑/物理)：512 字节 / 512 字节 I/O 大小(最小/最佳)：512 字节 / 512 字节 磁盘标签类型：dos 磁盘标识符：0x000ba8b2 设备 Boot Start End Blocks Id System /dev/sde1 * 2048 2099199 1048576 83 Linux /dev/sde2 2099200 52111359 25006080 82 Linux swap / Solaris /dev/sde3 52111360 94054399 20971520 83 Linux /dev/sde4 94054400 500117503 203031552 5 Extended /dev/sde5 94056448 500117503 203030528 83 Linux Start 为 8的整数倍4k对齐,否则没有对齐。</description>
+    </item>
+    
+    <item>
+      <title>memtester 内存压力测试</title>
+      <link>https://zhangeamon.top/linux/memtester/</link>
+      <pubDate>Mon, 14 Jan 2019 15:45:58 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/memtester/</guid>
+      <description>memtester</description>
+    </item>
+    
+    <item>
+      <title>memtest 检测内存</title>
+      <link>https://zhangeamon.top/linux/memtest/</link>
+      <pubDate>Mon, 14 Jan 2019 15:40:01 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/memtest/</guid>
+      <description>NAME memtest-setup - Install Memtest86+ into your GRUB boot loader menu SYNOPSIS memtest-setup [OPTIONS] DESCRIPTION memtest-setup installs Memtest86+ into your GRUB boot loader menu. It supports both GRUB 2 and GRUB Legacy (i.e. GRUB 0.9x). In case of GRUB 2 it installs GRUB 2 template into /etc/grub.d and GRUB 2 config needs to be regenerated manually by running grub2-mkconfig -o /boot/grub2/grub.cfg under root. This is not done automatically because it could overwrite any custom changes in /boot/grub2/grub.</description>
+    </item>
+    
+    <item>
+      <title>Linux查看内存条信息</title>
+      <link>https://zhangeamon.top/linux/dmidecode/</link>
+      <pubDate>Mon, 14 Jan 2019 15:38:29 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/dmidecode/</guid>
+      <description>1.查看内存槽及内存条
+$ sudo dmidecode -t memory 2.查看内存的插槽数,已经使用多少插槽.每条内存多大
+$ sudo dmidecode -t memory | grep Size 3.查看服务器型号、序列号
+$ sudo dmidecode | grep &amp;quot;System Information&amp;quot; -A9 | egrep &amp;quot;Manufacturer|Product|Serial&amp;quot; </description>
+    </item>
+    
+    <item>
+      <title>cgroups</title>
+      <link>https://zhangeamon.top/linux/cgroups/</link>
+      <pubDate>Mon, 14 Jan 2019 09:28:49 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/cgroups/</guid>
+      <description>https://www.certdepot.net/rhel7-get-started-cgroups/
+https://www.oracle.com/technical-resources/articles/linux/resource-controllers-linux.html
+iops和bps限制
+限制sda 的读写
+lsblk NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT sda 8:0 0 931.5G 0 disk /data sdb 8:16 0 223.6G 0 disk ├─sdb1 8:17 0 200M 0 part /boot/efi ├─sdb2 8:18 0 1G 0 part /boot ├─sdb3 8:19 0 7.8G 0 part [SWAP] └─sdb4 8:20 0 214.6G 0 part / cd /sys/fs/cgroup/blkio/ echo &amp;quot;8:0 102400&amp;quot; &amp;gt; blkio.throttle.read_bps_device echo &amp;quot;8:0 10&amp;quot; &amp;gt; blkio.throttle.read_iops_device echo &amp;quot;8:0 204800&amp;quot; &amp;gt; blkio.</description>
+    </item>
+    
+    <item>
+      <title>定时任务</title>
+      <link>https://zhangeamon.top/linux/at-crontab/</link>
+      <pubDate>Wed, 09 Jan 2019 10:11:10 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/at-crontab/</guid>
+      <description>Linux 系统中的定时任务  重复执行 一次执行  重复执行 详见 /etc/crontab 配置
+anacron 用于以天为单位的频率运行命令。它的工作与 cron 稍有不同，它假设机器不会一直开机。
+cron 也适合在那些不会 24X7 运行如笔记本以及桌面电脑的机器上运行每日、每周以及每月的计划任务（LCTT 译注：不适合按小时、分钟执行任务）。
+假设你有一个计划任务（比如备份脚本）要使用 cron 在每天半夜运行，也许你以及睡着，那时你的桌面/笔记本电脑已经关机。你的备份脚本就不会被运行。
+然而，如果你使用 anacron，你可以确保在你下次开启桌面/笔记本电脑的时候，备份脚本会被执行。
+一次执行 我们使用at 命令来管理Linux中单次执行任务
+安装与启动
+yum install at -y systemctl start atd 常用命令及参数讲解
+ at和batch读取标准输入或一个指定文件，它们将会在稍后被执行。 at在指定的时间执行命令。 atq列出用户待处理作业（jobs），如果是超级用户，所有用户的（待处理）作业都将被列出。输出格式：作业号、日期、小时、队列和用户名。 atrm删除作业，由作业号标识。  -t time run the job at time, given in the format [[CC]YY]MMDDhhmm[.ss] -c cats the jobs listed on the command line to standard output. 例子说明 新建一个定期任务 ctrl + d 退出</description>
+    </item>
+    
+    <item>
+      <title>no space left on device</title>
+      <link>https://zhangeamon.top/linux/nospace-device/</link>
+      <pubDate>Wed, 09 Jan 2019 08:32:26 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/nospace-device/</guid>
+      <description>问题描述 Linux 系统中出现磁盘空间不足错误：
+ No space left on device … 在linux环境下，用vi打开某文件时，提示Write error in swap file  原因分析 导致该问题的可能原因包括：
+ 磁盘分区空间使用率达到百分之百 磁盘分区inode使用率达到百分之百 僵尸文件：已删除文件因句柄被占用未释放导致相应空间未释放  解决方法 磁盘分区空间使用率达到百分之百 查看磁盘使用情况
+ df -h 文件系统 容量 已用 可用 已用% 挂载点 /dev/vda2 91G 21G 70G 23% / devtmpfs 3.9G 0 3.9G 0% /dev tmpfs 3.9G 56K 3.9G 1% /dev/shm tmpfs 3.9G 49M 3.8G 2% /run tmpfs 3.9G 0 3.9G 0% /sys/fs/cgroup /dev/vda3 1014M 33M 982M 4% /home /dev/vda1 1014M 210M 805M 21% /boot tmpfs 783M 0 783M 0% /run/user/0 进入对应目录找出文件占用情况</description>
+    </item>
+    
+    <item>
+      <title>meminfo Linux 内存信息</title>
+      <link>https://zhangeamon.top/linux/meminfo/</link>
+      <pubDate>Tue, 08 Jan 2019 09:04:15 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/meminfo/</guid>
+      <description>介绍 /proc/meminfo是了解Linux系统内存使用状况的主要接口，我们最常用的”free”、”vmstat”等命令就是通过它获取数据的
+内容解读 cat /proc/meminfo MemTotal: 8009504 kB 除了bios ，kernel本身占用的内存以外，可以被kernel所分配的内存。一般这个值固定不变。 MemFree: 2385828 kB 未被使用的内存 MemAvailable: 4741232 kB 该值为系统估计值 Buffers: 0 kB 给文件做缓存大小 Cached: 4701848 kB 内存使用 SwapCached: 35516 kB 交换分区使用 Active: 4175652 kB 在活跃使用中的缓冲或高速缓冲存储器页面文件的大小，除非非常必要否则不会被移作他用. Inactive: 1037948 kB 在不经常使用中的缓冲或高速缓冲存储器页面文件的大小，可能被用于其他途径. Active(anon): 2175852 kB Inactive(anon): 570728 kB Active(file): 1999800 kB Inactive(file): 467220 kB Unevictable: 0 kB Mlocked: 0 kB SwapTotal: 1048572 kB SwapFree: 904956 kB Dirty: 708 kB 等待被写回到磁盘的内存大小。 Writeback: 0 kB 正在被写回到磁盘的内存大小。 AnonPages: 482164 kB Mapped: 1991344 kB Shmem: 2234828 kB Slab: 247824 kB SReclaimable: 194368 kB SUnreclaim: 53456 kB KernelStack: 6976 kB PageTables: 63760 kB 管理内存分页页面的索引表的大小。 NFS_Unstable: 0 kB Bounce: 0 kB WritebackTmp: 0 kB CommitLimit: 5053324 kB Committed_AS: 5182268 kB VmallocTotal: 34359738367 kB VmallocUsed: 23696 kB VmallocChunk: 34359707388 kB HardwareCorrupted: 0 kB AnonHugePages: 65536 kB CmaTotal: 0 kB CmaFree: 0 kB HugePages_Total: 0 Hugepages在/proc/meminfo中是被独立统计的，与其它统计项不重叠 HugePages_Free: 0 HugePages_Rsvd: 0 HugePages_Surp: 0 Hugepagesize: 2048 kB DirectMap4k: 133084 kB DirectMap2M: 8255488 kB </description>
+    </item>
+    
+    <item>
+      <title>Centos mail</title>
+      <link>https://zhangeamon.top/linux/mail/</link>
+      <pubDate>Sat, 29 Dec 2018 16:53:16 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/mail/</guid>
+      <description>介绍 电子邮件系统包括两个组件：
+ MUA(Mail User Agent,邮件用户代理）为用户提供的可以读写邮件的界面,例如 Foxmail, Outlook MTA(Mail Transport Agent,邮件传送代理）MTA是运行在底层，能够处理邮件的收发工作的程序  邮件的接收是MTA和MUA配合完成的。远程的MUA首先向远程MTA连接并验证发信人身份，然后由远程MTA向本地MTA发送邮件。 接受者通过本地MUA接收阅读邮件。邮件的发信也是MTA和MUA配合完成的，不过方向正好相反。本地MUA首先向本地的MTA连接并验证发信人身份，然后由本地MTA向远程MTA发送邮件，再由远程的MUA读取邮件。
+mailx 和 sentmail  mail和mailx即为负责查看、编写邮件和向MTA发送邮件的MUA。mailx是mail的功能加强版。 sendmail即为负责邮件在网络上传输的MTA，将邮件从一个MTA传送至另一个MTA。  mailx 安装及配置 yum install mailx -y vi /etc/mail.rc set sendcharsets=iso-8859-1,utf-8 set from=xxx@XXX.com set smtp=smtp.XXX.com:25 set smtp-auth-user=xxx@XXX.com #认证用户 set smtp-auth-password=xxx #认证密码 测试
+echo&amp;quot;zabbix test &amp;quot; |mail -s &amp;quot;zabbix&amp;quot; xxx@xxx.com #如果邮箱中能收到邮件，表示测试成功。 </description>
+    </item>
+    
+    <item>
+      <title>xargs 命令</title>
+      <link>https://zhangeamon.top/linux/cmd-xargs/</link>
+      <pubDate>Tue, 25 Dec 2018 10:18:26 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/cmd-xargs/</guid>
+      <description>http://www.cnblogs.com/wangqiguo/p/6464234.html</description>
+    </item>
+    
+    <item>
+      <title>sed 命令</title>
+      <link>https://zhangeamon.top/linux/cmd-sed/</link>
+      <pubDate>Tue, 25 Dec 2018 10:17:45 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/cmd-sed/</guid>
+      <description>概述 sed命令是一个面向字符流的非交互式编辑器，也就是说sed不允许用户与它进行交互操作。sed是按行来处理文本内容的。在shell中，使用sed来批量修改文本内容是非常方便的。
+sed命令的选项 sed [选项] [动作] 选项与参数： -n ：使用安静(silent)模式。在一般 sed 的用法中，所有来自 STDIN 的数据一般都会被列出到终端上。但如果加上 -n 参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来。 -e ：直接在命令列模式上进行 sed 的动作编辑； -f ：直接将 sed 的动作写在一个文件内， -f filename 则可以运行 filename 内的 sed 动作； -r ：sed 的动作支持的是延伸型正规表示法的语法。(默认是基础正规表示法语法) -i ：直接修改读取的文件内容，而不是输出到终端。 function： a ：新增行， a 的后面可以是字串，而这些字串会在新的一行出现(目前的下一行) c ：取代行， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行 d ：删除行，因为是删除，所以 d 后面通常不接任何参数，直接删除地址表示的行； i ：插入行， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)； p ：列印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行 s ：替换，可以直接进行替换的工作,通常这个 s 的动作可以搭配正规表示法，例如 1,20s/old/new/g 一般是替换符合条件的字符串而不是整行 一般function的前面会有一个地址的限制，例如 [地址]function，表示我们的动作要操作的行。下面我们通过具体的例子直观的看看sed的使用方法。</description>
+    </item>
+    
+    <item>
+      <title>awk 命令</title>
+      <link>https://zhangeamon.top/linux/cmd-awk/</link>
+      <pubDate>Tue, 25 Dec 2018 10:14:43 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/cmd-awk/</guid>
+      <description>What is awk 官网
+man 告诉我们 pattern scanning and processing language
+那么awk能做什么，awk适合做什么 ？ awk最常用的工作一般是遍历一个文件中的每一行，然后分别对文件的每一行进行处理。 由于awk天生提供对文件中文本分列进行处理，所以如果一个文件中的每行都被特定的分隔符(常见的是空格)隔开， 我们可以将这个文件看成是由很多列的文本组成，这样的文件最适合用awk进行处理，通过awk对你感兴趣的信息进行提取,其实awk在工作中很多时候被用来处理log文件，进行一些统计工作等。
+如何使用 完整格式:
+awk [options] &#39;BEGIN{ commands } pattern{ commands } END{ commands }&#39; file -F fs	--field-separator=fs 简单方式 对一行文本按照空行进行分割，并提取第3列内容 echo &#39;11 22 33 44&#39; | awk &#39;{print $3}&#39; 33 说明：默认分割符为空格; print 为awk 内置函数; $数字引用变量 多行处理 echo -e &#39;11 22 33 44\naa bb cc dd&#39; | awk &#39;{print $3}&#39; 33 cc 说明: -e 转换符\n 生效; parttern 加入partter $1&amp;gt;2 echo -e &#39;1 2 3 4\n5 6 7 8&#39; | awk &#39;$1&amp;gt;2{print $3}&#39; 3 说明: $1&amp;gt;2 表示如果当前行的第1列的值大于2则处理当前行，否则不处理。 parttern 可以时任何表达式判断，例如&amp;gt;，&amp;lt;，==，&amp;gt;=，&amp;lt;=，!</description>
+    </item>
+    
+    <item>
+      <title>终端复用</title>
+      <link>https://zhangeamon.top/linux/terminal-reuse/</link>
+      <pubDate>Tue, 25 Dec 2018 10:06:42 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/terminal-reuse/</guid>
+      <description>背景 我们在linux服务器上的工作一般都是通过一个远程的终端连接软件连接到远端系统进行操作，例如使用xshell或者SecureCRT工具通过ssh进行远程连接。 在使用过程中，如果要做比较耗时的操作，例如有时候进行编译，或者下载大文件需要比较长的时间，一般情况下是下班之后直接运行希望第二天早上过来运行完成，这样就不用耽误工作时间。 但是网络有时候不稳定，可能在半夜会出现连接断掉的情况，一旦连接断掉，我们所执行的程序也就中断，我们当然可以写一个脚本后台运行，但是还是不方便。那么有没有一种工具可以解决这样的问题呢。
+ tmux gux screen  详解 tmux screen 常用方法 安装 yum install screen 创建任务 cmd01 screen -S cmd01 进入命令界面 ， 输入长任务命令 退出方式 ctrl+A ctrl+d 回到主命令界面，任务继续执行 ctrl+C，ctrl+d 回到主命令界面，任务被强制结束 查看任务 screen -ls 重新进入任务 screen -r cmd01 </description>
+    </item>
+    
+    <item>
+      <title>Kworker </title>
+      <link>https://zhangeamon.top/linux/kworker/</link>
+      <pubDate>Mon, 24 Dec 2018 16:43:22 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/kworker/</guid>
+      <description>名字的意思 Kernel Worker
+什么时候有的 kworker是3.x内核引入的
+这么看 系统中查看
+Linux下使用 ps -ef|grep kowrker
+显示的内容怎么看 显示的格式kworker/%u:%d%s
+u：是unbound的缩写，代表没有绑定特定的CPU，kworker /u2:0中的 2 是 work_pool 的ID。
+不带u的就是绑定特定cpu的workerq，它在init_workqueues中初始化，给每个cpu分配worker，如果该worker的nice小于0，说明它的优先级很高，所以就加了H属性。
+具有负面价值的勤劳工人的名字后缀为&amp;rsquo;H&amp;rsquo;。
+有什么用 kworker 进程是内核工作进程，并且有很多进程是无害的。 Linux系统中会将一个个的小任务分到不同的工作队列中，让工作队列里面的工人来完成
+内核工作线程可以做任何事情，例如一些随机的例子：
+做页面缓存写回 处理某些种类的硬件事件 (如硬件中断,定时器，I / O等) 很多很多其他的东西 要知道任何kworker在做什么，你可以看看cat /proc/&amp;lt;kworker_pid&amp;gt;/stack。</description>
+    </item>
+    
+    <item>
+      <title>Access Modify Change 三种时间戳</title>
+      <link>https://zhangeamon.top/linux/stat/</link>
+      <pubDate>Thu, 20 Dec 2018 13:56:24 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/stat/</guid>
+      <description>三种时间对应关系  访问时间 Access atime 修改时间 Modify mtime 状态改动时间 Change ctime  如何查看文件文件的三种时间戳 stat filename 三种时间戳的解释   访问时间：读一次文件的内容，这个时间就会更新。比如more、cat等命令。ls、stat命令不会修改atime
+  修改时间：修改时间是文件内容最后一次被修改的时间。比如：vim操作后保存文件。ls -l列出的就是这个时间
+  状态改动时间。是该文件的inode节点最后一次被修改的时间，通过chmod、chown命令修改一次文件属性，这个时间就会更新。
+  应用举例 查看数据库的建立时间 数据库的oid
+select oid , datname from pg_database ; oid | datname -------+------------- 13806 | postgres 1 | template1 13805 | template0 16629 | timescaledb 16646 | normaldb 16659 | pgwatch2 26557 | awr 42902 | pipelinedb (8 行记录) 对应的存放位置
+ll base/ 总用量 216 drwx------ 2 postgres postgres 12288 12月 19 00:54 1 drwx------ 2 postgres postgres 8192 12月 17 12:45 13805 drwx------ 2 postgres postgres 8192 12月 15 02:32 13806 drwx------ 2 postgres postgres 36864 12月 19 00:55 16629 drwx------ 2 postgres postgres 32768 12月 20 11:23 16646 drwx------ 2 postgres postgres 8192 12月 17 12:44 16659 drwx------ 2 postgres postgres 12288 12月 15 02:33 26557 drwx------ 2 postgres postgres 20480 12月 18 22:11 42902 drwx------ 2 postgres postgres 6 12月 20 14:03 pgsql_tmp 查看时间</description>
+    </item>
+    
+    <item>
+      <title>ln -s 建立软连接</title>
+      <link>https://zhangeamon.top/linux/ln-s/</link>
+      <pubDate>Wed, 19 Dec 2018 09:19:19 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/ln-s/</guid>
+      <description>创建软连接 类似于windows中的创建快捷方式
+ln -s source target
+具体方法举例
+需求
+数据库的数据实际存放位置为 /data/pgsql/10/data/ 数据库的应用访问地址为 /var/lib/pgsql/10/data/
+创建软连接
+1 切换目录到需要创建快捷方式的文件目录
+cd /var/lib/pgsql/10/ 2.1 创建软连接
+ln -s /data/pgsql/10/data/ data 2.2 删除软连接
+rm data 删除软连接和数据
+rm data/ 3 权限和所有者
+chmod chown 修改软连接的所用者 使用 -h 参数
+chown -h postgres:postgres data/ </description>
+    </item>
+    
+    <item>
+      <title>hdparm 查看硬盘型号</title>
+      <link>https://zhangeamon.top/linux/hdparm/</link>
+      <pubDate>Wed, 19 Dec 2018 08:53:10 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/hdparm/</guid>
+      <description>安装工具 yum install hdparm 查看 -i参数是在引导驱动器时获得的识别信息，这个信息有时候不完整也不一 定准确
+hdparm -i /dev/sdb /dev/sdb: Model=INTEL SSDSC2KW512G8, FwRev=LHF002C, SerialNo=PHLA75210153512DGN Config={ Fixed } RawCHS=16383/16/63, TrkSize=0, SectSize=0, ECCbytes=0 BuffType=unknown, BuffSize=unknown, MaxMultSect=16, MultSect=off CurCHS=16383/16/63, CurSects=16514064, LBA=yes, LBAsects=1000215216 IORDY=on/off, tPIO={min:120,w/IORDY:120}, tDMA={min:120,rec:120} PIO modes: pio0 pio3 pio4 DMA modes: mdma0 mdma1 mdma2 UDMA modes: udma0 udma1 udma2 udma3 udma4 udma5 *udma6 AdvancedPM=yes: unknown setting WriteCache=enabled Drive conforms to: unknown: ATA/ATAPI-2,3,4,5,6,7 * signifies the current active mode -I参数是直接从驱动器获取识别信息, 并以原始的,未经过修改和更正的形式显示
+ hdparm -I /dev/sdb /dev/sdb: ATA device, with non-removable media Model Number: INTEL SSDSC2KW512G8 Serial Number: PHLA75210153512DGN Firmware Revision: LHF002C Transport: Serial, ATA8-AST, SATA 1.</description>
+    </item>
+    
+    <item>
+      <title>Linux 系统性能检测</title>
+      <link>https://zhangeamon.top/linux/sysstat/</link>
+      <pubDate>Thu, 06 Dec 2018 14:58:27 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/sysstat/</guid>
+      <description>整体篇  安装
+yum install sysstat -y  top htop atop vmstat -wt 1 dstat  内存篇  由于Linux 内存的占用属于饥饿式，所以看到的结果只能作为参考
+cat /proc/meminfo
+结果具体含义
+I/O 篇 整体io情况
+iostat -dmx 1 Linux 3.10.0-862.14.4.el7.x86_64 (rjyd) 2018年12月06日 _x86_64_	(40 CPU) Device: rrqm/s wrqm/s r/s w/s rMB/s wMB/s avgrq-sz avgqu-sz await r_await w_await svctm %util sda 0.00 0.05 0.06 0.11 0.00 0.00 53.87 0.00 1.35 0.60 1.78 0.23 0.00 sdb 0.00 0.02 0.08 6.65 0.00 0.</description>
+    </item>
+    
+    <item>
+      <title>fio 硬盘性能测试</title>
+      <link>https://zhangeamon.top/linux/fio/</link>
+      <pubDate>Tue, 04 Dec 2018 10:30:48 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/fio/</guid>
+      <description>基本概念 使用FIO之前，首先要有一些SSD性能测试的基础知识。 包括线程，队列深度，Offset，同步异步，DirectIO，BIO。
+线程 线程指的是同时有多少个读或写任务在并行执行，一般来说，CPU里面的一个核心同一时间只能运行一个线程。如果只有一个核心，要想运行多线程，只能使用时间切片，每个线程跑一段时间片，所有线程轮流使用这个核心。Linux使用Jiffies来代表一秒钟被划分成了多少个时间片，一般来说Jiffies是1000或100，所以时间片就是1毫秒或10毫秒。
+同步 一般电脑发送一个读写命令到SSD只需要几微秒，但是SSD要花几百微秒甚至几毫秒才能执行完这个命令。如果发一个读写命令，然后线程一直休眠，等待结果回来才唤醒处理结果，这种叫做同步模式。可以想象，同步模式是很浪费SSD性能的，因为SSD里面有很多并行单元，比如一般企业级SSD内部有8-16个数据通道，每个通道内部有4-16个并行逻辑单元（LUN，Plane），所以同一时间可以执行32-256个读写命令。同步模式就意味着，只有其中一个并行单元在工作，暴殄天物。
+异步 为了提高并行性，大部分情况下SSD读写采用的是异步模式。就是用几微秒发送命令，发完线程不会傻傻的在那里等，而是继续发后面的命令。如果前面的命令执行完了，SSD通知会通过中断或者轮询等方式告诉CPU，CPU来调用该命令的回调函数来处理结果。这样的好处是，SSD里面几十上百个并行单元大家都能分到活干，效率暴增。
+队列深度 不过，在异步模式下，CPU不能一直无限的发命令到SSD。比如SSD执行读写如果发生了卡顿，那有可能系统会一直不停的发命令，几千个，甚至几万个，这样一方面SSD扛不住，另一方面这么多命令会很占内存，系统也要挂掉了。这样，就带来一个参数叫做队列深度。举个例子，队列深度64就是说，系统发的命令都发到一个大小为64的队列，如果填满了就不能再发。等前面的读写命令执行完了，队列里面空出位置来，才能继续填命令。
+offset 一个SSD或者文件有大小，测试读写的时候设置Offset就可以从某个偏移地址开始测试。比如从offset=4G的偏移地址开始。
+DirectIO Linux读写的时候，内核维护了缓存，数据先写到缓存，后面再后台写到SSD。读的时候也优先读缓存里的数据。这样速度可以加快，但是一旦掉电缓存里的数据就没了。所以有一种模式叫做DirectIO，跳过缓存，直接读写SSD。
+BIO Linux读写SSD等块设备使用的是BIO，Block-IO，这是个数据结构，包含了数据块的逻辑地址LBA，数据大小和内存地址等。
+安装 官网地址
+./configure;make &amp;amp;&amp;amp; make install DEMO 如果缺失libaio驱动引擎可通过 yum install -y libaio-devel 安装后重新编译安装
+fio -rw=randwrite -ioengine=libaio -direct=1 -thread -numjobs=1 -iodepth=64 -filename=/data/1.data -size=10G \ -name=job1 -offset=0MB -bs=4k -name=job2 -offset=10G -bs=16k \ -output TestResult.log 简单说明
+fio：软件名称。 -rw=randwrite：读写模式，randwrite是随机写测试，还有顺序读read，顺序写write，随机读randread，混合读写等。 -ioengine=libaio：libaio指的是异步模式，如果是同步就要用sync。 -direct=1：是否使用directIO。 -thread：使用pthread_create创建线程，另一种是fork创建进程。进程的开销比线程要大，一般都采用thread测试。 –numjobs=1：每个job是1个线程，这里用了几，后面每个用-name指定的任务就开几个线程测试。所以最终线程数=任务数* numjobs。 -iodepth=64：队列深度64. -filename=/dev/sdb4：数据写到/dev/sdb4这个盘（块设备）。这里可以是一个文件名，也可以是分区或者SSD。 -size=10G：每个线程写入数据量是10GB。 -name=job1：一个任务的名字，名字随便起，重复了也没关系。这个例子指定了job1和job2，建立了两个任务，共享-name=job1之前的参数。-name之后的就是这个任务独有的参数。 -offset=0MB：从偏移地址0MB开始写。 -bs=4k：每一个BIO命令包含的数据大小是4KB。一般4KB IOPS测试，就是在这里设置。 -output TestResult.log：日志输出到TestResult.log。 结果查看 TestResult.log
+job2: (g=0): rw=randwrite, bs=(R) 16.</description>
+    </item>
+    
+    <item>
+      <title>smartctl 硬盘检测</title>
+      <link>https://zhangeamon.top/linux/smartctl/</link>
+      <pubDate>Mon, 03 Dec 2018 14:21:00 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/smartctl/</guid>
+      <description>SMART 简介 S.M.A.R.T.，全称为“Self-Monitoring Analysis and Reporting Technology”，即“自我监测、分析及报告技术”。是一种自动的硬盘状态检测与预警系统和规范。通过在硬盘硬件内的检测指令对硬盘的硬件如磁头、盘片、马达、电路的运行情况进行监控、记录并与厂商所设定的预设安全值进行比较，若监控情况将或已超出预设安全值的安全范围，就可以通过主机的监控硬件或软件自动向用户作出警告并进行轻微的自动修复，以提前保障硬盘数据的安全。除一些出厂时间极早的硬盘外，现在大部分硬盘均配备该项技术。
+SMART是一种磁盘自我分析检测技术，早在90年代末就基本得到了普及每一块硬盘(包括IDE、SCSI)在运行的时候，都会将自身的若干参数记录下来这些参数包括型号、容量、温度、密度、扇区、寻道时间、传输、误码率等，当硬盘运行了几千小时后，很多内在的物理参数都会发生变化某一参数超过报警阈值，则说明硬盘接近损坏，此时硬盘依然在工作，如果用户不理睬这个报警继续使用那么硬盘将变得非常不可靠，随时可能故障导致数据丢失。
+SMART 安装 yum install smartmontools.x86_64 -y 基本用法 smartctl --scan 扫描当前系统中所有支持SMART的设备 smartctl -i /dev/sda 查看设备SMART是否开启 smartctl -s on /dev/sda 将设备SMART开启 smartctl -a /dev/sda 仅显示设备的所有 SMART 属性信息 smartctl -x /dev/sda 显示设备的所有属性信息 smartctl -H /dev/sda 查看设备的自检评估结果 smartctl -a &amp;lt;device&amp;gt; 检查该设备是否已经打开SMART技术。 smartctl -s on &amp;lt;device&amp;gt; 如果没有打开SMART技术，使用该命令打开SMART技术。 smartctl -t short &amp;lt;device&amp;gt; 后台检测硬盘，消耗时间短。 smartctl -t long &amp;lt;device&amp;gt; 后台检测硬盘，消耗时间长。 smartctl -C -t short &amp;lt;device&amp;gt; 前台检测硬盘，消耗时间短。 smartctl -C -t long &amp;lt;device&amp;gt; 前台检测硬盘，消耗时间长。其实就是利用硬盘SMART的自检程序。 smartctl -X &amp;lt;device&amp;gt; 中断后台检测硬盘。 smartctl -l selftest &amp;lt;device&amp;gt; 显示硬盘检测日志。 smartctl -l error &amp;lt;device&amp;gt; 显示硬盘错误汇总。 硬盘信息</description>
+    </item>
+    
+    <item>
+      <title>mdadm 软Raid 管理</title>
+      <link>https://zhangeamon.top/linux/mdadm/</link>
+      <pubDate>Mon, 03 Dec 2018 13:39:39 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/mdadm/</guid>
+      <description>背景 mdadm是linux下用于创建和管理软件RAID的命令，是一个模式化命令。但由于现在服务器一般都带有RAID阵列卡，并且RAID阵列卡也很廉价，且由于软件RAID的自身缺陷（不能用作启动分区、使用CPU实现，降低CPU利用率），因此在生产环境下并不适用。但为了学习和了解RAID原理和管理，因此仍然进行一个详细的讲解：
+安装 yum install mdadm -y 组建raid 组装raid mdadm -C /dev/md0 -a yes -n 4 -l 10 /dev/sdb /dev/sdc /dev/sdd /dev/sde 说明 : 专用选项： -l 级别 -n 设备个数 -a {yes|no} 自动为其创建设备文件 -c 指定数据块大小（chunk） -x 指定空闲盘（热备磁盘）个数，空闲盘（热备磁盘）能在工作盘损坏后自动顶替 注意：创建阵列时，阵列所需磁盘数为-n参数和-x参数的个数和 查看状态, 组装进度等 mdadm -D /dev/md0 也可以通过mdstat查看状态 cat /proc/mdstat Personalities : [raid10] md127 : active raid10 sdd[2] sda[3] sdb[0] sdc[1] 999950336 blocks super 1.2 512K chunks 2 near-copies [4/4] [UUUU] bitmap: 1/8 pages [4KB], 65536KB chunk unused devices: &amp;lt;none&amp;gt; 如下信息说明： 提示软raid 不能作为启动分区 mdadm: Note: this array has metadata at the start and may not be suitable as a boot device.</description>
+    </item>
+    
+    <item>
+      <title>Centos 初始化配置</title>
+      <link>https://zhangeamon.top/linux/init-centos/</link>
+      <pubDate>Mon, 03 Dec 2018 10:34:06 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/init-centos/</guid>
+      <description>网络配置 设置IP 略
+ip_froward 查看 sysctl -a | grep ip_ 修改 vi /etc/sysctl.conf
+net.ipv4.ip_forward = 1 最大使用内存 vm.max_map_count=262144 生效 sysctl -p
+系统更新 yum -y update 安装扩展及工具 yum -y install epel-release net-tools bind-utils telnet wget 文件链接限制 查看
+ulimit -n 修改 vi /etc/security/limits.conf
+* - nofile 65536 * soft nproc 65536 * hard nproc 65536 * soft nofile 65536 * hard nofile 65536 rm /etc/security/limits.d/* -rf 安全 selinux 查看
+getenforce 修改 临时 setenforce 0 永久 vi /etc/sysconfig/selinux</description>
+    </item>
+    
+    <item>
+      <title>pstack</title>
+      <link>https://zhangeamon.top/linux/cmd-pstack/</link>
+      <pubDate>Wed, 14 Nov 2018 22:05:59 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/cmd-pstack/</guid>
+      <description>安装
+ yum install gdb 使用
+pstack pid gstack pid pstree</description>
+    </item>
+    
+    <item>
+      <title>Git 只下载指定文件或文件夹下的内容</title>
+      <link>https://zhangeamon.top/linux/git-sparsecheckout/</link>
+      <pubDate>Tue, 23 Oct 2018 17:21:01 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/git-sparsecheckout/</guid>
+      <description>需求 　有些时候我们只想下载项目中的部分文件或文件夹下面的内容，而不是整个项目。这个时候使用git clone难免有些过重。
+是时候来寻找一个合适的方式来满足我们的需求了。这就是Sparse Checkout模式
+具体方法 比如我只想下载 https://github.com/bodani/bodani.github.io.git 中的k8s 目录的内容
+mkdir gitSparse cd gitSparse git init git remote add -f origin https://github.com/bodani/bodani.github.io.git git config core.sparsecheckout true echo &amp;quot;k8s&amp;quot; &amp;gt;&amp;gt; .git/info/sparse-checkout git checkout master git pull 　</description>
+    </item>
+    
+    <item>
+      <title>ssh 免密码登&amp;跳板机配置</title>
+      <link>https://zhangeamon.top/linux/no-passwd/</link>
+      <pubDate>Thu, 18 Oct 2018 14:46:58 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/no-passwd/</guid>
+      <description>Linux 免密码登录实现 1.说明
+DES算法 加/解速度快,密钥量短,采用对称加密　RSA算法好 算法复杂,加/解速度慢,采用非对称加密　2.生成秘钥
+$ssh-keygen -t dsa -P &#39;&#39; Generating public/private dsa key pair. Enter file in which to save the key (/root/.ssh/id_dsa): Your identification has been saved in /root/.ssh/id_dsa. Your public key has been saved in /root/.ssh/id_dsa.pub. The key fingerprint is: SHA256:/K/dqHKbkmm/0qw9IOFvZwRAPx36+yQtXtLM353spns root@kvm71 The key&#39;s randomart image is: +---[DSA 1024]----+ | .. . | | .. o . | | .+ . | | ...o | | .</description>
+    </item>
+    
+    <item>
+      <title>Linux wheel 用户组</title>
+      <link>https://zhangeamon.top/linux/wheel/</link>
+      <pubDate>Thu, 18 Oct 2018 10:33:14 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/wheel/</guid>
+      <description>wheel 用户组 1.在Linux系统中root用户作为超级管理员拥有至高无上的权限，其他用户可以使用su命令将自己切换为root用户。为了加强系统的安全性,对系统用户权限进行限制。 设置为只有wheel用户组的成员拥有su 权利，其他用户不再具备切换到root 用户的权限。
+2.设置
+　2.1 新建user1 用户并添加用到wheel组
+ $ useradd user1 $ passwd user1 $ gpasswd -a user1 wheel 　2.2 验证
+ $ sudo su - user1 $ [user1@kvm73 ~]$ sudo su - root $ [user1@kvm73 ~]$ sudo su - root 3.限制其他用户
+ $vi /etc/pam.d/su #auth required pam_wheel.so use_uid 这一行去掉注释。 $vi /etc/login.defs SU_WHEEL_ONLY yes 这一行加入到文件末尾。 </description>
+    </item>
+    
+    <item>
+      <title>gpasswd 命令</title>
+      <link>https://zhangeamon.top/linux/cmd-gpasswd/</link>
+      <pubDate>Thu, 18 Oct 2018 09:52:03 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/linux/cmd-gpasswd/</guid>
+      <description>gpasswd 命令详解   gpasswd命令是Linux下工作组文件/etc/group和/etc/gshadow的管理工具，用于指定要管理的工作组。
+  选项详解：
+-a : 添加用户到组
+-d : 从组删除用户
+-A：指定管理员
+-M：指定组成员和-A的用途差不多；
+-r：删除密码；
+-R：限制用户登入组，只有组中的成员才可以用newgrp加入该组。
+  实例：
+  　3.1 将userA添加到groupB用户组里面：
+ gpasswd -a userA groupB  　注意：添加用户到某一个组可以使用 usermod -G groupB userA 这个命令可以添加一个用户到指定的组，但是以前添加的组就会清空掉, 所以想要添加一个用户到一个组，同时保留以前添加的组时，
+ 请使用gpasswd这个命令来添加操作用户。  　3.2 将userA设置为groupA的群组管理员：
+ gpasswd -A userA groupA  </description>
+    </item>
+    
+  </channel>
+</rss>

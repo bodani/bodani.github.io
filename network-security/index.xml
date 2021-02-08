@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Network-securities on Let&#39;s Go!</title>
+    <link>https://zhangeamon.top/network-security/</link>
+    <description>Recent content in Network-securities on Let&#39;s Go!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Jun 2020 16:15:35 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhangeamon.top/network-security/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Firewall</title>
+      <link>https://zhangeamon.top/network-security/firewalld/</link>
+      <pubDate>Wed, 03 Jun 2020 16:15:35 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/firewalld/</guid>
+      <description>简单应用 服务管理 # 查看全部支持的服务 $ firewall-cmd --get-service # 查看开放的服务 $ firewall-cmd --list-service # 开放服务 $ firewall-cmd --add-service=postgresql --permanent # 关闭服务 $ firewall-cmd --remove-service=postgresql --permanent permanent 参数修改对应的配置文件 /etc/firewalld/zones/public.xml
+端口管理 # 查看开放的端口 $ firewall-cmd --zone=public --list-ports # 开放指导端口 $ firewall-cmd --zone=public --add-port=80/tcp --permanent # 开放端口段 $ firewall-cmd --zone=public --add-port=8388-8389/tcp --permanent # 关闭端口 $ firewall-cmd --zone=public --remove-port=80/tcp --permanent 规则管理 # 对 147.152.139.197 开放10000端口 $ firewall-cmd --permanent --zone=public --add-rich-rule=&#39; rule family=&amp;quot;ipv4&amp;quot; source address=&amp;quot;147.152.139.197/32&amp;quot; port protocol=&amp;quot;tcp&amp;quot; port=&amp;quot;10000&amp;quot; accept&#39; # 拒绝端口： $ firewall-cmd --permanent --zone=public --add-rich-rule=&#39; rule family=&amp;quot;ipv4&amp;quot; source address=&amp;quot;47.</description>
+    </item>
+    
+    <item>
+      <title>Centos 登陆安全管理</title>
+      <link>https://zhangeamon.top/network-security/linux-user-passw/</link>
+      <pubDate>Sat, 09 May 2020 16:20:05 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/linux-user-passw/</guid>
+      <description>禁用root登陆 注意： 创建一个非root用户 并加入wheel用户组（拥有sudo权限）
+useradd NewUser passwd NewUser gpasswd -a NewUser wheel 本地禁用root登陆 修改/etc/pam.d/login文件增加下面一行
+auth required pam_succeed_if.so user != root quiet 远程禁用root登陆 修改 /etc/ssh/sshd_config
+#PermitRootLogin yes PermitRootLogin no 修改ssh默认端口 修改 /etc/ssh/sshd_config
+#Port 22 Port 46608 安全认证 LoginGraceTime 2m PermitRootLogin no #StrictModes yes #MaxAuthTries 6 #MaxSessions 10 超时退出 例如客户端60秒无操作自动退出
+export TMOUT=60 加入系统环境变量中 如：/etc/profile
+密码过期时间 修改 /etc/login.defs
+PASS_MAX_DAYS 90 #密码最长过期天数 PASS_MIN_DAYS 80 #密码最小过期天数 PASS_MIN_LEN 10 #密码最小长度 PASS_WARN_AGE 7 #密码过期警告天数 登陆错误锁定 使用方式直接使用ssh 密钥登陆 ， 后面的方法自找麻烦 ssh-keygen 生成钥匙 ssh-copy-id 将公钥上传到被访问的服务器 PermitRootLogin without-password 修改sshd_config文件设置禁止root密码登陆 PasswordAuthentication no 修改sshd_config文件禁止普通用户密码登陆 连续密码错误3次锁定账户，普通用户5分钟后解锁，root用户10分钟后解锁</description>
+    </item>
+    
+    <item>
+      <title>日志审计 audit</title>
+      <link>https://zhangeamon.top/network-security/audit/</link>
+      <pubDate>Fri, 08 May 2020 08:52:03 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/audit/</guid>
+      <description>介绍 auditd是Linux审计系统中用户空间的一个组件，负责将审计记录写到磁盘中。在CentOS7上默认就会有安装这个服务。
+如果被卸载，可以直接使用yum进行安装：
+yum -y install audit auditd-libs 常用命令 1、auditctl : 即时控制审计守护进程的行为的工具，比如如添加规则等等。 audtitctl -l #查看规则 auditctl -D #清空规则 2、aureport : 查看和生成审计报告的工具。 aureport -l #生成登录审计报告 3、ausearch : 查找审计事件的工具 ausearch -i -p 4096 4、autrace : 一个用于跟踪进程的命令。 autrace -r /usr/sbin/anacron 简单应用 监控文件或者目录的更改 auditctl -w /etc/passwd -p rwxa -k passwd -w path : 指定要监控的路径，上面的命令指定了监控的文件路径 /etc/passwd -p : 指定触发审计的文件或者目录的访问权限 rwxa ： 指定的触发条件，r 读取权限，w 写入权限，x 执行权限，a 属性（attr） 运行这条命令之后就开始监控了，但是机器重启之后就失效了，因此要永久生效就需要写到规则文件里面。 vim /etc/auditd/rules.d/auditd.rules 将auditctl的命令参数写到这个文件里面即可。
+重启服务 service auditd restart systemctl restart auditd 不可用</description>
+    </item>
+    
+    <item>
+      <title>等保三指南</title>
+      <link>https://zhangeamon.top/network-security/dengbao3/</link>
+      <pubDate>Fri, 08 May 2020 08:40:31 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/dengbao3/</guid>
+      <description>等保三指南-上
+等保三指南-下</description>
+    </item>
+    
+    <item>
+      <title>Linux 禁Ping</title>
+      <link>https://zhangeamon.top/network-security/reject-ping/</link>
+      <pubDate>Thu, 02 Jan 2020 09:26:15 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/reject-ping/</guid>
+      <description>修改配置文件/etc/sysctl.conf 在这个文件的最后添加一行:
+net.ipv4.icmp_echo_ignore_all=1 （0 代表允许 1 代表禁止） 执行sysctl -p 使新配置生效 </description>
+    </item>
+    
+    <item>
+      <title>DNS</title>
+      <link>https://zhangeamon.top/network-security/dns/</link>
+      <pubDate>Mon, 28 Oct 2019 09:23:00 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/dns/</guid>
+      <description>DNS：Domain Name System 域名管理系统
+A记录 A（Address）记录是用来指定主机名（或域名）对应的IP地址记录
+NS记录 NS（Name Server）记录是域名服务器记录，用来指定该域名由哪个DNS服务器来进行解析
+MX记录 MX（Mail Exchanger）记录是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据收信人的地址后缀来定位邮件服务器。
+CNAME记录 CNAME（Canonical Name ）别名记录，允许您将多个名字映射到同一台计算机。
+TXT记录，一般指某个主机名或域名的说明
+TTL值 TTL（Time-To-Live）
+PTR值 PTR是pointer的简写，用于将一个IP地址映射到对应的域名，也可以看成是A记录的反向，IP地址的反向解析
+skydns 软件安装 skydns rpm 下载 for centos 7
+etcd 使用 centos7 官方自带软件
+skydns 配置 /etc/skydns/skydns.conf
+ETCD_MACHINES=&amp;quot;http://127.0.0.01:2379&amp;quot; SKYDNS_ADDR=&amp;quot;0.0.0.0:53&amp;quot; SKYDNS_NAMESERVERS=&amp;quot;119.29.29.29:53&amp;quot; 说明
+ETCD_MACHINES 指定当前 etcd 集群地址
+SKYDNS_ADDR 本地 dns 监听地址
+SKYDNS_NAMESERVERS 上层 DNS 服务器
+etcd 配置方法 另一种配置方法, 只需要在 skydns.conf 中配置对应的 etcd 连接地址即可.
+其他配置选项在 etcd 中进行配置
+ etcdctl set /skydns/config &#39;{&amp;quot;dns_addr&amp;quot;:&amp;quot;0.0.0.0:53&amp;quot;,&amp;quot;ttl&amp;quot;:30, &amp;quot;nameservers&amp;quot;: [&amp;quot;119.29.29.29:53&amp;quot;], &amp;quot;domain&amp;quot;:&amp;quot;mydomain.</description>
+    </item>
+    
+    <item>
+      <title>Jumpserver 跳板机</title>
+      <link>https://zhangeamon.top/network-security/jumpserver/</link>
+      <pubDate>Mon, 17 Jun 2019 15:17:29 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/jumpserver/</guid>
+      <description>http://docs.jumpserver.org/zh/docs/index.html</description>
+    </item>
+    
+    <item>
+      <title>iptables查看、添加、删除规则</title>
+      <link>https://zhangeamon.top/network-security/iptables01/</link>
+      <pubDate>Mon, 25 Feb 2019 17:23:44 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/iptables01/</guid>
+      <description>查看 iptables -nvL –line-number
+-L 查看当前表的所有规则，默认查看的是filter表，如果要查看NAT表，可以加上-t NAT参数
+-n 不对ip地址进行反查，加上这个参数显示速度会快很多
+-v 输出详细信息，包含通过该规则的数据包数量，总字节数及相应的网络接口
+–line-number 显示规则的序列号，这个参数在删除或修改规则时会用到
+添加 添加规则有两个参数：-A和-I。其中-A是添加到规则的末尾；-I可以插入到指定位置，没有指定位置的话默认插入到规则的首部。
+当前规则： [root@test ~]# iptables -nL --line-number Chain INPUT (policy ACCEPT) num target prot opt source destination 1 DROP all -- 192.168.1.1 0.0.0.0/0 2 DROP all -- 192.168.1.2 0.0.0.0/0 3 DROP all -- 192.168.1.4 0.0.0.0/0 添加一条规则到尾部： [root@test ~]# iptables -A INPUT -s 192.168.1.5 -j DROP 再插入一条规则到第三行，将行数直接写到规则链的后面： [root@test ~]# iptables -I INPUT 3 -s 192.168.1.3 -j DROP 查看： [root@test ~]# iptables -nL --line-number Chain INPUT (policy ACCEPT) num target prot opt source destination 1 DROP all -- 192.</description>
+    </item>
+    
+    <item>
+      <title>Teleport 堡垒机</title>
+      <link>https://zhangeamon.top/network-security/teleport/</link>
+      <pubDate>Wed, 24 Oct 2018 09:40:32 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/teleport/</guid>
+      <description>https://gravitational.com/teleport/ https://mritd.me/2017/11/09/set-up-teleport/</description>
+    </item>
+    
+    <item>
+      <title>Let&#39;s Encrypt 通配符证书</title>
+      <link>https://zhangeamon.top/network-security/letusencrypt/</link>
+      <pubDate>Mon, 22 Oct 2018 13:56:11 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/letusencrypt/</guid>
+      <description>1.介绍
+什么是 Let&amp;rsquo;s Encrypt？ 部署 HTTPS 网站的时候需要证书，证书由 CA 机构签发，大部分传统 CA 机构签发证书是需要收费的，这不利于推动 HTTPS 协议的使用。 Let&amp;rsquo;s Encrypt 也是一个 CA 机构，但这个 CA 机构是免费的！也就是说签发证书不需要任何费用。 Let&amp;rsquo;s Encrypt 由于是非盈利性的组织，需要控制开支，他们搞了一个非常有创意的事情，设计了一个 ACME 协议，目前该协议的版本是 v1。 那为什么要创建 ACME 协议呢，传统的 CA 机构是人工受理证书申请、证书更新、证书撤销，完全是手动处理的。而 ACME 协议规范化了证书申请、更新、撤销等流程，只要一个客户端实现了该协议的功能，通过客户端就可以向 Let&amp;rsquo;s Encrypt 申请证书，也就是说 Let&amp;rsquo;s Encrypt CA 完全是自动化操作的。 任何人都可以基于 ACME 协议实现一个客户端，官方推荐的客户端是Certbot 。
+什么是通配符证书 在没有出现通配符证书之前，Let&amp;rsquo;s Encrypt 支持两种证书。
+1）单域名证书：证书仅仅包含一个主机。
+2）SAN 证书：一张证书可以包括多个主机（Let&amp;rsquo;s Encrypt 限制是 20），也就是证书可以包含下列的主机：www.example.com、www.example.cn、blog.example.com 等等。 证书包含的主机可以不是同一个注册域，不要问我注册域是什么？注册域就是向域名注册商购买的域名。 对于个人用户来说，由于主机并不是太多，所以使用 SAN 证书完全没有问题，但是对于大公司来说有一些问题： 子域名非常多，而且过一段时间可能就要使用一个新的主机。 注册域也非常多。 读者可以思考下，对于大企业来说，SAN 证书可能并不能满足需求，类似于 sina 这样的网站，所有的主机全部包含在一张证书中，而使用 Let&amp;rsquo;s Encrypt 证书是无法满足的。
+Let&amp;rsquo;s Encrypt 通配符证书 通配符证书就是证书中可以包含一个通配符，比如 .</description>
+    </item>
+    
+    <item>
+      <title>自签名证书</title>
+      <link>https://zhangeamon.top/network-security/cert/</link>
+      <pubDate>Mon, 22 Oct 2018 11:05:47 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/network-security/cert/</guid>
+      <description>1.环境预备
+curl -s -L -o /usr/local/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+curl -s -L -o /usr/local/bin/cfssljson https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+chmod +x /usr/local/bin/{cfssl,cfssljson}
+2.生成配置模板
+三类证书：服务器证书server cert，客户端证书client cert，对等证书peer cert(表示既是server cert又是client cert)
+cfssl print-defaults config &amp;gt; ca-config.json
+cat ca-config.json
+{ &amp;quot;signing&amp;quot;: { &amp;quot;default&amp;quot;: { &amp;quot;expiry&amp;quot;: &amp;quot;168h&amp;quot; }, &amp;quot;profiles&amp;quot;: { &amp;quot;www&amp;quot;: { &amp;quot;expiry&amp;quot;: &amp;quot;8760h&amp;quot;, &amp;quot;usages&amp;quot;: [ &amp;quot;signing&amp;quot;, &amp;quot;key encipherment&amp;quot;, &amp;quot;server auth&amp;quot; ] }, &amp;quot;client&amp;quot;: { &amp;quot;expiry&amp;quot;: &amp;quot;8760h&amp;quot;, &amp;quot;usages&amp;quot;: [ &amp;quot;signing&amp;quot;, &amp;quot;key encipherment&amp;quot;, &amp;quot;client auth&amp;quot; ] } } } } 修改模板, 包括三种类型的证书</description>
+    </item>
+    
+  </channel>
+</rss>

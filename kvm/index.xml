@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kvms on Let&#39;s Go!</title>
+    <link>https://zhangeamon.top/kvm/</link>
+    <description>Recent content in Kvms on Let&#39;s Go!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 13 Jul 2020 09:32:49 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhangeamon.top/kvm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>vagrant</title>
+      <link>https://zhangeamon.top/kvm/vagrant/</link>
+      <pubDate>Mon, 13 Jul 2020 09:32:49 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/kvm/vagrant/</guid>
+      <description>介绍 通常用vagrant 来管理VirtualBox ,VMWare，方便测试环境的创建，销毁。不常折腾用virtualbox, 反复折腾用vagrant。
+简单使用 安装 下载virtualbox
+下载vagrant
+常用方法  box manages boxes: installation, removal, etc. cloud manages everything related to Vagrant Cloud destroy stops and deletes all traces of the vagrant machine halt stops the vagrant machine reload restarts vagrant machine, loads new Vagrantfile configuration resume resume a suspended vagrant machine ssh connects to machine via SSH status outputs status of the vagrant machine up starts and provisions the vagrant environment 配置文件 cat Vagrantfile</description>
+    </item>
+    
+    <item>
+      <title>KVM</title>
+      <link>https://zhangeamon.top/kvm/kvm01/</link>
+      <pubDate>Tue, 06 Nov 2018 16:23:07 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/kvm/kvm01/</guid>
+      <description>安装  ubuntu14.04  .安装kvm
+apt-get install qemu-kvm libvirt0 virtinst bridge-utils virt-viewer
+.配置实体机网络
+cat /etc/network/interfaces
+auto lo iface lo inet loopback auto br0 iface br0 inet static address 10.0.*.* netmask 255.255.0.0 gateway 10.1.0.1 type bridge bridge_ports eth0 dns-nameservers 114.114.114.114 .创建一个虚拟机
+virt-install --connect qemu:///system -n test01 -r 1024 -f /home/kvm/test01.qcow2 -s 20 -c /home/kvm/ubuntu-12.04.1-server-amd64.iso --vnc --noautoconsole --os-type linux --os-variant ubuntuPrecise --accelerate --network=bridge:br0 centos7  yum install qemu-kvm libvirt virt-install bridge-utils</description>
+    </item>
+    
+  </channel>
+</rss>

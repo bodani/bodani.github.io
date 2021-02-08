@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>Explain 执行计划</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">Explain 执行计划</h1>
+		<div class="post-meta">
+			<p>2018年12月5日</p>
+		</div>
+		<h5 id="文法">文法</h5>
+<pre><code>EXPLAIN [ ( option [, ...] ) ] statement
+EXPLAIN [ ANALYZE ] [ VERBOSE ] statement
+
+这里 option可以是：
+
+    ANALYZE [ boolean ]
+    VERBOSE [ boolean ]
+    COSTS [ boolean ]
+    BUFFERS [ boolean ]
+    TIMING [ boolean ]
+    SUMMARY [ boolean ]
+    FORMAT { TEXT | XML | JSON | YAML }
+</code></pre><h5 id="注意事项">注意事项</h5>
+<p>记住当使用了ANALYZE选项时语句会被实际执行. 如执行dml 时将对数据库进行实际的操作。</p>
+<p>避免污染数据的方式</p>
+<pre><code>BEGIN;
+EXPLAIN ANALYZE ...;
+ROLLBACK;
+</code></pre><h5 id="一个例子">一个例子</h5>
+<pre><code>postgres=# explain analyze select * from tbl;
+                                                    QUERY PLAN                                                    
+------------------------------------------------------------------------------------------------------------------
+ Seq Scan on tbl  (cost=0.00..144248.48 rows=10000048 width=8) (actual time=0.091..780.145 rows=10000000 loops=1)
+ Planning time: 0.124 ms
+ Execution time: 1046.394 ms
+(3 rows)
+</code></pre><p>Seq Scan 顺序扫描<br>
+cost 代价成本, 启动成本..总成本<br>
+actual 实际值</p>
+<h4 id="cost计算">cost计算</h4>
+<p>cost的计算依据 数据库中的统计信息及成本因子相关</p>
+<ul>
+<li>统计信息 select * from pg_stats;</li>
+<li>成本因子</li>
+</ul>
+<pre><code># - Planner Cost Constants -
+
+#seq_page_cost = 1.0                    # measured on an arbitrary scale
+random_page_cost = 1.1                  # same scale as above
+#cpu_tuple_cost = 0.01                  # same scale as above
+#cpu_index_tuple_cost = 0.005           # same scale as above
+#cpu_operator_cost = 0.0025             # same scale as above
+#parallel_tuple_cost = 0.1              # same scale as above
+#parallel_setup_cost = 1000.0   # same scale as above
+#min_parallel_table_scan_size = 8MB
+#min_parallel_index_scan_size = 512kB
+effective_cache_size = 666666
+</code></pre><h4 id="影响执行计划的参数设置">影响执行计划的参数设置</h4>
+<pre><code>开关
+enable_bitmapscan
+enable_gathermerge
+enable_hashagg
+enable_hashjoin
+enable_indexonlyscan
+enable_indexscan
+enable_material
+enable_mergejoin
+enable_nestloop
+enable_seqscan
+enable_sort
+enable_tidscan
+
+关联
+from_collapse_limit 
+join_collapse_limit
+geqo_threshold
+</code></pre><p>设置</p>
+<ul>
+<li>session set enable_bitmapscan = default;</li>
+<li>全局 postgresql.conf</li>
+<li>用户级 alter user postgres set enable_bitmapscan = off;</li>
+<li>数据库级别 alter database postgres set enable_bitmapscan = off;</li>
+</ul>
+<p>查看</p>
+<ul>
+<li>session show enable_bitmapscan;</li>
+<li>用户级别 select * from pg_user;</li>
+</ul>
+<h4 id="在日志中记录explain信息">在日志中记录explain信息</h4>
+<p>通过auto_explain 扩展可在日志中记录explain信息</p>
+<p><a href="https://www.postgresql.org/docs/10/using-explain.html">文档 官网</a><br>
+<a href="http://www.postgres.cn/docs/10/sql-explain.html">文档 中文</a></p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/docker/nginx-log/">«Nginx log 切割</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/vacuum/">vacuum 垃圾回收器»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

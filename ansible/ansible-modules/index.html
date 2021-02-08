@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>Ansible Modules</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">Ansible Modules</h1>
+		<div class="post-meta">
+			<p>2018年10月25日</p>
+		</div>
+		<h5 id="准备工作">准备工作</h5>
+<ul>
+<li>安装</li>
+</ul>
+<pre><code>yum install ansible-doc.noarch ansible.noarch -y
+
+tree /etc/ansible/
+/etc/ansible/
+├── ansible.cfg
+├── hosts
+└── roles
+
+ansible --version
+ansible 2.7.0
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, Jul 13 2018, 13:06:57) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
+</code></pre><ul>
+<li>配置清单</li>
+</ul>
+<pre><code>cat hosts 
+[webservers]
+10.1.88.72
+10.1.88.73
+
+</code></pre><ul>
+<li><a href="../linux/no-passwd">免密登录</a></li>
+</ul>
+<h5 id="常用命令">常用命令</h5>
+<pre><code>Usage: ansible &lt;host-pattern&gt; [options]
+
+    常用选项：
+
+        -m MOD_NAME  
+
+        -a MOD_ARGS
+
+获取模块列表：ansible-doc -l
+
+获取指定模块的使用帮助：ansible-doc -s MOD_NAME
+</code></pre><ul>
+<li>ping</li>
+</ul>
+<p>尝试连接到主机，验证并返回pong成功。</p>
+<pre><code>ansible all -m ping
+10.1.88.73 | SUCCESS =&gt; {
+    &quot;changed&quot;: false, 
+    &quot;ping&quot;: &quot;pong&quot;
+}
+10.1.88.72 | SUCCESS =&gt; {
+    &quot;changed&quot;: false, 
+    &quot;ping&quot;: &quot;pong&quot;
+}
+
+</code></pre><ul>
+<li>command</li>
+</ul>
+<p>在远程主机执行命令, -m 默认模块为 commend, 可以省略 。</p>
+<pre><code>ansible all -a 'cat /etc/centos-release' 
+10.1.88.72 | CHANGED | rc=0 &gt;&gt;
+CentOS Linux release 7.5.1804 (Core) 
+
+10.1.88.73 | CHANGED | rc=0 &gt;&gt;
+CentOS Linux release 7.5.1804 (Core) 
+</code></pre><ul>
+<li>shell</li>
+</ul>
+<p>与command模快使用一致，但是，变量 和操作符号 &ldquo;&lt;&rdquo;, &ldquo;&gt;&rdquo;, &ldquo;|&rdquo;, &ldquo;;&rdquo; and &ldquo;&amp;&rdquo; 能正常工作</p>
+<pre><code>ansible all -m shell -a 'echo $LANG'
+10.1.88.73 | CHANGED | rc=0 &gt;&gt;
+en_US.UTF-8
+
+10.1.88.72 | CHANGED | rc=0 &gt;&gt;
+en_US.UTF-8
+
+</code></pre><ul>
+<li>script</li>
+</ul>
+<p>把脚本复制到远程节点后，在远程节点本地运行脚本</p>
+<pre><code>cat script.sh 
+#!/bin/bash
+touch /tmp/a.tmp
+echo 'ok'
+
+ansible all -m script -a './script.sh '
+
+</code></pre><ul>
+<li>copy</li>
+</ul>
+<p>复制文件或目录到远程节点。默认会覆盖目标文件</p>
+<pre><code>文件
+ansible all -m copy -a &quot;src=./script.sh dest=/tmp/ mode=666&quot;
+
+目录
+ansible all -m copy -a &quot;src=/home dest=/tmp/ &quot;
+</code></pre><ul>
+<li>fetch</li>
+</ul>
+<p>从远程获取文件（只能是文件）</p>
+<pre><code>单机
+ansible 10.1.88.72 -m fetch -a &quot;src=/var/log/messages dest=/tmp/&quot;
+组
+ansible all -m fetch -a &quot;src=/var/log/messages dest=/tmp/&quot;
+
+tree /tmp/
+/tmp/
+├── 10.1.88.72
+│   └── var
+│       └── log
+│           └── messages
+├── 10.1.88.73
+│   └── var
+│       └── log
+│           └── messages
+
+</code></pre><ul>
+<li>file</li>
+</ul>
+<p>设置远程节点的文件的文件属性</p>
+<pre><code>ansible all -m file -a 'path=/tmp/abc.txt state=touch mode=0666 owner=user1'   
+
+- state 参数说明 
+  - directory：如果目录不存在，创建目录
+  - file：即使文件不存在，也不会被创建
+  - link：创建软链接
+  - hard：创建硬链接
+  - touch：如果文件不存在，则会创建一个新的文件，如果文件或目录已存在，则更新其最后修改时间
+  - absent：删除目录、文件或者取消链接文件。相当于rm -rf
+
+</code></pre><ul>
+<li>cron</li>
+</ul>
+<p>计划任务</p>
+<ul>
+<li>yum</li>
+</ul>
+<p>程序包管理</p>
+<pre><code>ansible all -m yum -a 'name=ntp state=latest'
+
+- state 
+  - present|latest 安装
+  - absent 删除
+
+查看源　&amp; 验证
+ansible all -a 'yum info ntp'
+
+</code></pre><ul>
+<li>yum_repository</li>
+</ul>
+<p>yum源管理</p>
+<ul>
+<li>service</li>
+</ul>
+<p>服务管理</p>
+<pre><code>ansible all -m service -a 'name=ntpd enabled=true  state=started'
+
+- name 服务名
+- enabled 是否开机启动
+- state 
+  - started 
+  - reloaded
+  - restarted
+  - started
+  - stopped
+
+</code></pre><ul>
+<li>user</li>
+</ul>
+<p>用户管理</p>
+<pre><code>新建用户
+ansible all -m user -a &quot;name=user123 state=present&quot;
+删除用户并清除home 目录
+ansible all -m user -a &quot;name=user123 state=absent remove=yes&quot;
+
+- name 用户名
+- state 
+  - present 新建
+  - absent 删除
+</code></pre><ul>
+<li>group</li>
+</ul>
+<p>用户组管理</p>
+<pre><code>ansible all -m group -a &quot;name=group123 state=present&quot;
+
+- name 用户组
+- state
+  - present 创建
+  - absent 删除
+</code></pre><ul>
+<li>get_url</li>
+</ul>
+<p>从 HTTP, HTTPS, or FTP 下载文件</p>
+<pre><code>ansible all -m get_url -a &quot;url=https://resource.uucin.com/docker/docker-ce-18.03.1.ce-1.el7.centos.x86_64.rpm dest=/tmp mode=0666&quot;
+
+</code></pre><ul>
+<li>lineinfile</li>
+</ul>
+<p>替换一个文件中特定的行</p>
+<pre><code>ansible all -m lineinfile -a &quot;path=/etc/selinux/config regexp=^SELINUX= line=SELINUX=disabled&quot;
+
+</code></pre><ul>
+<li>replace</li>
+</ul>
+<p>替换一个文件中符合匹配的所有行</p>
+<ul>
+<li>setup</li>
+</ul>
+<p>获取系统属性变量</p>
+<ul>
+<li>sysctl</li>
+</ul>
+<pre><code>      ignoreerrors:          # Use this option to ignore errors about unknown keys.
+      name:                  # (required) The dot-separated path (aka `key') specifying the sysctl variable.
+      reload:                # If `yes', performs a `/sbin/sysctl -p' if the `sysctl_file' is updated. If `no', does not reload `sysctl' even if the `sysctl_file' is updated.
+      state:                 # Whether the entry should be present or absent in the sysctl file.
+      sysctl_file:           # Specifies the absolute path to `sysctl.conf', if not `/etc/sysctl.conf'.
+      sysctl_set:            # Verify token value with the sysctl command and set with -w if necessary
+      value:                 # Desired value of the sysctl key.
+</code></pre><ul>
+<li>blockinfile</li>
+</ul>
+<p>name: Insert/update/remove a text block surrounded by marker lines</p>
+<pre><code>  insertafter 修改的标记点 
+  insertbefore
+  path 目标文件
+  block 内容
+</code></pre>
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/ansible/ansible-overview/">«Ansible Overview</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/ansible/ansible-playbooks/">Ansible Playbooks»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

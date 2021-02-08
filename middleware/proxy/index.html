@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>代理</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">代理</h1>
+		<div class="post-meta">
+			<p>2018年10月31日</p>
+		</div>
+		<h4 id="科普">科普</h4>
+<ul>
+<li>
+<p>正向代理 对服务端来说是无感的，服务端无需配置，要在客户端指定。代理的是客户端。</p>
+<ul>
+<li>访问原来无法访问的资源</li>
+<li>用作缓存，加速访问速度</li>
+<li>对客户端访问授权，上网进行认证</li>
+<li>代理可以记录用户访问记录（上网行为管理），对外隐藏用户信息</li>
+</ul>
+</li>
+<li>
+<p>反向代理  对客户端来说的无感的，客户端无需配置，要在服务端实现。代理的是服务端。</p>
+<ul>
+<li>保护内网安全</li>
+<li>负载均衡</li>
+<li>缓存，减少服务器的压力</li>
+</ul>
+</li>
+<li>
+<p>透明代理 与正向代理相同，但是客户端无需指定</p>
+<p>透明代理服务器阻断网络通信，并且过滤出访问外部的HTTP（80端口）流量。如果客户端的请求在本地有缓冲则将缓冲的数据直接发给用户，如果在本地没有缓冲则向远程web服务器发出请求，
+其余操作和正向代理服务器完全相同。对于linux操作系统来说，透明代理使用Iptables或者Ipchains实现。因此不需要对浏览器作任何设置，所以，透明代理对于ISP（Internet服务器提供商）特别有用。</p>
+</li>
+</ul>
+<h4 id="应用-squid">应用 squid</h4>
+<p>docker-compose.yaml</p>
+<pre><code>version: '2'
+services:
+   squid3:
+    image: sameersbn/squid:3.3.8-14
+    ports:
+     - 3128:3128
+    volumes:
+     - /etc/squid3/squid.conf:/etc/squid3/squid.conf
+     - /var/log/squid3://var/log/squid3
+     - /var/spool/squid3:/var/spool/squid3
+    restart: always
+    container_name: squid3
+
+</code></pre><p>/etc/squid3/squid.conf</p>
+<pre><code>acl Safe_ports port 80 # http
+acl Safe_ports port 443 # https
+acl CONNECT method CONNECT
+cache_dir ufs /var/spool/squid3  100 16 256
+http_access allow all
+http_port 3128
+visible_hostname proxy
+</code></pre><p>#ufs:缓存数据的存储格式
+#/var/spool/squid    缓存目录
+#100：缓存目录占磁盘空间大小（M）
+#16：缓存空间一级子目录个数
+#256：缓存空间二级子目录个数</p>
+<p>客户端使用配置</p>
+<pre><code>Environment=HTTP_PROXY={SERVER_IP}:3128
+Environment=HTTPS_PROXY={SERVER_IP}:3128
+</code></pre><p>示例</p>
+<pre><code>curl -x &quot;https://SERVER_IP:3128&quot; -LO https://lang-python.s3.amazonaws.com/heroku-16/runtimes/python-3.7.0.tar.gz
+</code></pre><pre><code>ll /var/spool/squid3
+
+drwxr-x--- 258 13 13 8192 10月 31 11:39 00
+drwxr-x--- 258 13 13 8192 10月 31 11:39 01
+drwxr-x--- 258 13 13 8192 10月 31 11:39 02
+drwxr-x--- 258 13 13 8192 10月 31 11:39 03
+drwxr-x--- 258 13 13 8192 10月 31 11:39 0F
+....
+-rw-r-----   1 13 13   72 10月 31 11:39 swap.state
+</code></pre><h4 id="varnish-vs-squid">Varnish VS squid</h4>
+<h5 id="varnish">varnish</h5>
+<ul>
+<li>Varnish 可以认为是内存缓存，速度一流，但是内存缓存也限制了其容量，缓存页面和图片一般是挺好的；</li>
+<li>varnish本身的技术上优势要高于squid，它采用了“Visual Page Cache”技术，在内存的利用上，Varnish比Squid具有优势，它避免了Squid频繁在内存、磁盘中交换文件，性能要比Squid高。</li>
+<li>varnish是不能cache到本地硬盘上的。</li>
+<li>Varnish可以使用正则表达式快速、批量地清除部分缓存</li>
+<li>varnish的内存管理完全交给内核，当缓存内容超过内存阈值时，内核会自动将一部分缓存存入swap中让出内存。以挪威一家报社的经验，1台varnish可以抵6台squid的性能。</li>
+<li>varnish用来做网站和小文件的缓存，相当给力的,做图片cache之类的合适</li>
+<li>varnish没有专门的存储引擎</li>
+</ul>
+<h5 id="squid">squid</h5>
+<ul>
+<li>squid是功能最全面的比较传统的web cache server，有自己的存储引擎。，但是架构太老，性能不怎样。</li>
+<li>squid可以用于缓存更多更大的内容，属于专业用语缓存的功能，比如尤其适合缓存图片、文档等；</li>
+<li>squid可以说是越俎代庖自己实现了一套内存页/磁盘页的管理系统，但这个虚拟内存swap其实linux内核已经可以做得很好，squid的多此一举反而影响了性能</li>
+<li>squid支持正向代理缓存，而这方面varnish、nginx cache做不到</li>
+</ul>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/about/favorites/">«我的收藏</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/docker/dumb-init/">Dumb Init»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>Ansible Playbooks</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">Ansible Playbooks</h1>
+		<div class="post-meta">
+			<p>2018年10月25日</p>
+		</div>
+		<h4 id="playbook核心元素">Playbook核心元素</h4>
+<h5 id="hosts">hosts</h5>
+<p>一个或多个组或主机的 patterns,以逗号为分隔符 。</p>
+<pre><code>- hosts: webservices
+  remote_user: root
+</code></pre><h5 id="tasks">Tasks</h5>
+<p>任务集</p>
+<pre><code> tasks:
+    - name: install httpd
+      yum: name=httpd
+
+    - name: start httpd
+      service: name=httpd state=started
+</code></pre><h5 id="handlers-和-notity">Handlers 和 notity</h5>
+<p>由特定条件触发的操作，满足条件方才执行，否则不执行。
+Handlers也是task列表，这些task与前述的task并没有本质上的不同,用于当关注的资源发生变化时，才会采取一定的操作。</p>
+<pre><code>- hosts: webs
+  remote_user: root
+
+  tasks:
+    - name: install httpd
+      yum: name=httpd
+
+    - name: change httpd.conf
+      copy: src=/app/httpd.conf dest=/etc/httpd/conf/ backup=yes
+      notify: restart httpd             &gt; 在 notify 中定义内容一定要和handlers中定义的 - name 内容一样，这样才能达到触发的效果，否则会不生效。
+    - name: start httpd
+      service: name=httpd state=started
+
+    - name: wall http status
+      shell: /usr/bin/wall `ss -nltp|grep httpd`
+
+  handlers:
+    - name: restart httpd           &gt; 只有接收到通知才会执行这里的任务
+      service: name=httpd state=restarted
+</code></pre><h5 id="tags">Tags</h5>
+<p>给指定的任务定义一个调用标识
+由于ansible具有幂等性，因此会自动跳过没有变化的部分，即便如此，有些代码为测试其确实没有发生变化的时间依然会非常地长。此时，如果确信其没有变化，就可以通过
+tags跳过此些代码片断。</p>
+<pre><code>- hosts: webs
+  remote_user: root
+
+  tasks:
+    - name: install httpd
+      yum: name=httpd
+      tags: install
+
+ansible-playbook -t install web.yaml
+</code></pre><h5 id="variables-变量">Variables 变量</h5>
+<ul>
+<li>通过命令行指定变量，优先级最高。</li>
+</ul>
+<pre><code>ansible-playbook – variable_name=value
+</code></pre><ul>
+<li>
+<p>facts setup模块就是用来获取远程主机的相关信息的。一般以ansible_ 开头的就是变量可以调用。</p>
+</li>
+<li>
+<p>/etc/ansible/hosts  inventory</p>
+</li>
+</ul>
+<pre><code>   每台主机单独设置
+   IP/HOSTNAME variable_name=value
+    
+   组内统一设置
+   [groupname:vars]
+     variable_name=value
+
+   还可以使用参数, 用于定义ansible远程连接目标主机时使用的属性，而非传递给playbook的变量。
+   ansible_ssh_host
+   ansible_ssh_port
+   ansible_ssh_user
+   ansible_ssh_pass
+   ansible_sudo_pass
+
+</code></pre><ul>
+<li>在playbook中定义</li>
+</ul>
+<pre><code>   vars:
+    - var_name: value
+    - var_name: value
+
+</code></pre><ul>
+<li>
+<p>register 在有些时候，我们希望把某一条任务执行的结果保存下来，可以在接下的任务中调用或者做些判断，可以通过register关键字来实现。</p>
+</li>
+<li>
+<p>角色调用</p>
+</li>
+<li>
+<p>vars_files指定变量文件</p>
+</li>
+</ul>
+<h6 id="优先级-命令行--e--vars_files指定变量文件--主机清单普通变量--主机清单公共组变量">优先级 命令行 -e &gt; vars_files指定变量文件 &gt; 主机清单普通变量 &gt; 主机清单公共(组)变量</h6>
+<!-- raw HTML omitted -->
+<ul>
+<li>语法检测</li>
+</ul>
+<pre><code>ansible-playbook  --syntax-check  /path/to/playbook.yaml
+</code></pre><ul>
+<li>
+<p>测试运行</p>
+<ul>
+<li>&ndash;list-hosts</li>
+<li>-list-tasks</li>
+<li>&ndash;list-tags</li>
+</ul>
+</li>
+</ul>
+<pre><code> ansible-playbook -C /path/to/playbook.yaml 
+</code></pre><ul>
+<li>
+<p>执行运行</p>
+<ul>
+<li>-t TAGS, &ndash;tags=TAGS</li>
+<li>&ndash;skip-tags=SKIP_TAGS</li>
+<li>&ndash;start-at-task=START_AT</li>
+</ul>
+</li>
+</ul>
+<pre><code>ansible-playbook  /path/to/playbook.yaml
+</code></pre><h5 id="变量示例">变量示例</h5>
+<pre><code>cat hosts 
+[webservers]
+10.1.88.72 name=iam72
+10.1.88.73 name=iam73
+
+[webservers:vars]
+place=&quot;host_vars.txt&quot;
+
+cat vars.yaml 
+- hosts: all 
+  vars:
+     filename: &quot;abcd.txt&quot;
+  vars_files:
+    - vars/test_vars.yml
+  tasks:
+   - name: test playbook vars
+     file: path=&quot;/tmp/{{ filename }}&quot; state=touch
+     tags: playbook_vars
+   
+   - name: test setup vars 
+     copy: dest=/tmp/a.txt content=&quot;{{ ansible_all_ipv4_addresses }}&quot; 
+     tags: setup_vars 
+
+   - name: test hosts vars
+     copy: dest=&quot;/tmp/{{ place }}&quot; content=&quot;{{ name }}&quot;
+     tags: hosts_vars
+
+   - name: test var files
+     file: path=&quot;/tmp/{{ var_file }}&quot; state=touch
+     tags: file_var 
+
+   - name: test register var
+     shell: /bin/cat /etc/centos-release
+     ignore_errors: true
+     register: release
+     tags: register_var
+
+   - name: show release 
+     debug: var=release
+</code></pre><pre><code>ansible-playbook vars.yaml --list-tags
+
+playbook: vars.yaml
+
+  play #1 (all): all	TAGS: []
+      TASK TAGS: [file_var, hosts_vars, playbook_vars, register_var, setup_vars]
+
+</code></pre><pre><code>ansible-playbook vars.yaml --list-tasks
+
+playbook: vars.yaml
+
+  play #1 (all): all	TAGS: []
+    tasks:
+      test playbook vars	TAGS: [playbook_vars]
+      test setup vars	TAGS: [setup_vars]
+      test hosts vars	TAGS: [hosts_vars]
+      test var files	TAGS: [file_var]
+      test register var	TAGS: [register_var]
+      show release	TAGS: []
+</code></pre><pre><code>ansible-playbook vars.yaml --list-hosts
+
+playbook: vars.yaml
+
+  play #1 (all): all	TAGS: []
+    pattern: [u'all']
+    hosts (2):
+      10.1.88.73
+      10.1.88.72
+</code></pre><pre><code>ansible-playbook vars.yaml 
+
+PLAY [all] ********************************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************************
+ok: [10.1.88.72]
+ok: [10.1.88.73]
+
+TASK [test playbook vars] ****************************************************************************************************************
+changed: [10.1.88.73]
+changed: [10.1.88.72]
+
+TASK [test setup vars] ******************************************************************************************************************
+changed: [10.1.88.73]
+changed: [10.1.88.72]
+
+TASK [test hosts vars] *********************************************************************************************************************
+changed: [10.1.88.73]
+changed: [10.1.88.72]
+
+TASK [test var files] **********************************************************************************************************************
+changed: [10.1.88.72]
+changed: [10.1.88.73]
+
+TASK [test register var] ********************************************************************************************************************
+changed: [10.1.88.73]
+changed: [10.1.88.72]
+
+TASK [show release] **************************************************************************************************************************
+ok: [10.1.88.72] =&gt; {
+    &quot;release&quot;: {
+        &quot;changed&quot;: true, 
+        &quot;cmd&quot;: &quot;/bin/cat /etc/centos-release&quot;, 
+        &quot;delta&quot;: &quot;0:00:00.027839&quot;, 
+        &quot;end&quot;: &quot;2018-10-26 13:15:35.752900&quot;, 
+        &quot;failed&quot;: false, 
+        &quot;rc&quot;: 0, 
+        &quot;start&quot;: &quot;2018-10-26 13:15:35.725061&quot;, 
+        &quot;stderr&quot;: &quot;&quot;, 
+        &quot;stderr_lines&quot;: [], 
+        &quot;stdout&quot;: &quot;CentOS Linux release 7.5.1804 (Core) &quot;, 
+        &quot;stdout_lines&quot;: [
+            &quot;CentOS Linux release 7.5.1804 (Core) &quot;
+        ]
+    }
+}
+ok: [10.1.88.73] =&gt; {
+    &quot;release&quot;: {
+        &quot;changed&quot;: true, 
+        &quot;cmd&quot;: &quot;/bin/cat /etc/centos-release&quot;, 
+        &quot;delta&quot;: &quot;0:00:00.035317&quot;, 
+        &quot;end&quot;: &quot;2018-10-26 13:15:35.746466&quot;, 
+        &quot;failed&quot;: false, 
+        &quot;rc&quot;: 0, 
+        &quot;start&quot;: &quot;2018-10-26 13:15:35.711149&quot;, 
+        &quot;stderr&quot;: &quot;&quot;, 
+        &quot;stderr_lines&quot;: [], 
+        &quot;stdout&quot;: &quot;CentOS Linux release 7.5.1804 (Core) &quot;, 
+        &quot;stdout_lines&quot;: [
+            &quot;CentOS Linux release 7.5.1804 (Core) &quot;
+        ]
+    }
+}
+
+PLAY RECAP **********************************************************************************************************************************
+10.1.88.72                 : ok=7    changed=5    unreachable=0    failed=0   
+10.1.88.73                 : ok=7    changed=5    unreachable=0    failed=0
+
+</code></pre><h5 id="when-条件判断">when 条件判断</h5>
+<p>举例判断当前主机是Centos 6 Or Centos 7</p>
+<p>1.利用setup 模块获取系统信息</p>
+<p>ansible all -m setup | less</p>
+<pre><code>&quot;ansible_distribution&quot;: &quot;CentOS&quot;, 
+&quot;ansible_distribution_major_version&quot;: &quot;7&quot;, 
+</code></pre><p>2.利用上面的信息作为判断条件</p>
+<pre><code>- hosts: all
+  tasks:
+  - name: centos 6 task
+    shell: echo &quot;i am centeos 6&quot;
+    when: ansible_distribution == &quot;CentOS&quot; and ansible_distribution_major_version == &quot;6&quot;
+  - name: centos 7 task
+    shell: echo &quot;i am centeos 7&quot;
+    when: ansible_distribution == &quot;CentOS&quot; and ansible_distribution_major_version == &quot;7&quot;
+
+</code></pre><h5 id="with_items-重复执行">with_items 重复执行</h5>
+<pre><code>- hosts: all
+  tasks:
+  - name: install base packages # 一次安装多个安装包
+    yum: name={{ item }}  state=installed
+    with_items:
+      - vim
+      - git
+      - wget
+      - psmisc 
+      - net-tools
+      - bash-completion 
+  - name: create groups # 字典
+    group: name={{ item }} state=present
+    with_items:
+      - group1
+      - group2 
+  - name: create users
+    user: name={{ item.user }} group={{ item.group }} state=present
+    with_items:
+      - {user: 'user1' , group: 'group1'}
+      - {user: 'user2' , group: 'group2'}
+
+</code></pre><h5 id="templates-模板文本文件内部嵌套有模板语言脚本使用jinja2模板语言编写">templates 模板，文本文件，内部嵌套有模板语言脚本（使用Jinja2模板语言编写）</h5>
+<ul>
+<li>算数运算</li>
+</ul>
+<p>.j2</p>
+<pre><code>server {
+   worker_connectios {{ ansible_processor_vcpus *2 }};
+}
+</code></pre><p>.yaml</p>
+<pre><code>- hosts: nginx
+  tasks:
+    - name: generate nginx conf
+      template: src=templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+</code></pre><ul>
+<li>for 循环</li>
+</ul>
+<p>.j2</p>
+<pre><code>server { 
+{% for port in port_list %}
+   listen port;
+{% endfor %}
+}
+
+</code></pre><p>.yaml</p>
+<pre><code>- hosts: nginx 
+  vars:
+    - port_list:
+      - 443
+      - 80
+      - 8080
+  tasks:
+  - name:
+    template: src=templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+
+</code></pre><p>.j2</p>
+<pre><code>{% for vhost in vhost_list %}
+server { 
+   listen vhost.port;
+   servername vhost.host;
+}
+{% endfor %}
+</code></pre><p>.yaml</p>
+<pre><code>- hosts: nginx
+  vars: 
+    vhost_list:
+     - web:
+       port: 8080
+       host: web1
+     - web:
+       port: 9090
+       host: web2
+</code></pre><ul>
+<li>if 判断</li>
+</ul>
+<p>.j2</p>
+<pre><code>{% for vhost in vhost_list %}
+server { 
+   listen vhost.port;
+{% if vhost.host is defined%}
+   servername vhost.host;
+{% endif %}
+}
+{% endfor %}
+</code></pre><p>.yaml</p>
+<pre><code>- hosts: nginx
+  vars: 
+    vhost_list:
+     - web:
+       port: 8080
+       host: web1
+     - web:
+       port: 9090
+</code></pre>
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/ansible/ansible-modules/">«Ansible Modules</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/ansible/ansible-role/">Ansible Roles»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

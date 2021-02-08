@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>数据库日志</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">数据库日志</h1>
+		<div class="post-meta">
+			<p>2018年12月4日</p>
+		</div>
+		<h4 id="介绍">介绍</h4>
+<p>PostgreSQL有3种日志，分别是pg_log（数据库运行日志）、pg_xlog（WAL 日志，即重做日志）、pg_clog（事务提交日志，记录的是事务的元数据）
+postgres 10 版本将文件目录结构改为 log，pg_wal，pg_xact
+log默认是关闭的，需要设置其参数。wal和xact都是强制打开的，无法关闭。
+本文主要介绍　log 能</p>
+<h4 id="配置">配置</h4>
+<p>语法: <br>
+修改　ALTER SYSTEM SET 参数=值; <br>
+查看　show 参数;<br>
+重新启动数据库生效;</p>
+<p>启用pg_log并配置日志参数</p>
+<pre><code>ALTER SYSTEM SET
+ log_destination = 'csvlog';
+ALTER SYSTEM SET
+ logging_collector = on;
+ALTER SYSTEM SET
+ log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log';
+ALTER SYSTEM SET
+ log_rotation_age = '1d';
+ALTER SYSTEM SET
+ log_rotation_size = '100MB';
+ALTER SYSTEM SET
+ log_min_messages = 'info';
+</code></pre><p>记录日志信息</p>
+<pre><code>ALTER SYSTEM SET
+ log_checkpoints = on;
+ALTER SYSTEM SET
+ log_connections = on;
+ALTER SYSTEM SET
+ log_disconnections = on;
+ALTER SYSTEM SET
+ log_duration = on;
+ALTER SYSTEM SET
+ log_line_prefix = '%m';
+</code></pre><h5 id="记录执行慢的sql">记录执行慢的SQL</h5>
+<p>记录超过该时长的所有SQL，对找出当前数据库的慢查询很有效。时间单位ms</p>
+<p>全局级</p>
+<pre><code>ALTER SYSTEM SET
+ log_min_duration_statement = 60;
+</code></pre><p>数据库级</p>
+<pre><code>ALTER DATABASE test SET log_min_duration_statement TO 60;
+</code></pre><p>测试</p>
+<pre><code>postgres=# select now(), pg_sleep(66);
+</code></pre><h5 id="监控数据库中长时间的锁">监控数据库中长时间的锁</h5>
+<p>数据库的锁通常可以在pg_locks这个系统表里找，但这只是当前的锁表/行信息，如果你想看一天内有多少个超过死锁时间的锁发生，可以在日志里设置并查看，log_lock_waits 默认是off，可以设置开启。这个可以区分SQL慢是资源紧张还是锁等待的问题。</p>
+<pre><code>ALTER SYSTEM SET
+ log_lock_waits = on;
+</code></pre><p>测试</p>
+<pre><code>postgres=# show log_lock_waits ;
+ log_lock_waits 
+----------------
+ on
+(1 row)
+
+postgres=# show deadlock_timeout ;
+ deadlock_timeout 
+------------------
+ 1s
+(1 row)
+
+--模拟锁
+postgres=# begin;
+BEGIN
+postgres=# SELECT * FROM t_ken_yon ;
+ id 
+----
+ 11
+(1 row)
+
+postgres=# delete from t_ken_yon ;
+DELETE 1
+
+--另一个session
+postgres=# begin;
+BEGIN
+postgres=# delete from t_ken_yon;
+
+</code></pre><h5 id="审计">审计</h5>
+<p>postgres日志里分成了3类，通过参数pg_statement来控制，</p>
+<ul>
+<li>默认的pg_statement参数值是none，即不记录</li>
+<li>可以设置ddl(记录create,drop和alter)</li>
+<li>mod(记录ddl+insert,delete,update和truncate)和all(mod+select)</li>
+</ul>
+<pre><code>ALTER SYSTEM SET
+ log_statement = 'ddl';
+</code></pre><h4 id="将日志导入到数据库表中并进行查询分析">将日志导入到数据库表中并进行查询分析</h4>
+<p>创建数据库表</p>
+<pre><code>CREATE TABLE postgres_log
+(
+  log_time timestamp(3) with time zone,
+  user_name text,
+  database_name text,
+  process_id integer,
+  connection_from text,
+  session_id text,
+  session_line_num bigint,
+  command_tag text,
+  session_start_time timestamp with time zone,
+  virtual_transaction_id text,
+  transaction_id bigint,
+  error_severity text,
+  sql_state_code text,
+  message text,
+  detail text,
+  hint text,
+  internal_query text,
+  internal_query_pos integer,
+  context text,
+  query text,
+  query_pos integer,
+  location text,
+  application_name text,
+  PRIMARY KEY (session_id, session_line_num)
+);
+</code></pre><p>将日志文件导入数据库表中</p>
+<pre><code>COPY postgres_log FROM 'log/postgresql-2018-12-05_103141.csv' WITH csv;
+</code></pre><p>查询分析</p>
+<p>自由发挥</p>
+<p>日志分析报表 <a href="http://pgbadger.darold.net/documentation.html">PGBADGER</a></p>
+<p>拓展 pgaudit</p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/fio/">«fio 硬盘性能测试</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/vsftp/">Centos FTP 服务»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

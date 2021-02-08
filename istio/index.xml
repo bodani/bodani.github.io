@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Istios on Let&#39;s Go!</title>
+    <link>https://zhangeamon.top/istio/</link>
+    <description>Recent content in Istios on Let&#39;s Go!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Jul 2020 15:22:08 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhangeamon.top/istio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>API 自动化测试</title>
+      <link>https://zhangeamon.top/istio/auto-api-test/</link>
+      <pubDate>Tue, 21 Jul 2020 15:22:08 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/istio/auto-api-test/</guid>
+      <description>简介 主要用于Restful风格接口测试,指针对模块或系统间接口进行的测试
+  单一接口测试
+  多接口组合逻辑测试
+  定时自动，生成测试报告
+  失败通知
+测试用例断言
+  返回状态码
+  返回结果
+  超时时间
+  基础应用需求   Postman 测试用例编写
+  Newman 执行测试用例命令行工具
+  Jenkins 自动化集成
+  Git 测试用例成果物管理
+  Allure 生成测试报告
+  TestLink 测试用例管理
+  目标   定时自动或手动触发测试,并生成测试报告
+  测试结果有异常情况通知相关人员
+  通过环境变量自适配生产或测试环境
+  可自定义批量传入参数
+  具体测试 接口测试经常遇到的bug和问题 （1）传入参数处理不当，导致程序crash； n/0; 参数边界</description>
+    </item>
+    
+    <item>
+      <title>服务发现</title>
+      <link>https://zhangeamon.top/istio/servicediscovery/</link>
+      <pubDate>Fri, 05 Jun 2020 10:19:54 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/istio/servicediscovery/</guid>
+      <description>为什么需要服务发现 在传统的服务架构中，服务之间的依赖关系较为简单，服务部署的位置也通常不会变化。
+前段的服务通常配置来发现后端服务具体的IP或端口。比如后端的服务原来部署在10.1.10.2的5522端口上，现在如果想把服务部署在10.1.10.3的5523端口上。
+前段和后端都不许要修改，只修改对应的配置文件就可以了。通过管理配置文件就可以很容易实现运维管理。
+而现在的微服务中一切都变得复杂些。 提供一个服务后端可能是大量的实例，往往还需要扩容，缩容等。版本的滚动升级等。变化成为一种常态。甚至具体部署在那个机器上都部署固定的，
+甚至需要与机器的负载程度，资源利用情况等有关。
+如果还使用手动的方式通过修改配置文件来管理就显得繁琐，且容易出错。
+服务发现用来做什么 传统方式通过配置来实现前后端的解耦，路由。 频繁大量的对配置的更改已很难满足现在的架构，业务及迭代需求。
+服务发现帮你解放双手，后端服务只需在启动的时候注册自己就可以了。服务发现会自动帮你加入到业务复杂中。
+结合健康检测，如果后端服务异常可自动剔除。
+结合轮询调度实现负载均衡，对前段调度者来说无需关心具体有多少个后端提供服务。逻辑上只有一个，调就完了。</description>
+    </item>
+    
+    <item>
+      <title>熔断，限流，降级</title>
+      <link>https://zhangeamon.top/istio/concept01/</link>
+      <pubDate>Tue, 13 Nov 2018 10:23:42 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/istio/concept01/</guid>
+      <description>写在前面 在学习Service Mesh前还是最好先清楚几个概念，如熔断，限流，降级。接下来一起揭开面纱，让陌生的名词变得没有那么神秘。一切都来自于现实的应用场景，及解决问题的方法方式。
+ consumer表示服务调用方 provider表示服务提供方 A调用B服务，一般是泛指调用B服务里面的一个接口  拓扑图 大写字母表示不同的服务，后面的序号表示同一个服务部署在不同机器的实例。
+从微观角度思考  1 超时（timeout） 在接口调用过程中，consumer调用provider的时候，provider在响应的时候，有可能会慢，如果provider 10s响应，那么consumer也会至少10s才响应。如果这种情况频度很高，那么就会整体降低consumer端服务的性能。
+这种响应时间慢的症状，就会像一层一层波浪一样，从底层系统一直涌到最上层，造成整个链路的超时。
+所以，consumer不可能无限制地等待provider接口的返回，会设置一个时间阈值，如果超过了这个时间阈值，就不继续等待。
+这个超时时间选取，一般看provider正常响应时间是多少，再追加一个buffer即可。
+2 重试（retry） 超时时间的配置是为了保护服务，避免consumer服务因为provider 响应慢而也变得响应很慢，这样consumer可以尽量保持原有的性能。
+但是也有可能provider只是偶尔抖动，那么超时后直接放弃，不做后续处理，就会导致当前请求错误，也会带来业务方面的损失。
+那么，对于这种偶尔抖动，可以在超时后重试一下，重试如果正常返回了，那么这次请求就被挽救了，能够正常给前端返回数据，只不过比原来响应慢一点。
+重试时的一些细化策略：
+重试可以考虑切换一台机器来进行调用，因为原来机器可能由于临时负载高而性能下降，重试会更加剧其性能问题，而换一台机器，得到更快返回的概率也更大一些。
+2.1幂等(idempotent) 如果允许consumer重试，那么provider就要能够做到幂等。
+即，同一个请求被consumer多次调用，对provider产生的影响(这里的影响一般是指某些写入相关的操作) 是一致的。
+而且这个幂等应该是服务级别的，而不是某台机器层面的，重试调用任何一台机器，都应该做到幂等。
+3 熔断（circuit break） 重试是为了应付偶尔抖动的情况，以求更多地挽回损失。
+可是如果provider持续的响应时间超长呢?
+如果provider是核心路径的服务，down掉基本就没法提供服务了，那我们也没话说。 如果是一个不那么重要的服务，却因为这个服务一直响应时间长导致consumer里面的核心服务也拖慢，那么就得不偿失了。
+单纯超时也解决不了这种情况了，因为一般超时时间，都比平均响应时间长一些，现在所有的打到provider的请求都超时了，那么consumer请求provider的平均响应时间就等于超时时间了，负载也被拖下来了。
+而重试则会加重这种问题，使consumer的可用性变得更差。
+因此就出现了熔断的逻辑，也就是，如果检查出来频繁超时，就把consumer调用provider的请求，直接短路掉，不实际调用，而是直接返回一个mock的值。
+等provider服务恢复稳定之后，重新调用。
+3.1 简单的熔断处理逻辑 目前我们框架有通过注解使用的熔断器，大家可以参考应用在项目中。
+4 限流(current limiting) 上面几个策略都是consumer针对provider出现各种情况而设计的。
+而provider有时候也要防范来自consumer的流量突变问题。
+这样一个场景，provider是一个核心服务，给N个consumer提供服务，突然某个consumer抽风，流量飙升，占用了provider大部分机器时间，导致其他可能更重要的consumer不能被正常服务。
+所以，provider端，需要根据consumer的重要程度，以及平时的QPS大小，来给每个consumer设置一个流量上线，同一时间内只会给A consumer提供N个线程支持，超过限制则等待或者直接拒绝。
+4.1 资源隔离 provider可以对consumer来的流量进行限流，防止provider被拖垮。
+同样，consumer 也需要对调用provider的线程资源进行隔离。 这样可以确保调用某个consumer逻辑不会耗光整个provider的线程池资源。
+曾记否，因为数据库未做资源隔离，一个应用上线后占满了整个数据库的连接，对整个业务都造成了影响。
+4.2 服务降级 降级服务既可以代码自动判断，也可以人工根据突发情况切换。
+4.2.1 consumer 端 consumer 如果发现某个provider出现异常情况，比如，经常超时(可能是熔断引起的降级)，数据错误，这是，consumer可以采取一定的策略，降级provider的逻辑，基本的有直接返回固定的数据。
+4.2.2 provider 端 当provider 发现流量激增的时候，为了保护自身的稳定性，也可能考虑降级服务。</description>
+    </item>
+    
+    <item>
+      <title>Istio 1.0.3 安装　</title>
+      <link>https://zhangeamon.top/istio/install/</link>
+      <pubDate>Mon, 12 Nov 2018 13:44:34 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/istio/install/</guid>
+      <description>Service Mesh(服务网格)  Kubernetes 已经给我们带来了诸多的好处。但是仍有些需求比如 A/B 测试、金丝雀发布、限流、访问控制,端到端认证等需要运维人员进一步去解决。
+Istio 是完全开源的服务网格,提供了一套完整的解决方案，可以透明地分层到现有的分布式应用程序上。对开发人员几乎无感的同时获得超能力。
+如果想要现有的服务支持 Istio，只需要在当前的环境中部署一个特殊的 sidecar 代理，即可。
+前提   安装 Kubernetes 集群 1.9+ 安装 Helm  准备  进入 Istio release 页面下载最新版安装包(1.0.3)并解压到当前目录,
+curl -L https://git.io/getLatestIstio | sh - ll istio-1.0.3/ total 28 drwxr-xr-x 2 root root 22 10月 26 07:36 bin drwxr-xr-x 6 root root 79 10月 26 07:36 install -rw-r--r-- 1 root root 648 10月 26 07:36 istio.VERSION -rw-r--r-- 1 root root 11343 10月 26 07:36 LICENSE -rw-r--r-- 1 root root 5817 10月 26 07:36 README.</description>
+    </item>
+    
+    <item>
+      <title>蓝绿、A/B测试、金丝雀发布</title>
+      <link>https://zhangeamon.top/istio/concept02/</link>
+      <pubDate>Fri, 09 Nov 2018 10:17:38 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/istio/concept02/</guid>
+      <description>蓝绿发布  准备两套环境，蓝和绿。绿环境为当前正式环境，现在将新版部署到蓝环境当中并进行测试。没有问题后将路由指向蓝环境。若发现问题可将路由指回到原来的绿环境中进行回滚。
+问题： 如果是无状态应用还可以，如果应用有状态或类似数据库之类的应该很麻烦，还有新旧版本是否兼容的问题。
+A/B 测试  用来测试应用功能表现的方法，例如可用性、受欢迎程度、可见性等等。A/B测试通常用在应用的前端上。 A/B测试目的在于通过科学的实验设计、采样样本代表性、流量分割与小流量测试等方式来获得具有代表性的实验结论，并确信该结论在推广到全部流量可信
+金丝雀/ 灰度发布  在原有版本可用的情况下，同时部署一个新版本应用作为“金丝雀”（金丝雀对瓦斯极敏感，矿井工人携带金丝雀，以便及时发发现危险），测试新版本的性能和表现，以保障整体系统稳定的情况下，尽早发现、调整问题。 试水版</description>
+    </item>
+    
+  </channel>
+</rss>

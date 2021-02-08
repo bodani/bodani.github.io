@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>内核设置</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">内核设置</h1>
+		<div class="post-meta">
+			<p>2019年11月26日</p>
+		</div>
+		<h5 id="参数vmdirty_ratio和vmdirty_background_ratio">参数vm.dirty_ratio和vm.dirty_background_ratio</h5>
+<p><a href="https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/">https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/</a></p>
+<p>文件缓存是一项重要的性能改进，在大多数情况下，读缓存在绝大多数情况下是有益无害的（程序可以直接从RAM中读取数据）。写缓存比较复杂，Linux内核将磁盘写入缓存，过段时间再异步将它们刷新到磁盘。这对加速磁盘I/O有很好的效果，但是当数据未写入磁盘时，丢失数据的可能性会增加。</p>
+<p>当然，也存在缓存被写爆的情况。还可能出现一次性往磁盘写入过多数据，以致使系统卡顿。这些卡顿是因为系统认为，缓存太大用异步的方式来不及把它们都写进磁盘，于是切换到同步的方式写入。</p>
+<p>这些都是可控制的选项，根据工作负载和数据，你可以决定如何设置它们：</p>
+<pre><code>$ sysctl -a | grep dirty
+vm.dirty_background_bytes = 0
+vm.dirty_background_ratio = 10
+vm.dirty_bytes = 0
+vm.dirty_ratio = 20
+vm.dirty_writeback_centisecs = 500
+vm.dirty_expire_centisecs = 3000
+vm.dirtytime_expire_seconds = 43200
+</code></pre><p>vm.dirty_background_ratio 是内存可以填充脏数据的百分比。这些脏数据稍后会写入磁盘，pdflush/flush/kdmflush这些后台进程会稍后清理脏数据。比如，我有32G内存，那么有3.2G的脏数据可以待着内存里，超过3.2G的话就会有后台进程来清理。</p>
+<p>vm.dirty_ratio是可以用脏数据填充的绝对最大系统内存量，当系统到达此点时，必须将所有脏数据提交到磁盘，同时所有新的I/O块都会被阻塞，直到脏数据被写入磁盘。这通常是长I/O卡顿的原因，但这也是保证内存中不会存在过量脏数据的保护机制。</p>
+<p>vm.dirty_background_bytes和vm.dirty_bytes是另一种指定这些参数的方法。如果设置_bytes版本，则_ratio版本将变为0，反之亦然。</p>
+<p>vm.dirty_expire_centisecs 指定脏数据能存活的时间。在这里它的值是30秒。当 pdflush/flush/kdmflush 在运行的时候，他们会检查是否有数据超过这个时限，如果有则会把它异步地写到磁盘中。毕竟数据在内存里待太久也会有丢失风险。</p>
+<p>vm.dirty_writeback_centisecs 指定多长时间 pdflush/flush/kdmflush 这些进程会唤醒一次，然后检查是否有缓存需要清理。</p>
+<p>可以通过下面方式看内存中有多少脏数据：一共有106页的脏数据</p>
+<pre><code>$ cat /proc/vmstat | egrep &quot;dirty|writeback&quot;
+nr_dirty 106
+nr_writeback 0
+nr_writeback_temp 0
+nr_dirty_threshold 3934012
+nr_dirty_background_threshold 1964604
+</code></pre><h6 id="方法1减少缓存">方法1：减少缓存</h6>
+<p>在很多情况下，我们有快速的磁盘子系统，它们有自己的大电池支持的NVRAM缓存，所以将东西保存在系统页面缓存中是有风险的。让我们尝试以更及时的方式向磁盘发送I/O，并减少本地操作系统(借用服务行业的话)“陷入困境”的机会。为了做到这一点，我们减小/etc/sysctl.conf中vm.dirty_background_ratio和vm.dirty_ratio的数值，并执行sysctl -p命令:</p>
+<pre><code>vm.dirty_background_ratio = 5
+vm.dirty_ratio = 10
+</code></pre><p>这是基于Linux的虚拟机管理程序的典型方法。不建议将这些参数设置为0，一些后台I/O可以很好地将应用程序性能与磁盘阵列在SAN(“峰值”)上的较短时间的较高延迟解耦。</p>
+<h6 id="方法2增加缓存">方法2：增加缓存</h6>
+<p>在某些情况下，显著提高缓存对性能有积极的影响。在这些情况下，Linux客户机上包含的数据不是关键的，可能会丢失，而且应用程序通常会重复或以可重复的方式写入相同的文件。理论上，通过允许内存中存在更多脏页，你将在缓存中一遍又一遍地重写相同的块，只需要每隔一段时间向实际磁盘写一次。为此，我们提出了以下参数:</p>
+<pre><code>vm.dirty_background_ratio = 50
+vm.dirty_ratio = 80
+</code></pre><p>有时候还会提高vm.dirty_expire_centisecs 这个参数的值，来允许脏数据更长时间地停留。除了增加数据丢失的风险之外，如果缓存已满并需要同步，还会有长时间I/O卡顿的风险，因为在大型虚拟机缓存中有大量数据。</p>
+<h6 id="方法3增减都用">方法3：增减都用</h6>
+<p>有时候系统需要应对突如其来的高峰数据，它可能会拖慢磁盘。比如说：每小时或者午夜进行批处理作业、在Raspberry Pi上写SD卡等等。这种情况下，我们可以允许大量的写I/O存储在缓存中，这样后台刷新操作就可以慢慢异步处理它:</p>
+<pre><code>vm.dirty_background_ratio = 5
+vm.dirty_ratio = 80
+</code></pre><p>这个时候，系统后台进程在脏数据达到5%时就开始异步清理，但在80%之前系统不会强制同步写磁盘。在此基础上，你只需要调整RAM和vm.dirty_ratio大小以便能缓存所有的写数据。当然，磁盘上的数据一致性也存在一定风险。</p>
+<h6 id="总结">总结</h6>
+<p>无论你选择哪种方式，都应该始终收集数据来支持你的更改，并帮助你确定是在改进还是变得更糟。我们可以从应用程序，/proc/vmstat, /proc/meminfo, iostat, vmstat 以及/proc/sys/vm里面获得大量有用信息。</p>
+<h5 id="参数overcommit_memory">参数overcommit_memory</h5>
+<p>0：表示内核将检查是否有足够的可用内存供应用进程使用；如果有足够的可用内存，内存申请允许；否则，内存申请失败，并把错误返回给应用进程。</p>
+<p>1：表示内核允许分配所有的物理内存，而不管当前的内存状态如何。</p>
+<p>2： 表示内核允许分配超过所有物理内存和交换空间总和的内存。</p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/postgres12/">«postgres 12</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/dw/greenplum-install/">Greenplum6 安装»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

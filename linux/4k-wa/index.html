@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>SSD 4k对齐写放大</title>
+	<link href="" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">SSD 4k对齐写放大</h1>
+		<div class="post-meta">
+			<p>2019年1月17日</p>
+		</div>
+		<h4 id="4k对齐">4k对齐</h4>
+<p>早期硬盘每个扇区以512字节为标准，新一代硬盘扇区容量为4096个字节，也就是所说的4k扇区。</p>
+<p>硬盘标准更新，但操作系统一直使用的是512字节扇区的标准，所以硬盘厂商为了保证兼容性，把4k扇区模拟成512字节扇区。</p>
+<p>通常文件系统的块（簇）是512字节的倍数，新的系统基本上都设成了4k的倍数。比如Linux的簇一般也是4k。</p>
+<p>簇到扇区的映射关系变成了 簇（4k）-&gt;512B扇区-&gt;4k扇区</p>
+<p>这就可能造成簇到扇区映射错位。</p>
+<h4 id="写放大-ssdwa">写放大 SSD(WA)</h4>
+<p>由于闪存必须先擦除才能再写入的特性，如果需要在写入钱清理被删除的数据，则需要把整个分块读出，然后擦除整个块，再写回去。</p>
+<p>举个最简单的例子：</p>
+<p>当要写入一个4KB的数据时，最坏的情况是一个块里已经没有干净空间了，但有无效的数据可以擦除，所以主控就把所有的数据读到缓存，擦除块，缓存里更新整个块的数据，再把新数据写回去，</p>
+<p>这个操作带来的写入放大就是: 实际写4K的数据，造成了整个块（共1024KB）的写入操作，那就是放大了256倍。</p>
+<p>同时还带来了原本只需要简单一步写入4KB的操作变成：闪存读取 (1024KB)→缓存改（4KB）→闪存擦除（1024KB）→闪存写入（1024KB），共四步操作，造成延迟大大增加，速度变慢。</p>
+<p>所以说WA是影响 SSD随机写入性能和寿命的关键因素。</p>
+<h4 id="如何实现4k对齐">如何实现4K对齐</h4>
+<h5 id="查看系统中磁盘物理大小扇区和逻辑大小扇区">查看系统中磁盘物理大小扇区和逻辑大小扇区</h5>
+<pre><code>cat /sys/block/vdg/queue/physical_block_size
+512
+cat /sys/block/vdg/queue/logical_block_size
+512
+</code></pre><p>可以看到我的这块测试磁盘的物理扇区大小是512字节，逻辑扇区大小也是512字节，这样我们物理块到逻辑块的映射都是512字节的。</p>
+<h5 id="linux查看现有磁盘是否是4k对齐可以用fdisk--l--u">linux查看现有磁盘是否是4k对齐，可以用fdisk -l -u</h5>
+<pre><code>fdisk -lu /dev/sde
+
+磁盘 /dev/sde：256.1 GB, 256060514304 字节，500118192 个扇区
+Units = 扇区 of 1 * 512 = 512 bytes
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：dos
+磁盘标识符：0x000ba8b2
+
+   设备 Boot      Start         End      Blocks   Id  System
+/dev/sde1   *        2048     2099199     1048576   83  Linux
+/dev/sde2         2099200    52111359    25006080   82  Linux swap / Solaris
+/dev/sde3        52111360    94054399    20971520   83  Linux
+/dev/sde4        94054400   500117503   203031552    5  Extended
+/dev/sde5        94056448   500117503   203030528   83  Linux
+
+</code></pre><p>Start 为 8的整数倍4k对齐,否则没有对齐。</p>
+<p>默认情况都为4k对齐的</p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/memtester/">«memtester 内存压力测试</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/qos/">Qos»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+
