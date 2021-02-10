@@ -6,10 +6,19 @@
     <description>Recent content on Let&#39;s Go!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Feb 2021 14:30:03 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 09:31:44 +0800</lastBuildDate>
     
 	<atom:link href="https://zhangeamon.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Smapler</title>
+      <link>https://zhangeamon.top/monitor/smapler/</link>
+      <pubDate>Wed, 10 Feb 2021 09:31:44 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/monitor/smapler/</guid>
+      <description>一款轻量级的一体化监控工具 https://github.com/sqshq/sample</description>
+    </item>
     
     <item>
       <title>Git 文件过大清理</title>
@@ -86,7 +95,7 @@ AP 强调的吞吐量，相当于大卡车。
 针对不同车辆设计不同的道路才合理。
 在跑车的赛道上开来一辆大卡车，彼此伤害。TP如果不幸就此挂掉，真的不能说是系统不够健壮。
 补充： 慢Sql可视为TP系统性能上的bug , 高速运行的列车，飞机任何碰撞都是致命的。
-监测很重要 你是我的眼 👀
+TP 系统中一条慢Sql的伤害  伤磁盘IO 伤系统CUP 伤系统内存 伤数据库MVCC LOCK VACUUM 伤系统统计信息、temp 伤数据库缓存 伤数据库连接数  监测很重要 你是我的眼 👀
 作用
   早期发现问题
   评估调整后效果
@@ -96,9 +105,7 @@ AP 强调的吞吐量，相当于大卡车。
   功能模块概览  vacuum  避免在高峰时发生，又能及时处理，避免表膨胀。调整触发条件及手动触发
  checkpoint  频率，IO平滑度
  sql  满足功能同时是否考虑性能
- wal  输出量，FPI
- hotupdate  热更新比例 调整fillfactor
- 缓存 buffer  命中率 是否产生tempfile</description>
+ wal  输出量，FPI</description>
     </item>
     
     <item>

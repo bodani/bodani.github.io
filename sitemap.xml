@@ -3,12 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://zhangeamon.top/linux/git-objects-clean/</loc>
-    <lastmod>2021-02-08T14:30:03+08:00</lastmod>
+    <loc>https://zhangeamon.top/</loc>
+    <lastmod>2021-02-10T09:31:44+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://zhangeamon.top/</loc>
+    <loc>https://zhangeamon.top/monitor/</loc>
+    <lastmod>2021-02-10T09:31:44+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhangeamon.top/monitor/smapler/</loc>
+    <lastmod>2021-02-10T09:31:44+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zhangeamon.top/linux/git-objects-clean/</loc>
     <lastmod>2021-02-08T14:30:03+08:00</lastmod>
   </url>
   
@@ -260,11 +270,6 @@
   <url>
     <loc>https://zhangeamon.top/postgres/index-bloom/</loc>
     <lastmod>2020-04-23T15:37:33+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://zhangeamon.top/monitor/</loc>
-    <lastmod>2020-04-20T11:12:28+08:00</lastmod>
   </url>
   
   <url>

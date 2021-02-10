@@ -6,10 +6,19 @@
     <description>Recent content in Monitors on Let&#39;s Go!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Apr 2020 11:12:28 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 09:31:44 +0800</lastBuildDate>
     
 	<atom:link href="https://zhangeamon.top/monitor/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Smapler</title>
+      <link>https://zhangeamon.top/monitor/smapler/</link>
+      <pubDate>Wed, 10 Feb 2021 09:31:44 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/monitor/smapler/</guid>
+      <description>一款轻量级的一体化监控工具 https://github.com/sqshq/sample</description>
+    </item>
     
     <item>
       <title>Nginx 状态监控</title>
