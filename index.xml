@@ -6,10 +6,30 @@
     <description>Recent content on Let&#39;s Go!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Feb 2021 09:31:44 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 19 Feb 2021 21:32:46 +0800</lastBuildDate>
     
 	<atom:link href="https://zhangeamon.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>常用命令</title>
+      <link>https://zhangeamon.top/redis/cmd/</link>
+      <pubDate>Fri, 19 Feb 2021 21:32:46 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/redis/cmd/</guid>
+      <description>Features Requirements Installation Menu Blog Configuration Shortcodes Versioning Contributing  Features   Clean simple design
+  Light and Mobile-Friendly
+  Multi-language support
+  Customisable
+  Zero initial configuration
+  第一章
+  a select 0
+set key value
+get key
+flushdb
+fushall
+keys *</description>
+    </item>
     
     <item>
       <title>Smapler</title>
