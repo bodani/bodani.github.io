@@ -6,10 +6,20 @@
     <description>Recent content in Storages on Let&#39;s Go!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 Mar 2019 16:59:48 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 16:40:29 +0800</lastBuildDate>
     
 	<atom:link href="https://zhangeamon.top/storage/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>云存储同步 rclone</title>
+      <link>https://zhangeamon.top/storage/rclone/</link>
+      <pubDate>Tue, 09 Mar 2021 16:40:29 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/storage/rclone/</guid>
+      <description>云端对象同步 Rclone (&amp;ldquo;rsync for cloud storage&amp;rdquo;) is a command line program to sync files and directories to and from different cloud storage providers.
+https://github.com/rclone/rclone</description>
+    </item>
     
     <item>
       <title>minio 轻量级对象存储</title>

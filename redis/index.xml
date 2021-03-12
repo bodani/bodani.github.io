@@ -6,29 +6,55 @@
     <description>Recent content in Redis on Let&#39;s Go!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Feb 2021 21:32:46 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 09:19:57 +0800</lastBuildDate>
     
 	<atom:link href="https://zhangeamon.top/redis/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>常用命令</title>
-      <link>https://zhangeamon.top/redis/cmd/</link>
-      <pubDate>Fri, 19 Feb 2021 21:32:46 +0800</pubDate>
+      <title>缓存穿透</title>
+      <link>https://zhangeamon.top/redis/cache-penetration/</link>
+      <pubDate>Wed, 10 Mar 2021 09:19:57 +0800</pubDate>
       
-      <guid>https://zhangeamon.top/redis/cmd/</guid>
-      <description>Features Requirements Installation Menu Blog Configuration Shortcodes Versioning Contributing  Features   Clean simple design
-  Light and Mobile-Friendly
-  Multi-language support
-  Customisable
-  Zero initial configuration
-  第一章
-  a select 0
-set key value
-get key
-flushdb
-fushall
-keys *</description>
+      <guid>https://zhangeamon.top/redis/cache-penetration/</guid>
+      <description>缓存穿透（Cache Penetration） 了解下
+布隆过滤器Bloom Filter</description>
+    </item>
+    
+    <item>
+      <title>Redis 应用场景</title>
+      <link>https://zhangeamon.top/redis/redis-scence/</link>
+      <pubDate>Tue, 09 Mar 2021 17:23:59 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/redis/redis-scence/</guid>
+      <description>应用场景  缓存 消息队列 循环列表 排行榜 计数器 SET 集合操作 分布式锁 跳表  </description>
+    </item>
+    
+    <item>
+      <title>Redis 持久化策略</title>
+      <link>https://zhangeamon.top/redis/redis-durability/</link>
+      <pubDate>Tue, 09 Mar 2021 17:04:58 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/redis/redis-durability/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis Cluster</title>
+      <link>https://zhangeamon.top/redis/redis-cluster/</link>
+      <pubDate>Tue, 09 Mar 2021 17:00:05 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/redis/redis-cluster/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis 高可用 Sentinel</title>
+      <link>https://zhangeamon.top/redis/sentinel/</link>
+      <pubDate>Tue, 09 Mar 2021 16:57:34 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/redis/sentinel/</guid>
+      <description>介绍 https://mp.weixin.qq.com/s/qGfAuS0e8dV77SRI3O3Q_w</description>
     </item>
     
     <item>
@@ -49,7 +75,7 @@ net.ipv4.tcp_tw_recycle = 1 net.ipv4.tcp_tw_reuse = 1 kernel.shmmax = 6871947673
       <pubDate>Wed, 13 Feb 2019 14:41:54 +0800</pubDate>
       
       <guid>https://zhangeamon.top/redis/data-type/</guid>
-      <description> String： 字符串。整数，浮点数 Hash：健值对的无序散列列表 List：链表 Set：无序集合 Zset：有序集合  </description>
+      <description>String： 字符串。整数，浮点数 Hash：健值对的无序散列列表 List：链表 Set：无序集合 Zset：有序集合  https://www.cnblogs.com/knowledgesea/category/722602.html</description>
     </item>
     
   </channel>

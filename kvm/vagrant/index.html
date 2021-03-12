@@ -11,7 +11,11 @@
 	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
         <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
         <script src="https://zhangeamon.top/js/main.js"></script>
+        
         <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+               
+ 
+        
         <script>
           var _hmt = _hmt || [];
             (function() {
@@ -26,7 +30,7 @@
 <header class="site-header">
 	<div class="container">
 		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
-		<p class="lead blog-description">Let&#39;s build cloud native together,  go! go! go! </p>
+		<p class="lead blog-description">Let&#39;s build private cloud native together,  go! go! go! </p>
 	</div>
 </header>
 
@@ -36,10 +40,9 @@
             <li class="navlinks-container">
                <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
                 <div class="navlinks-children">
-                  <a href="https://zhangeamon.top/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top//content/postgres/" title="">Postgres</a>
                   <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
                   
-                  <a href="https://zhangeamon.top/citusdb/" title="">CitusDB</a>
                   <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
                   <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
                 </div>
@@ -97,8 +100,52 @@
 <h5 id="安装">安装</h5>
 <p><a href="https://www.virtualbox.org/wiki/Downloads">下载virtualbox</a></p>
 <p><a href="https://www.vagrantup.com/downloads.html">下载vagrant</a></p>
-<h5 id="常用方法">常用方法</h5>
-<pre><code>     box             manages boxes: installation, removal, etc.
+<pre><code>-- 安装依赖
+#yum --enablerepo=epel -y install fuse-sshfs
+#yum install bsdtar
+#yum -y install gcc kernel kernel-devel
+</code></pre><h5 id="常用方法">常用方法</h5>
+<pre><code>--- 镜像管理
+添加镜像
+#vagrant box add centos/7
+
+查看镜像
+#vagrant box list
+centos/7 (virtualbox, 2004.01)
+
+-- 配置管理
+初始化默认Vagrantfile
+#vagrant init
+
+配置Vagrantfile定义虚拟机 , 启动虚拟机
+#vagrant up
+
+查看状态
+#vagrant status
+Current machine states:
+
+node0                     running (virtualbox)
+node1                     running (virtualbox)
+node2                     running (virtualbox)
+node3                     running (virtualbox)
+
+登录虚拟机
+#vagrant ssh node0
+
+关闭
+#vagrant halt
+
+停止并销毁
+#vagrant destroy 
+
+重新加载,重启
+#vagrant reload
+
+
+</code></pre><h5 id="注意事项">注意事项</h5>
+<pre><code>将当前路径的所有内容同步到虚拟机内
+Rsyncing folder: /当前路径 =&gt; /vagrant
+</code></pre><pre><code>     box             manages boxes: installation, removal, etc.
      cloud           manages everything related to Vagrant Cloud
      destroy         stops and deletes all traces of the vagrant machine
      halt            stops the vagrant machine
@@ -113,7 +160,6 @@
     config.vm.box = &quot;centos/7&quot;
     config.vm.box_check_update = false
     config.ssh.insert_key = false
-
     config.vm.define &quot;node0&quot;, primary: true do |s|
         s.vm.hostname = &quot;node0&quot;
         s.vm.network &quot;private_network&quot;, ip: &quot;10.10.10.10&quot;
@@ -132,7 +178,6 @@
                     &quot;--largepages&quot;, &quot;on&quot;
                 ]
         end
-        s.vm.provision &quot;shell&quot;, inline: &quot;/vagrant/bin/setup-node.sh&quot;
     end
 
     config.vm.define &quot;node1&quot; do |s|
@@ -153,7 +198,6 @@
                     &quot;--largepages&quot;, &quot;on&quot;
                 ]
         end
-        s.vm.provision &quot;shell&quot;, inline: &quot;/vagrant/bin/setup-node.sh&quot;
     end
 
     config.vm.define &quot;node2&quot; do |s|
@@ -174,29 +218,30 @@
                     &quot;--largepages&quot;, &quot;on&quot;
                 ]
         end
-        s.vm.provision &quot;shell&quot;, inline: &quot;/vagrant/bin/setup-node.sh&quot;
     end
 
-        config.vm.define &quot;node3&quot; do |s|
-            s.vm.hostname = &quot;node3&quot;
-            s.vm.network &quot;private_network&quot;, ip: &quot;10.10.10.13&quot;
-            s.vm.provider &quot;virtualbox&quot; do |v|
-                v.linked_clone = true
-                v.customize [
-                        &quot;modifyvm&quot;, :id,
-                        &quot;--memory&quot;, 1024,
-                        &quot;--cpus&quot;, &quot;1&quot;,
-                        &quot;--nictype1&quot;, &quot;virtio&quot;,
-                        &quot;--nictype2&quot;, &quot;virtio&quot;,
-                        &quot;--hwvirtex&quot;, &quot;on&quot;,
-                        &quot;--ioapic&quot;, &quot;on&quot;,
-                        &quot;--rtcuseutc&quot;, &quot;on&quot;,
-                        &quot;--vtxvpid&quot;, &quot;on&quot;,
-                        &quot;--largepages&quot;, &quot;on&quot;
+    config.vm.define &quot;node3&quot; do |s|
+       s.vm.hostname = &quot;node3&quot;
+       s.vm.network &quot;private_network&quot;, ip: &quot;10.10.10.13&quot;
+       s.vm.provider &quot;virtualbox&quot; do |v|
+           v.linked_clone = true
+           v.customize [
+                   &quot;modifyvm&quot;, :id,
+                   &quot;--memory&quot;, 1024,
+                   &quot;--cpus&quot;, &quot;1&quot;,
+                   &quot;--nictype1&quot;, &quot;virtio&quot;,
+                   &quot;--nictype2&quot;, &quot;virtio&quot;,
+                   &quot;--hwvirtex&quot;, &quot;on&quot;,
+                   &quot;--ioapic&quot;, &quot;on&quot;,
+                   &quot;--rtcuseutc&quot;, &quot;on&quot;,
+                   &quot;--vtxvpid&quot;, &quot;on&quot;,
+                   &quot;--largepages&quot;, &quot;on&quot;
                     ]
             end
-        s.vm.provision &quot;shell&quot;, inline: &quot;/vagrant/bin/setup-node.sh&quot;
         end
+    config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+      #yum update -y
+    SHELL
 end
 </code></pre>
 	</div>

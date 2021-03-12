@@ -20,7 +20,7 @@
       <description>介绍 通常用vagrant 来管理VirtualBox ,VMWare，方便测试环境的创建，销毁。不常折腾用virtualbox, 反复折腾用vagrant。
 简单使用 安装 下载virtualbox
 下载vagrant
-常用方法  box manages boxes: installation, removal, etc. cloud manages everything related to Vagrant Cloud destroy stops and deletes all traces of the vagrant machine halt stops the vagrant machine reload restarts vagrant machine, loads new Vagrantfile configuration resume resume a suspended vagrant machine ssh connects to machine via SSH status outputs status of the vagrant machine up starts and provisions the vagrant environment 配置文件 cat Vagrantfile</description>
+-- 安装依赖 #yum --enablerepo=epel -y install fuse-sshfs #yum install bsdtar #yum -y install gcc kernel kernel-devel 常用方法 --- 镜像管理 添加镜像 #vagrant box add centos/7 查看镜像 #vagrant box list centos/7 (virtualbox, 2004.01) -- 配置管理 初始化默认Vagrantfile #vagrant init 配置Vagrantfile定义虚拟机 , 启动虚拟机 #vagrant up 查看状态 #vagrant status Current machine states: node0 running (virtualbox) node1 running (virtualbox) node2 running (virtualbox) node3 running (virtualbox) 登录虚拟机 #vagrant ssh node0 关闭 #vagrant halt 停止并销毁 #vagrant destroy 重新加载,重启 #vagrant reload 注意事项 将当前路径的所有内容同步到虚拟机内 Rsyncing folder: /当前路径 =&amp;gt; /vagrant  box manages boxes: installation, removal, etc.</description>
     </item>
     
     <item>

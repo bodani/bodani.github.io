@@ -6,19 +6,10 @@
     <description>Recent content in Abouts on Let&#39;s Go!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Feb 2021 10:10:01 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 30 Mar 2019 21:44:14 +0800</lastBuildDate>
     
 	<atom:link href="https://zhangeamon.top/about/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>数据库管理目录概览</title>
-      <link>https://zhangeamon.top/about/thinking_in_db_dba/</link>
-      <pubDate>Mon, 08 Feb 2021 10:10:01 +0800</pubDate>
-      
-      <guid>https://zhangeamon.top/about/thinking_in_db_dba/</guid>
-      <description>基础知识 安装维护 监控系统 日志系统 高可用 分布式 优化 安全管理 </description>
-    </item>
     
     <item>
       <title>关于设计、划分</title>
@@ -69,9 +60,9 @@ fundamental 基础的 主要的</description>
   [SDN 网络] (https://github.com/feiskyer/sdn-handbook)
   LSM数据结构
   LSM（Log-Structured Merge-Trees）和 B+ 树相比，是牺牲了部分读的性能来换取写的性能(通过批量写入)，实现读写之间的。 Hbase、LevelDB、Tair（Long DB）、nessDB 采用 LSM 树的结构。LSM可以快速建立索引
-  Postgres DBA 日常管理
+  Raft 动画
   api自动化测试 postman
-  [定时任务] gocron
+  [定时任务] (gocron)
   redis memcache 缓存管理平台
   </description>
     </item>

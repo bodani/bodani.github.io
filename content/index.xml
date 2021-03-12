@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Contents on Let&#39;s Go!</title>
+    <link>https://zhangeamon.top/content/</link>
+    <description>Recent content in Contents on Let&#39;s Go!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 08 Feb 2021 10:10:01 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhangeamon.top/content/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Postgres  数据库</title>
+      <link>https://zhangeamon.top/content/postgres/</link>
+      <pubDate>Mon, 08 Feb 2021 10:10:01 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/content/postgres/</guid>
+      <description>关于优化思考   数据库优化思考 - 性能优化 数据库优化思考 - 结构设计 数据库优化思考 - 模块调优  基础知识   模板数据库 数据库日志 Explain 执行计划 vacuum 垃圾回收器 表空间膨胀 fillfactor 填充因子 TOAST 技术 hot update tablespace 表空间 锁机制 锁等待 cluster 聚族表 咨询锁 adlock 数据库视图之 pg_stat_activity 数据库年龄 方法和函数 高级SQL 数据库 OOM 预防 跨库操作 auto vacuum 触发机制 unlogged table  安装维护   安装 Postgres 主从流复制 Logical Replication 逻辑复制 数据库参数 指标查看&amp;amp;stat统计信息 拓展插件 pg_stat_statements统计信息 pg-pool2 pgbouncer 连接池 postgres 12 Untunu18安装Postgres12 数据预加载 kylin系统postgresql编译安装  管理   pg_pathman 分区表 范式约束 DBA 日常 数据库日常管理 应用实战 创建只读用户 找回supper user 权限 分区表  备份恢复   备份&amp;amp;恢复 Archive wal归档 时间点恢复 误操作闪回 使用PG_RMAN管理备份恢复  索引  索引类型及使用场景 引起索引失效 pg_trgm的gist和gin索引加速字符匹配查询 Bloom 索引  流数据库  Pipelinedb文档概览 Pipelinedb 简介  时序数据库  TimescaleDB 时序数据库  数据库测试   快速生成大量数据 pgbench 压力测试 tpch AP测试  监控系统   监控工具 pgwatch2 数据库指标监控查看 数据库监控指标  日志系统   ELK  高可用   主从流复制 PG主从切换 pg_rewind PG高可用Patroni搭建 PG高可用Patroni管理进阶  分布式   citus 数据库分库 citus 简单应用  安全管理   数据库 ssl认证  </description>
+    </item>
+    
+  </channel>
+</rss>

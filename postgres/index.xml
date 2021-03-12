@@ -6,10 +6,65 @@
     <description>Recent content in Postgres on Let&#39;s Go!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jan 2021 13:49:11 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 13:35:31 +0800</lastBuildDate>
     
 	<atom:link href="https://zhangeamon.top/postgres/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>pg_rman 备份恢复数据库</title>
+      <link>https://zhangeamon.top/postgres/pg_rman/</link>
+      <pubDate>Tue, 09 Mar 2021 13:35:31 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/postgres/pg_rman/</guid>
+      <description>适用场景 PG_RMAN 基于本地数据拷贝的方式，要求与数据库需要安装在同一个机器节点上。
+适用于项目初期，对数据库的规划处于初级阶段。实体机不充分的情况是个很好的选择。
+数据库使用ssd盘，备份磁盘采用企业sata大盘。或nfs网盘等。
+PG_RMAN 支持全备份，增量备份，备份验证，保留策略等
+应用软件包地址 https://github.com/ossc-db/pg_rman/releases
+基本用法 -- 初始化 /usr/pgsql-13/bin/pg_rman -D /var/lib/pgsql/13/data/ -B /data/backup/ init -- 在/data/backup 目录下会产生如下目录结构 backup pg_rman.ini system_identifier timeline_history -- 全备份 pg_rman backup -B /pgdata/backup -D /var/lib/pgsql/13/data/ -b full -h 127.0.0.1 -p 5432 -U backup -d postgres -- 验证 pg_rman validate -- 详情查看 pg_rman show detail -- 增量备份 pg_rman backup -B /pgdata/backup -D /var/lib/pgsql/13/data/ -b incremental -h 127.0.0.1 -p 5432 -U backup -d postgres 设置保留策略</description>
+    </item>
+    
+    <item>
+      <title>Patroni 高可用管理进阶</title>
+      <link>https://zhangeamon.top/postgres/patroni02/</link>
+      <pubDate>Fri, 05 Mar 2021 17:06:18 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/postgres/patroni02/</guid>
+      <description>完成目标  主从同步策略 异地多机房策略 failover 触发详情 访问认证 watch-dog 配置文件详情 fencing DCS 失效处理 加入节点复制数据限流 主从切换流量,避免重新拉取 级联复制 callback 日志&amp;amp;监控  主从同步策略 数据库主从之间同步类型
+Synchronous state of this standby server. Possible values are: async: This standby server is asynchronous. potential: This standby server is now asynchronous, but can potentially become synchronous if one of current synchronous ones fails. sync: This standby server is synchronous. quorum: This standby server is considered as a candidate for quorum standbys.</description>
+    </item>
+    
+    <item>
+      <title>数据库优化思考-性能优化</title>
+      <link>https://zhangeamon.top/postgres/thinking_in_db_performance/</link>
+      <pubDate>Fri, 26 Feb 2021 13:33:23 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/postgres/thinking_in_db_performance/</guid>
+      <description>为什么要优化 首先了解一个概念，什么是·熵增·
+物理定义：熵增过程是一个自发的由有序向无序发展的过程(Bortz, 1986; Roth, 1993)
+在一个孤立的系统里，如果没有外力做工，其总混乱度（即熵）会不断增大，直至系统彻底变得无序
+好比我的这个网站，写着写着东西多了也乱了。 开始整理，分类。加导航栏，加目录。
+从系统软件的角度： 从应用系统上线那一刻开始，随着用户量的增加、业务功能的持续迭代，系统会面临各种不同程度的挑战，如果不及时采取优化措施，我们会发现诸多问题，比如：系统怎么越来越慢了，流量一高系统就卡顿、甚至宕机等等。
+可以说，性能优化是贯穿在整个软件生命周期之中的
+通常有哪些优化方法  结构优化 性能优化 模块优化  在算法领域，评价一个算法的效率如何，主要会看它的时间复杂度和空间复杂度情况。
+引用在数据库的优化中，
+时间复杂度： 着重考量的是时间成本，效率。 通常理解成性能优化，如何让我的访问更快
+空间复杂度： 着重考量的是资源成本。可对应结构优化，如果组织数据的存放。
+那么，在做优化时，本质上也是从“优化时间”、“优化空间”、“时空互换（用时间换空间或用空间换时间）”三个方向去思考，然后在空间、时间上不停地做取舍。
+优化衡量指标 系统优化的目标提高系统的吞吐量：单位时间内能够处理的请求数量
+举个例子。把系统比作一个银行营业网点。 有多个窗口对外提供服务。 如何能够提高整体的处理量呢？
+  空间 增加营业窗口
+  时间 提高每个窗口的效率
+  关于空间的优化参见数据库优化思考 - 结构设计, 本篇更多思考的是性能（时间）的优化。
+性能优化的衡量指标 响应时间(RT), 包括
+ 平均响应时间(AVG)  接口的平均处理能力， 但什么东西一平均很多就被平均了，如人均收入！😓。 不能很好反应真实情况。另一种类似中位数的指标。
+ 百分位数(Top Percentile)  一种统计学术语，反映的是超过n%的请求都在m时间内返回，一般用TPn=m来描述，比如：TP99=5，表示超过99%的请求都能在5ms内返回。
+优化如何具体做 开发端：
+  实现方法 条条大路通罗马，实现的功能是否只满足业务功能的需求，而没有考虑性能。
+  索引 索引用的好，性能没烦恼。大部分应用端的性能问题都可以通过索引来改善。
+  索引本身也是一种空间换时间的手段。索引本身也是需要额外的代价。</description>
+    </item>
     
     <item>
       <title>hot update</title>
@@ -393,6 +448,27 @@ One row per server process, showing information related to the current activity 
     </item>
     
     <item>
+      <title>citus 简单应用</title>
+      <link>https://zhangeamon.top/postgres/citus01/</link>
+      <pubDate>Wed, 05 Jun 2019 10:40:09 +0800</pubDate>
+      
+      <guid>https://zhangeamon.top/postgres/citus01/</guid>
+      <description>常用方法 集群管理
+加入节点 SELECT * from master_add_node(&#39;worker-101&#39;, 5432); 查看节点状态 SELECT * FROM master_get_active_worker_nodes(); select * from pg_dist_node; 数据库管理
+ 分片表(distributed table ， hash | append ) 参考表(reference table 数据量小) 本地表(原生表，没有任何处理.兼容性高)  对表进行分片 SELECT create_distributed_table(&#39;companies&#39;, &#39;id&#39;); 分片查看 SELECT * from pg_dist_shard; 元数据表
+pg_dist_shard pg_dist_placement pg_dist_node 参数
+更多参考
+sql 限制
+1 非亲和性表之间的outer join
+方案： CTE 广播 、临时表、fdw
+2 本地表参与的join 不支持
+3 postgis 支持的限制，复杂计算
+注意事项
+1 max_adptive_executor_pool_size 防止但库负载过大
+2 参考表默认查询每次都是访问一个数据库的分布。 设置 task_assigment_policy TO &amp;lsquo;rond &#39; 轮询使用</description>
+    </item>
+    
+    <item>
       <title>tpch AP测试</title>
       <link>https://zhangeamon.top/postgres/tpch/</link>
       <pubDate>Wed, 05 Jun 2019 09:36:21 +0800</pubDate>
@@ -522,7 +598,7 @@ SELECT show_chunks(&#39;conditions&#39;); SELECT show_chunks(&#39;conditions&#39
     </item>
     
     <item>
-      <title>pg_rewind</title>
+      <title>PG主从切换 pg_rewind</title>
       <link>https://zhangeamon.top/postgres/pg_rewind/</link>
       <pubDate>Wed, 30 Jan 2019 10:16:17 +0800</pubDate>
       
@@ -544,18 +620,22 @@ pg_rewind登场 告别一下回到解放前。
     </item>
     
     <item>
-      <title>patroni auto ha</title>
+      <title>PG高可用Patroni</title>
       <link>https://zhangeamon.top/postgres/patroni/</link>
       <pubDate>Wed, 30 Jan 2019 10:14:55 +0800</pubDate>
       
       <guid>https://zhangeamon.top/postgres/patroni/</guid>
-      <description>https://www.cnblogs.com/zhangeamon/p/9772118.html
-https://www.linode.com/docs/databases/postgresql/create-a-highly-available-postgresql-cluster-using-patroni-and-haproxy
-使用维护手册
-ansible 管理
-实践
-其他HA 方案
-repmgr PAF</description>
+      <description>环境  操作系统 Centos 7 patroni 版本 2.0.2 postgres 版本 13  实现目标  高可用方案对比 patroni 结构分析 patroni 搭建新集群 patroni 接管现有集群 patroni 管理pg配置 手动swithover 自动failover 维护模式 弹性扩容，缩容 对外提供统一服务 RestFULLAPI 备份恢复 监控 日志 升级  高可用方案对比 pg的高可用方案都是基于流复制来实现
+  PAF
+pacemaker + corosyns
+  repmgr
+repmgr 手动流复制管理
+repmgrd 自动流复制管理 守护进程
+主+从
+主+从+见证节点
+  更多介绍
+patroni架构分析  DCS[etcd] 外部依赖 ，集群通信选主 patroni 与pg在同一个节点， 守护进程  patroni搭建新集群 1 虚拟机环境
+10.10.1.10 node0 外部节点etcd 10.</description>
     </item>
     
     <item>
@@ -577,6 +657,7 @@ ha 数据库自身的主从流复制。
       
       <guid>https://zhangeamon.top/postgres/pgwatch2/</guid>
       <description>介绍 pgwatch2官方
+官方演示示例
 架构 agent server
   agent 在被监控的pg上自定义方法，用于收集数据库信息。这些自定义的方法需要依赖需要数据库扩展如pg_stat_statements,plpythonu.
   server 负责存储收集过来的信息，可以存放在postgres或influxdb中. 并将收集的信息进行展示grafana.

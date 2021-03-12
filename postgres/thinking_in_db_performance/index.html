@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<title>数据库优化思考-性能优化</title>
+	<link href="%3cnil%3e" rel="alternate" type="application/rss+xml" title="Let&#39;s Go!" />
+	<base href="https://zhangeamon.top/">
+	<link href="https://zhangeamon.top/css/style.min.css" rel="stylesheet">
+	<link href="https://zhangeamon.top/css/main.css" rel="stylesheet">
+        <script src="https://zhangeamon.top/js/jquery-1.12.4.min.js"></script>
+        <script src="https://zhangeamon.top/js/main.js"></script>
+        
+        <a href=https://github.com/bodani/blog-hugo><img style="position: absolute; top: 0; left: 0; border: 0;" src="images/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="images/forkme_left_red_aa0000.png"></a>
+               
+ 
+        
+        <script>
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1f6605a363a50554aa03adcc685b7699";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+          })();
+       </script>
+</head>
+<body>
+<header class="site-header">
+	<div class="container">
+		<h1 class="site-title"><a href="https://zhangeamon.top/">Let&#39;s Go!</a></h1>
+		<p class="lead blog-description">Let&#39;s build private cloud native together,  go! go! go! </p>
+	</div>
+</header>
+
+<nav class="main-nav">
+  <div class="container" id="main-navbar">
+    <ul class="main-menu">
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >数据库</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top//content/postgres/" title="">Postgres</a>
+                  <a href="https://zhangeamon.top/mysql/" title="">Mysql</a>
+                  
+                  <a href="https://zhangeamon.top/es/" title="">ElasticSearch</a>
+                  <a href="https://zhangeamon.top/dw/" title="">DataWarehose</a>
+                </div>
+            </li>
+
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >云平台</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/kvm/" title="">虚拟化</a>
+                  <a href="https://zhangeamon.top/storage/" title="">云存储</a>
+                  <a href="https://zhangeamon.top/docker/" title="">Docker</a>
+                  <a href="https://zhangeamon.top/k8s/" title="">Kubernetes</a>
+                  <a href="https://zhangeamon.top/elk/" title="">日志</a>
+                  <a href="https://zhangeamon.top/istio/" title="">微服务治理</a>
+                </div>
+            </li>
+             
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >中间件</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/redis/" title="">Redis</a>
+                  <a href="https://zhangeamon.top/kafka/" title="">Kafka</a>
+                  <a href="https://zhangeamon.top/memcached/" title="">Memcached</a>
+                  <a href="https://zhangeamon.top/rabbitmq/" title="">RabbitMQ</a>
+                  <a href="https://zhangeamon.top/middleware/" title="">其他</a>
+                </div>
+            </li>
+           
+            <li class="navlinks-container">
+               <a class="navlinks-parent" href="javascript:void(0)" title="" >写代码</a>
+                <div class="navlinks-children">
+                  <a href="https://zhangeamon.top/python/" title="">Python</a>
+                  <a href="https://zhangeamon.top/go/" title="">GO</a>
+                  <a href="https://zhangeamon.top/lua/" title="">Lua</a>
+                  <a href="https://zhangeamon.top/ansible/" title="">Ansible</a>
+                </div>
+            </li>
+	    <li><a href="https://zhangeamon.top/monitor/" title="">监控</a></li>
+	    <li><a href="https://zhangeamon.top/network-security/" title="">网络/安全</a></li>
+            <li><a href="https://zhangeamon.top/linux/" title=""> Linux </a></li>
+	    <li><a href="https://zhangeamon.top/about/" title="">关于</a></li>
+     </ul>
+  </div>
+</nav>
+
+<div class="main-content container">
+	<div class="post">
+		<h1 class="post-title">数据库优化思考-性能优化</h1>
+		<div class="post-meta">
+			<p>2021年2月26日</p>
+		</div>
+		<h5 id="为什么要优化">为什么要优化</h5>
+<p>首先了解一个概念，什么是·熵增·</p>
+<p>物理定义：熵增过程是一个自发的由有序向无序发展的过程(Bortz, 1986; Roth, 1993)</p>
+<p>在一个孤立的系统里，如果没有外力做工，其总混乱度（即熵）会不断增大，直至系统彻底变得无序</p>
+<p>好比我的这个网站，写着写着东西多了也乱了。 开始整理，分类。加导航栏，加目录。</p>
+<p>从系统软件的角度： 从应用系统上线那一刻开始，随着用户量的增加、业务功能的持续迭代，系统会面临各种不同程度的挑战，如果不及时采取优化措施，我们会发现诸多问题，比如：系统怎么越来越慢了，流量一高系统就卡顿、甚至宕机等等。</p>
+<p>可以说，性能优化是贯穿在整个软件生命周期之中的</p>
+<h5 id="通常有哪些优化方法">通常有哪些优化方法</h5>
+<ul>
+<li><a href="postgres/thinking_in_db_fd/">结构优化</a></li>
+<li><a href="postgres/thinking_in_db_performance/">性能优化</a></li>
+<li><a href="postgres/thinking_in_db_tune/">模块优化</a></li>
+</ul>
+<p>在算法领域，评价一个算法的效率如何，主要会看它的时间复杂度和空间复杂度情况。</p>
+<p>引用在数据库的优化中，</p>
+<p>时间复杂度： 着重考量的是时间成本，效率。 通常理解成性能优化，如何让我的访问更快</p>
+<p>空间复杂度： 着重考量的是资源成本。可对应结构优化，如果组织数据的存放。</p>
+<p>那么，在做优化时，本质上也是从“优化时间”、“优化空间”、“时空互换（用时间换空间或用空间换时间）”三个方向去思考，然后在空间、时间上不停地做取舍。</p>
+<h5 id="优化衡量指标">优化衡量指标</h5>
+<p>系统优化的目标提高系统的吞吐量：单位时间内能够处理的请求数量</p>
+<p>举个例子。把系统比作一个银行营业网点。 有多个窗口对外提供服务。 如何能够提高整体的处理量呢？</p>
+<ul>
+<li>
+<p>空间 增加营业窗口</p>
+</li>
+<li>
+<p>时间 提高每个窗口的效率</p>
+</li>
+</ul>
+<p>关于空间的优化参见<a href="postgres/thinking_in_db_fd/">数据库优化思考 - 结构设计</a>, 本篇更多思考的是性能（时间）的优化。</p>
+<h6 id="性能优化的衡量指标">性能优化的衡量指标</h6>
+<p>响应时间(RT), 包括</p>
+<ul>
+<li>平均响应时间(AVG)</li>
+</ul>
+<p>接口的平均处理能力， 但什么东西一平均很多就被平均了，如人均收入！😓。 不能很好反应真实情况。另一种类似中位数的指标。</p>
+<ul>
+<li>百分位数(Top Percentile)</li>
+</ul>
+<p>一种统计学术语，反映的是超过n%的请求都在m时间内返回，一般用TPn=m来描述，比如：TP99=5，表示超过99%的请求都能在5ms内返回。</p>
+<h6 id="优化如何具体做">优化如何具体做</h6>
+<p>开发端：</p>
+<ul>
+<li>
+<p>实现方法
+条条大路通罗马，实现的功能是否只满足业务功能的需求，而没有考虑性能。</p>
+</li>
+<li>
+<p>索引
+索引用的好，性能没烦恼。大部分应用端的性能问题都可以通过索引来改善。</p>
+</li>
+</ul>
+<p>索引本身也是一种空间换时间的手段。索引本身也是需要额外的代价。</p>
+<ul>
+<li>锁等待
+最漫长的莫过于等待。</li>
+</ul>
+<p>运维端：</p>
+<p>通过性能指标监控验证优化成果，如</p>
+<ul>
+<li>TPS</li>
+<li>慢sql</li>
+<li>缓存命中率</li>
+<li>频繁sql- top10</li>
+<li>不稳定sql - top10</li>
+<li>索引利用率</li>
+<li>TPn</li>
+</ul>
+<p>DBA：</p>
+<p>通过执行计划对具体sql进行调优</p>
+
+	</div>
+	<ul class="pager">
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/monitor/smapler/">«Smapler</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/patroni02/">Patroni 高可用管理进阶»</a></li>
+	</ul>
+</div>
+<footer class="site-footer">
+	<div class="container">
+		<p>本站使用 <a href="https://gohugo.io/">Hugo</a> 并基于 <a href="https://github.com/bodani/Simple">Simple</a> 主题构建.&nbsp;
+		<p class="text-muted small">&copy; 2018-2021 by Eamon</p>
+	</div>
+</footer>
+
+</body>
+</html>
+
