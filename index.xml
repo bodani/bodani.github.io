@@ -6,20 +6,10 @@
     <description>Recent content on Let&#39;s Go!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Mar 2021 09:19:57 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 09 Mar 2021 17:23:59 +0800</lastBuildDate>
     
 	<atom:link href="https://zhangeamon.top/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>缓存穿透</title>
-      <link>https://zhangeamon.top/redis/cache-penetration/</link>
-      <pubDate>Wed, 10 Mar 2021 09:19:57 +0800</pubDate>
-      
-      <guid>https://zhangeamon.top/redis/cache-penetration/</guid>
-      <description>缓存穿透（Cache Penetration） 了解下
-布隆过滤器Bloom Filter</description>
-    </item>
     
     <item>
       <title>Redis 应用场景</title>
@@ -27,34 +17,11 @@
       <pubDate>Tue, 09 Mar 2021 17:23:59 +0800</pubDate>
       
       <guid>https://zhangeamon.top/redis/redis-scence/</guid>
-      <description>应用场景  缓存 消息队列 循环列表 排行榜 计数器 SET 集合操作 分布式锁 跳表  </description>
-    </item>
-    
-    <item>
-      <title>Redis 持久化策略</title>
-      <link>https://zhangeamon.top/redis/redis-durability/</link>
-      <pubDate>Tue, 09 Mar 2021 17:04:58 +0800</pubDate>
-      
-      <guid>https://zhangeamon.top/redis/redis-durability/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Redis Cluster</title>
-      <link>https://zhangeamon.top/redis/redis-cluster/</link>
-      <pubDate>Tue, 09 Mar 2021 17:00:05 +0800</pubDate>
-      
-      <guid>https://zhangeamon.top/redis/redis-cluster/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Redis 高可用 Sentinel</title>
-      <link>https://zhangeamon.top/redis/sentinel/</link>
-      <pubDate>Tue, 09 Mar 2021 16:57:34 +0800</pubDate>
-      
-      <guid>https://zhangeamon.top/redis/sentinel/</guid>
-      <description>介绍 https://mp.weixin.qq.com/s/qGfAuS0e8dV77SRI3O3Q_w</description>
+      <description>应用场景 作为一名匠人，当熟悉手里各样工具的特点。用起来才能得心应手。什么时候使用锯子，什么时候当用斧子。
+同理熟知产品的技术特性，方可灵活运用。
+在面对不同的业务需求时才能提供具有针对性的解决方案。
+不求十八般兵器样样精通，但求不置斧锯于一旁只顾轮打锤。
+Redis 都能干点啥  缓存 消息队列 循环列表 排行榜 计数器 SET 集合操作 分布式锁 跳表  </description>
     </item>
     
     <item>
