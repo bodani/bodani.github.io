@@ -94,16 +94,24 @@
 		<div class="post-meta">
 			<p>2019年1月9日</p>
 		</div>
-		<h4 id="介绍">介绍</h4>
-<p>pgbench是一种在PostgreSQL上运行基准测试的简单程序。<br>
+		
+
+<h4 id="介绍">介绍</h4>
+
+<p>pgbench是一种在PostgreSQL上运行基准测试的简单程序。<br />
 <a href="http://www.postgres.cn/docs/9.6/pgbench.html">官方文档</a></p>
+
 <ul>
 <li>默认测试</li>
 <li>自定义测试</li>
 </ul>
+
 <h4 id="默认测试">默认测试</h4>
+
 <p>pgbench中默认自带一套测试数据库和测试sql脚本。</p>
+
 <h6 id="初始化默认数据库">初始化默认数据库</h6>
+
 <pre><code>使用 -i 初始化数据库
 
 #pgbench -U postgres -i -s 10 pgbenchdb
@@ -143,7 +151,10 @@ pgbenchdb=# \d+
  public   | pgbench_tellers    | 数据表 | postgres | 8192 bytes | 
 (5 行记录)
 
-</code></pre><h5 id="开始测试">开始测试</h5>
+</code></pre>
+
+<h5 id="开始测试">开始测试</h5>
+
 <pre><code>pgbench -M prepared -r -n -c 100 -j 100 -T 100 -U postgres   pgbenchdb 
 transaction type: &lt;builtin: TPC-B (sort of)&gt;
 scaling factor: 10
@@ -177,29 +188,46 @@ script statistics:
 -j 线程数量 客户端共用所有的线程 -j &lt;= -c 
 -T 运行的时间 单位秒 。 时间太短会导致结果不是很准确，至少要运行几分钟，消除噪声对结果的影响。
 -t 运行的事务数 每个客户端
-</code></pre><h5 id="结果解读">结果解读</h5>
+</code></pre>
+
+<h5 id="结果解读">结果解读</h5>
+
 <p>略 ，一看就懂</p>
+
 <h4 id="自定义测试">自定义测试</h4>
+
 <p>示例说明</p>
+
 <pre><code>pgbench -M prepared -n -r -c 32 -j 32 -P 5 -C -f ./test.sql -U postgres pgbenchdb -T 300
-</code></pre><p>注意事项: pgbench与pg不要在同一台机器上</p>
+</code></pre>
+
+<p>注意事项: pgbench与pg不要在同一台机器上</p>
+
 <p>各种场景压力测试
 <a href="https://github.com/digoal/blog/blob/362b84417ca8b7aaf1add31fe7689c347642bb9a/201706/20170601_02.md">https://github.com/digoal/blog/blob/362b84417ca8b7aaf1add31fe7689c347642bb9a/201706/20170601_02.md</a></p>
+
 <h4 id="遇见问题">遇见问题</h4>
+
 <p>测试 -C 参数时 使用的pgbouncer作为连接池出现如下错误</p>
+
 <pre><code>Cannot assign requested address
-</code></pre><p>原因客户端频繁的连服务器，由于每次连接都在很短的时间内结束，导致很多的TIME_WAIT，以至于用光了可用的端口号，所以新的连接没办法绑定端口，即“Cannot assign requested address”。<br>
+</code></pre>
+
+<p>原因客户端频繁的连服务器，由于每次连接都在很短的时间内结束，导致很多的TIME_WAIT，以至于用光了可用的端口号，所以新的连接没办法绑定端口，即“Cannot assign requested address”。<br />
 是客户端的问题不是服务器端的问题。通过netstat，的确看到很多TIME_WAIT状态的连接。</p>
+
 <p>client端频繁建立连接，而端口释放较慢，导致建立新连接时无可用端口。</p>
+
 <p>解决方法：</p>
-<p>执行命令修改如下2个内核参数 （需要root权限）<br>
-sysctl -w net.ipv4.tcp_timestamps=1  开启对于TCP时间戳的支持,若该项设置为0，则下面一项设置不起作用<br>
+
+<p>执行命令修改如下2个内核参数 （需要root权限）<br />
+sysctl -w net.ipv4.tcp_timestamps=1  开启对于TCP时间戳的支持,若该项设置为0，则下面一项设置不起作用<br />
 sysctl -w net.ipv4.tcp_tw_recycle=1  表示开启TCP连接中TIME-WAIT sockets的快速回收</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/at-crontab/">«定时任务</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgfincore/">pgfincore»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pgfincore/">«pgfincore</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/at-crontab/">定时任务»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

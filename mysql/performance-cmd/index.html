@@ -95,37 +95,29 @@
 			<p>2019年1月29日</p>
 		</div>
 		<p>MySQL常用性能突发事件分析命令：</p>
+
 <ol>
-<li>
-<p>SHOW PROCESSLIST; —当前MySQL数据库的运行的所有线程</p>
-</li>
-<li>
-<p>INNODB_TRX; — 当前运行的所有事务</p>
-</li>
-<li>
-<p>INNODB_LOCKS; — 当前出现的锁</p>
-</li>
-<li>
-<p>INNODB_LOCK_WAITS; — 锁等待的对应关系计</p>
-</li>
-<li>
-<p>SHOW OPEN TABLES where In_use &gt;0; — 当前打开表</p>
-</li>
-<li>
-<p>SHOW ENGINE INNODB STATUS  \G; —Innodb状态</p>
-</li>
-<li>
-<p>SHOW STATUS LIKE  &lsquo;innodb_row_lock_%'; — 锁性能状态</p>
-</li>
-<li>
-<p>SQL语句EXPLAIN; — 查询优化器</p>
-</li>
+<li><p>SHOW PROCESSLIST; —当前MySQL数据库的运行的所有线程</p></li>
+
+<li><p>INNODB_TRX; — 当前运行的所有事务</p></li>
+
+<li><p>INNODB_LOCKS; — 当前出现的锁</p></li>
+
+<li><p>INNODB_LOCK_WAITS; — 锁等待的对应关系计</p></li>
+
+<li><p>SHOW OPEN TABLES where In_use &gt;0; — 当前打开表</p></li>
+
+<li><p>SHOW ENGINE INNODB STATUS  \G; —Innodb状态</p></li>
+
+<li><p>SHOW STATUS LIKE  &lsquo;innodb_row<em>lock</em>%&lsquo;; — 锁性能状态</p></li>
+
+<li><p>SQL语句EXPLAIN; — 查询优化器</p></li>
 </ol>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_citus/">«citus 数据库分库</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/patroni/">PG高可用Patroni»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/patroni/">«PG高可用Patroni</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pg_citus/">citus 数据库分库»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

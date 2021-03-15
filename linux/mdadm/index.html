@@ -94,11 +94,19 @@
 		<div class="post-meta">
 			<p>2018年12月3日</p>
 		</div>
-		<h4 id="背景">背景</h4>
+		
+
+<h4 id="背景">背景</h4>
+
 <p>mdadm是linux下用于创建和管理软件RAID的命令，是一个模式化命令。但由于现在服务器一般都带有RAID阵列卡，并且RAID阵列卡也很廉价，且由于软件RAID的自身缺陷（不能用作启动分区、使用CPU实现，降低CPU利用率），因此在生产环境下并不适用。但为了学习和了解RAID原理和管理，因此仍然进行一个详细的讲解：</p>
+
 <h4 id="安装">安装</h4>
+
 <pre><code>yum install mdadm -y
-</code></pre><h4 id="组建raid">组建raid</h4>
+</code></pre>
+
+<h4 id="组建raid">组建raid</h4>
+
 <pre><code>组装raid 
 mdadm -C /dev/md0 -a yes -n 4 -l 10 /dev/sdb /dev/sdc /dev/sdd /dev/sde
 
@@ -110,7 +118,9 @@ mdadm -C /dev/md0 -a yes -n 4 -l 10 /dev/sdb /dev/sdc /dev/sdd /dev/sde
 -c 指定数据块大小（chunk）
 -x 指定空闲盘（热备磁盘）个数，空闲盘（热备磁盘）能在工作盘损坏后自动顶替
 注意：创建阵列时，阵列所需磁盘数为-n参数和-x参数的个数和
-</code></pre><pre><code>查看状态, 组装进度等
+</code></pre>
+
+<pre><code>查看状态, 组装进度等
 mdadm -D /dev/md0
 
 也可以通过mdstat查看状态
@@ -122,33 +132,58 @@ md127 : active raid10 sdd[2] sda[3] sdb[0] sdc[1]
       bitmap: 1/8 pages [4KB], 65536KB chunk
 
 unused devices: &lt;none&gt;
-</code></pre><pre><code>如下信息说明： 提示软raid 不能作为启动分区
+</code></pre>
+
+<pre><code>如下信息说明： 提示软raid 不能作为启动分区
 mdadm: Note: this array has metadata at the start and
     may not be suitable as a boot device.  If you plan to
     store '/boot' on this device please ensure that
     your boot-loader understands md/v1.x metadata, or use
     --metadata=0.90
 Continue creating array? y
-</code></pre><h4 id="管理">管理</h4>
+</code></pre>
+
+<h4 id="管理">管理</h4>
+
 <p>选项：-a(&ndash;add)，-d(&ndash;del),-r(&ndash;remove),-f(&ndash;fail)</p>
+
 <h5 id="模拟损坏">模拟损坏</h5>
+
 <pre><code>mdadm /dev/md1 -f /dev/sdb5
-</code></pre><h5 id="移除损坏的磁盘">移除损坏的磁盘</h5>
+</code></pre>
+
+<h5 id="移除损坏的磁盘">移除损坏的磁盘</h5>
+
 <pre><code>mdadm /dev/md1 -r /dev/sdb5
-</code></pre><h5 id="添加新的硬盘到已有阵列">添加新的硬盘到已有阵列</h5>
+</code></pre>
+
+<h5 id="添加新的硬盘到已有阵列">添加新的硬盘到已有阵列</h5>
+
 <pre><code>mdadm /dev/md1 -a /dev/sdb7     
 注意:   
 1 新增加的硬盘需要与原硬盘大小一致    
 2 如果原有阵列缺少工作磁盘（如raid1只有一块在工作，raid5只有2块在工作），这时新增加的磁盘直接变为工作磁盘，如果原有阵列工作正常，则新增加的磁盘为热备磁盘。 
-</code></pre><h5 id="重新添加">重新添加</h5>
+</code></pre>
+
+<h5 id="重新添加">重新添加</h5>
+
 <pre><code>mdadm /dev/md1 --re-add /dev/sdb7
-</code></pre><h5 id="停止阵列">停止阵列</h5>
+</code></pre>
+
+<h5 id="停止阵列">停止阵列</h5>
+
 <pre><code>选项：-S = --stop
 mdadm -S /dev/md1
-</code></pre><h5 id="启动阵列">启动阵列</h5>
+</code></pre>
+
+<h5 id="启动阵列">启动阵列</h5>
+
 <pre><code>选项：-R= --run
 mdadm -R  /dev/md1
-</code></pre><p><a href="https://www.cnblogs.com/zhangeamon/p/6866429.html">详情</a></p>
+</code></pre>
+
+<p><a href="https://www.cnblogs.com/zhangeamon/p/6866429.html">详情</a></p>
+
 <pre><code>For Manage mode:
        -t, --test
               Unless a more serious error occurred, mdadm will exit with a status of 2 if no changes were made to the array and 0 if at least one change was made.  This can be useful when an indirect specifier such as missing, detached or faulty  is  used  in
@@ -195,7 +230,10 @@ mdadm -R  /dev/md1
        --replace
               Mark  listed devices as requiring replacement.  As soon as a spare is available, it will be rebuilt and will replace the marked device.  This is similar to marking a device as faulty, but the device remains in service during the recovery process
               to increase resilience against multiple failures.  When the replacement process finishes, the replaced device will be marked as faulty.
-</code></pre><h5 id="查看raid组装信息">查看raid组装信息</h5>
+</code></pre>
+
+<h5 id="查看raid组装信息">查看raid组装信息</h5>
+
 <pre><code>cat /proc/mdstat 
 Personalities : [raid10] 
 md127 : active raid10 sdc[1] sdd[2] sda[3] sdb[0]
@@ -203,30 +241,42 @@ md127 : active raid10 sdc[1] sdd[2] sda[3] sdb[0]
       bitmap: 1/8 pages [4KB], 65536KB chunk
 
 unused devices: &lt;none&gt;
-</code></pre><p>[UUUU] 启动正常U up?<br>
-S spare<br>
+</code></pre>
+
+<p>[UUUU] 启动正常U up?<br />
+S spare<br />
 R rebuiding</p>
+
 <h5 id="state-状态-active-和-clean-的区别">state 状态 active 和 clean 的区别</h5>
+
 <p>clean - no pending writes, but otherwise active.
-When written to inactive array, starts without resync
-If a write request arrives then
-if metadata is known, mark &lsquo;dirty&rsquo; and switch to &lsquo;active&rsquo;.
-if not known, block and switch to write-pending
-If written to an active array that has pending writes, then fails.
+    When written to inactive array, starts without resync
+    If a write request arrives then
+      if metadata is known, mark &lsquo;dirty&rsquo; and switch to &lsquo;active&rsquo;.
+      if not known, block and switch to write-pending
+    If written to an active array that has pending writes, then fails.
 active
-fully active: IO and resync can be happening.
-When written to inactive array, starts with resync</p>
+    fully active: IO and resync can be happening.
+    When written to inactive array, starts with resync</p>
+
 <p><a href="https://www.tecmint.com/category/raid/">更过详情</a></p>
+
 <h4 id="异常处理">异常处理</h4>
+
 <p>在组装过程中意外中断，机器重启，如下状态</p>
+
 <pre><code> State : clean, resyncing (PENDING) 
-</code></pre><p>解决</p>
+</code></pre>
+
+<p>解决</p>
+
 <pre><code>mdadm --readwrite /dev/md127 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/init-centos/">«Centos 初始化配置</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/smartctl/">smartctl 硬盘检测»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/smartctl/">«smartctl 硬盘检测</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/init-centos/">Centos 初始化配置»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

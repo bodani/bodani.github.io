@@ -94,31 +94,48 @@
 		<div class="post-meta">
 			<p>2018年12月24日</p>
 		</div>
-		<h4 id="名字的意思">名字的意思</h4>
+		
+
+<h4 id="名字的意思">名字的意思</h4>
+
 <p>Kernel Worker</p>
+
 <h4 id="什么时候有的">什么时候有的</h4>
+
 <p>kworker是3.x内核引入的</p>
+
 <h4 id="这么看">这么看</h4>
+
 <p>系统中查看</p>
+
 <p>Linux下使用 ps -ef|grep kowrker</p>
+
 <h4 id="显示的内容怎么看">显示的内容怎么看</h4>
+
 <p>显示的格式kworker/%u:%d%s</p>
+
 <p>u：是unbound的缩写，代表没有绑定特定的CPU，kworker /u2:0中的 2 是 work_pool 的ID。</p>
+
 <p>不带u的就是绑定特定cpu的workerq，它在init_workqueues中初始化，给每个cpu分配worker，如果该worker的nice小于0，说明它的优先级很高，所以就加了H属性。</p>
+
 <p>具有负面价值的勤劳工人的名字后缀为&rsquo;H&rsquo;。</p>
+
 <h4 id="有什么用">有什么用</h4>
+
 <p>kworker 进程是内核工作进程，并且有很多进程是无害的。
 Linux系统中会将一个个的小任务分到不同的工作队列中，让工作队列里面的工人来完成</p>
+
 <p>内核工作线程可以做任何事情，例如一些随机的例子：</p>
+
 <p>做页面缓存写回
 处理某些种类的硬件事件 (如硬件中断,定时器，I / O等)
 很多很多其他的东西
-要知道任何kworker在做什么，你可以看看cat /proc/&lt;kworker_pid&gt;/stack。</p>
+要知道任何kworker在做什么，你可以看看cat /proc/<kworker_pid>/stack。</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/index-invalid/">«引起索引失效</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/monitor/zabbix-fqa/">Zabbix FQA»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/monitor/zabbix-fqa/">«Zabbix FQA</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/index-invalid/">引起索引失效»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

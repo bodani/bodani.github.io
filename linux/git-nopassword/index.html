@@ -95,26 +95,38 @@
 			<p>2020年3月19日</p>
 		</div>
 		<p>一、配置Git的</p>
+
 <pre><code>git config --global user.name [userName]
 
 git config --global user.email [userEmail]
-</code></pre><p>二、配置存储模式</p>
+</code></pre>
+
+<p>二、配置存储模式</p>
+
 <pre><code>git config --global credential.helper store
-</code></pre><p>执行之后会在linux用户主目录下的.gitconfig文件中多加 helper = store</p>
+</code></pre>
+
+<p>执行之后会在linux用户主目录下的.gitconfig文件中多加 helper = store</p>
+
 <pre><code>[user]
         name = eamonzhang
         email = xxxx@xxxx.com
 [credential]
         helper = store
-</code></pre><p>之后cd到项目目录，执行git pull命令，会提示输入账号密码。输完这一次以后就不再需要，并且会在根目录生成一个.git-credentials文件</p>
+</code></pre>
+
+<p>之后cd到项目目录，执行git pull命令，会提示输入账号密码。输完这一次以后就不再需要，并且会在根目录生成一个.git-credentials文件</p>
+
 <p>三、注意事项</p>
+
 <pre><code>git config --global 全局设置生效
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pgage/">«数据库年龄</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/install02/">数据库安装 Postgres12 Ubuntu18»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/install02/">«数据库安装 Postgres12 Ubuntu18</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgage/">数据库年龄»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

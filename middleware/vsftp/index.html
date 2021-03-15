@@ -94,92 +94,158 @@
 		<div class="post-meta">
 			<p>2018年12月5日</p>
 		</div>
-		<h4 id="利用vsftpd-搭建ftp-服务器">利用vsftpd 搭建FTP 服务器</h4>
+		
+
+<h4 id="利用vsftpd-搭建ftp-服务器">利用vsftpd 搭建FTP 服务器</h4>
+
 <h5 id="安装">安装</h5>
+
 <pre><code>yum -y install vsftpd
-</code></pre><h5 id="添加用户及设置密码">添加用户及设置密码</h5>
+</code></pre>
+
+<h5 id="添加用户及设置密码">添加用户及设置密码</h5>
+
 <pre><code>useradd -s /sbin/nologin -d /home/ftp_test ftp_test
 passwd ftp_test
-</code></pre><p>-s 禁止ssh登录主机      <br>
+</code></pre>
+
+<p>-s 禁止ssh登录主机<br />
 -d 设置ftp_test 用户home 目录，用于存放数据</p>
+
 <h5 id="基础配置">基础配置</h5>
+
 <p>vi /etc/vsftpd/vsftpd.conf</p>
+
 <pre><code># 禁止匿名访问
 anonymous_enable=NO
 # 禁止dns解析 
 reverse_lookup_enable=NO
-</code></pre><h5 id="启动开机自启">启动&amp;开机自启</h5>
+</code></pre>
+
+<h5 id="启动-开机自启">启动&amp;开机自启</h5>
+
 <pre><code>systemctl start vsftpd.service
 systemctl enable vsftpd.service
-</code></pre><h5 id="filezilla-客户端验证">filezilla 客户端验证</h5>
+</code></pre>
+
+<h5 id="filezilla-客户端验证">filezilla 客户端验证</h5>
+
 <pre><code>host: 服务器IP
 port: 默认
 user: 
 password:
-</code></pre><p>测试本地上传，远程下载，一切OK,感觉那么顺畅完美。</p>
+</code></pre>
+
+<p>测试本地上传，远程下载，一切OK,感觉那么顺畅完美。</p>
+
 <p>but可以访问到服务器中的所有文件和目录,似乎权限也忒大了。</p>
+
 <p>接下来是入坑时间，有史以来最折磨的经历，总结出如下绕坑指南。</p>
-<h5 id="限制只能访问用户自己的目录对其他目录不可见">限制只能访问用户自己的目录，对其他目录不可见</h5>
+
+<h5 id="限制只能访问用户自己的目录-对其他目录不可见">限制只能访问用户自己的目录，对其他目录不可见</h5>
+
 <p>vi /etc/vsftpd/vsftpd.conf</p>
+
 <pre><code>chroot_local_user=YES
 chroot_list_enable=YES
 # (default follows)
 chroot_list_file=/etc/vsftpd/chroot_list
-</code></pre><p>创建文件</p>
+</code></pre>
+
+<p>创建文件</p>
+
 <pre><code>touch /etc/vsftpd/chroot_list
-</code></pre><p>chroot_list 中的用户不受限制</p>
+</code></pre>
+
+<p>chroot_list 中的用户不受限制</p>
+
 <p>创建存储目录　data</p>
+
 <pre><code>mkdir /home/ftp_test/data
-</code></pre><p>修改对应权限</p>
+</code></pre>
+
+<p>修改对应权限</p>
+
 <pre><code>chmod 777 home/ftp_test/ -R
 chmod a-w home/ftp_test/
-</code></pre><p>重启vsftpd 服务 <br>
+</code></pre>
+
+<p>重启vsftpd 服务<br />
 重新连接filezilla</p>
+
 <h5 id="遇到问题">遇到问题</h5>
+
 <p>问题1 没有chroot_list 文件
 500 OOPS: could not read chroot() list file:/etc/vsftpd/chroot_list 解决 创建 chroot_list 文件</p>
+
 <p>问题2
 当我们限定了用户不能跳出其主目录之后，使用该用户登录FTP时往往会遇到这个错误：</p>
+
 <p>500 OOPS: vsftpd: refusing to run with writable root inside chroot ()</p>
+
 <p>这个问题发生在最新的这是由于下面的更新造成的：</p>
+
 <ul>
 <li>Add stronger checks for the configuration error of running with a writeable root directory inside a chroot(). This may bite people who carelessly turned on chroot_local_user but such is life.</li>
 </ul>
+
 <p>从2.3.5之后，vsftpd增强了安全检查，如果用户被限定在了其主目录下，则该用户的主目录不能再具有写权限了！如果检查发现还有写权限，就会报该错误。
 要修复这个错误，可以用命令chmod a-w /home/user去除用户主目录的写权限，注意把目录替换成你自己的。或者你可以在vsftpd的配置文件中增加下列两项中的一项：</p>
+
 <p>allow_writeable_chroot=YES</p>
+
 <p>问题3</p>
+
 <p>vsftp上传文件出现553 Could not create file</p>
+
 <pre><code>首先在ftp的目录中创建一个目录，然后设置权限为777
 $ sudo mkdir /var/ftp/write
 $sudo chmod -R 777 /var/ftp/write
 然后修改vsftp的配置文件/etc/vsftpd.conf文件
 在最后添加上
 local_root=/var/ftp
-</code></pre><p>问题4</p>
+</code></pre>
+
+<p>问题4</p>
+
 <p>客户端建立连接慢，尤其是离线状态</p>
+
 <p>reverse_lookup_enable=NO</p>
+
 <p>问题5</p>
+
 <p>530  Login incorrect</p>
-<p>如果是root用户 原因是因为在 /etc/vsftpd/user_list /etc/vsftpd/ftpusers 中的用户禁止登陆 <br>
+
+<p>如果是root用户 原因是因为在 /etc/vsftpd/user_list /etc/vsftpd/ftpusers 中的用户禁止登陆<br />
 如果是虚拟用户 检查 /etc/shells 看是否包括如下配置</p>
+
 <pre><code>cat /etc/shells 
 /sbin/nologin
 /usr/sbin/nologin
 
-</code></pre><p>原因认证错误</p>
+</code></pre>
+
+<p>原因认证错误</p>
+
 <p>如果是密码错误可在vsftpd 日志中看到</p>
+
 <p>pam 认证问题 ,去掉认证试试</p>
+
 <pre><code>vi /etc/pam.d/vsftpd 
 #auth       required     pam_shells.so
-</code></pre><p>问题5</p>
+</code></pre>
+
+<p>问题5</p>
+
 <p>550 Ubuntu 下只有读权限没有写权限</p>
+
 <pre><code>write_enable=YES
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/log/">«数据库日志</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/docker/nginx-log/">Nginx log 切割»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/docker/nginx-log/">«Nginx log 切割</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/log/">数据库日志»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

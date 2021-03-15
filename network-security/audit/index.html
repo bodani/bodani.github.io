@@ -94,11 +94,19 @@
 		<div class="post-meta">
 			<p>2020年5月8日</p>
 		</div>
-		<h4 id="介绍">介绍</h4>
+		
+
+<h4 id="介绍">介绍</h4>
+
 <p>auditd是Linux审计系统中用户空间的一个组件，负责将审计记录写到磁盘中。在CentOS7上默认就会有安装这个服务。</p>
+
 <p>如果被卸载，可以直接使用yum进行安装：</p>
+
 <pre><code>yum -y install audit auditd-libs
-</code></pre><h4 id="常用命令">常用命令</h4>
+</code></pre>
+
+<h4 id="常用命令">常用命令</h4>
+
 <pre><code>1、auditctl : 即时控制审计守护进程的行为的工具，比如如添加规则等等。
 audtitctl -l #查看规则
 auditctl -D #清空规则
@@ -109,25 +117,40 @@ ausearch -i -p 4096
 4、autrace : 一个用于跟踪进程的命令。
 autrace -r /usr/sbin/anacron
 
-</code></pre><h4 id="简单应用">简单应用</h4>
+</code></pre>
+
+<h4 id="简单应用">简单应用</h4>
+
 <h6 id="监控文件或者目录的更改">监控文件或者目录的更改</h6>
+
 <pre><code>auditctl -w /etc/passwd -p rwxa -k passwd
 
 -w path : 指定要监控的路径，上面的命令指定了监控的文件路径 /etc/passwd
 -p : 指定触发审计的文件或者目录的访问权限
 rwxa ： 指定的触发条件，r 读取权限，w 写入权限，x 执行权限，a 属性（attr）
-</code></pre><p>运行这条命令之后就开始监控了，但是机器重启之后就失效了，因此要永久生效就需要写到规则文件里面。
+</code></pre>
+
+<p>运行这条命令之后就开始监控了，但是机器重启之后就失效了，因此要永久生效就需要写到规则文件里面。
 vim /etc/auditd/rules.d/auditd.rules
 将auditctl的命令参数写到这个文件里面即可。</p>
+
 <h6 id="重启服务">重启服务</h6>
+
 <pre><code>service auditd restart
-</code></pre><p>systemctl restart auditd 不可用</p>
+</code></pre>
+
+<p>systemctl restart auditd 不可用</p>
+
 <h6 id="查找日志ausearch">查找日志ausearch</h6>
+
 <pre><code>-a number #只显示事件ID为指定数字的日志信息，如只显示926事件：ausearch -a 926
 -c commond #只显示和指定命令有关的事件，如只显示rm命令产生的事件：auserach -c rm
 -i #显示出的信息更清晰，如事件时间、相关用户名都会直接显示出来，而不再是数字形式
 -k #显示出和之前auditctl -k所定义的关键词相匹配的事件信息
-</code></pre><h5 id="日志字段说明">日志字段说明</h5>
+</code></pre>
+
+<h5 id="日志字段说明">日志字段说明</h5>
+
 <pre><code>参数说明：
 time :审计时间。
 name :审计对象
@@ -137,18 +160,26 @@ auid :审计用户ID
 uid和 gid :访问文件的用户ID和用户组ID
 comm :用户访问文件的命令
 exe :上面命令的可执行文件路径
-</code></pre><h6 id="查看登陆信息">查看登陆信息</h6>
+</code></pre>
+
+<h6 id="查看登陆信息">查看登陆信息</h6>
+
 <p>默认支持</p>
+
 <pre><code>aureport -l
 aureport -h
-</code></pre><p>类似命令</p>
+</code></pre>
+
+<p>类似命令</p>
+
 <pre><code>last  登陆成功
 lastb 登陆失败
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/dengbao3/">«等保三指南</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/syslog/">系统日志 syslog»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/syslog/">«系统日志 syslog</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/network-security/dengbao3/">等保三指南»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

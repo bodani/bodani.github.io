@@ -94,44 +94,58 @@
 		<div class="post-meta">
 			<p>2020年12月31日</p>
 		</div>
-		<h4 id="分区表">分区表</h4>
+		
+
+<h4 id="分区表">分区表</h4>
+
 <p>数据库分区是一种将数据做物理分片的数据库设计技术，虽然分区技术可以有多种实现方法，</p>
+
 <p>但其主要目的是为了在特定的SQL操作中减少数据读取的总量以缩减响应时间。</p>
+
 <h4 id="分区方式">分区方式</h4>
+
 <ul>
-<li>
-<p>水平分区</p>
-<p>订单按时间维度</p>
-</li>
-<li>
-<p>垂直分区</p>
-<p>范式规范 ： 订单数据 （客户表，商品表，订单表）</p>
-</li>
+<li>水平分区<br /></li>
 </ul>
+
+<p>订单按时间维度</p>
+
+<ul>
+<li>垂直分区</li>
+</ul>
+
+<p>范式规范 ： 订单数据 （客户表，商品表，订单表）</p>
+
 <h5 id="优点">优点</h5>
+
 <ul>
 <li>性能 ，范围或点查询。</li>
 <li>管理 归档，删除</li>
 <li>统计信息，vacuum</li>
 </ul>
+
 <h5 id="注意事项">注意事项</h5>
+
 <ul>
 <li>默认分区</li>
 <li>索引操作，对字表无效</li>
 <li>分区键更新</li>
 <li>主键，唯一键约束。 全局还是子表有效。(唯一键+分区键)</li>
 </ul>
+
 <h5 id="普通表转换为分区表">普通表转换为分区表</h5>
+
 <ul>
 <li>pg 版本 &lt; 12 利用pathman 可在线平滑转换</li>
 <li>pg 版本 &gt;=12 原始方式 思路：1 新建一张结构完全相同的表，2 将原表作为新表子表 ，3 修改对换表名 （过程加锁）</li>
 </ul>
-<p><a href="./book/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%8C%BA%E4%B8%8EPG%E5%88%86%E5%8C%BA%E8%A1%A8%E4%BB%8B%E7%BB%8D.pptx">更多 PPT 下载</a></p>
+
+<p><a href="./book/数据库分区与PG分区表介绍.pptx">更多 PPT 下载</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_fdw/">«跨库操作</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/auto_vacuum_trigger/">auto vacuum 触发机制»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/auto_vacuum_trigger/">«auto vacuum 触发机制</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pg_fdw/">跨库操作»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

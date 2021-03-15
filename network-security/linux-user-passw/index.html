@@ -94,42 +94,74 @@
 		<div class="post-meta">
 			<p>2020年5月9日</p>
 		</div>
-		<h4 id="禁用root登陆">禁用root登陆</h4>
+		
+
+<h4 id="禁用root登陆">禁用root登陆</h4>
+
 <p>注意： 创建一个非root用户 并加入wheel用户组（拥有sudo权限）</p>
+
 <pre><code>useradd NewUser
 
 passwd NewUser
 
 gpasswd -a NewUser wheel
-</code></pre><h6 id="本地禁用root登陆">本地禁用root登陆</h6>
+</code></pre>
+
+<h6 id="本地禁用root登陆">本地禁用root登陆</h6>
+
 <p>修改/etc/pam.d/login文件增加下面一行</p>
+
 <pre><code>auth required pam_succeed_if.so user != root quiet
-</code></pre><h6 id="远程禁用root登陆">远程禁用root登陆</h6>
+</code></pre>
+
+<h6 id="远程禁用root登陆">远程禁用root登陆</h6>
+
 <p>修改 /etc/ssh/sshd_config</p>
+
 <pre><code>#PermitRootLogin yes
 PermitRootLogin no
-</code></pre><h4 id="修改ssh默认端口">修改ssh默认端口</h4>
+</code></pre>
+
+<h4 id="修改ssh默认端口">修改ssh默认端口</h4>
+
 <p>修改 /etc/ssh/sshd_config</p>
+
 <pre><code>#Port 22
 Port 46608
-</code></pre><h4 id="安全认证">安全认证</h4>
+</code></pre>
+
+<h4 id="安全认证">安全认证</h4>
+
 <pre><code>LoginGraceTime 2m
 PermitRootLogin no
 #StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
-</code></pre><h4 id="超时退出">超时退出</h4>
+</code></pre>
+
+<h4 id="超时退出">超时退出</h4>
+
 <p>例如客户端60秒无操作自动退出</p>
+
 <pre><code>export TMOUT=60
-</code></pre><p>加入系统环境变量中 如：/etc/profile</p>
+</code></pre>
+
+<p>加入系统环境变量中 如：/etc/profile</p>
+
 <h4 id="密码过期时间">密码过期时间</h4>
+
 <p>修改 /etc/login.defs</p>
+
 <pre><code>PASS_MAX_DAYS 90 #密码最长过期天数
 PASS_MIN_DAYS 80 #密码最小过期天数
 PASS_MIN_LEN 10 #密码最小长度
 PASS_WARN_AGE 7 #密码过期警告天数
-</code></pre><h4 id="登陆错误锁定">登陆错误锁定</h4>
-<h6 id="使用方式直接使用ssh-密钥登陆--后面的方法自找麻烦">使用方式直接使用ssh 密钥登陆 ， 后面的方法自找麻烦</h6>
+</code></pre>
+
+<h4 id="登陆错误锁定">登陆错误锁定</h4>
+
+<h6 id="使用方式直接使用ssh-密钥登陆-后面的方法自找麻烦">使用方式直接使用ssh 密钥登陆 ， 后面的方法自找麻烦</h6>
+
 <pre><code>ssh-keygen 生成钥匙
 
 ssh-copy-id 将公钥上传到被访问的服务器
@@ -137,36 +169,65 @@ ssh-copy-id 将公钥上传到被访问的服务器
 PermitRootLogin without-password 修改sshd_config文件设置禁止root密码登陆
 
 PasswordAuthentication no  修改sshd_config文件禁止普通用户密码登陆
-</code></pre><p>连续密码错误3次锁定账户，普通用户5分钟后解锁，root用户10分钟后解锁</p>
+</code></pre>
+
+<p>连续密码错误3次锁定账户，普通用户5分钟后解锁，root用户10分钟后解锁</p>
+
 <h6 id="方法-一">方法 一</h6>
+
 <p>vi /etc/pam.d/system-auth</p>
+
 <pre><code>auth        required     pam_tally2.so    deny=3 unlock_time=300 even_deny_root root_unlock_time=600 
 account     required     pam_tally2.so
-</code></pre><p>查看</p>
+</code></pre>
+
+<p>查看</p>
+
 <pre><code>pam_tally2 -u zhangeamon
-</code></pre><p>手动解锁</p>
+</code></pre>
+
+<p>手动解锁</p>
+
 <pre><code>pam_tally2 -u zhangeamon -r
-</code></pre><h6 id="方法-二">方法 二</h6>
+</code></pre>
+
+<h6 id="方法-二">方法 二</h6>
+
 <p>Centos 8 后 pam_tally2.so 过期，推荐 pam_faillock.so</p>
+
 <p>vi /etc/pam.d/system-auth</p>
+
 <pre><code>auth  required  pam_faillock.so preauth silent audit deny=3 unlock_time=300 even_deny_root root_unlock_time=600
 auth  sufficient pam_unix.so nullok try_first_pass
 auth  [default=die] pam_faillock.so authfail audit deny=3
 account  required  pam_faillock.so
-</code></pre><p>注意顺序</p>
+</code></pre>
+
+<p>注意顺序</p>
+
 <p>查看</p>
+
 <pre><code>faillock -u zhangeamon
-</code></pre><p>解锁</p>
+</code></pre>
+
+<p>解锁</p>
+
 <pre><code>faillock -u zhangeamon -r
-</code></pre><h4 id="密码复杂度">密码复杂度</h4>
+</code></pre>
+
+<h4 id="密码复杂度">密码复杂度</h4>
+
 <p>登陆失败可以重试3次；密码最小长度8；最少包括2个大写字母；最少包含4个小写字母；最少包含一个数字；最好包含一个特殊字符</p>
+
 <p>vi /etc/pam.d/system-auth</p>
+
 <pre><code>password    requisite    pam_cracklib.so    try_first_pass retry=3 type= minlen=8 ucredit=-2 lcredit=-4 dcredit=-1 ocredit=-1  
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/syslog/">«系统日志 syslog</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/python/django-ndb/">Jdango 多数据库读写配置»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/python/django-ndb/">«Jdango 多数据库读写配置</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/syslog/">系统日志 syslog»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

@@ -95,16 +95,24 @@
 			<p>2019年1月14日</p>
 		</div>
 		<p>1.查看内存槽及内存条</p>
+
 <pre><code>$ sudo dmidecode -t memory
-</code></pre><p>2.查看内存的插槽数,已经使用多少插槽.每条内存多大</p>
+</code></pre>
+
+<p>2.查看内存的插槽数,已经使用多少插槽.每条内存多大</p>
+
 <pre><code>$ sudo dmidecode -t memory | grep Size
-</code></pre><p>3.查看服务器型号、序列号</p>
+</code></pre>
+
+<p>3.查看服务器型号、序列号</p>
+
 <pre><code>$ sudo dmidecode | grep &quot;System Information&quot; -A9 | egrep &quot;Manufacturer|Product|Serial&quot;
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/cgroups/">«cgroups</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/memtest/">memtest 检测内存»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/memtest/">«memtest 检测内存</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/cgroups/">cgroups»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

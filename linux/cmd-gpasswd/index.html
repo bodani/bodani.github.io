@@ -94,39 +94,50 @@
 		<div class="post-meta">
 			<p>2018年10月18日</p>
 		</div>
-		<h3 id="gpasswd-命令详解">gpasswd 命令详解</h3>
+		
+
+<h3 id="gpasswd-命令详解">gpasswd 命令详解</h3>
+
 <ol>
-<li>
-<p>gpasswd命令是Linux下工作组文件/etc/group和/etc/gshadow的管理工具，用于指定要管理的工作组。</p>
-</li>
-<li>
-<p>选项详解：</p>
+<li><p>gpasswd命令是Linux下工作组文件/etc/group和/etc/gshadow的管理工具，用于指定要管理的工作组。</p></li>
+
+<li><p>选项详解：</p>
+
 <p>-a : 添加用户到组</p>
+
 <p>-d : 从组删除用户</p>
+
 <p>-A：指定管理员</p>
+
 <p>-M：指定组成员和-A的用途差不多；</p>
+
 <p>-r：删除密码；</p>
-<p>-R：限制用户登入组，只有组中的成员才可以用newgrp加入该组。</p>
-</li>
-<li>
-<p>实例：</p>
-</li>
+
+<p>-R：限制用户登入组，只有组中的成员才可以用newgrp加入该组。</p></li>
+
+<li><p>实例：</p></li>
 </ol>
+
 <p>　　3.1 将userA添加到groupB用户组里面：</p>
+
 <pre><code>  gpasswd -a userA groupB 
 </code></pre>
+
 <p>　
-　注意：添加用户到某一个组可以使用  usermod -G groupB userA 这个命令可以添加一个用户到指定的组，但是以前添加的组就会清空掉, 所以想要添加一个用户到一个组，同时保留以前添加的组时，</p>
+    　注意：添加用户到某一个组可以使用  usermod -G groupB userA 这个命令可以添加一个用户到指定的组，但是以前添加的组就会清空掉, 所以想要添加一个用户到一个组，同时保留以前添加的组时，</p>
+
 <pre><code>        请使用gpasswd这个命令来添加操作用户。
 </code></pre>
+
 <p>　　3.2 将userA设置为groupA的群组管理员：</p>
+
 <pre><code>  gpasswd -A userA groupA
 </code></pre>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/k8s/v1.10/">«Kubernetes 安装　- V1.10</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/wheel/">Linux wheel 用户组»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/wheel/">«Linux wheel 用户组</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/k8s/v1.10/">Kubernetes 安装　- V1.10»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

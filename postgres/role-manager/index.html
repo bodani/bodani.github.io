@@ -94,17 +94,29 @@
 		<div class="post-meta">
 			<p>2018年12月20日</p>
 		</div>
-		<h5 id="创建用户">创建用户</h5>
+		
+
+<h5 id="创建用户">创建用户</h5>
+
 <pre><code># user 与 role 区别 ， user 具有login权限
 postgres=# create user tester with password '123456';
 CREATE ROLE
-</code></pre><h5 id="创建数据库并关联所有者">创建数据库,并关联所有者</h5>
+</code></pre>
+
+<h5 id="创建数据库-并关联所有者">创建数据库,并关联所有者</h5>
+
 <pre><code>postgres=# create database test owner tester ;
 CREATE DATABASE
-</code></pre><h5 id="变更数据库用户所有者">变更数据库用户所有者</h5>
+</code></pre>
+
+<h5 id="变更数据库用户所有者">变更数据库用户所有者</h5>
+
 <pre><code>postgres=# alter database test owner to tester;
 ALTER DATABASE
-</code></pre><h5 id="修改用户数据库">修改用户&amp;数据库</h5>
+</code></pre>
+
+<h5 id="修改用户-数据库">修改用户&amp;数据库</h5>
+
 <pre><code>#用户连接数
 postgres=# alter user tester connection limit 100;
 ALTER ROLE
@@ -120,7 +132,10 @@ CONNECTION LIMIT    CREATEROLE          INHERIT             NOBYPASSRLS         
 #数据库其他属性修改
 postgres=# alter database test 
 ALLOW_CONNECTIONS  CONNECTION LIMIT   IS_TEMPLATE        OWNER TO           RENAME TO          RESET              SET 
-</code></pre><h5 id="sql批量修改tableview的owner">sql批量修改table/view的owner</h5>
+</code></pre>
+
+<h5 id="sql批量修改table-view的owner">sql批量修改table/view的owner</h5>
+
 <pre><code>DO $$DECLARE r record;
 BEGIN
 FOR r IN SELECT tablename/viewname FROM pg_tables/pg_views WHERE schemaname = 'public'
@@ -128,7 +143,9 @@ LOOP
     EXECUTE 'alter table '|| r.tablename/r.viewname ||' owner to new_owner;';
 END LOOP;
 END$$;
-</code></pre><pre><code>DO $$DECLARE r record;
+</code></pre>
+
+<pre><code>DO $$DECLARE r record;
 BEGIN
 FOR r IN SELECT 
   c.relname as Name 
@@ -145,7 +162,10 @@ LOOP
 EXECUTE 'alter table '|| r.Name ||' owner to new_owner;';
 END LOOP;
 END$$;
-</code></pre><h5 id="查看用户数据库">查看用户&amp;数据库</h5>
+</code></pre>
+
+<h5 id="查看用户-数据库">查看用户&amp;数据库</h5>
+
 <pre><code>#查看数据库
 postgres=# \l+ test 
                                          数据库列表
@@ -165,20 +185,29 @@ postgres=# \dg
 ------------------+--------------------------------------------+----------
  postgres         | 超级用户, 建立角色, 建立 DB, 复制, 绕过RLS | {}
  tester           | 10个连接                                   | {}
-</code></pre><h5 id="权限分配">权限分配</h5>
+</code></pre>
+
+<h5 id="权限分配">权限分配</h5>
+
 <p>语法</p>
+
 <p>grant 权限 on 数据对象 to 用户</p>
+
 <p>revoke 权限 on 数据对象 from 用户</p>
+
 <pre><code>grant SELECT on ALL tables in schema public TO dbuser;
 
 revoke SELECT on ALL tables in schema public from dbuser;
-</code></pre><p>更多内容</p>
+</code></pre>
+
+<p>更多内容</p>
+
 <p><a href="https://github.com/digoal/blog/blob/master/201605/20160510_01.md">https://github.com/digoal/blog/blob/master/201605/20160510_01.md</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/dba/">«DBA 日常</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/stat/">Access Modify Change 三种时间戳»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/stat/">«Access Modify Change 三种时间戳</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/dba/">DBA 日常»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

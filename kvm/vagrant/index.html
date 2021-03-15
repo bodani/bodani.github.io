@@ -94,17 +94,28 @@
 		<div class="post-meta">
 			<p>2020年7月13日</p>
 		</div>
-		<h4 id="介绍">介绍</h4>
+		
+
+<h4 id="介绍">介绍</h4>
+
 <p>通常用vagrant 来管理VirtualBox ,VMWare，方便测试环境的创建，销毁。不常折腾用virtualbox, 反复折腾用vagrant。</p>
+
 <h4 id="简单使用">简单使用</h4>
+
 <h5 id="安装">安装</h5>
+
 <p><a href="https://www.virtualbox.org/wiki/Downloads">下载virtualbox</a></p>
+
 <p><a href="https://www.vagrantup.com/downloads.html">下载vagrant</a></p>
+
 <pre><code>-- 安装依赖
 #yum --enablerepo=epel -y install fuse-sshfs
 #yum install bsdtar
 #yum -y install gcc kernel kernel-devel
-</code></pre><h5 id="常用方法">常用方法</h5>
+</code></pre>
+
+<h5 id="常用方法">常用方法</h5>
+
 <pre><code>--- 镜像管理
 添加镜像
 #vagrant box add centos/7
@@ -142,10 +153,15 @@ node3                     running (virtualbox)
 #vagrant reload
 
 
-</code></pre><h5 id="注意事项">注意事项</h5>
+</code></pre>
+
+<h5 id="注意事项">注意事项</h5>
+
 <pre><code>将当前路径的所有内容同步到虚拟机内
 Rsyncing folder: /当前路径 =&gt; /vagrant
-</code></pre><pre><code>     box             manages boxes: installation, removal, etc.
+</code></pre>
+
+<pre><code>     box             manages boxes: installation, removal, etc.
      cloud           manages everything related to Vagrant Cloud
      destroy         stops and deletes all traces of the vagrant machine
      halt            stops the vagrant machine
@@ -154,8 +170,12 @@ Rsyncing folder: /当前路径 =&gt; /vagrant
      ssh             connects to machine via SSH
      status          outputs status of the vagrant machine
      up              starts and provisions the vagrant environment 
-</code></pre><h5 id="配置文件">配置文件</h5>
+</code></pre>
+
+<h5 id="配置文件">配置文件</h5>
+
 <p>cat Vagrantfile</p>
+
 <pre><code>Vagrant.configure(&quot;2&quot;) do |config|
     config.vm.box = &quot;centos/7&quot;
     config.vm.box_check_update = false
@@ -244,10 +264,11 @@ Rsyncing folder: /当前路径 =&gt; /vagrant
     SHELL
 end
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/oom/">«数据库 OOM 预防</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/istio/auto-api-test/">API 自动化测试»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/istio/auto-api-test/">«API 自动化测试</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/oom/">数据库 OOM 预防»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

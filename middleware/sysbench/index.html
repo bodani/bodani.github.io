@@ -94,11 +94,17 @@
 		<div class="post-meta">
 			<p>2018年11月16日</p>
 		</div>
-		<h5 id="下载安装-1015-sysbench官网httpsgithubcomakopytovsysbench">下载安装 1.0.15 <a href="https://github.com/akopytov/sysbench">sysbench官网</a></h5>
+		
+
+<h5 id="下载安装-1-0-15-sysbench官网-https-github-com-akopytov-sysbench">下载安装 1.0.15 <a href="https://github.com/akopytov/sysbench">sysbench官网</a></h5>
+
 <pre><code>curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.rpm.sh | sudo bash
 sudo yum -y install sysbench
 
-</code></pre><h5 id="参数说明">参数说明</h5>
+</code></pre>
+
+<h5 id="参数说明">参数说明</h5>
+
 <pre><code>sysbench --help
 Usage:
   sysbench [options]... [testname] [command]
@@ -179,7 +185,10 @@ Compiled-in tests: 测试类型
 
 See 'sysbench &lt;testname&gt; help' for a list of options for each test.
 
-</code></pre><h5 id="默认lua-脚本位置">默认lua 脚本位置</h5>
+</code></pre>
+
+<h5 id="默认lua-脚本位置">默认lua 脚本位置</h5>
+
 <pre><code>ll /usr/share/sysbench/
 total 60
 -rwxr-xr-x 1 root root  1452 7月   4 04:07 bulk_insert.lua
@@ -195,23 +204,30 @@ total 60
 -rwxr-xr-x 1 root root  1919 7月   4 04:07 select_random_points.lua
 -rwxr-xr-x 1 root root  2118 7月   4 04:07 select_random_ranges.lua
 
-</code></pre><h5 id="sysbench对数据库进行压力测试的过程">sysbench对数据库进行压力测试的过程</h5>
+</code></pre>
+
+<h5 id="sysbench对数据库进行压力测试的过程">sysbench对数据库进行压力测试的过程</h5>
+
 <ul>
 <li>prepare  这个阶段是用来做准备的、建立好测试用的表、并向表中填充数据。</li>
 <li>run      这个阶段是才是去跑压力测试的SQL</li>
 <li>cleanup 这个阶段是去清除数据的、也就是prepare阶段初始化好的表要都drop掉。</li>
 </ul>
+
 <pre><code>sysbench --threads=100 --time=100 --db-driver=mysql --mysql-host=localhost --mysql-port=3306 --mysql-user=sbtest --mysql-password=123456 --mysql-db=tempdb oltp_insert prepare
 sysbench --threads=100 --time=100 --db-driver=mysql --mysql-host=localhost --mysql-port=3306 --mysql-user=sbtest --mysql-password=123456 --mysql-db=tempdb oltp_insert run
 sysbench --threads=100 --time=100 --db-driver=mysql --mysql-host=localhost --mysql-port=3306 --mysql-user=sbtest --mysql-password=123456 --mysql-db=tempdb oltp_insert cleanup
-</code></pre><pre><code>sysbench --threads=100 --time=100 --db-driver=pgsql --pgsql-host=10.1.7.126 --pgsql-port=5432 --pgsql-user=postgres --pgsql-password=123456 --pgsql-db=test1 oltp_insert prepare
+</code></pre>
+
+<pre><code>sysbench --threads=100 --time=100 --db-driver=pgsql --pgsql-host=10.1.7.126 --pgsql-port=5432 --pgsql-user=postgres --pgsql-password=123456 --pgsql-db=test1 oltp_insert prepare
 sysbench --threads=100 --time=100 --db-driver=pgsql --pgsql-host=10.1.7.126 --pgsql-port=5432 --pgsql-user=postgres --pgsql-password=123456 --pgsql-db=test1 oltp_insert run
 sysbench --threads=100 --time=100 --db-driver=pgsql --pgsql-host=10.1.7.126 --pgsql-port=5432 --pgsql-user=postgres --pgsql-password=123456 --pgsql-db=test1 oltp_insert clean
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/kill/">«PostgreSQL 无法kill(pg_terminate_backend, pg_cancel_backend)的情况分析 - 进程hang strace,pstack</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/index01/">数据库索引类型及使用场景»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/index01/">«数据库索引类型及使用场景</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/kill/">PostgreSQL 无法kill(pg_terminate_backend, pg_cancel_backend)的情况分析 - 进程hang strace,pstack»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

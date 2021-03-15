@@ -94,7 +94,10 @@
 		<div class="post-meta">
 			<p>2019年12月6日</p>
 		</div>
-		<h4 id="环境准备">环境准备</h4>
+		
+
+<h4 id="环境准备">环境准备</h4>
+
 <pre><code>/ect/hosts
 
 groupadd gpadmin
@@ -112,7 +115,10 @@ visudo
 
 usermod -aG wheel gpadmin
 
-</code></pre><h4 id="软件安装">软件安装</h4>
+</code></pre>
+
+<h4 id="软件安装">软件安装</h4>
+
 <pre><code>wget https://github.com/greenplum-db/gpdb/releases/download/6.1.0/greenplum-db-6.1.0-rhel7-x86_64.rpm
 
 sudo yum install ./greenplum-db-&lt;version&gt;-&lt;platform&gt;.rpm
@@ -122,11 +128,18 @@ sudo chown -R gpadmin:gpadmin /usr/local/greenplum*
 source /usr/local/greenplum-db-&lt;version&gt;/greenplum_path.sh
 
 vi /home/gpadmin/.bashrc
-</code></pre><p>ssh 免密打通</p>
+</code></pre>
+
+<p>ssh 免密打通</p>
+
 <p>1-n</p>
+
 <p>ssh-copy-id mdw</p>
+
 <p>n-n</p>
+
 <p>vi /home/gpadmin/hostfile_exkeys</p>
+
 <p>mdw
 smdw
 sdw1
@@ -135,34 +148,57 @@ sdw3
 sdw4
 sdw5
 sdw6</p>
+
 <p>gpssh-exkeys -f hostfile_exkeys</p>
+
 <h5 id="创建存储目录">创建存储目录</h5>
+
 <p>master
 mkdir -p /data/master</p>
+
 <p>segment</p>
+
 <p>mkdir -p /data/primary1
 mkdir -p /data/primary2</p>
+
 <p>mkdir -p /data/mirror1
 mkdir -p /data/mirror2</p>
+
 <p>chown -R gpadmin /data/*</p>
+
 <h5 id="性能测试">性能测试</h5>
+
 <p>网络</p>
+
 <pre><code> gpcheckperf -f hostfile_gpchecknet_ic1 -r N -d /tmp &gt; subnet1.out
-</code></pre><p>IO 250G</p>
+</code></pre>
+
+<p>IO 250G</p>
+
 <pre><code>gpcheckperf -f hostfile_gpcheckperf -r ds -D -d /data/primary1 -d  /data/primary2  -d /data/mirror1 -d  /data/mirror2 
 
 gpcheckperf -f  gpconfigs/hostfile_gpcheckperf -r ds -D -d /data/primary1 -d  /data/primary2  -d /data/mirror1 -d  /data/mirror2 -V -S 10G
-</code></pre><h5 id="初始化安装">初始化安装</h5>
+</code></pre>
+
+<h5 id="初始化安装">初始化安装</h5>
+
 <pre><code>gpinitsystem -c gpconfigs/gpinitsystem_config -h gpconfigs/hostfile_gpinitsystem -s smdw -S -v
-</code></pre><h5 id="配置环境变量">配置环境变量</h5>
+</code></pre>
+
+<h5 id="配置环境变量">配置环境变量</h5>
+
 <p>vi ~/.bashrc</p>
+
 <pre><code>source /usr/local/greenplum-db/greenplum_path.sh
 
 export MASTER_DATA_DIRECTORY=/data/master/gpseg-1
 export PGPORT=5432
 export PGUSER=gpadmin
 export PGDATABASE=gptestdb
-</code></pre><h5 id="管理">管理</h5>
+</code></pre>
+
+<h5 id="管理">管理</h5>
+
 <pre><code>启动
 
 gpstart
@@ -186,7 +222,10 @@ gprecoverseg
 
 gprecoverseg -r
 
-</code></pre><h5 id="问题">问题</h5>
+</code></pre>
+
+<h5 id="问题">问题</h5>
+
 <pre><code>select * from gp_segment_configuration;
 
 set allow_system_table_mods=true;
@@ -194,10 +233,11 @@ set allow_system_table_mods=true;
 update gp_segment_configuration set hostname = address;
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/vm-config/">«内核设置</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/time-cmd/">linux time 命令»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/time-cmd/">«linux time 命令</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/vm-config/">内核设置»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

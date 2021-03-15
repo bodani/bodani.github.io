@@ -95,21 +95,38 @@
 			<p>2020年3月19日</p>
 		</div>
 		<p>软件源</p>
-<pre><code>echo &quot;deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main&quot; &gt;&gt; /etc/apt/sources.list.d/pgdg.list
-</code></pre><pre><code>wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-</code></pre><pre><code>sudo apt-get update -y
 
-</code></pre><p>安装</p>
+<pre><code>echo &quot;deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main&quot; &gt;&gt; /etc/apt/sources.list.d/pgdg.list
+</code></pre>
+
+<pre><code>wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+</code></pre>
+
+<pre><code>sudo apt-get update -y
+
+</code></pre>
+
+<p>安装</p>
+
 <pre><code>apt-get install postgresql-12 postgresql-client-12 postgresql-12-postgis-2.5 postgresql-contrib -y
 
-</code></pre><p>初始化</p>
+</code></pre>
+
+<p>初始化</p>
+
 <pre><code>/usr/pgsql-12/bin/postgresql-12-setup initdb
-</code></pre><p>启动</p>
+</code></pre>
+
+<p>启动</p>
+
 <pre><code>systemctl start postgresql
 systemctl stop postgresql
 systemctl status postgresql
 systemctl enable postgresql
-</code></pre><p>配置</p>
+</code></pre>
+
+<p>配置</p>
+
 <pre><code>cd /etc/postgresql/12/main/
 
 vi postgres.conf
@@ -117,10 +134,11 @@ vi postgres.conf
 vi pg_hba.conf
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/git-nopassword/">«Git 免输入密码</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/install-cmd/">软件安装»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/install-cmd/">«软件安装</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/git-nopassword/">Git 免输入密码»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

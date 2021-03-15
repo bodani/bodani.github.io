@@ -94,18 +94,28 @@
 		<div class="post-meta">
 			<p>2020年6月3日</p>
 		</div>
-		<h4 id="ssl双向认证和ssl单向认证的区别">SSL双向认证和SSL单向认证的区别</h4>
+		
+
+<h4 id="ssl双向认证和ssl单向认证的区别">SSL双向认证和SSL单向认证的区别</h4>
+
 <p>双向认证 SSL 协议要求服务器和用户双方都有证书。单向认证 SSL 协议不需要客户拥有CA证书，服务器端不会验证客户证书，以及在协商对称密码方案，对称通话密钥时，服务器发送给客户的是没有加过密的(这并不影响 SSL 过程的安全性)密码方案。</p>
+
 <p>这样，双方具体的通讯内容，都是加过密的数据，如果有第三方攻击，获得的只是加密的数据，第三方要获得有用的信息，就需要对加密的数据进行解密，这时候的安全就依赖于密码方案的安全。</p>
+
 <p>而幸运的是，目前所用的密码方案，只要通讯密钥长度足够的长，就足够的安全。这也是我们强调要求使用128位加密通讯的原因。</p>
+
 <p>一般Web应用都是采用SSL单向认证的，原因很简单，用户数目广泛，且无需在通讯层对用户身份进行验证，一般都在应用逻辑层来保证用户的合法登入。但如果是企业应用对接，情况就不一样，可能会要求对客户端(相对而言)做身份验证。这时就需要做SSL双向认证。</p>
+
 <p>由于单向认证和双向认证的区别仅在于创建连接阶段，数据的传输均为加密的，因此客户端与PG服务端的连接采取SSL单向认证即可，即仅在PG Server端配置SSL证书。</p>
+
 <h4 id="生成自签名证书">生成自签名证书</h4>
+
 <ul>
 <li>server.key – 私钥</li>
 <li>server.crt – 服务器证书</li>
 <li>root.crt – 受信任的根证书</li>
 </ul>
+
 <pre><code>创建私钥 ， 需要密码，随意输入
 openssl genrsa -des3 -out server.key 1024
 
@@ -114,17 +124,28 @@ openssl rsa -in server.key -out server.key
 
 修改权限
 chmod 400 server.key
-</code></pre><pre><code>创建基于server.key文件的服务器证书 有效期十年
+</code></pre>
+
+<pre><code>创建基于server.key文件的服务器证书 有效期十年
 openssl req -new -key server.key -days 3650 -out server.crt -x509
 
-</code></pre><pre><code>查看证书
+</code></pre>
+
+<pre><code>查看证书
 openssl x509 -in server.crt -text -noout
-</code></pre><pre><code>为了得到自己签名的证书，把生成的服务器证书作为受信任的根证书，只需要复制并取一个合适的名字
+</code></pre>
+
+<pre><code>为了得到自己签名的证书，把生成的服务器证书作为受信任的根证书，只需要复制并取一个合适的名字
 
 cp server.crt root.crt
-</code></pre><h4 id="数据库配置">数据库配置</h4>
+</code></pre>
+
+<h4 id="数据库配置">数据库配置</h4>
+
 <p>将以上生成的证书文件拷贝到数据库的data目录下</p>
+
 <p>修改所有者及访问属性</p>
+
 <pre><code>chown postgres:postgres server.key
 chown postgres:postgres server.crt
 chown postgres:postgres root.crt
@@ -132,24 +153,41 @@ chown postgres:postgres root.crt
 chmod 400 server.key 
 chmod 400 server.crt
 chmod 400 root.crt 
-</code></pre><p>修改数据库配置 postgresql.conf</p>
+</code></pre>
+
+<p>修改数据库配置 postgresql.conf</p>
+
 <pre><code>ssl = on
 ssl_ca_file = 'root.crt'
-</code></pre><p>修改 pg_hba.conf</p>
+</code></pre>
+
+<p>修改 pg_hba.conf</p>
+
 <pre><code>host all all 0.0.0.0/0 md5
 
 # &quot;host&quot; is either a plain or SSL-encrypted TCP/IP socket,
 # &quot;hostssl&quot; is an SSL-encrypted TCP/IP socket, 
 # and &quot;hostnossl&quot; is a plain TCP/IP socket.
-</code></pre><p>可对不同的database 分别设置</p>
+</code></pre>
+
+<p>可对不同的database 分别设置</p>
+
 <p>重新加载生效</p>
+
 <pre><code>systemctl reload postgresql-10
-</code></pre><h4 id="pgbouncer-配置">pgbouncer 配置</h4>
+</code></pre>
+
+<h4 id="pgbouncer-配置">pgbouncer 配置</h4>
+
 <p>修改访问权限</p>
+
 <pre><code>chmod 644 server.key 
 chmod 644 server.crt
 chmod 644 root.crt
-</code></pre><p>修改 pgbouncer</p>
+</code></pre>
+
+<p>修改 pgbouncer</p>
+
 <pre><code>;;;
 ;;; TLS settings for accepting clients
 ;;;
@@ -164,17 +202,24 @@ client_tls_ca_file = /etc/pgbouncer/ssl/root.crt
 ;; Required for accepting TLS connections from clients.
 client_tls_key_file = /etc/pgbouncer/ssl/server.key
 client_tls_cert_file = /etc/pgbouncer/ssl/server.crt
-</code></pre><p>重新加载生效</p>
+</code></pre>
+
+<p>重新加载生效</p>
+
 <pre><code>systemctl reload pgbouncer
-</code></pre><h4 id="客户端连接">客户端连接</h4>
+</code></pre>
+
+<h4 id="客户端连接">客户端连接</h4>
+
 <pre><code># psq -U postgres -p 5432 -h xxxx  
 SSL 连接（协议：TLSv1.2，密码：ECDHE-RSA-AES256-GCM-SHA384，密钥位：256，压缩：关闭)
 输入 &quot;help&quot; 来获取帮助信息.
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/awsome-postgres/">«工作中所使用的postgres</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/network-security/firewalld/">Firewall»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/firewalld/">«Firewall</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/awsome-postgres/">工作中所使用的postgres»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

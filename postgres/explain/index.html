@@ -94,7 +94,10 @@
 		<div class="post-meta">
 			<p>2018年12月5日</p>
 		</div>
-		<h5 id="文法">文法</h5>
+		
+
+<h5 id="文法">文法</h5>
+
 <pre><code>EXPLAIN [ ( option [, ...] ) ] statement
 EXPLAIN [ ANALYZE ] [ VERBOSE ] statement
 
@@ -107,13 +110,21 @@ EXPLAIN [ ANALYZE ] [ VERBOSE ] statement
     TIMING [ boolean ]
     SUMMARY [ boolean ]
     FORMAT { TEXT | XML | JSON | YAML }
-</code></pre><h5 id="注意事项">注意事项</h5>
+</code></pre>
+
+<h5 id="注意事项">注意事项</h5>
+
 <p>记住当使用了ANALYZE选项时语句会被实际执行. 如执行dml 时将对数据库进行实际的操作。</p>
+
 <p>避免污染数据的方式</p>
+
 <pre><code>BEGIN;
 EXPLAIN ANALYZE ...;
 ROLLBACK;
-</code></pre><h5 id="一个例子">一个例子</h5>
+</code></pre>
+
+<h5 id="一个例子">一个例子</h5>
+
 <pre><code>postgres=# explain analyze select * from tbl;
                                                     QUERY PLAN                                                    
 ------------------------------------------------------------------------------------------------------------------
@@ -121,15 +132,21 @@ ROLLBACK;
  Planning time: 0.124 ms
  Execution time: 1046.394 ms
 (3 rows)
-</code></pre><p>Seq Scan 顺序扫描<br>
-cost 代价成本, 启动成本..总成本<br>
+</code></pre>
+
+<p>Seq Scan 顺序扫描<br />
+cost 代价成本, 启动成本..总成本<br />
 actual 实际值</p>
+
 <h4 id="cost计算">cost计算</h4>
+
 <p>cost的计算依据 数据库中的统计信息及成本因子相关</p>
+
 <ul>
 <li>统计信息 select * from pg_stats;</li>
 <li>成本因子</li>
 </ul>
+
 <pre><code># - Planner Cost Constants -
 
 #seq_page_cost = 1.0                    # measured on an arbitrary scale
@@ -142,7 +159,10 @@ random_page_cost = 1.1                  # same scale as above
 #min_parallel_table_scan_size = 8MB
 #min_parallel_index_scan_size = 512kB
 effective_cache_size = 666666
-</code></pre><h4 id="影响执行计划的参数设置">影响执行计划的参数设置</h4>
+</code></pre>
+
+<h4 id="影响执行计划的参数设置">影响执行计划的参数设置</h4>
+
 <pre><code>开关
 enable_bitmapscan
 enable_gathermerge
@@ -161,27 +181,35 @@ enable_tidscan
 from_collapse_limit 
 join_collapse_limit
 geqo_threshold
-</code></pre><p>设置</p>
+</code></pre>
+
+<p>设置</p>
+
 <ul>
 <li>session set enable_bitmapscan = default;</li>
 <li>全局 postgresql.conf</li>
 <li>用户级 alter user postgres set enable_bitmapscan = off;</li>
 <li>数据库级别 alter database postgres set enable_bitmapscan = off;</li>
 </ul>
+
 <p>查看</p>
+
 <ul>
 <li>session show enable_bitmapscan;</li>
 <li>用户级别 select * from pg_user;</li>
 </ul>
+
 <h4 id="在日志中记录explain信息">在日志中记录explain信息</h4>
+
 <p>通过auto_explain 扩展可在日志中记录explain信息</p>
-<p><a href="https://www.postgresql.org/docs/10/using-explain.html">文档 官网</a><br>
+
+<p><a href="https://www.postgresql.org/docs/10/using-explain.html">文档 官网</a><br />
 <a href="http://www.postgres.cn/docs/10/sql-explain.html">文档 中文</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/docker/nginx-log/">«Nginx log 切割</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/vacuum/">vacuum 垃圾回收器»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/vacuum/">«vacuum 垃圾回收器</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/docker/nginx-log/">Nginx log 切割»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

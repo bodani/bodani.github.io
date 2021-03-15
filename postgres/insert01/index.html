@@ -94,11 +94,17 @@
 		<div class="post-meta">
 			<p>2018年12月14日</p>
 		</div>
-		<h4 id="在数据库中快速生成1w条数据或测试数据库的写入性能">在数据库中快速生成1w条数据，或测试数据库的写入性能。</h4>
+		
+
+<h4 id="在数据库中快速生成1w条数据-或测试数据库的写入性能">在数据库中快速生成1w条数据，或测试数据库的写入性能。</h4>
+
 <pre><code>创建数据库表
 postgres=# create table tbl(id int, info text, crt_time timestamp);
 CREATE TABLE 
-</code></pre><h5 id="方法一-generate_series">方法一 generate_series</h5>
+</code></pre>
+
+<h5 id="方法一-generate-series">方法一 generate_series</h5>
+
 <pre><code>查看方法函数
 postgres=# \df generate_series 
                                                                    函数列表
@@ -116,14 +122,20 @@ postgres=# \df generate_series
 
 postgres=# insert into tbl select id, md5(random()::text), clock_timestamp() from generate_series(1,10000) t(id);  
 INSERT 0 10000  
-</code></pre><h4 id="方法二-pgbench">方法二 pgbench</h4>
+</code></pre>
+
+<h4 id="方法二-pgbench">方法二 pgbench</h4>
+
 <pre><code>vi test.sql  
 \set id random(1,10000000)  
 insert into tbl values (:id, md5(random()::text), now());  
 
 pgbench -M prepared -n -r -f ./test.sql -P 1 -c 32 -j 32 -t 1000  
 
-</code></pre><h4 id="方法三-do">方法三 do</h4>
+</code></pre>
+
+<h4 id="方法三-do">方法三 do</h4>
+
 <pre><code>postgres=# do language plpgsql $$  
 declare  
 begin  
@@ -135,10 +147,11 @@ $$;
 DO 
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pipelinedb02/">«Pipelinedb 简介</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/normal-form/">数据库三范式五约束»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/normal-form/">«数据库三范式五约束</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pipelinedb02/">Pipelinedb 简介»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

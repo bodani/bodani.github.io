@@ -95,60 +95,47 @@
 			<p>2018年11月27日</p>
 		</div>
 		<ul>
-<li>
-<p>流计算数据库产品 pipelineDB *</p>
-</li>
-<li>
-<p>推荐数据库产品 recDB</p>
-</li>
-<li>
-<p>时序数据库 timescaleDB *</p>
-</li>
-<li>
-<p>分布式数据库插件 citus *</p>
-</li>
-<li>
-<p>列存储插件 IMCS, cstore等</p>
-</li>
-<li>
-<p>面向OLAP的codegen数据库 pg_LLVM</p>
-</li>
-<li>
-<p>向量计算插件 vops</p>
-</li>
-<li>
-<p>数据库性能分析 <a href="postgres/pg_stat_statements">pg_stat_statements</a> pg_buffercache</p>
-</li>
-<li>
-<p>直接访问数据库文件系统 adminpack</p>
-</li>
-<li>
-<p>加密数据 pgcrypto</p>
-</li>
-<li>
-<p>预热缓存 pg_prewarm</p>
-</li>
-<li>
-<p>检查存储，特别是表膨胀 pgstattuple</p>
-</li>
-<li>
-<p>模糊搜索 pg_trgm</p>
-</li>
-<li>
-<p>连接到远程服务器 postgres_fdw</p>
-</li>
-<li>
-<p>k近邻（KNN）搜索 btree_gist</p>
-</li>
+<li><p>流计算数据库产品 pipelineDB *</p></li>
+
+<li><p>推荐数据库产品 recDB</p></li>
+
+<li><p>时序数据库 timescaleDB *</p></li>
+
+<li><p>分布式数据库插件 citus *</p></li>
+
+<li><p>列存储插件 IMCS, cstore等</p></li>
+
+<li><p>面向OLAP的codegen数据库 pg_LLVM</p></li>
+
+<li><p>向量计算插件 vops</p></li>
+
+<li><p>数据库性能分析 <a href="postgres/pg_stat_statements">pg_stat_statements</a> pg_buffercache</p></li>
+
+<li><p>直接访问数据库文件系统 adminpack</p></li>
+
+<li><p>加密数据 pgcrypto</p></li>
+
+<li><p>预热缓存 pg_prewarm</p></li>
+
+<li><p>检查存储，特别是表膨胀 pgstattuple</p></li>
+
+<li><p>模糊搜索 pg_trgm</p></li>
+
+<li><p>连接到远程服务器 postgres_fdw</p></li>
+
+<li><p>k近邻（KNN）搜索 btree_gist</p></li>
 </ul>
+
 <p>比如检索10左右的数据，价格在100左右的数据。</p>
+
 <pre><code>create index idx_value_001 on t_talbe01 USING gist(value);
 select * from t_table01 where value &lt;-&gt; 100 limit 10;
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/about/en/">«英语单词</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pg_stat_statements/">pg_stat_statements 数据库统计信息»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_stat_statements/">«pg_stat_statements 数据库统计信息</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/about/en/">英语单词»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

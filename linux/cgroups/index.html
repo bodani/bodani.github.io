@@ -95,9 +95,13 @@
 			<p>2019年1月14日</p>
 		</div>
 		<p><a href="https://www.certdepot.net/rhel7-get-started-cgroups/">https://www.certdepot.net/rhel7-get-started-cgroups/</a></p>
+
 <p><a href="https://www.oracle.com/technical-resources/articles/linux/resource-controllers-linux.html">https://www.oracle.com/technical-resources/articles/linux/resource-controllers-linux.html</a></p>
+
 <p>iops和bps限制</p>
+
 <p>限制sda 的读写</p>
+
 <pre><code>lsblk 
 
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -107,17 +111,20 @@ sdb      8:16   0 223.6G  0 disk
 ├─sdb2   8:18   0     1G  0 part /boot
 ├─sdb3   8:19   0   7.8G  0 part [SWAP]
 └─sdb4   8:20   0 214.6G  0 part /
-</code></pre><pre><code>cd /sys/fs/cgroup/blkio/
+</code></pre>
+
+<pre><code>cd /sys/fs/cgroup/blkio/
 
 echo &quot;8:0 102400&quot; &gt; blkio.throttle.read_bps_device
 echo &quot;8:0 10&quot; &gt; blkio.throttle.read_iops_device
 echo &quot;8:0 204800&quot; &gt; blkio.throttle.write_bps_device
 echo &quot;8:0 20&quot; &gt; blkio.throttle.write_iops_device
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/monitor/postgres/">«Postgres</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/dmidecode/">Linux查看内存条信息»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/dmidecode/">«Linux查看内存条信息</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/monitor/postgres/">Postgres»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

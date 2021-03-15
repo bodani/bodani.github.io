@@ -94,8 +94,12 @@
 		<div class="post-meta">
 			<p>2018年10月29日</p>
 		</div>
-		<p>以特定的层级目录结构进行组织的tasks、variables、handlers、templates、files等</p>
+		
+
+<p>以特定的层级目录结构进行组织的tasks、variables、handlers、templates、files等</p>
+
 <p>mkdir -pv ./{os_hard,nginx,memcached}/{files,templates,vars,handlers,meta,default,tasks}/main.yaml</p>
+
 <pre><code>tree memcached/
 memcached/
 ├── default 设定默认变量
@@ -112,44 +116,70 @@ memcached/
 │   └── main.yaml
 └── vars
     └── main.yaml
-</code></pre><h4 id="ansible-galaxy">ansible-galaxy</h4>
+</code></pre>
+
+<h4 id="ansible-galaxy">ansible-galaxy</h4>
+
 <p><a href="https://galaxy.ansible.com">https://galaxy.ansible.com</a> 网站为他人分享的 roles， 可以下载学习并使用</p>
+
 <p>ansible-galaxy 语法：</p>
+
 <p>ansible-galaxy [delete|import|info|init|install|list|login|remove|search|setup] [&ndash;help] [options]</p>
+
 <ul>
 <li>列出已安装的galaxy</li>
 </ul>
+
 <pre><code>ansible-galaxy list geerlingguy.redis
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>安装galaxy  位置 /root/.ansible/roles/</li>
 </ul>
+
 <pre><code> ansible-galaxy install geerlingguy.redis
 - downloading role 'redis', owned by geerlingguy
 - downloading role from https://github.com/geerlingguy/ansible-role-redis/archive/1.6.0.tar.gz
 - extracting geerlingguy.redis to /root/.ansible/roles/geerlingguy.redis
 - geerlingguy.redis (1.6.0) was installed successfully
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>删除galaxy</li>
 </ul>
+
 <pre><code>ansible-galaxy remove geerlingguy.redis
-</code></pre><h4 id="ansible-vault">Ansible-vault</h4>
+</code></pre>
+
+<h4 id="ansible-vault">Ansible-vault</h4>
+
 <p>管理加密解密yml文件</p>
+
 <pre><code>Usage: ansible-vault [create|decrypt|edit|encrypt|encrypt_string|rekey|view] [options] [vaultfile.yml]
-</code></pre><h4 id="ansible-console">Ansible-console</h4>
+</code></pre>
+
+<h4 id="ansible-console">Ansible-console</h4>
+
 <p>交互执行命令</p>
+
 <pre><code>
-</code></pre><h3 id="官方文档httpsdocsansiblecomansiblelatestindexhtml"><a href="https://docs.ansible.com/ansible/latest/index.html">官方文档</a></h3>
+</code></pre>
+
+<h3 id="官方文档-https-docs-ansible-com-ansible-latest-index-html"><a href="https://docs.ansible.com/ansible/latest/index.html">官方文档</a></h3>
+
 <h3 id="实际应用">实际应用</h3>
-<hr>
-<p><a href="https://github.com/gjmzj/kubeasz">k8s</a><br>
-<a href="https://github.com/pingcap/tidb-ansible">TiDB</a><br>
+
+<hr />
+
+<p><a href="https://github.com/gjmzj/kubeasz">k8s</a><br />
+<a href="https://github.com/pingcap/tidb-ansible">TiDB</a><br />
 <a href="https://github.com/bodani/ansible-moses">小试牛刀</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/ansible/ansible-playbooks/">«Ansible Playbooks</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/backup_restore/">数据库备份和恢复»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/backup_restore/">«数据库备份和恢复</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/ansible/ansible-playbooks/">Ansible Playbooks»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

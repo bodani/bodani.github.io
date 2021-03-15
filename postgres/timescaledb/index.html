@@ -94,31 +94,51 @@
 		<div class="post-meta">
 			<p>2019年1月30日</p>
 		</div>
-		<p>时序数据库
+		
+
+<p>时序数据库
 <a href="https://github.com/timescale/timescaledb">https://github.com/timescale/timescaledb</a></p>
+
 <p>数据库配置
 <a href="https://github.com/timescale/timescaledb-tune">https://github.com/timescale/timescaledb-tune</a></p>
+
 <p>copy并行导入数据
 <a href="https://github.com/timescale/timescaledb-parallel-copy">https://github.com/timescale/timescaledb-parallel-copy</a></p>
+
 <h4 id="常用方法">常用方法</h4>
+
 <p>创建拓展</p>
+
 <pre><code>CREATE EXTENSION timescaledb;
-</code></pre><p>创建一个普通的表</p>
+</code></pre>
+
+<p>创建一个普通的表</p>
+
 <pre><code>CREATE TABLE conditions (
   time        TIMESTAMPTZ       NOT NULL,
   location    TEXT              NOT NULL,
   temperature DOUBLE PRECISION  NULL,
   humidity    DOUBLE PRECISION  NULL
 );
-</code></pre><p>转换成时序数据库表</p>
+</code></pre>
+
+<p>转换成时序数据库表</p>
+
 <pre><code>SELECT create_hypertable('conditions', 'time');
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>conditions 表名</li>
 <li>time 时序字段</li>
 </ul>
+
 <p>修改时序间隔 对新表生效</p>
+
 <pre><code>SELECT set_chunk_time_interval('conditions', INTERVAL '24 hours');
-</code></pre><p>查看分区</p>
+</code></pre>
+
+<p>查看分区</p>
+
 <pre><code>SELECT show_chunks('conditions');
 
 SELECT show_chunks('conditions', older_than =&gt; INTERVAL '3 months')
@@ -129,61 +149,118 @@ SELECT show_chunks(newer_than =&gt; INTERVAL '3 months');
 
 SELECT show_chunks(older_than =&gt; INTERVAL '3 months', newer_than =&gt; INTERVAL '4 months');
 
-</code></pre><p>查看数据大小</p>
+</code></pre>
+
+<p>查看数据大小</p>
+
 <pre><code>SELECT * FROM timescaledb_information.hypertable;
-</code></pre><p>自动删除</p>
+</code></pre>
+
+<p>自动删除</p>
+
 <pre><code>添加规则
 SELECT add_drop_chunks_policy('conditions', INTERVAL '6 months');
 删除规则
 SELECT remove_drop_chunks_policy('conditions');
-</code></pre><h4 id="注意事项">注意事项</h4>
+</code></pre>
+
+<h4 id="注意事项">注意事项</h4>
+
 <pre><code>When creating hypertables, one constraing that TimescaleDB imposes is that the partitioning column (in your case 'date_time') must be included in any unique indexes (and Primary Keys) for that table.
-</code></pre><p><a href="https://stackoverflow.com/questions/61205063/error-cannot-create-a-unique-index-without-the-column-date-time-used-in-part">https://stackoverflow.com/questions/61205063/error-cannot-create-a-unique-index-without-the-column-date-time-used-in-part</a></p>
+</code></pre>
+
+<p><a href="https://stackoverflow.com/questions/61205063/error-cannot-create-a-unique-index-without-the-column-date-time-used-in-part">https://stackoverflow.com/questions/61205063/error-cannot-create-a-unique-index-without-the-column-date-time-used-in-part</a></p>
+
 <h4 id="时序数据特征">时序数据特征</h4>
+
 <ul>
 <li>have a timestamp</li>
 <li>append only ,less update or delete</li>
 <li>recent hot</li>
 </ul>
+
 <h4 id="限制">限制</h4>
+
 <p>除分区列外不可以在其他列中有唯一约束</p>
+
 <p>原数据库中的唯一约束为全局表内唯一约束，在分区表（chunks）中不能够保证全局唯一</p>
+
 <pre><code>When converting a normal SQL table to a hypertable, pay attention to how you handle constraints.
 A hypertable can contain foreign keys to normal SQL table columns, but the reverse is not allowed. UNIQUE and PRIMARY constraints must include the partitioning key.
-</code></pre><h4 id="最佳实践">最佳实践</h4>
+</code></pre>
+
+<h4 id="最佳实践">最佳实践</h4>
+
 <h5 id="chunk-时间范围">chunk 时间范围</h5>
+
 <p>与数据量有关，一个chunk容量约1/4 内存大小</p>
+
 <pre><code>SELECT * FROM create_hypertable('conditions', 'time',
        chunk_time_interval =&gt; INTERVAL '1 day');
-</code></pre><h5 id="组合索引">组合索引</h5>
-<p>1 等值查询 （e,time）e 为等值查询列 time 为分区时间列<br>
-2 范围查询  (time,c) c 为连续值列</p>
-<h5 id="排序">排序</h5>
-<h5 id="压缩">压缩</h5>
-<p>设置历史数据压缩策略，压缩后变成列存，且为只读</p>
-<pre><code> alter table conditions set( timescaledb.compress);
+</code></pre>
 
- timescaledb.compress_segmentby
- timescaledb.compress_orderby
-</code></pre><p>设置压缩策略</p>
-<pre><code> SELECT add_compress_chunks_policy('conditions', INTERVAL '60d'); 
-</code></pre><p>删除压缩策略</p>
-<pre><code> remove_compress_chunks_policy()
-</code></pre><p>手动压缩</p>
-<pre><code>SELECT compress_chunk('_timescaledb_internal._hyper_1_2_chunk');
-</code></pre><p>解压缩</p>
-<pre><code>SELECT compress_chunk('_timescaledb_internal._hyper_1_2_chunk');
-</code></pre><p>查看压缩情况</p>
-<pre><code>SELECT * FROM timescaledb_information.compressed_chunk_stats;
-</code></pre><p>手动批量压缩</p>
-<pre><code>SELECT compress_chunk(i) from show_chunks('conditions', newer_than, older_than) i;	
-</code></pre><h5 id="保留策略">保留策略</h5>
+<h5 id="组合索引">组合索引</h5>
+
+<p>1 等值查询 （e,time）e 为等值查询列 time 为分区时间列<br />
+ 2 范围查询  (time,c) c 为连续值列</p>
+
+<h5 id="排序">排序</h5>
+
+<h5 id="压缩">压缩</h5>
+
+<p>设置历史数据压缩策略，压缩后变成列存，且为只读</p>
+
+<pre><code>  alter table conditions set( timescaledb.compress);
+
+  timescaledb.compress_segmentby
+  timescaledb.compress_orderby
+</code></pre>
+
+<p>设置压缩策略</p>
+
+<pre><code>  SELECT add_compress_chunks_policy('conditions', INTERVAL '60d'); 
+</code></pre>
+
+<p>删除压缩策略</p>
+
+<pre><code>  remove_compress_chunks_policy()
+</code></pre>
+
+<p>手动压缩</p>
+
+<pre><code> SELECT compress_chunk('_timescaledb_internal._hyper_1_2_chunk');
+</code></pre>
+
+<p>解压缩</p>
+
+<pre><code> SELECT compress_chunk('_timescaledb_internal._hyper_1_2_chunk');
+</code></pre>
+
+<p>查看压缩情况</p>
+
+<pre><code> SELECT * FROM timescaledb_information.compressed_chunk_stats;
+</code></pre>
+
+<p>手动批量压缩</p>
+
+<pre><code> SELECT compress_chunk(i) from show_chunks('conditions', newer_than, older_than) i;	
+</code></pre>
+
+<h5 id="保留策略">保留策略</h5>
+
 <p>设置保留数据策略</p>
+
 <pre><code>SELECT add_drop_chunks_policy('conditions', INTERVAL '24 hours');
-</code></pre><h5 id="连续分析窗口">连续分析窗口</h5>
+</code></pre>
+
+<h5 id="连续分析窗口">连续分析窗口</h5>
+
 <p>物化视图自动持续更新</p>
+
 <h4 id="更多信息查看">更多信息查看</h4>
+
 <p>比如压缩策略，保留策略，持续集成策略等</p>
+
 <pre><code>\dv timescaledb_information.*
                             List of relations
          Schema          |            Name             | Type |  Owner   
@@ -198,10 +275,11 @@ A hypertable can contain foreign keys to normal SQL table columns, but the rever
  timescaledb_information | policy_stats                | view | postgres
  timescaledb_information | reorder_policies            | view | postgres
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_rewind/">«PG主从切换 pg_rewind</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/archive/">Archive wal归档»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/archive/">«Archive wal归档</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pg_rewind/">PG主从切换 pg_rewind»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

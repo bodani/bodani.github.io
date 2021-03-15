@@ -94,30 +94,39 @@
 		<div class="post-meta">
 			<p>2019年12月10日</p>
 		</div>
-		<p>Linux time命令的用途，在于量测特定指令执行时所需消耗的时间及系统资源等资讯。</p>
+		
+
+<p>Linux time命令的用途，在于量测特定指令执行时所需消耗的时间及系统资源等资讯。</p>
+
 <p>例如 CPU 时间、记忆体、输入输出等等。需要特别注意的是，部分资讯在 Linux 上显示不出来。这是因为在 Linux 上部分资源的分配函式与 time 指令所预设的方式并不相同，以致于 time 指令无法取得这些资料。</p>
+
 <p>语法</p>
+
 <pre><code>time [options] COMMAND [arguments]
-</code></pre><p>参数：</p>
+</code></pre>
+
+<p>参数：</p>
+
 <p>-o 或 &ndash;output=FILE：设定结果输出档。这个选项会将 time 的输出写入 所指定的档案中。如果档案已经存在，系统将覆写其内容。</p>
+
 <p>-a 或 &ndash;append：配合 -o 使用，会将结果写到档案的末端，而不会覆盖掉原来的内容。</p>
+
 <p>-f FORMAT 或 &ndash;format=FORMAT：以 FORMAT 字串设定显示方式。当这个选项没有被设定的时候，会用系统预设的格式。不过你可以用环境变数 time 来设定这个格式，如此一来就不必每次登入系统都要设定一次。</p>
+
 <p>time 指令可以显示的资源有四大项，分别是：</p>
+
 <ul>
-<li>
-<p>Time resources</p>
-</li>
-<li>
-<p>Memory resources</p>
-</li>
-<li>
-<p>IO resources</p>
-</li>
-<li>
-<p>Command info</p>
-</li>
+<li><p>Time resources</p></li>
+
+<li><p>Memory resources</p></li>
+
+<li><p>IO resources</p></li>
+
+<li><p>Command info</p></li>
 </ul>
+
 <h5 id="举例">举例</h5>
+
 <pre><code># time date
  Sun Mar 26 22:45:34 GMT-8 2006
 
@@ -132,10 +141,11 @@ sys     0m0.070s
 以上三种时间的显示格式均为MMmNN[.FFF]s。
 利用下面的指令
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/dw/greenplum-install/">«Greenplum6 安装</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/parted/">linux分区命令parted的用法»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/parted/">«linux分区命令parted的用法</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/dw/greenplum-install/">Greenplum6 安装»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

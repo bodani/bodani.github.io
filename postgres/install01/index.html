@@ -94,8 +94,12 @@
 		<div class="post-meta">
 			<p>2018年10月17日</p>
 		</div>
-		<p><a href="https://www.postgresql.org/download/linux/redhat/">官网</a></p>
+		
+
+<p><a href="https://www.postgresql.org/download/linux/redhat/">官网</a></p>
+
 <p>1.准备源</p>
+
 <pre><code>清除历史残余，有些是系统自带的旧版本数据库
 
 rpm -qa | grep postgres
@@ -112,9 +116,15 @@ yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/p
 
 yum update -y 
 
-</code></pre><p>2.安装</p>
+</code></pre>
+
+<p>2.安装</p>
+
 <pre><code>yum install -y postgresql10-server postgresql10  postgresql10-contrib
-</code></pre><p>3.初始化</p>
+</code></pre>
+
+<p>3.初始化</p>
+
 <pre><code>默认
 /usr/pgsql-10/bin/postgresql-10-setup initdb
 
@@ -127,19 +137,32 @@ yum update -y
 --lc-collate 区域 Collate会影响中文的排序，在zh_CN的区域下中文按拼音排序，其它区域按字符编码排序。
 --lc-ctype 字符类型Ctype会影响pg_trgm和部分正则匹配的结果，比如Ctype为'C'时，pg_trgm将无法支持中文。
 -k 使用 data checksums
-</code></pre><p>可将数据存放到其他目录下，使用<a href="linux/ln-s">软连接</a>的方式。</p>
+</code></pre>
+
+<p>可将数据存放到其他目录下，使用<a href="linux/ln-s">软连接</a>的方式。</p>
+
 <p>为什么会使用软连接而不是更改PGDATA环境变量，因为升级数据库的时 PGDATA 被指回默认值。</p>
-<p>通过软连接的方式不改变初始值:<br>
-1 升级的时候不用修改PGDATA<br>
+
+<p>通过软连接的方式不改变初始值:<br />
+1 升级的时候不用修改PGDATA<br />
 2 数据位置存放固定，便于以后管理。</p>
+
 <p>4.启动服务　＆　开机自启</p>
+
 <pre><code>systemctl start postgresql-10.service
 
 systemctl enable postgresql-10.service
-</code></pre><p>5.设置访问权限</p>
+</code></pre>
+
+<p>5.设置访问权限</p>
+
 <p>　  vi postgresql.conf</p>
+
 <pre><code>  listen_addresses ='*'
-</code></pre><p>　vi pg_hba.conf</p>
+</code></pre>
+
+<p>　vi pg_hba.conf</p>
+
 <pre><code>  # &quot;local&quot; is for Unix domain socket connections only
   local   all             all                                     trust
   # IPv4 local connections:
@@ -148,16 +171,26 @@ systemctl enable postgresql-10.service
   # IPv6 local connections:
   host    all             all             ::1/128                 ident
 
-</code></pre><pre><code>systemctl restart postgresql-10.service
-</code></pre><p>6.设置密码</p>
+</code></pre>
+
+<pre><code>systemctl restart postgresql-10.service
+</code></pre>
+
+<p>6.设置密码</p>
+
 <pre><code>  #psql -U postgres
   
   postgres=# ALTER USER postgres WITH PASSWORD 'postgres'
   \q
 
-</code></pre><h4 id="进一步优化">进一步优化</h4>
+</code></pre>
+
+<h4 id="进一步优化">进一步优化</h4>
+
 <h5 id="系统linux-内核参数">系统Linux 内核参数</h5>
+
 <p>vi /etc/sysctl.conf</p>
+
 <pre><code>kernel.shmall = 4294967296  
 kernel.shmmax=135497418752  
 kernel.shmmni = 4096  
@@ -186,9 +219,14 @@ vm.dirty_writeback_centisecs = 50
 vm.swappiness=0  
 vm.overcommit_memory = 0  
 vm.overcommit_ratio = 90  
-</code></pre><p>sysctl -p 生效</p>
+</code></pre>
+
+<p>sysctl -p 生效</p>
+
 <h5 id="系统linux-最大句柄数">系统Linux 最大句柄数</h5>
+
 <p>vi /etc/security/limits.conf</p>
+
 <pre><code>* soft    nofile  131072  
 * hard    nofile  131072  
 * soft    nproc   131072  
@@ -198,25 +236,35 @@ vm.overcommit_ratio = 90
 * soft    memlock 500000000  
 * hard    memlock 500000000 
 
-</code></pre><h4 id="ntp">ntp</h4>
+</code></pre>
+
+<h4 id="ntp">ntp</h4>
+
 <pre><code>yum install ntp -y
 
 systemctl start ntpd
 systemctl enable ntpd
-</code></pre><p>reboot 生效</p>
+</code></pre>
+
+<p>reboot 生效</p>
+
 <h4 id="数据库参数">数据库参数</h4>
+
 <p><a href="postgres/params/">参见</a></p>
+
 <h4 id="常见问题">常见问题</h4>
+
 <pre><code>Package: postgresql12-devel-12.3-1PGDG.rhel7.x86_64 (pgdg12)
            Requires: llvm-toolset-7-clang &gt;= 4.0.1
 install CentOS SCLo RH repository and install llvm-toolset-7-clang to resolve it.
 yum install centos-release-scl-rh
 yum install llvm-toolset-7-clang
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/about/tech/">«技术图谱</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/replication01/">主从流复制»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/replication01/">«主从流复制</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/about/tech/">技术图谱»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

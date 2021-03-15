@@ -94,27 +94,58 @@
 		<div class="post-meta">
 			<p>2019年1月31日</p>
 		</div>
-		<h5 id="监控进程">监控进程</h5>
+		
+
+<h5 id="监控进程">监控进程</h5>
+
 <p>查看系统TOP(f进入field选择)</p>
+
 <pre><code>top  
-</code></pre><p>打印系统进程</p>
+</code></pre>
+
+<p>打印系统进程</p>
+
 <pre><code>ps -efwL  
-</code></pre><p>统计每个进程的开销</p>
+</code></pre>
+
+<p>统计每个进程的开销</p>
+
 <pre><code>pidstat -d -r -u -w -l -h -p ALL 5 1  
-</code></pre><p>打印进程stack</p>
+</code></pre>
+
+<p>打印进程stack</p>
+
 <pre><code>pstack -p pid  
-</code></pre><p>打印进程系统调用</p>
+</code></pre>
+
+<p>打印进程系统调用</p>
+
 <pre><code>strace -p pid  
-</code></pre><h5 id="结束和管理进程">结束和管理进程</h5>
+</code></pre>
+
+<h5 id="结束和管理进程">结束和管理进程</h5>
+
 <p>结束进程</p>
+
 <pre><code>kill pid  
-</code></pre><p>强制结束进程(用户进程无法捕获-9信号，可能崩溃. -15信号稳妥些)</p>
+</code></pre>
+
+<p>强制结束进程(用户进程无法捕获-9信号，可能崩溃. -15信号稳妥些)</p>
+
 <pre><code>kill -9 pid  
-</code></pre><p>管理周期进程</p>
+</code></pre>
+
+<p>管理周期进程</p>
+
 <p>任务调度进程的管理</p>
+
 <p>查看当前用户的当前调度任务</p>
+
 <pre><code>crontab -l  
-</code></pre><p>配置当前用户的调度任务(命令一定要有user:x权限，否则不会被执行)</p>
+</code></pre>
+
+<p>配置当前用户的调度任务(命令一定要有user:x权限，否则不会被执行)</p>
+
 <pre><code>crontab -e  
   
 # * 表示所有，支持-号范围，支持,号枚举  
@@ -126,26 +157,44 @@
 # |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat  
 # |  |  |  |  |  
 # *  *  *  *  * user-name command to be executed  
-</code></pre><h5 id="调整进程">调整进程</h5>
+</code></pre>
+
+<h5 id="调整进程">调整进程</h5>
+
 <p>进程优先级，Linux在分配计算资源时，优先分配给nice值低的进程。</p>
+
 <p>nice等级的范围从-20-19，其中-20最高，19最低，只有系统管理者可以设置负数的等级。</p>
+
 <p>启动时调整进程的优先级</p>
+
 <p>启动时设置为-5</p>
+
 <pre><code>nice -n -5 命令 &amp;  
-</code></pre><p>调整已存在进程的优先级</p>
+</code></pre>
+
+<p>调整已存在进程的优先级</p>
+
 <pre><code>renice -5 -p 5200  
-</code></pre><p>PID为5200的进程nice设为-5<br>
+</code></pre>
+
+<p>PID为5200的进程nice设为-5<br />
 查看进程优先级</p>
+
 <pre><code>top -p pid  
-</code></pre><p>NI 字段表示<br>
+</code></pre>
+
+<p>NI 字段表示<br />
 调整进程的CPU亲和(绑定CPU)</p>
+
 <pre><code>numactl --physcpubind=1,2,3 命令  
-</code></pre><p>将命令的CPU绑定到1,2,3号核</p>
+</code></pre>
+
+<p>将命令的CPU绑定到1,2,3号核</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pgpool2/">«pgpoolii 读写分离</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/process-comm/">八种进程通信»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/process-comm/">«八种进程通信</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgpool2/">pgpoolii 读写分离»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

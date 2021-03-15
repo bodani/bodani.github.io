@@ -94,32 +94,30 @@
 		<div class="post-meta">
 			<p>2018年12月6日</p>
 		</div>
-		<h4 id="各种监控方式">各种监控方式</h4>
+		
+
+<h4 id="各种监控方式">各种监控方式</h4>
+
 <ul>
-<li>
-<p><a href="https://github.com/cavaliercoder/libzbxpgsql">zabbix</a>  Monitor PostgreSQL with Zabbix</p>
-</li>
-<li>
-<p><a href="https://github.com/wrouesnel/postgres_exporter">postgres_exporter</a>  A PostgresSQL metric exporter for Prometheus</p>
-</li>
-<li>
-<p><a href="https://github.com/cybertec-postgresql/pgwatch2">pgwatch2</a> PostgreSQL metrics monitor/dashboard</p>
-</li>
-<li>
-<p><a href="https://github.com/rapidloop/pgmetrics">pgmetrics</a> Collect and display information and stats from a running PostgreSQL server</p>
-</li>
-<li>
-<p><a href="https://pgdash.io/">pgdash</a>  (收费)</p>
-</li>
-<li>
-<p><a href="https://pganalyze.com">pganalyze</a> PostgreSQL Performance Monitoring</p>
-</li>
-<li>
-<p><a href="https://yq.aliyun.com/live/927">参考自己实现</a></p>
-</li>
+<li><p><a href="https://github.com/cavaliercoder/libzbxpgsql">zabbix</a>  Monitor PostgreSQL with Zabbix</p></li>
+
+<li><p><a href="https://github.com/wrouesnel/postgres_exporter">postgres_exporter</a>  A PostgresSQL metric exporter for Prometheus</p></li>
+
+<li><p><a href="https://github.com/cybertec-postgresql/pgwatch2">pgwatch2</a> PostgreSQL metrics monitor/dashboard</p></li>
+
+<li><p><a href="https://github.com/rapidloop/pgmetrics">pgmetrics</a> Collect and display information and stats from a running PostgreSQL server</p></li>
+
+<li><p><a href="https://pgdash.io/">pgdash</a>  (收费)</p></li>
+
+<li><p><a href="https://pganalyze.com">pganalyze</a> PostgreSQL Performance Monitoring</p></li>
+
+<li><p><a href="https://yq.aliyun.com/live/927">参考自己实现</a></p></li>
 </ul>
+
 <h4 id="状态查看">状态查看</h4>
+
 <p><a href="https://github.com/lesovsky/pgcenter">pgcenter</a></p>
+
 <pre><code>pgcenter top
 pgcenter: 2018-12-20 11:10:25, load average: 0.94, 0.84, 0.86                                                                         state [ok]: ::1:5432 postgres@postgres (ver: 10.6, up 8 days 19:57:54, recovery: f)
     %cpu: 15.0 us,  3.7 sy,  0.0 ni, 75.3 id,  5.7 wa,  0.0 hi,  0.2 si,  0.0 st                                                        activity:  5/1000 conns,  0/0 prepared,  2 idle,  0 idle_xact,  3 active,  0 waiting,  0 others
@@ -130,7 +128,10 @@ pid     cl_addr      cl_port   datname       usename    appname    backend_type 
 27908   ::1          40204     postgres      postgres   pgcenter   client backend                                  active   00:00:00   00:00:00          00:00:00          SELECT pid, client_addr AS cl_addr, client_port AS cl_port, datname, usename, left(application
 27660   10.1.88.22   34224     timescaledb   postgres              client backend      LWLock       WALWriteLock   active   00:00:00   00:00:00          00:00:00          COMMIT                                                                                        
 27410   10.1.88.22   34058     timescaledb   postgres              client backend                                  active   00:00:00   00:00:00          00:00:00          COMMIT                 
-</code></pre><p><a href="https://github.com/dalibo/pg_activity">pg_activity</a></p>
+</code></pre>
+
+<p><a href="https://github.com/dalibo/pg_activity">pg_activity</a></p>
+
 <pre><code>pg_activity
 - postgres@localhost:5432/postgres - Ref.: 2s
   Size:   60.54G -     0.00B/s        | TPS:        1243        | Active Connections:           2        | Duration mode:       query
@@ -140,12 +141,14 @@ pid     cl_addr      cl_port   datname       usename    appname    backend_type 
                                                                                RUNNING QUERIES
 PID    DATABASE                      APP             USER           CLIENT   CPU% MEM%   READ/s  WRITE/s     TIME+  W  IOW              state   Query
 33430  None                  walreceiver         postgres     10.1.80.6/32    1.0  0.0    0.00B    0.00B  0.000000  N    N             active
-</code></pre><p><a href="https://www.postgresql.org/docs/devel/monitoring-stats.html">monitoring-stats</a></p>
+</code></pre>
+
+<p><a href="https://www.postgresql.org/docs/devel/monitoring-stats.html">monitoring-stats</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/sysstat/">«Linux 系统性能检测</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/k8s/install/">集群部署安装»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/k8s/install/">«集群部署安装</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/sysstat/">Linux 系统性能检测»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

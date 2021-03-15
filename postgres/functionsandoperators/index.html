@@ -94,16 +94,27 @@
 		<div class="post-meta">
 			<p>2020年4月13日</p>
 		</div>
-		<h4 id="条件表达式">条件表达式</h4>
+		
+
+<h4 id="条件表达式">条件表达式</h4>
+
 <p><a href="https://www.postgresql.org/docs/10/functions-conditional.html">https://www.postgresql.org/docs/10/functions-conditional.html</a></p>
+
 <p>postgresql支持CASE,COALESCE,NULLIF,GREATEST,LEAST条件表达式，使用它们有时候可以简化许多功能实现。</p>
+
 <h5 id="case">CASE</h5>
+
 <p>CASE类似其他语言中的if/else等，当符合不同条件时则进行不同的运算</p>
+
 <p>tbl_001表</p>
+
 <pre><code>create table tbl_001(id int,name varchar(32),sex varchar(1));
 
 insert into tbl_001 values(1,'张三','m'),(2,'李四','m'),(3,'王五','f');
-</code></pre><p>测试</p>
+</code></pre>
+
+<p>测试</p>
+
 <pre><code>简单应用
 postgres=# select case when sex = 'm' then '男' when sex = 'f' then '女' else 'O'  end as sex from tbl_001 ;
  sex 
@@ -133,9 +144,15 @@ select sum(case when sex = 'm' then 1 else 0 end) as 男, sum(case when sex = 'f
   2 |  1
 (1 row)
 
-</code></pre><h5 id="coalesce">COALESCE</h5>
+</code></pre>
+
+<h5 id="coalesce">COALESCE</h5>
+
 <pre><code>COALESCE(value [, ...])
-</code></pre><p>返回第一个非null</p>
+</code></pre>
+
+<p>返回第一个非null</p>
+
 <pre><code>postgres=# select coalesce(null,null,1,2,3);
  coalesce 
 ----------
@@ -151,16 +168,26 @@ postgres=# select coalesce(null,null,'a','b','c');
 
 select coalesce(extract(epoch from max(age(now(), query_start))), 0) from pg_stat_activity where wait_event is not null;
 
-</code></pre><h5 id="nullif">NULLIF</h5>
+</code></pre>
+
+<h5 id="nullif">NULLIF</h5>
+
 <pre><code>NULLIF(value1, value2)
-</code></pre><p>value1 和 value2 相等返回null 否则返回 value1</p>
+</code></pre>
+
+<p>value1 和 value2 相等返回null 否则返回 value1</p>
+
 <pre><code>postgres=# select nullif(1,1),nullif(1,2);
  nullif | nullif 
 --------+--------
         |      1
 (1 row)
-</code></pre><h5 id="greatest-and-least">GREATEST and LEAST</h5>
+</code></pre>
+
+<h5 id="greatest-and-least">GREATEST and LEAST</h5>
+
 <p>分别返回最大和最小值</p>
+
 <pre><code>postgres=# select greatest(1,2,3),greatest('a','b','c');
  greatest | greatest 
 ----------+----------
@@ -172,8 +199,12 @@ postgres=# select least(1,2,3),least('a','b','c');
 -------+-------
      1 | a
 (1 row)
-</code></pre><h6 id="时间类型">时间类型</h6>
+</code></pre>
+
+<h6 id="时间类型">时间类型</h6>
+
 <p>纪元，utc时间epoch</p>
+
 <pre><code># t
 postgres=# select extract(epoch from now());
     date_part     
@@ -192,7 +223,10 @@ postgres=# SELECT TIMESTAMP WITH TIME ZONE 'epoch' + 1586846074.40049 * INTERVAL
 ------------------------------
  2020-04-14 14:34:34.40049+08
 (1 row)
-</code></pre><p>时区</p>
+</code></pre>
+
+<p>时区</p>
+
 <pre><code>#当前时区
 postgres=# show timezone;
  TimeZone 
@@ -221,16 +255,29 @@ postgres=# select '2016-02-03 09:07:30.816885+08' at time zone 'pst';
           timezone          
 ----------------------------
  2016-02-02 17:07:30.816885
-</code></pre><p>没有时区代表的是绝对时间，absolute timestamp，即 UTC (UTC+0) 时间。</p>
+</code></pre>
+
+<p>没有时区代表的是绝对时间，absolute timestamp，即 UTC (UTC+0) 时间。</p>
+
 <p>带着时区的代表相对时间，relative timestamp，即当地时间，如北京的当地时间是 UTC+8 的时间。</p>
+
 <p>使用的一个最佳实践是时间类型都设为 timestamp with time zone 类型，只有在根据 timestamp 进行 partition 时才使用 timestamp without time zone 类型，</p>
+
 <p>因为 partition 必须使用 immutable 数据 (即在任何情况下数据取出来都一样)，而 timestamp with time zone 的数据值与 postgres 配置的 timezone 有关。</p>
+
 <p>这两种数据类型的区别是:</p>
+
 <p>以当地时间存储数据到 timestamp with time zone 类型的字段时，postgres 底层会以 UTC 时间存储，展示数据时会根据 postgres 设置的 timezone 显示为当时时间。</p>
+
 <p>以当地时间存储数据到 timestamp without time zone 类型的字段时，postgres 底层以输入的数据进行存储，展示时会原样展示，与 postgres 设置的时区无关。</p>
+
 <p>时间戳加减</p>
+
 <pre><code>postgres=# select date '2016-02-02 10:00:00'+ interval '10 minutes'; 
-</code></pre><p>时间戳格式化</p>
+</code></pre>
+
+<p>时间戳格式化</p>
+
 <pre><code>postgres=# select to_char(now(),'YYYY-MM-DD hh24:mi:ss');
        to_char       
 ---------------------
@@ -242,11 +289,16 @@ postgres=# select to_timestamp('2020-04-14 16:14:29','YYYY-MM-DD hh24:mi:ss');
 ------------------------
  2020-04-14 16:14:29+08
 (1 row)
-</code></pre><p>时间比较</p>
+</code></pre>
+
+<p>时间比较</p>
+
 <pre><code>select current_date &lt;= to_date('2018-03-12 18:47:35','yyyy-MM-dd hh24:mi:ss');
 
 select current_timestamp &lt;= to_timestamp('2018-03-12 18:47:35','yyyy-MM-dd hh24:mi:ss');
-</code></pre><pre><code>--创建随机日期时间函数       
+</code></pre>
+
+<pre><code>--创建随机日期时间函数       
 CREATE OR REPLACE FUNCTION rand_date_time(start_date date, end_date date)
  RETURNS TIMESTAMP AS $$  
 DECLARE  
@@ -265,10 +317,16 @@ BEGIN
 END;   
 $$  
 LANGUAGE plpgsql;
-</code></pre><h6 id="json-类型">JSON 类型</h6>
+</code></pre>
+
+<h6 id="json-类型">JSON 类型</h6>
+
 <p>postgresql支持两种json数据类型：json和jsonb，而两者唯一的区别在于效率,json是对输入的完整拷贝，使用时再去解析，所以它会保留输入的空格，重复键以及顺序等。</p>
+
 <p>而jsonb是解析输入后保存的二进制，它在解析时会删除不必要的空格和重复的键，顺序和输入可能也不相同。使用时不用再次解析。</p>
+
 <p>两者对重复键的处理都是保留最后一个键值对。效率的差别：json类型存储快，使用慢，jsonb类型存储稍慢，使用较快。</p>
+
 <pre><code>postgres=#  SELECT '{&quot;bar&quot;: &quot;baz&quot;, &quot;balance&quot;:      7.77, &quot;active&quot;:false}'::json;
                          json                         
 ------------------------------------------------------
@@ -281,7 +339,10 @@ postgres=#  SELECT '{&quot;bar&quot;: &quot;baz&quot;, &quot;balance&quot;:     
  {&quot;bar&quot;: &quot;baz&quot;, &quot;active&quot;: false, &quot;balance&quot;: 7.77}
 (1 row)
 
-</code></pre><p>测试表</p>
+</code></pre>
+
+<p>测试表</p>
+
 <pre><code>create table api(jdoc jsonb);
 
 insert into api values('{
@@ -298,22 +359,32 @@ insert into api values('{
 &quot;aliquip&quot;,
 &quot;qui&quot;
 ]}');
-</code></pre><pre><code>postgres=# SELECT jdoc-&gt;'guid', jdoc-&gt;'name' FROM api WHERE jdoc @&gt; '{&quot;company&quot;: &quot;Magnafone&quot;}';
+</code></pre>
+
+<pre><code>postgres=# SELECT jdoc-&gt;'guid', jdoc-&gt;'name' FROM api WHERE jdoc @&gt; '{&quot;company&quot;: &quot;Magnafone&quot;}';
                 ?column?                |    ?column?     
 ----------------------------------------+-----------------
  &quot;9c36adc1-7fb5-4d5b-83b4-90356a46061a&quot; | &quot;Angela Barton&quot;
-</code></pre><p>jsonb缺省的GIN操作符类支持使用@&gt;、?、?&amp;和?|操作符查询，在api的jdoc上创建一个gin索引。</p>
+</code></pre>
+
+<p>jsonb缺省的GIN操作符类支持使用@&gt;、?、?&amp;和?|操作符查询，在api的jdoc上创建一个gin索引。</p>
+
 <pre><code>test=# CREATE INDEX idxgin ON api USING gin (jdoc);
 CREATE INDEX
-</code></pre><p>json和jsonb的操作符</p>
+</code></pre>
+
+<p>json和jsonb的操作符</p>
+
 <p><a href="https://www.postgresql.org/docs/9.6/functions-json.html">https://www.postgresql.org/docs/9.6/functions-json.html</a></p>
+
 <h5 id="数组函数和操作符">数组函数和操作符</h5>
+
 <p><a href="http://postgres.cn/docs/11/functions-array.html">http://postgres.cn/docs/11/functions-array.html</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/daily_management/">«数据库日常管理</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/python/django-index-ops/">django 默认创建第二索引»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/python/django-index-ops/">«django 默认创建第二索引</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/daily_management/">数据库日常管理»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

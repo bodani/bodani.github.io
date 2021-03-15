@@ -94,22 +94,32 @@
 		<div class="post-meta">
 			<p>2018年12月24日</p>
 		</div>
-		<h4 id="如何使用篇">如何使用篇</h4>
-<hr>
+		
+
+<h4 id="如何使用篇">如何使用篇</h4>
+
+<hr />
+
 <ul>
-<li>如何安装</li>
+<li>如何安装<br /></li>
 </ul>
+
 <p><a href="https://www.zabbix.com/download?zabbix=4.0&amp;os_distribution=centos&amp;os_version=7&amp;db=PostgreSQL">安装文档</a></p>
-<p>架构模型为服务端、被监控端。<br>
-被监控端agent安装在需要被监控的主机上，负责收集被监控主机相关状态的信息指标如内存，cup，网络等。<br>
+
+<p>架构模型为服务端、被监控端。<br />
+被监控端agent安装在需要被监控的主机上，负责收集被监控主机相关状态的信息指标如内存，cup，网络等。<br />
 服务端负责汇总所有agent的信息，如存储，处理，展现。数据存放在指定的数据库中如mysql pg。</p>
+
 <p>需安装软件说明</p>
-<p>zabbix-server-pgsql 服务端<br>
-zabbix-web-pgsql    服务端界面<br>
+
+<p>zabbix-server-pgsql 服务端<br />
+zabbix-web-pgsql    服务端界面<br />
 zabbix-agent        被监控端，与被监控端安装在一起</p>
+
 <ul>
 <li>常用模块说明</li>
 </ul>
+
 <pre><code>Administration
    Users 新建属于自己的用户，禁用guest，慎用admin
       user 用户名 密码
@@ -136,12 +146,17 @@ Configuration
 
 Monitoring
 
-</code></pre><h4 id="fqa">FQA</h4>
+</code></pre>
+
+<h4 id="fqa">FQA</h4>
+
 <ul>
 <li>Too Many Process</li>
 </ul>
+
 <p>原因: 被监控的主机进程数过多或默认的触发条件过低
 分析:</p>
+
 <pre><code>获取当前进程数 ， 127.0.0.1 改为对应节点IP
 zabbix_get -s 127.0.0.1 -k 'proc.num[]'  
 
@@ -153,14 +168,22 @@ zabbix_get -s 127.0.0.1 -k 'proc.num[zabbix]'
 ps -ef | wc
 ps -ef | grep zabbix | wc  
 
-</code></pre><p><a href="https://www.zabbix.com/documentation/4.0/zh/manual/appendix/items/proc_mem_num_notes?s%5B%5D=proc&amp;s%5B%5D=num">更多</a></p>
+</code></pre>
+
+<p><a href="https://www.zabbix.com/documentation/4.0/zh/manual/appendix/items/proc_mem_num_notes?s[]=proc&amp;s[]=num">更多</a></p>
+
 <p>默认的触发值过低300 在实际的生产环境中改为1000</p>
+
 <ul>
 <li>zabbix poller processes more than 75% busy</li>
 </ul>
+
 <p>原因: 当被监控的主机逐渐增多时。zabbix server 端如果采用被动模式时，server 主机的性能会遇到瓶颈。</p>
+
 <p>处理方法:  StartPollers 增加</p>
+
 <p>vi zabbix_server.conf</p>
+
 <pre><code>### Option: StartPollers
 #       Number of pre-forked instances of pollers.
 #
@@ -169,17 +192,22 @@ ps -ef | grep zabbix | wc
 # Default:
 # StartPollers=5
 StartPollers=20
-</code></pre><p>注意观察数据库连接数</p>
+</code></pre>
+
+<p>注意观察数据库连接数</p>
+
 <ul>
 <li>修改数据库连接配置</li>
 </ul>
+
 <pre><code>vi /etc/zabbix/web/zabbix.conf.php
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/kworker/">«Kworker </a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/monitor/zabbix-postgres-fqa/">Zabbix Postgres Fqa»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/monitor/zabbix-postgres-fqa/">«Zabbix Postgres Fqa</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/kworker/">Kworker »</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

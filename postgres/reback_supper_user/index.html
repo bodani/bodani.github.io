@@ -94,19 +94,29 @@
 		<div class="post-meta">
 			<p>2020年12月22日</p>
 		</div>
-		<h5 id="背景">背景</h5>
+		
+
+<h5 id="背景">背景</h5>
+
 <p>意外删除postgres supper user 权限</p>
+
 <h5 id="找回方法">找回方法</h5>
+
 <p>关闭数据库 用单用户模式重新启动</p>
+
 <pre><code>/usr/lib/postgresql/xxxx/bin/postgres --single -D $PGDATA
 
-</code></pre><p>重新设置supper user 权限</p>
+</code></pre>
+
+<p>重新设置supper user 权限</p>
+
 <pre><code>alter user postgres with superuser;
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/monitor_explain/">«数据库监控指标</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pg_fdw/">跨库操作»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_fdw/">«跨库操作</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/monitor_explain/">数据库监控指标»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

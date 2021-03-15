@@ -94,19 +94,34 @@
 		<div class="post-meta">
 			<p>2020年11月16日</p>
 		</div>
-		<h4 id="背景">背景</h4>
+		
+
+<h4 id="背景">背景</h4>
+
 <p>麒麟系统默认自带postgresql10.5</p>
+
 <p>安装过程与centos基本相同 ,</p>
+
 <p>注意事项</p>
+
 <p>1 安装postgresql-dev</p>
+
 <p>2 编译 postgis 时./configure &ndash;with-pgconfig=/usr/bin/pg_config</p>
+
 <p>但是如果想安装其他版本的postgres 需一番周折</p>
+
 <p>首先第一个问题麒麟系统对openssl过进行改造。在编译postgres支持ssl时不能通过。</p>
+
 <p>其次安装postgres其他拓展也需要解决好各个安装包之间的依赖关系。编译的过程也比较漫长。</p>
-<h4 id="银河麒麟v10编译安装postgresql125">银河麒麟V10编译安装postgresql12.5</h4>
+
+<h4 id="银河麒麟v10编译安装postgresql12-5">银河麒麟V10编译安装postgresql12.5</h4>
+
 <h6 id="安装openssl">安装openssl</h6>
+
 <p>麒麟v10 版操作系统openssl 被指定义安装在内核中。在安装postgresql时支持openssl编译不能通过。</p>
+
 <p>解决思路，独立安装openssl,postgres对ssl 的依赖指向独立安装的openssl</p>
+
 <pre><code>查看原有版本
 openssl version
 
@@ -115,11 +130,17 @@ wget https://www.openssl.org/source/openssl-1.1.1d.tar.gz
 tar -zxf openssl-1.1.1d.tar.gz 
 cd openssl-1.1.1d/
 ./config --prefix=/usr/local/openssl no-zlib 
-</code></pre><h6 id="依赖包安装">依赖包安装</h6>
+</code></pre>
+
+<h6 id="依赖包安装">依赖包安装</h6>
+
 <pre><code>yum install openldap-devel
 yum install systemd-devel -y
 
-</code></pre><h6 id="安装postgres">安装postgres</h6>
+</code></pre>
+
+<h6 id="安装postgres">安装postgres</h6>
+
 <pre><code>tar -zxf postgresql-12.5.tar.gz 
 
 指定openssl 路径
@@ -128,26 +149,41 @@ yum install systemd-devel -y
 ./configure '--enable-rpath' '--prefix=/usr/pgsql-12' '--includedir=/usr/pgsql-12/include' '--libdir=/usr/pgsql-12/lib' '--mandir=/usr/pgsql-12/share/man' '--datadir=/usr/pgsql-12/share' '--with-icu' '--with-llvm' '--with-perl' '--with-python' '--with-tcl' '--with-tclconfig=/usr/lib64' '--with-openssl' '--with-pam' '--with-gssapi' '--with-includes=/usr/include:/usr/local/openssl/include/openssl' '--with-libraries=/usr/lib64:/usr/local/openssl/lib' '--enable-nls' '--enable-dtrace' '--with-uuid=e2fs' '--with-libxml' '--with-libxslt' '--with-ldap' '--with-selinux' '--with-systemd' '--with-system-tzdata=/usr/share/zoneinfo' '--sysconfdir=/etc/sysconfig/pgsql' '--docdir=/usr/pgsql-12/doc' '--htmldir=/usr/pgsql-12/doc/html' 'CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic' 'LDFLAGS=-Wl,--as-needed' 'LLVM_CONFIG=/usr/lib64/llvm5.0/bin/llvm-config' 'CLANG=/opt/rh/llvm-toolset-7/root/usr/bin/clang' 'PKG_CONFIG_PATH=:/usr/lib64/pkgconfig:/usr/share/pkgconfig' 'PYTHON=/usr/bin/python2'
 
 ./configure '--enable-rpath' '--prefix=/usr/pgsql-12' '--includedir=/usr/pgsql-12/include' '--libdir=/usr/pgsql-12/lib' '--mandir=/usr/pgsql-12/share/man' '--datadir=/usr/pgsql-12/share'  '--with-perl' '--with-python' '--with-openssl' '--with-pam' '--with-gssapi' '--with-includes=/usr/include:/usr/local/openssl/include/openssl' '--with-libraries=/usr/lib64:/usr/local/openssl/lib' '--enable-nls' '--enable-dtrace' '--with-uuid=e2fs' '--with-ldap' '--with-selinux' '--with-systemd' '--with-system-tzdata=/usr/share/zoneinfo' 
-</code></pre><h5 id="安装postgis">安装postgis</h5>
+</code></pre>
+
+<h5 id="安装postgis">安装postgis</h5>
+
 <pre><code>http://postgis.net/source/  
 
 You will also need to install and/or build GEOS, Proj, GDAL, LibXML2 and JSON-C.
-</code></pre><p>yum install libxml2 libxml2-devel.aarch64
+</code></pre>
+
+<p>yum install libxml2 libxml2-devel.aarch64
 yum install proj-devel
 yum install sqlite
 yum install sqlite-devel.aarch64  -y
 yum install curl-devel</p>
+
 <p>make proj-6</p>
+
 <p>yum erase proj # 将原来系统自带的删除</p>
+
 <pre><code>
-</code></pre><p>gdal-3.1.4</p>
+</code></pre>
+
+<p>gdal-3.1.4</p>
+
 <pre><code>wget http://download.osgeo.org/geos/geos-3.8.1.tar.bz2
 tar -jxf geos-3.8.1.tar.bz2
 cd geos-3.8.1
 make
 make install
-</code></pre><p>wget <a href="https://download.osgeo.org/postgis/source/postgis-3.0.2.tar.gz">https://download.osgeo.org/postgis/source/postgis-3.0.2.tar.gz</a></p>
+</code></pre>
+
+<p>wget <a href="https://download.osgeo.org/postgis/source/postgis-3.0.2.tar.gz">https://download.osgeo.org/postgis/source/postgis-3.0.2.tar.gz</a></p>
+
 <p>./configure &ndash;with-pgconfig=/usr/pgsql-12/bin/pg_config &ndash;with-geosconfig=/usr/local/bin/geos-config</p>
+
 <pre><code>-------------- Dependencies -------------- 
   GEOS config:          /usr/local/bin/geos-config
   GEOS version:         3.8.1
@@ -164,7 +200,10 @@ make install
   Perl:                 /usr/bin/perl
   Wagyu:                no
 
-</code></pre><p>问题</p>
+</code></pre>
+
+<p>问题</p>
+
 <pre><code>ldd /usr/pgsql-12/lib/postgis-3.so
 	linux-vdso.so.1 (0x0000fffdf6fa0000)
 	libgeos_c.so.1 =&gt; not found
@@ -177,14 +216,20 @@ make install
 	libc.so.6 =&gt; /lib64/libc.so.6 (0x0000fffdf69a0000)
 	/lib/ld-linux-aarch64.so.1 (0x0000fffdf6fb0000)
 	libpthread.so.0 =&gt; /lib64/libpthread.so.0 (0x0000fffdf6960000)
-</code></pre><p>解决</p>
+</code></pre>
+
+<p>解决</p>
+
 <pre><code>#新建文件
 vi /etc/ld.so.conf.d/postgis.conf
 #添加
 /usr/local/lib
 生效
 ldconfig 
-</code></pre><p>查看</p>
+</code></pre>
+
+<p>查看</p>
+
 <pre><code>ldd /usr/pgsql-12/lib/postgis-3.so
 	linux-vdso.so.1 (0x0000fffdd96a0000)
 	libgeos_c.so.1 =&gt; /usr/local/lib/libgeos_c.so.1 (0x0000fffdd94f0000)
@@ -201,8 +246,12 @@ ldconfig
 	libsqlite3.so.0 =&gt; /lib64/libsqlite3.so.0 (0x0000fffdd8870000)
 	libpthread.so.0 =&gt; /lib64/libpthread.so.0 (0x0000fffdd8830000)
 	/lib/ld-linux-aarch64.so.1 (0x0000fffdd96b0000)
-</code></pre><h5 id="pipelinedb">pipelinedb</h5>
+</code></pre>
+
+<h5 id="pipelinedb">pipelinedb</h5>
+
 <p>编译安装zeromq</p>
+
 <pre><code>#!/bin/bash                                                                       
       
   
@@ -218,10 +267,11 @@ ldconfig
           make &amp;&amp; \  
           make install
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/ubuntu2004-network/">«Ubuntu 20.04 网络配置</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/monitor_explain/">数据库监控指标»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/monitor_explain/">«数据库监控指标</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/ubuntu2004-network/">Ubuntu 20.04 网络配置»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

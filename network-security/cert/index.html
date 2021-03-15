@@ -95,13 +95,18 @@
 			<p>2018年10月22日</p>
 		</div>
 		<p>1.环境预备</p>
-<p>curl -s -L -o /usr/local/bin/cfssl <a href="https://pkg.cfssl.org/R1.2/cfssl_linux-amd64">https://pkg.cfssl.org/R1.2/cfssl_linux-amd64</a><br>
-curl -s -L -o /usr/local/bin/cfssljson <a href="https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64">https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64</a><br>
-chmod +x /usr/local/bin/{cfssl,cfssljson}</p>
+
+<p>curl -s -L -o /usr/local/bin/cfssl <a href="https://pkg.cfssl.org/R1.2/cfssl_linux-amd64">https://pkg.cfssl.org/R1.2/cfssl_linux-amd64</a><br />
+ curl -s -L -o /usr/local/bin/cfssljson <a href="https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64">https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64</a><br />
+ chmod +x /usr/local/bin/{cfssl,cfssljson}</p>
+
 <p>2.生成配置模板</p>
+
 <p>三类证书：服务器证书server cert，客户端证书client cert，对等证书peer cert(表示既是server cert又是client cert)</p>
-<p>cfssl print-defaults config &gt; ca-config.json<br>
-cat ca-config.json</p>
+
+<p>cfssl print-defaults config &gt; ca-config.json<br />
+ cat ca-config.json</p>
+
 <pre><code>{
     &quot;signing&quot;: {
         &quot;default&quot;: {
@@ -128,7 +133,10 @@ cat ca-config.json</p>
     }
 }
 
-</code></pre><p>修改模板, 包括三种类型的证书</p>
+</code></pre>
+
+<p>修改模板, 包括三种类型的证书</p>
+
 <pre><code>{
     &quot;signing&quot;: {
         &quot;default&quot;: {
@@ -163,10 +171,13 @@ cat ca-config.json</p>
         }
     }
 }
-</code></pre><p>　
+</code></pre>
+
+<p>　
 生成ca证书模板
 cfssl print-defaults csr &gt; ca-csr.json
 cat ca-csr.json</p>
+
 <pre><code>{
     &quot;CN&quot;: &quot;example.net&quot;,
     &quot;hosts&quot;: [
@@ -185,7 +196,10 @@ cat ca-csr.json</p>
         }
     ]
 }
-</code></pre><p>修改ca 模板</p>
+</code></pre>
+
+<p>修改ca 模板</p>
+
 <pre><code>{
     &quot;CN&quot;: &quot;My own CA&quot;,
     &quot;key&quot;: {
@@ -203,16 +217,24 @@ cat ca-csr.json</p>
         }
     ]
 }
-</code></pre><p>C=country, O=organization, OU=organizational unit, CN=common name</p>
+</code></pre>
+
+<p>C=country, O=organization, OU=organizational unit, CN=common name</p>
+
 <p>3.创建证书</p>
+
 <p>3.1 ca证书
 cfssl gencert -initca ca-csr.json | cfssljson -bare ca -</p>
-<p>将得到三个文件<br>
-ca-key.pem  #ca私钥,保存好,不要丢失或泄露<br>
-ca.csr<br>
+
+<p>将得到三个文件<br />
+ca-key.pem  #ca私钥,保存好,不要丢失或泄露<br />
+ca.csr<br />
 ca.pem  　  #ca公钥</p>
+
 <p>3.2 服务端证书</p>
+
 <p>cat server.json</p>
+
 <pre><code>{
     &quot;CN&quot;: &quot;eamon&quot;,
     &quot;hosts&quot;: [
@@ -231,22 +253,29 @@ ca.pem  　  #ca公钥</p>
     ]
 }
 
-</code></pre><p>cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=server server.json | cfssljson -bare server</p>
-<p>将得到三个文件,包括服务端私钥、公钥<br>
-server-key.pem<br>
-server.csr<br>
+</code></pre>
+
+<p>cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=server server.json | cfssljson -bare server</p>
+
+<p>将得到三个文件,包括服务端私钥、公钥<br />
+server-key.pem<br />
+server.csr<br />
 server.pem</p>
+
 <p>3.3 依据此法创建客户端证书和对等证书</p>
+
 <p>4．验证</p>
-<p>openssl x509 -in ca.pem -text -noout<br>
-openssl x509 -in server.pem -text -noout<br>
+
+<p>openssl x509 -in ca.pem -text -noout<br />
+openssl x509 -in server.pem -text -noout<br />
 openssl x509 -in client.pem -text -noout</p>
+
 <p><a href="https://coreos.com/os/docs/latest/generate-self-signed-certificates.html">参见</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/no-passwd/">«ssh 免密码登&amp;跳板机配置</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/network-security/letusencrypt/">Let&#39;s Encrypt 通配符证书»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/letusencrypt/">«Let&#39;s Encrypt 通配符证书</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/no-passwd/">ssh 免密码登&amp;跳板机配置»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

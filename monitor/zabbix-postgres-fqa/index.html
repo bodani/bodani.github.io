@@ -94,68 +94,106 @@
 		<div class="post-meta">
 			<p>2018年12月24日</p>
 		</div>
-		<h4 id="如何使用篇">如何使用篇</h4>
-<hr>
+		
+
+<h4 id="如何使用篇">如何使用篇</h4>
+
+<hr />
+
 <ul>
 <li>如何使用zabbix监控postgres</li>
 </ul>
-<p>我们采用的是github中的开源项目<a href="https://github.com/lesovsky/zabbix-extensions">zabbix-extensions</a>中的postgres，iostat对Postgres数据库性能指标及系统IO进行监控。<br>
+
+<p>我们采用的是github中的开源项目<a href="https://github.com/lesovsky/zabbix-extensions">zabbix-extensions</a>中的postgres，iostat对Postgres数据库性能指标及系统IO进行监控。<br />
 以及对实体机进行监控，本文主要介绍对postgres的性能进行监控和分析</p>
+
 <ul>
 <li>如何在现有的数据库系统中加入监控，需要哪些条件</li>
 </ul>
-<p>哪些条件<br>
-1 PostgreSQL version 9.4 and above<br>
+
+<p>哪些条件<br />
+1 PostgreSQL version 9.4 and above<br />
 2 Zabbix 3.4 and newer</p>
-<p>如何加入监控<br>
-1 在数据服务的主机中加入zabbix-agent，在cp files/postgresql/postgresql.conf /etc/zabbix/zabbix_agentd.d/，zabbix界面端加入对应模板<br>
-2 数据库访问权限，本地访问数据库权限，可在pg_hba.conf中设置， 加入一行&rsquo;host all  all 127.0.0.1/32  trust&rsquo;,这个权限有些大，根据自己的情况设置。 <br>
+
+<p>如何加入监控<br />
+1 在数据服务的主机中加入zabbix-agent，在cp files/postgresql/postgresql.conf /etc/zabbix/zabbix_agentd.d/，zabbix界面端加入对应模板<br />
+2 数据库访问权限，本地访问数据库权限，可在pg_hba.conf中设置， 加入一行&rsquo;host all  all 127.0.0.<sup>1</sup>&frasl;<sub>32</sub>  trust&rsquo;,这个权限有些大，根据自己的情况设置。<br />
 3 数据库中加入extends: pg_buffercache pg_stat_statements</p>
+
 <p>以上所有操作不需要重启数据库， reload即可生效</p>
+
 <ul>
 <li>监控是如何连接到数据库的</li>
 </ul>
+
 <p>使用模板中的宏定义</p>
+
 <pre><code> {$PG_CONNINFO}=-h 127.0.0.1 -p 5432 -U postgres -d zabbix
-</code></pre><p>如果现在一套zabbix系统中监控多个数据库，数据库的端口，用户名不统一时，可以在各自的hosts中的宏定义中分别设置各自的连接方式。</p>
+</code></pre>
+
+<p>如果现在一套zabbix系统中监控多个数据库，数据库的端口，用户名不统一时，可以在各自的hosts中的宏定义中分别设置各自的连接方式。</p>
+
 <ul>
 <li>如何指定哪些databases tables被监控</li>
 </ul>
+
 <p>首先模板中包含3种自动发现机制分别是Discovery rule</p>
-<p>PostgreSQL databases discovery  数据库中database<br>
-PostgreSQL database tables discovery 数据库中的table<br>
+
+<p>PostgreSQL databases discovery  数据库中database<br />
+PostgreSQL database tables discovery 数据库中的table<br />
 PostgreSQL streaming stand-by discovery   流复制</p>
+
 <p>以上discovery 可根据具体需求进行开启关闭</p>
+
 <p>在Filters中对发现规则的结果进行过滤，如对哪些databases哪些tables进行监控。</p>
+
 <h4 id="如何调试">如何调试</h4>
+
 <pre><code>zabbix_get -s 10.1.88.74 -k pgsql.db.discovery['-h 127.0.0.1 -p 5432 -U postgres']
 
 -s 数据库访问ip
 -k key [参数]
-</code></pre><h4 id="常见问题解读">常见问题解读</h4>
-<hr>
+</code></pre>
+
+<h4 id="常见问题解读">常见问题解读</h4>
+
+<hr />
+
 <ul>
 <li>PostgreSQL: number of running processes</li>
 </ul>
+
 <p>分析</p>
+
 <pre><code>zabbix_get -s 10.1.88.74 -k proc.num[postgres]
 0
-</code></pre><p>返回结果为0 ，</p>
+</code></pre>
+
+<p>返回结果为0 ，</p>
+
 <p>登陆到对应节点</p>
+
 <pre><code>ps -fu postgres
 UID        PID  PPID  C STIME TTY          TIME CMD
 postgres  4699     1  0 5月16 ?       00:25:14 /usr/pgsql-10/bin/postmaster -D /home/pgsql/10/data/
-</code></pre><p>PID为1的进程应用名称为postmaster</p>
+</code></pre>
+
+<p>PID为1的进程应用名称为postmaster</p>
+
 <pre><code>zabbix_get -s 10.1.88.74 -k proc.num[postmaster]
 31
-</code></pre><p>解决方法：</p>
+</code></pre>
+
+<p>解决方法：</p>
+
 <p>在zabbix模版对应值进行修改{$PG_PROCESS_NAME}=postmaster</p>
+
 <p>当前postgers version 10.4 出现如上问题,10.6 没有</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/monitor/zabbix-fqa/">«Zabbix FQA</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/terminal-reuse/">终端复用»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/terminal-reuse/">«终端复用</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/monitor/zabbix-fqa/">Zabbix FQA»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

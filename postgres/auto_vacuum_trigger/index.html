@@ -94,44 +94,76 @@
 		<div class="post-meta">
 			<p>2021年1月8日</p>
 		</div>
-		<h4 id="数据库自动垃圾回收触发条件分析">数据库自动垃圾回收触发条件分析</h4>
+		
+
+<h4 id="数据库自动垃圾回收触发条件分析">数据库自动垃圾回收触发条件分析</h4>
+
 <p>在postgres 中 垃圾回收的重要意义及在执行垃圾回收时具体都做了些什么很多地方都有介绍。</p>
+
 <p>但是何时触发垃圾回收，即垃圾回收的触发条件是什么。</p>
+
 <p>官网的介绍一般是有如下几个参数决定</p>
+
 <pre><code>#autovacuum = on                        # Enable autovacuum subprocess?  'on'
 #autovacuum_vacuum_threshold = 50       # min number of row updates before vacuum
 #autovacuum_analyze_threshold = 50      # min number of row updates before analyze
 #autovacuum_vacuum_scale_factor = 0.2   # fraction of table size before vacuum
 #autovacuum_analyze_scale_factor = 0.1  # fraction of table size before analyze
 #autovacuum_freeze_max_age = 200000000 # maximum XID age before forced vacuum
-</code></pre><p>大概意思 当表中的数据更新为总数量的20% 是触发垃圾回收，但是当表中总数量小于50的时候20%来的太容易了，</p>
+</code></pre>
+
+<p>大概意思 当表中的数据更新为总数量的20% 是触发垃圾回收，但是当表中总数量小于50的时候20%来的太容易了，</p>
+
 <p>这样就会过于频繁的满足触发条件。于是50就相当于一个最低门槛。表中总数量在50以内的就暂时不触发垃圾回收了。</p>
+
 <ul>
 <li>threshold = pg_class.reltuples*autovacuum_vacuum_scale_factor+autovacuum_vacuum_threshold</li>
 </ul>
+
 <p>即：if (当前表更新数&gt; 触发阀值) do &hellip;</p>
+
 <h6 id="等号右边的理解">等号右边的理解</h6>
+
 <pre><code>-- 触发自动analyze
 pg_class.reltuples*autovacuum_analyze_scale_factor+autovacuum_analyze_threshold
 -- 触发自动autovacuum
 pg_class.reltuples*autovacuum_vacuum_scale_factor+autovacuum_vacuum_threshold
-</code></pre><p>两个公式相似。其中的值都除了pg_class.reltuples 以外都是来自于配置</p>
+</code></pre>
+
+<p>两个公式相似。其中的值都除了pg_class.reltuples 以外都是来自于配置</p>
+
 <p>pg_class.reltuples 来自系统统计表，在analyze 后更新。</p>
+
 <p>所以通常配置触发参数时，尽量将analyze 触发条件要更敏感性。</p>
+
 <p><a href="https://blog.csdn.net/cmzhuang/article/details/84643618">测试参考</a></p>
+
 <h6 id="思考的是等号左边的事情">思考的是等号左边的事情</h6>
+
 <p>数据库是如何知道当前更的数量, 按照已有的经验（经验不足）。</p>
+
 <p>一般数据库中这种信息是存在的统计类信息中。但是统计信息通常是在analyze后更新的。根据上面的公式触发analyze的条件又是由当前表更新数有关。</p>
+
 <p>于是乎就陷入了一种循环♻️   。</p>
+
 <p>1 表更新数量 -&gt; analyze</p>
+
 <p>2 analyze  —&gt; 统计信息</p>
+
 <p>3 统计信息 -&gt; 表更新数量</p>
+
 <p>那是先有鸡还是先有蛋呢？</p>
+
 <p>只有继续思考才能找到事情的真相。。。</p>
+
 <p>首先表中更新的数据量统计应该是一个很轻量快速的方法。类似于计数器实现,并且独立于传统的统计信息。接下来在数据库开始寻找这种计数器。</p>
+
 <h5 id="真相">真相</h5>
+
 <p>‘计数器’ 是有stats collector 进程来维护。 当数据库进行dml操作时，stats collector 进行实时计数统计。该值存在于pg_stat_all_table 中</p>
+
 <p>查看pg_stats_all_table 表定义</p>
+
 <pre><code>postgres=# \d+ pg_stat_all_tables 
                            视图 &quot;pg_catalog.pg_stat_all_tables&quot;
         栏位         |           类型           | 校对规则 | 可空的 | 预设 | 存储  | 描述 
@@ -186,8 +218,12 @@ pg_class.reltuples*autovacuum_vacuum_scale_factor+autovacuum_vacuum_threshold
      LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
   WHERE c.relkind = ANY (ARRAY['r'::&quot;char&quot;, 't'::&quot;char&quot;, 'm'::&quot;char&quot;])
   GROUP BY c.oid, n.nspname, c.relname;
-</code></pre><p>原来是表oid上各种维度的计数器，</p>
+</code></pre>
+
+<p>原来是表oid上各种维度的计数器，</p>
+
 <p>查看pg_class 结构</p>
+
 <pre><code>postgres=# \d+ pg_class
                                  数据表 &quot;pg_catalog.pg_class&quot;
         栏位         |     类型     | 校对规则 |  可空的  | 预设 |   存储   | 统计目标 | 描述 
@@ -230,8 +266,12 @@ pg_class.reltuples*autovacuum_vacuum_scale_factor+autovacuum_vacuum_threshold
     &quot;pg_class_relname_nsp_index&quot; UNIQUE, btree (relname, relnamespace)
     &quot;pg_class_tblspc_relfilenode_index&quot; btree (reltablespace, relfilenode)
 有 OIDs:yes
-</code></pre><p>pg_class 中的信息是analyze 操作后更新，而计数器是oid上不同维度的统计。</p>
+</code></pre>
+
+<p>pg_class 中的信息是analyze 操作后更新，而计数器是oid上不同维度的统计。</p>
+
 <p>统计维度设置</p>
+
 <pre><code>#------------------------------------------------------------------------------
 # STATISTICS
 #------------------------------------------------------------------------------
@@ -244,20 +284,25 @@ pg_class.reltuples*autovacuum_vacuum_scale_factor+autovacuum_vacuum_threshold
 #track_functions = none                 # none, pl, all
 #track_activity_query_size = 1024       # (change requires restart)
 #stats_temp_directory = 'pg_stat_tmp  统计信息存放位置
-</code></pre><pre><code>tree pg_stat_tmp/
+</code></pre>
+
+<pre><code>tree pg_stat_tmp/
 pg_stat_tmp/
 ├── db_0.stat
 ├── db_14187.stat
 ├── db_16384.stat
 ├── db_20579.stat
 └── global.stat
-</code></pre><p>思考-&gt;迷惑-&gt;寻找答案-&gt;日渐清晰 ，日进一步</p>
+</code></pre>
+
+<p>思考-&gt;迷惑-&gt;寻找答案-&gt;日渐清晰 ，日进一步</p>
+
 <p>pg_statistic 里面的内容太丰富了&hellip;</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/partition/">«分区表</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/thinking_in_db_fd/">数据库优化思考 - 结构设计»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/thinking_in_db_fd/">«数据库优化思考 - 结构设计</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/partition/">分区表»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

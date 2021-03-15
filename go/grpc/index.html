@@ -95,7 +95,9 @@
 			<p>2020年8月13日</p>
 		</div>
 		<p>python 实现</p>
+
 <p>cat Server.py</p>
+
 <pre><code>from SimpleXMLRPCServer import SimpleXMLRPCServer
 def fun_add(a,b):
     total = a+b
@@ -106,16 +108,21 @@ if __name__=='__main__':
     s.register_function(fun_add)
     print &quot;server in on line&quot;
     s.serve_forever()
-</code></pre><p>cat Client.py</p>
+</code></pre>
+
+<p>cat Client.py</p>
+
 <pre><code>from xmlrpclib import ServerProxy
 s = ServerProxy(&quot;http://xx.xxx.xxx.xxx:8081&quot;)
 print s.fun_add(1,2)
-</code></pre><p>go 实现</p>
+</code></pre>
+
+<p>go 实现</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/istio/auto-api-test/">«API 自动化测试</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/dw/document/">文档»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/dw/document/">«文档</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/istio/auto-api-test/">API 自动化测试»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

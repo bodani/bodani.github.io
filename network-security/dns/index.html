@@ -94,35 +94,63 @@
 		<div class="post-meta">
 			<p>2019年10月28日</p>
 		</div>
-		<p>DNS：Domain Name System 域名管理系统</p>
+		
+
+<p>DNS：Domain Name System 域名管理系统</p>
+
 <p>A记录 A（Address）记录是用来指定主机名（或域名）对应的IP地址记录</p>
+
 <p>NS记录 NS（Name Server）记录是域名服务器记录，用来指定该域名由哪个DNS服务器来进行解析</p>
+
 <p>MX记录 MX（Mail Exchanger）记录是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据收信人的地址后缀来定位邮件服务器。</p>
+
 <p>CNAME记录 CNAME（Canonical Name ）别名记录，允许您将多个名字映射到同一台计算机。</p>
+
 <p>TXT记录，一般指某个主机名或域名的说明</p>
+
 <p>TTL值 TTL（Time-To-Live）</p>
+
 <p>PTR值 PTR是pointer的简写，用于将一个IP地址映射到对应的域名，也可以看成是A记录的反向，IP地址的反向解析</p>
+
 <h4 id="skydns">skydns</h4>
+
 <h5 id="软件安装">软件安装</h5>
+
 <p>skydns rpm 下载 for centos 7</p>
+
 <p>etcd 使用 centos7 官方自带软件</p>
+
 <h5 id="skydns-配置">skydns 配置</h5>
+
 <p>/etc/skydns/skydns.conf</p>
+
 <pre><code>ETCD_MACHINES=&quot;http://127.0.0.01:2379&quot;
 SKYDNS_ADDR=&quot;0.0.0.0:53&quot;
 SKYDNS_NAMESERVERS=&quot;119.29.29.29:53&quot;
-</code></pre><p>说明</p>
+</code></pre>
+
+<p>说明</p>
+
 <p>ETCD_MACHINES
 指定当前 etcd 集群地址</p>
+
 <p>SKYDNS_ADDR
 本地 dns 监听地址</p>
+
 <p>SKYDNS_NAMESERVERS
 上层 DNS 服务器</p>
+
 <h5 id="etcd-配置方法">etcd 配置方法</h5>
+
 <p>另一种配置方法, 只需要在 skydns.conf 中配置对应的 etcd 连接地址即可.</p>
+
 <p>其他配置选项在 etcd 中进行配置</p>
+
 <pre><code> etcdctl set /skydns/config '{&quot;dns_addr&quot;:&quot;0.0.0.0:53&quot;,&quot;ttl&quot;:30, &quot;nameservers&quot;: [&quot;119.29.29.29:53&quot;], &quot;domain&quot;:&quot;mydomain.com.&quot;}'
-</code></pre><h5 id="参考作用">参考作用</h5>
+</code></pre>
+
+<h5 id="参考作用">参考作用</h5>
+
 <pre><code>dns_addr: IP:port on which SkyDNS should listen, defaults to 127.0.0.1:53.
 domain: domain for which SkyDNS is authoritative, defaults to skydns.local..
 dnssec: enable DNSSEC
@@ -141,7 +169,10 @@ ndots: how many labels a name should have before we allow forwarding. Default to
 systemd: bind to socket(s) activated by systemd (ignores -addr).
 path-prefix: backend(etcd) path prefix, defaults to skydns (i.e. if it is set to mydns, the SkyDNS's configuration object should be stored under the key /mydns/config).
 etcd3: flag that toggles the etcd version 3 support by skydns during runtime. Defaults to false.
-</code></pre><h5 id="service-文件">service 文件</h5>
+</code></pre>
+
+<h5 id="service-文件">service 文件</h5>
+
 <pre><code>[Unit]
 Description=SkyDNS service
 #After=etcd.service             &lt;- 假如 etcd 不在本地, 那么这里需要屏蔽
@@ -154,21 +185,31 @@ ExecStart=/usr/bin/skydns
 
 [Install]
 WantedBy=multi-user.target
-</code></pre><h5 id="授权服务启动">授权服务启动</h5>
+</code></pre>
+
+<h5 id="授权服务启动">授权服务启动</h5>
+
 <pre><code>setcap cap_net_bind_service+ep /usr/bin/skydns   (允许该命令可以监听 53 端口)
 systemctl daemon-reload
-</code></pre><h5 id="服务管理">服务管理</h5>
+</code></pre>
+
+<h5 id="服务管理">服务管理</h5>
+
 <pre><code>systemctl start skydns
 systemctl stop skydns
-</code></pre><h5 id="添加a记录">添加A记录</h5>
+</code></pre>
+
+<h5 id="添加a记录">添加A记录</h5>
+
 <pre><code>ectctl set /skydns/com/mydomain/test/x1 '{&quot;host&quot;:&quot;10.1.0.1&quot;}'
 ectctl set /skydns/com/mydomain/test/x2 '{&quot;host&quot;:&quot;10.1.0.2&quot;}'
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/cmd-vim/">«vi 编辑</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/postgres12/">postgres 12»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/postgres12/">«postgres 12</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/cmd-vim/">vi 编辑»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

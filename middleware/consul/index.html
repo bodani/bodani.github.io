@@ -94,7 +94,10 @@
 		<div class="post-meta">
 			<p>2020年6月29日</p>
 		</div>
-		<h4 id="实现目标">实现目标</h4>
+		
+
+<h4 id="实现目标">实现目标</h4>
+
 <ul>
 <li>多IP解析，负载轮询</li>
 <li>自动检查后端服务状态，自动剔除不可用后端</li>
@@ -102,19 +105,28 @@
 <li>上游DNS支持</li>
 <li>ttl cache 支持</li>
 </ul>
-<p>前两点由cousul实现<br>
-后两点由dnsmasq实现<br>
+
+<p>前两点由cousul实现<br />
+后两点由dnsmasq实现<br />
 别名配置未实现</p>
+
 <h4 id="简单应用">简单应用</h4>
+
 <p>集群配置</p>
-<p>10.1.88.84<br>
-10.1.88.85<br>
+
+<p>10.1.88.84<br />
+10.1.88.85<br />
 10.1.88.86</p>
+
 <pre><code>consul agent -server -bootstrap-expect=3 -data-dir=/tmp/consul -node=10.1.88.84 -bind=10.1.88.84 -client=0.0.0.0 -datacenter=bj -domain=zhangeamon.com -config-dir=/etc/consul.d -ui
 consul agent -server -bootstrap-expect=3 -data-dir=/tmp/consul -node=10.1.88.85 -bind=10.1.88.85 -client=0.0.0.0 -datacenter=bj -domain=zhangeamon.com -join=10.1.88.84 -config-dir=/etc/consul.d -ui
 consul agent -server -bootstrap-expect=3 -data-dir=/tmp/consul -node=10.1.88.86 -bind=10.1.88.86 -client=0.0.0.0 -datacenter=bj -domain=zhangeamon.com -join=10.1.88.84 -config-dir=/etc/consul.d -ui
-</code></pre><p>服务发现配置</p>
+</code></pre>
+
+<p>服务发现配置</p>
+
 <p>cat /etc/consul.d/web/json</p>
+
 <pre><code>{
   &quot;services&quot;:[
     {
@@ -151,15 +163,27 @@ consul agent -server -bootstrap-expect=3 -data-dir=/tmp/consul -node=10.1.88.86 
      }
   ]
 }
-</code></pre><p>加载服务发现配置
+</code></pre>
+
+<p>加载服务发现配置
 consul reload</p>
+
 <p>测试</p>
+
 <pre><code>dig @127.0.0.1 -p 8600 web.service.zhangeamon.com
-</code></pre><p>在 10.1.88.85 启动服务8000端口</p>
+</code></pre>
+
+<p>在 10.1.88.85 启动服务8000端口</p>
+
 <pre><code>python -m SimpleHTTPServer 8000
-</code></pre><p>服务开启时解析到 10.1.88.85 服务关闭时 10.1.88.85 被剔除。</p>
-<h6 id="dnsmasq--配置">dnsmasq  配置</h6>
+</code></pre>
+
+<p>服务开启时解析到 10.1.88.85 服务关闭时 10.1.88.85 被剔除。</p>
+
+<h6 id="dnsmasq-配置">dnsmasq  配置</h6>
+
 <p>vi /etc/dnsmasq.conf</p>
+
 <pre><code>conf-dir=/etc/dnsmasq.d,.rpmnew,.rpmsave,.rpmorig
 all-servers
 # 多个上游dns配置 后缀为 zhangeamon.com 上游走consul,实现支持上游dns功能
@@ -180,10 +204,11 @@ log-queries
 #cname=web.zhangeamon.com,web.service.zhangeamon.com 
 #cname=a.a.com,a.b.com
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/coredns/">«coredns</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/oom/">数据库 OOM 预防»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/oom/">«数据库 OOM 预防</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/coredns/">coredns»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dockers on Let&#39;s Go!</title>
@@ -17,9 +17,8 @@
       <pubDate>Mon, 18 Mar 2019 08:58:07 +0800</pubDate>
       
       <guid>https://zhangeamon.top/docker/manager/</guid>
-      <description>查看docker占用的空间情况 # docker system df TYPE TOTAL ACTIVE SIZE RECLAIMABLE Images 58 36 6.091GB 2.119GB (34%) Containers 90 89 232.3MB 0B (0%) Local Volumes 137 16 232.7MB 194.2MB (83%) Build Cache 0 0 0B 0B 四大资源尽收眼底，可回收多少资源也了然于胸
-清除不在需要的资源 This will remove: - all stopped containers - all networks not used by at least one container - all dangling images - all build cach # docker system prune -f 清除一切非活跃状态，将资源还给系统
-清除volume 查看 # docker volume ls 清除 # docker volume prune -f </description>
+      <description>查看docker占用的空间情况 # docker system df TYPE TOTAL ACTIVE SIZE RECLAIMABLE Images 58 36 6.091GB 2.119GB (34%) Containers 90 89 232.3MB 0B (0%) Local Volumes 137 16 232.7MB 194.2MB (83%) Build Cache 0 0 0B 0B  四大资源尽收眼底，可回收多少资源也了然于胸
+清除不在需要的资源 This will remove: - all stopped containers - all networks not used by at least one container - all dangling images - all build cach # docker system prune -f  清除一切非活跃状态，将资源还给系统</description>
     </item>
     
     <item>
@@ -32,8 +31,8 @@
 解决方式: 网上很多的关于500的错误，大都是关闭selinux来解决。但是情况与这个不同。现在的问题时在jenkins中执行有问题，直接裸机执行没有问题。
 看到这篇文章， 怀疑时在push images 过大时需要的系统内存不足导致。
 调整jenkins启动时java的内存参数
-JAVA_OPTS=&amp;quot;-Djava.util.logging.config.file=/var/jenkins_home/log.properties -Duser.timezone=Asia/Shanghai -Xms4096m -Xmx4096m 问题过几天后有出现
-/var/log/message kernel crash after &amp;quot;unregister_netdevice: waiting for lo to become free. Usage count = 换台build机 , nginx 配置
+JAVA_OPTS=&amp;quot;-Djava.util.logging.config.file=/var/jenkins_home/log.properties -Duser.timezone=Asia/Shanghai -Xms4096m -Xmx4096m  问题过几天后有出现
+/var/log/message kernel crash after &amp;quot;unregister_netdevice: waiting for lo to become free. Usage count =  换台build机 , nginx 配置
 问题解决
  Docker rpc error: code = 14 desc = grpc: the connection is unavailable  尝试关闭容器，进入容器操作界面也报相同错误：</description>
     </item>
@@ -44,10 +43,10 @@ JAVA_OPTS=&amp;quot;-Djava.util.logging.config.file=/var/jenkins_home/log.proper
       <pubDate>Wed, 05 Dec 2018 11:00:10 +0800</pubDate>
       
       <guid>https://zhangeamon.top/docker/nginx-log/</guid>
-      <description>Docker nginx 日志切割 docker 在运行 nginx 日志容器时，将日志挂载到实体机/var/log/nginx/* .log　中.
+      <description> Docker nginx 日志切割 docker 在运行 nginx 日志容器时，将日志挂载到实体机/var/log/nginx/* .log　中.
 一般直接运行的nginx服务都会自带logrotate进行日志切分, 由docker方式安装的nginx 缺失日志切割功能!
 添加logrotate cat /etc/logrotate.d/nginx
-/var/log/nginx/*.log { daily missingok rotate 52 compress delaycompress notifempty create 666 root root sharedscripts postrotate # [ -f /var/run/nginx.pid ] &amp;amp;&amp;amp; kill -USR1 `cat /var/run/nginx.pid` docker inspect -f &#39;{{ .State.Pid }}&#39; nginx | xargs kill -USR1 endscript } </description>
+/var/log/nginx/*.log { daily missingok rotate 52 compress delaycompress notifempty create 666 root root sharedscripts postrotate # [ -f /var/run/nginx.pid ] &amp;amp;&amp;amp; kill -USR1 `cat /var/run/nginx.pid` docker inspect -f &#39;{{ .State.Pid }}&#39; nginx | xargs kill -USR1 endscript }  </description>
     </item>
     
     <item>
@@ -56,7 +55,7 @@ JAVA_OPTS=&amp;quot;-Djava.util.logging.config.file=/var/jenkins_home/log.proper
       <pubDate>Fri, 02 Nov 2018 16:34:06 +0800</pubDate>
       
       <guid>https://zhangeamon.top/docker/network01/</guid>
-      <description>基础命令概览 docker network --help Usage:	docker network COMMAND Manage networks Commands: connect Connect a container to a network create Create a network disconnect Disconnect a container from a network inspect Display detailed information on one or more networks ls List networks prune Remove all unused networks rm Remove one or more networks 默认网络 docker network ls NETWORK ID NAME DRIVER SCOPE 0770a8275bff bridge bridge local b6617326f199 host host local 31c55ffcf0a8 none null local 创建容器时通过 &amp;ndash;network= 指定网络类型</description>
+      <description>基础命令概览 docker network --help Usage:	docker network COMMAND Manage networks Commands: connect Connect a container to a network create Create a network disconnect Disconnect a container from a network inspect Display detailed information on one or more networks ls List networks prune Remove all unused networks rm Remove one or more networks  默认网络 docker network ls NETWORK ID NAME DRIVER SCOPE 0770a8275bff bridge bridge local b6617326f199 host host local 31c55ffcf0a8 none null local  创建容器时通过 &amp;ndash;network= 指定网络类型</description>
     </item>
     
     <item>
@@ -67,10 +66,11 @@ JAVA_OPTS=&amp;quot;-Djava.util.logging.config.file=/var/jenkins_home/log.proper
       <guid>https://zhangeamon.top/docker/cgroup-namespaces/</guid>
       <description>cgroup 实现资源限额 cgroup 全称 Control Group。Linux 操作系统通过 cgroup 可以设置进程使用 CPU、内存 和 IO 资源的限额。
 在启动容器时可使用参数 docker run &amp;ndash;blkio-weight-device &amp;ndash;cpu-shares &amp;ndash;memory 等 。
-ll /sys/fs/cgroup/cpu/docker/ ll /sys/fs/cgroup/memory/docker ll /sys/fs/cgroup/blkio/docker namespace 实现资源隔离 Mount Mount namespace 让容器看上去拥有整个文件系统。 容器有自己的 / 目录，可以执行 mount 和 umount 命令。当然我们知道这些操作只在当前容器中生效，不会影响到 host 和其他容器。
+ll /sys/fs/cgroup/cpu/docker/ ll /sys/fs/cgroup/memory/docker ll /sys/fs/cgroup/blkio/docker  namespace 实现资源隔离 Mount Mount namespace 让容器看上去拥有整个文件系统。 容器有自己的 / 目录，可以执行 mount 和 umount 命令。当然我们知道这些操作只在当前容器中生效，不会影响到 host 和其他容器。
 UTS hostname 简单的说，UTS namespace 让容器有自己的 hostname。 默认情况下，容器的 hostname 是它的短ID，可以通过 -h 或 &amp;ndash;hostname 参数设置。
 IPC IPC namespace 让容器拥有自己的共享内存和信号量（semaphore）来实现进程间通信，而不会与 host 和其他容器的 IPC 混在一起。
-PID User </description>
+PID 
+Network Network namespace 让容器拥有自己独立的网卡、IP、路由等资源</description>
     </item>
     
     <item>
@@ -85,7 +85,7 @@ PID User </description>
 2 init进程另一个任务，是需要接管子进程，确保其能正常退出。但是一般应用程序，不会考虑实现接管进程功能。 当应用程序进程在容器中运行时，其子进程创建的子进程，就有可能成为僵尸进程。
 dumb-init解决了上述两个问题：向子进程代理发送信号和接管子进程。
 dumb-init使用 要在容器中使用dumb-init，可以直接安装deb包，或者从源码构建。容器启动时，使用dumb-init作为初始进程，确保所有子进程都由dumb-init进程创建：
-docker run my_container dumb-init python -c &#39;while True: pass&#39; 其他 除了在容器中使用之外，dumb-init也可以直接在shell脚本中使用。使用dumb-init作为shell的父进程，可以解决shell创建的子进程优雅退出问题。这种场景使用方式类似于supervisord或者daemontools，直接将脚本的改成#!/usr/bin/dumb-init /bin/sh即可。</description>
+docker run my_container dumb-init python -c &#39;while True: pass&#39;  其他 除了在容器中使用之外，dumb-init也可以直接在shell脚本中使用。使用dumb-init作为shell的父进程，可以解决shell创建的子进程优雅退出问题。这种场景使用方式类似于supervisord或者daemontools，直接将脚本的改成#!/usr/bin/dumb-init /bin/sh即可。</description>
     </item>
     
   </channel>

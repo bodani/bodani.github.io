@@ -94,12 +94,20 @@
 		<div class="post-meta">
 			<p>2019年9月12日</p>
 		</div>
-		<h4 id="elasticsearch-设置密码">ElasticSearch 设置密码</h4>
+		
+
+<h4 id="elasticsearch-设置密码">ElasticSearch 设置密码</h4>
+
 <p>以前在使用es的时候基本是裸，没有任何的权限管理。用户名密码设置。</p>
+
 <p>配置 elasticsearch.yaml 添加，重启服务</p>
+
 <pre><code>xpack.security.enabled: true
 xpack.security.transport.ssl.enabled: true
-</code></pre><p>设置用户密码</p>
+</code></pre>
+
+<p>设置用户密码</p>
+
 <pre><code>/usr/share/elasticsearch/elasticsearch-setup-passwords interactive
 
 Initiating the setup of passwords for reserved users elastic,kibana,logstash_system,beats_system.
@@ -125,20 +133,34 @@ Changed password for user [logstash_system]
 Changed password for user [beats_system]
 Changed password for user [elastic]
 
-</code></pre><p>修改密码</p>
+</code></pre>
+
+<p>修改密码</p>
+
 <pre><code>curl -H &quot;Content-Type:application/json&quot; -XPOST -u elastic 'http://127.0.0.1:9200/_xpack/security/user/elastic/_password' -d '{ &quot;password&quot; : &quot;123456&quot; }'
-</code></pre><h5 id="说明">说明</h5>
+</code></pre>
+
+<h5 id="说明">说明</h5>
+
 <p>elastic 为超级用户</p>
+
 <h4 id="应用">应用</h4>
+
 <p>修改kibana配置文件,config下的kibana.yml,添加如下内容</p>
+
 <pre><code>elasticsearch.username: &quot;elastic&quot;
 elasticsearch.password: &quot;123456&quot;
 
-</code></pre><p>修改logstash配置文件 logstash.yaml 及 conf</p>
+</code></pre>
+
+<p>修改logstash配置文件 logstash.yaml 及 conf</p>
+
 <pre><code>xpack.management.elasticsearch.username: &quot;elastic&quot;
 xpack.management.elasticsearch.password: &quot;123456&quot;
 xpack.management.elasticsearch.hosts: [&quot;https://127.0.0.1:9200&quot;]
-</code></pre><pre><code> elasticsearch {
+</code></pre>
+
+<pre><code> elasticsearch {
    hosts =&gt; &quot;127.0.0.1:9200&quot;
    manage_template =&gt; false
    index =&gt; &quot;%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}&quot;
@@ -146,10 +168,11 @@ xpack.management.elasticsearch.hosts: [&quot;https://127.0.0.1:9200&quot;]
    password =&gt; &quot;123456&quot;
  }
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/t_pg_stat_activity/">«数据库视图之 pg_stat_activity</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/es/discovery/">Discovery 7.0&#43; 集群协调»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/es/discovery/">«Discovery 7.0&#43; 集群协调</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/t_pg_stat_activity/">数据库视图之 pg_stat_activity»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

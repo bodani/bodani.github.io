@@ -94,11 +94,18 @@
 		<div class="post-meta">
 			<p>2018年12月19日</p>
 		</div>
-		<h4 id="安装工具">安装工具</h4>
+		
+
+<h4 id="安装工具">安装工具</h4>
+
 <pre><code>yum install hdparm
-</code></pre><h4 id="查看">查看</h4>
+</code></pre>
+
+<h4 id="查看">查看</h4>
+
 <p>-i参数是在引导驱动器时获得的识别信息，这个信息有时候不完整也不一
 定准确</p>
+
 <pre><code>hdparm -i /dev/sdb
 
 /dev/sdb:
@@ -117,7 +124,10 @@
 
  * signifies the current active mode
 
-</code></pre><p>-I参数是直接从驱动器获取识别信息, 并以原始的,未经过修改和更正的形式显示</p>
+</code></pre>
+
+<p>-I参数是直接从驱动器获取识别信息, 并以原始的,未经过修改和更正的形式显示</p>
+
 <pre><code>
 hdparm -I /dev/sdb
 
@@ -221,7 +231,10 @@ Logical Unit WWN Device Identifier: 55cd2e414f0a032e
 	Unique ID	: 14f0a032e
 Checksum: correct
 
-</code></pre><h4 id="其他方法-smartctllinuxsmartctl">其他方法 <a href="linux/smartctl/">smartctl</a></h4>
+</code></pre>
+
+<h4 id="其他方法-smartctl-linux-smartctl">其他方法 <a href="linux/smartctl/">smartctl</a></h4>
+
 <pre><code>smartctl -a /dev/sdb 
 smartctl 6.5 2016-05-07 r4318 [x86_64-linux-3.10.0-862.9.1.el7.x86_64] (local build)
 Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
@@ -323,10 +336,11 @@ Selective self-test flags (0x0):
   After scanning selected spans, do NOT read-scan remainder of disk.
 If Selective self-test is pending on power-up, resume after 0 minute delay.
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/about/3brothers/">«扁鹊三兄弟</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/ln-s/">ln -s 建立软连接»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/ln-s/">«ln -s 建立软连接</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/about/3brothers/">扁鹊三兄弟»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

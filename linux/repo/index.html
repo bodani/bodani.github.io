@@ -94,25 +94,34 @@
 		<div class="post-meta">
 			<p>2020年5月19日</p>
 		</div>
-		<h4 id="介绍">介绍</h4>
+		
+
+<h4 id="介绍">介绍</h4>
+
 <p>为了保证IDC内所有主机版本一致。</p>
+
 <p>目前问题， 当主机执行yum update 时，软件版本不可控。每个主机版本完全取决于更新的时机。</p>
+
 <p>造成了同一个IDC内的版本的差异，比如有的数据库的版本为10.06,有的为10.13。尤其是使用了如postgis等拓展的时候。版本混乱，甚至主从之间都不一致。</p>
+
 <h4 id="实现方法">实现方法</h4>
+
 <h6 id="思路">思路</h6>
+
 <p>一台机器做源服务统一管理所有软件的版本，更新策略（私有源服务中心）。其他主机指向私有源。</p>
+
 <h6 id="方法">方法</h6>
+
 <ul>
 <li>reposync , yumdownloader 下载源，将远程服务源下载到本地</li>
 <li>nginx 将本地源对外提供服务</li>
 <li>createrepo 生成本地源</li>
 </ul>
-<h6 id="heading"></h6>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/iperf/">«带宽检测 - iperf</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pg_prewarm/">数据预加载»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_prewarm/">«数据预加载</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/iperf/">带宽检测 - iperf»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

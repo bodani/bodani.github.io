@@ -94,9 +94,11 @@
 		<div class="post-meta">
 			<p>2018年10月25日</p>
 		</div>
-		<ul>
-<li>
-<p>主要模块</p>
+		
+
+<ul>
+<li><p>主要模块</p>
+
 <ul>
 <li>PLAYBOOKS： 任务剧本（任务集），编排定义Ansible任务集的配置文件，由Ansible顺序依次执行，通常是JSON格式的YML文件</li>
 <li>INVENTORY： Ansible管理主机的清单/etc/anaible/hosts</li>
@@ -104,33 +106,32 @@
 <li>PLUGINS：   模块功能的补充，如连接类型插件、循环插件、变量插件、过滤插件等，该功能不常用</li>
 <li>API：       供第三方程序调用的应用程序编程接口</li>
 <li>ANSIBLE：   ansible命令工具，其为核心执行工具</li>
-</ul>
-</li>
-<li>
-<p>常用命令</p>
+</ul></li>
+
+<li><p>常用命令</p>
+
 <ul>
-<li>/usr/bin/ansible	主程序，临时命令执行工具</li>
-<li>/usr/bin/ansible-doc	查看配置文档，模块功能查看工具</li>
-<li>/usr/bin/ansible-playbook	定制自动化任务，编排剧本工具</li>
-<li>/usr/bin/ansible-pull	远程执行命令的工具</li>
-<li>/usr/bin/ansible-vault	文件加密工具</li>
-<li>/usr/bin/ansible-console	基于Console界面与用户交互的执行工具</li>
-<li>/usr/bin/ansible-galaxy	下载/上传优秀代码或Roles模块的官网平台</li>
-</ul>
-</li>
-<li>
-<p>配置文件</p>
+<li>/usr/bin/ansible    主程序，临时命令执行工具</li>
+<li>/usr/bin/ansible-doc    查看配置文档，模块功能查看工具</li>
+<li>/usr/bin/ansible-playbook   定制自动化任务，编排剧本工具</li>
+<li>/usr/bin/ansible-pull   远程执行命令的工具</li>
+<li>/usr/bin/ansible-vault  文件加密工具</li>
+<li>/usr/bin/ansible-console    基于Console界面与用户交互的执行工具</li>
+<li>/usr/bin/ansible-galaxy 下载/上传优秀代码或Roles模块的官网平台</li>
+</ul></li>
+
+<li><p>配置文件</p>
+
 <ul>
 <li>/etc/ansible/ansible.cfg        主配置文件，配置ansible工作特性</li>
 <li>/etc/ansible/hosts      主机清单</li>
 <li>/etc/ansible/roles/     存放角色的目录</li>
+</ul></li>
+
+<li><p>配置说明<br />
+/etc/ansible/ansible.cfg</p></li>
 </ul>
-</li>
-<li>
-<p>配置说明<br>
-/etc/ansible/ansible.cfg</p>
-</li>
-</ul>
+
 <pre><code>  [defaults]
    #inventory = /etc/ansible/hosts # 主机列表配置文件
    #library = /usr/share/my_modules/ # 库文件存放目录
@@ -144,11 +145,15 @@
    #log_path = /var/log/ansible.log #日志
    #host_key_checking = False # 检查对应服务器的host_key，建议取消注释。也就是不会弹出
   
-</code></pre><ul>
-<li>Inventory 主机清单<br>
+</code></pre>
+
+<ul>
+<li>Inventory 主机清单<br />
 Ansible必须通过Inventory 来管理主机。Ansible 可同时操作属于一个组的多台主机,组和主机之间的关系通过 inventory 文件配置。</li>
 </ul>
+
 <h5 id="句法格式">句法格式</h5>
+
 <pre><code>单台主机
 green.example.com    &gt;   FQDN
 192.168.100.10       &gt;   IP地址
@@ -180,7 +185,10 @@ db-b.example.com
 db-c.example.com
 
 最后还有一个隐藏的分组，那就是all，代表全部主机,这个是隐式的，不需要写出来的
-</code></pre><h5 id="参数说明">参数说明</h5>
+</code></pre>
+
+<h5 id="参数说明">参数说明</h5>
+
 <pre><code>ansible_ssh_host
       将要连接的远程主机名.与你想要设定的主机的别名不同的话,可通过此变量设置.
 
@@ -210,9 +218,12 @@ ansible_shell_type
 
 ansible_python_interpreter
       目标主机的 python 路径
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>Ansible 的命令执行过程</li>
 </ul>
+
 <pre><code>1. 加载自己的配置文件，默认/etc/ansible/ansible.cfg
     Using /etc/ansible/ansible.cfg as config file
 
@@ -240,17 +251,19 @@ ansible_python_interpreter
 8. 断开远程主机连接
     'Shared connection to 7-db-3.hunk.tech closed.\r\n')
 
-</code></pre><ul>
-<li>执行结果状态<br>
-绿色：执行成功并且不需要做改变的操作<br>
-×××：执行成功并且对目标主机做变更<br>
+</code></pre>
+
+<ul>
+<li>执行结果状态<br />
+绿色：执行成功并且不需要做改变的操作<br />
+×××：执行成功并且对目标主机做变更<br />
 红色：执行失败</li>
 </ul>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/teleport/">«Teleport 堡垒机</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/ansible/ansible-modules/">Ansible Modules»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/ansible/ansible-modules/">«Ansible Modules</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/network-security/teleport/">Teleport 堡垒机»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

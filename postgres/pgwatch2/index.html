@@ -94,37 +94,57 @@
 		<div class="post-meta">
 			<p>2019年1月29日</p>
 		</div>
-		<h5 id="介绍">介绍</h5>
+		
+
+<h5 id="介绍">介绍</h5>
+
 <p><a href="https://github.com/cybertec-postgresql/pgwatch2">pgwatch2官方</a></p>
+
 <p><a href="https://demo.pgwatch.com/">官方演示示例</a></p>
+
 <p>架构 agent server</p>
+
 <ul>
-<li>
-<p>agent 在被监控的pg上自定义方法，用于收集数据库信息。这些自定义的方法需要依赖需要数据库扩展如pg_stat_statements,plpythonu.</p>
-</li>
-<li>
-<p>server 负责存储收集过来的信息，可以存放在postgres或influxdb中. 并将收集的信息进行展示grafana.</p>
-</li>
+<li><p>agent 在被监控的pg上自定义方法，用于收集数据库信息。这些自定义的方法需要依赖需要数据库扩展如pg_stat_statements,plpythonu.</p></li>
+
+<li><p>server 负责存储收集过来的信息，可以存放在postgres或influxdb中. 并将收集的信息进行展示grafana.</p></li>
 </ul>
+
 <h5 id="安装">安装</h5>
+
 <p>客户端</p>
+
 <p>依赖的拓展</p>
+
 <pre><code>yum install postgresql10-plpython.x86_64 -y
 
-</code></pre><p>配置数据库,需要重启数据库生效，多个拓展之间用,号分割。</p>
+</code></pre>
+
+<p>配置数据库,需要重启数据库生效，多个拓展之间用,号分割。</p>
+
 <pre><code>shared_preload_libraries = 'pg_stat_statements'              
-</code></pre><p>连接到对应的数据库，创建拓展</p>
+</code></pre>
+
+<p>连接到对应的数据库，创建拓展</p>
+
 <pre><code>CREATE EXTENSION pg_stat_statements;
 CREATE EXTENSION plpythonu;
-</code></pre><p>创建自定义方法, 使用supper user 用户执行如下sql. 注意将下面的pql 信息中的用户信息替换成自己的数据库连接用户。</p>
+</code></pre>
+
+<p>创建自定义方法, 使用supper user 用户执行如下sql. 注意将下面的pql 信息中的用户信息替换成自己的数据库连接用户。</p>
+
 <pre><code>该目录下为所有的自定义方法
 https://github.com/cybertec-postgresql/pgwatch2/tree/master/pgwatch2/sql/metric_fetching_helpers
 
 https://github.com/cybertec-postgresql/pgwatch2/blob/master/pgwatch2/sql/metric_fetching_helpers/stat_statements_wrapper.sql
 
 https://github.com/cybertec-postgresql/pgwatch2/blob/master/pgwatch2/sql/metric_fetching_helpers/cpu_load_plpythonu.sql
-</code></pre><p>服务端</p>
+</code></pre>
+
+<p>服务端</p>
+
 <p>使用docker-compose 来管理服务，切都变得那么easy！</p>
+
 <pre><code>cat docker-compose.yaml 
 version: '2'
 services:
@@ -142,20 +162,26 @@ services:
       - ./data/pw2:/pgwatch2/persistent-config
 #    environment:
 #      - NOTESTDB=1 
-</code></pre><p>说明：<br>
-端口 3000 grafana界面展示端口 , 8080 后台管理端口<br>
+</code></pre>
+
+<p>说明：<br />
+端口 3000 grafana界面展示端口 , 8080 后台管理端口<br />
 数据卷 data 挂在到实体主机的位置。</p>
+
 <h5 id="配置">配置</h5>
+
 <p>访问8080端口进行后台配置，</p>
+
 <p>DBs 数据库监控连接信息
 Metrics 度量
 Logs 日志信息， 配置后查看日志信息，多数为缺少自定义的方法，在被监控的数据库中定义就好。</p>
+
 <p>访问 3000 端口，查看数据库指标。</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_lock/">«锁机制</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pg_citus/">citus 数据库分库»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pg_citus/">«citus 数据库分库</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pg_lock/">锁机制»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

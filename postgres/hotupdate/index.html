@@ -94,22 +94,30 @@
 		<div class="post-meta">
 			<p>2021年1月14日</p>
 		</div>
-		<h5 id="what-is-hot">What is HOT</h5>
+		
+
+<h5 id="what-is-hot">What is HOT</h5>
+
 <p>HOT是“Heap Only Tuple”（仅元组堆）的缩写, 用来提高update效率。</p>
+
 <p>行的新版本和旧版本位于同一块中时，该行的外部地址（原始行指针）保持不变，利用hot link指针进行转发地址。索引不需要任何改动。</p>
+
 <h5 id="前提条件">前提条件</h5>
+
 <ul>
-<li>
-<p>包含更新行的块中必须有足够的空间</p>
-</li>
-<li>
-<p>在已修改值的任何列上均未定义索引</p>
-</li>
+<li><p>包含更新行的块中必须有足够的空间</p></li>
+
+<li><p>在已修改值的任何列上均未定义索引</p></li>
 </ul>
+
 <h5 id="生产应用">生产应用</h5>
+
 <p>使用<a href="./postgres/fillfactor">fillfactor</a>以获取HOT更新</p>
+
 <h5 id="例子">例子</h5>
+
 <p>建表</p>
+
 <pre><code>CREATE TABLE mytable (
    id  integer PRIMARY KEY,
    val integer NOT NULL
@@ -119,7 +127,10 @@ INSERT INTO mytable
 SELECT *, 0
 FROM generate_series(1, 235) AS n; 
 
-</code></pre><p>8k page 物理分布</p>
+</code></pre>
+
+<p>8k page 物理分布</p>
+
 <pre><code>SELECT ctid, id, val
 FROM mytable;
   ctid   | id  | val 
@@ -143,7 +154,10 @@ FROM mytable;
  (1,8)   | 234 |   0
  (1,9)   | 235 |   0
 (235 rows)
-</code></pre><p>页内无足够剩余空间,跨页更新</p>
+</code></pre>
+
+<p>页内无足够剩余空间,跨页更新</p>
+
 <pre><code>postgres=# update mytable set val = 100 where id = 5;
 UPDATE 1
 postgres=# select ctid,* from mytable where id = 5;
@@ -158,7 +172,10 @@ postgres=# select  n_tup_upd, n_tup_hot_upd from pg_stat_all_tables where relnam
          1 |             0
 (1 行记录)
 
-</code></pre><p>页内有足够剩余空间，页内hot 更新</p>
+</code></pre>
+
+<p>页内有足够剩余空间，页内hot 更新</p>
+
 <pre><code>postgres=# update mytable set val = 100 where id = 230;
 UPDATE 1
 postgres=# select ctid,* from mytable where id = 230;
@@ -172,7 +189,10 @@ postgres=# select  n_tup_upd, n_tup_hot_upd from pg_stat_all_tables where relnam
 -----------+---------------
          2 |             1
 (1 行记录)
-</code></pre><p>页内有足够空间，但是更新的字段包含索引的情况,没有发生hot 更新</p>
+</code></pre>
+
+<p>页内有足够空间，但是更新的字段包含索引的情况,没有发生hot 更新</p>
+
 <pre><code>postgres=# create index ON mytable (val );
 CREATE INDEX
 postgres=# update mytable set val = 100 where id = 231;
@@ -189,12 +209,14 @@ postgres=# select  n_tup_upd, n_tup_hot_upd from pg_stat_all_tables where relnam
          3 |             1
 (1 行记录)
 
-</code></pre><p><a href="https://www.modb.pro/db/33457">more</a></p>
+</code></pre>
+
+<p><a href="https://www.modb.pro/db/33457">more</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/thinking_in_db_tune/">«数据库优化思考 - 模块调优</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/etcd_auth/">etcd 访问控制»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/etcd_auth/">«etcd 访问控制</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/thinking_in_db_tune/">数据库优化思考 - 模块调优»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

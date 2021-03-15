@@ -94,15 +94,20 @@
 		<div class="post-meta">
 			<p>2021年1月11日</p>
 		</div>
-		<ul>
+		
+
+<ul>
 <li>分组集</li>
 <li>排序集</li>
 <li>假象集</li>
 <li>窗口函数</li>
 <li>递归</li>
 </ul>
+
 <h4 id="递归应用">递归应用</h4>
+
 <p>递归加速count(distint) 查询。 使用场景，数据分布：大数据集但其中的类型却很少</p>
+
 <pre><code>-- 创建表
 test1=# create table recurive_t(user_id int,free float,info text);
 CREATE TABLE
@@ -114,7 +119,9 @@ test1=# insert into recurive_t select 4 ,generate_series(0,4000000),'user 4 pay 
 test1=# insert into recurive_t select 5 ,generate_series(0,4000000),'user 5 pay !!!';
 test1=# analyze recurive_t ;
 ANALYZE
-</code></pre><pre><code>-- count(distinct()) 查询
+</code></pre>
+
+<pre><code>-- count(distinct()) 查询
 test1=# explain analyze select count(distinct(user_id)) from recurive_t ;
                                                                   QUERY PLAN                                                                   
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -125,7 +132,9 @@ test1=# explain analyze select count(distinct(user_id)) from recurive_t ;
 (4 行记录)
 
 时间：2793.548 ms (00:02.794)
-</code></pre><pre><code>-- group by 查询
+</code></pre>
+
+<pre><code>-- group by 查询
 test1=# explain analyze select user_id from recurive_t group by user_id;
                                                                                       QUERY PLAN                                                                                      
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -143,7 +152,9 @@ test1=# explain analyze select user_id from recurive_t group by user_id;
 (11 行记录)
 
 时间：1139.009 ms (00:01.139)
-</code></pre><pre><code>-- 添加索引，对优化没有效果
+</code></pre>
+
+<pre><code>-- 添加索引，对优化没有效果
 test1=# create index ON recurive_t (user_id );
 CREATE INDEX
 时间：5990.992 ms (00:05.991)
@@ -158,7 +169,9 @@ test1=# explain analyze select count(distinct(user_id)) from recurive_t ;
 (5 行记录)
 
 时间：3181.520 ms (00:03.182)
-</code></pre><pre><code>--- 画重点，利用递归查询。效果惊人
+</code></pre>
+
+<pre><code>--- 画重点，利用递归查询。效果惊人
 test1=# explain analyze with recursive skip as(
     (
       select min(t.user_id) as user_id from recurive_t t
@@ -195,8 +208,12 @@ select count(*) from skip;
 (20 行记录)
 
 时间：1.872 ms
-</code></pre><h6 id="with">WITH</h6>
+</code></pre>
+
+<h6 id="with">WITH</h6>
+
 <p>利用with as 不需要修改索引，指定查询计划</p>
+
 <pre><code>select * from T where A=1 and B = 2;
 
 执行计划可能使用A索引，也可能走B索引
@@ -208,10 +225,11 @@ select * from T_a where B = 1;
 
 执行计划走A 索引 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/thinking_in_db_fd/">«数据库优化思考 - 结构设计</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/reback/">误操作闪回»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/reback/">«误操作闪回</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/thinking_in_db_fd/">数据库优化思考 - 结构设计»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

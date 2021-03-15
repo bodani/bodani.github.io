@@ -94,55 +94,106 @@
 		<div class="post-meta">
 			<p>2018年12月3日</p>
 		</div>
-		<h4 id="网络配置">网络配置</h4>
+		
+
+<h4 id="网络配置">网络配置</h4>
+
 <h5 id="设置ip">设置IP</h5>
+
 <p>略</p>
-<h5 id="ip_froward">ip_froward</h5>
-<p>查看 sysctl -a | grep ip_ <br>
+
+<h5 id="ip-froward">ip_froward</h5>
+
+<p>查看 sysctl -a | grep ip_<br />
 修改 vi /etc/sysctl.conf</p>
+
 <pre><code>net.ipv4.ip_forward = 1
-</code></pre><h5 id="最大使用内存">最大使用内存</h5>
+</code></pre>
+
+<h5 id="最大使用内存">最大使用内存</h5>
+
 <pre><code>vm.max_map_count=262144
-</code></pre><p>生效 sysctl -p</p>
+</code></pre>
+
+<p>生效 sysctl -p</p>
+
 <h4 id="系统更新">系统更新</h4>
+
 <pre><code>yum -y update
-</code></pre><h4 id="安装扩展及工具">安装扩展及工具</h4>
+</code></pre>
+
+<h4 id="安装扩展及工具">安装扩展及工具</h4>
+
 <pre><code>yum -y install epel-release net-tools bind-utils telnet wget 
-</code></pre><h4 id="文件链接限制">文件链接限制</h4>
+</code></pre>
+
+<h4 id="文件链接限制">文件链接限制</h4>
+
 <p>查看</p>
+
 <pre><code>ulimit -n
-</code></pre><p>修改
+</code></pre>
+
+<p>修改
 vi /etc/security/limits.conf</p>
+
 <pre><code>* - nofile 65536
 * soft nproc 65536
 * hard nproc 65536
 * soft nofile 65536
 * hard nofile 65536
-</code></pre><pre><code>rm /etc/security/limits.d/*  -rf
-</code></pre><h4 id="安全">安全</h4>
+</code></pre>
+
+<pre><code>rm /etc/security/limits.d/*  -rf
+</code></pre>
+
+<h4 id="安全">安全</h4>
+
 <h5 id="selinux">selinux</h5>
+
 <p>查看</p>
+
 <pre><code>getenforce
-</code></pre><p>修改 临时 setenforce 0
+</code></pre>
+
+<p>修改 临时 setenforce 0
 永久 vi /etc/sysconfig/selinux</p>
+
 <h5 id="设置-firewalld">设置 firewalld</h5>
+
 <h5 id="设置-ssh">设置 ssh</h5>
+
 <p>禁用root用户，密钥登陆 切换为其他用户登录</p>
+
 <pre><code>PermitRootLogin without-password
 #PermitRootLogin yes
-</code></pre><p>修改22端口</p>
+</code></pre>
+
+<p>修改22端口</p>
+
 <p>登陆加速</p>
+
 <pre><code>GSSAPIAuthentication no
 UseDNS no
-</code></pre><h4 id="系统时间">系统时间</h4>
+</code></pre>
+
+<h4 id="系统时间">系统时间</h4>
+
 <p>ntp</p>
+
 <pre><code>yum install chrony
 systemctl enable chronyd.service
 systemctl start chronyd.service
-</code></pre><p>建议使用 yum install ntp</p>
+</code></pre>
+
+<p>建议使用 yum install ntp</p>
+
 <pre><code>systemctl start ntpd
 systemctl enable ntpd
-</code></pre><h5 id="总归">总归</h5>
+</code></pre>
+
+<h5 id="总归">总归</h5>
+
 <pre><code>#!/bin/bash
 
 echo &quot;===============更新系统 `date`&quot;          
@@ -178,10 +229,11 @@ systemctl enable ntpd
 
 echo &quot;===============初始化系统完毕，重启系统后生效 `date`&quot;
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/template/">«模板数据库</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/mdadm/">mdadm 软Raid 管理»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/mdadm/">«mdadm 软Raid 管理</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/template/">模板数据库»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

@@ -94,34 +94,70 @@
 		<div class="post-meta">
 			<p>2019年2月26日</p>
 		</div>
-		<h4 id="启动">启动</h4>
+		
+
+<h4 id="启动">启动</h4>
+
 <pre><code>rabbitmq-server &amp;
-</code></pre><h4 id="队列重置清空队列用户等">队列重置（清空队列、用户等）</h4>
+</code></pre>
+
+<h4 id="队列重置-清空队列-用户等">队列重置（清空队列、用户等）</h4>
+
 <pre><code>rabbitmqctl stop_app
 rabbitmqctl reset
 rabbitmqctl stop
-</code></pre><h4 id="关闭">关闭</h4>
+</code></pre>
+
+<h4 id="关闭">关闭</h4>
+
 <pre><code>rabbitmqctl stop
-</code></pre><h4 id="列举所有用户">列举所有用户</h4>
+</code></pre>
+
+<h4 id="列举所有用户">列举所有用户</h4>
+
 <pre><code>rabbitmqctl list_users
-</code></pre><h4 id="列举所有队列">列举所有队列</h4>
+</code></pre>
+
+<h4 id="列举所有队列">列举所有队列</h4>
+
 <pre><code>rabbitmqctl list_queues
-</code></pre><h4 id="添加用户">添加用户</h4>
+</code></pre>
+
+<h4 id="添加用户">添加用户</h4>
+
 <pre><code>rabbitmqctl add_user user_name user_passwd
-</code></pre><h4 id="设置用户角色为管理员">设置用户角色为管理员</h4>
+</code></pre>
+
+<h4 id="设置用户角色为管理员">设置用户角色为管理员</h4>
+
 <pre><code>rabbitmqctl set_user_tags user_name administrator
-</code></pre><h4 id="权限设置">权限设置</h4>
+</code></pre>
+
+<h4 id="权限设置">权限设置</h4>
+
 <pre><code>rabbitmqctl set_permissions -p / user_name &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;
-</code></pre><p>操作举例（添加用户admin）</p>
+</code></pre>
+
+<p>操作举例（添加用户admin）</p>
+
 <pre><code>sudo rabbitmqctl add_user admin admin
 sudo rabbitmqctl set_user_tags admin administrator
 sudo rabbitmqctl set_permissions -p / admin &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;
-</code></pre><h4 id="查看状态">查看状态</h4>
+</code></pre>
+
+<h4 id="查看状态">查看状态</h4>
+
 <pre><code>rabbitmqctl status
-</code></pre><h4 id="安装-rabbitmqweb管理插件">安装 RabbitMQWeb管理插件</h4>
+</code></pre>
+
+<h4 id="安装-rabbitmqweb管理插件">安装 RabbitMQWeb管理插件</h4>
+
 <pre><code>rabbitmq-plugins enable rabbitmq_management 
 可以利用http://ip:15672查看界面状态
-</code></pre><h4 id="rabbitmq的mnesia数据地址">Rabbitmq的mnesia数据地址</h4>
+</code></pre>
+
+<h4 id="rabbitmq的mnesia数据地址">Rabbitmq的mnesia数据地址</h4>
+
 <pre><code>1. 停止消息队列
 sudo rabbitmqctl stop 
 
@@ -141,19 +177,24 @@ sudo rabbitmq-server &amp;
 sudo rabbitmqctl add_user admin admin
 sudo rabbitmqctl set_user_tags admin administrator
 sudo rabbitmqctl set_permissions -p / admin &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;
-</code></pre><p>应用举例</p>
+</code></pre>
+
+<p>应用举例</p>
+
 <pre><code>rabbitmqctl list_users
 rabbitmqctl list_vhosts
 rabbitmqctl add_user rabbit rabbit
 rabbitmqctl set_user_tags rabbit administrator
 rabbitmqctl add_vhost /test
 rabbitmqctl set_permissions -p /test rabbit &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;
-</code></pre><p><a href="https://www.cnblogs.com/knowledgesea/p/6535766.html">https://www.cnblogs.com/knowledgesea/p/6535766.html</a></p>
+</code></pre>
+
+<p><a href="https://www.cnblogs.com/knowledgesea/p/6535766.html">https://www.cnblogs.com/knowledgesea/p/6535766.html</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/monitor/influxdb01/">«Telegraf&#43;Influxdb&#43;Grafana</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/adlock/">咨询锁 adlock»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/adlock/">«咨询锁 adlock</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/monitor/influxdb01/">Telegraf&#43;Influxdb&#43;Grafana»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

@@ -94,18 +94,27 @@
 		<div class="post-meta">
 			<p>2018年11月6日</p>
 		</div>
-		<p><a href="https://www.elastic.co/solutions/apm">https://www.elastic.co/solutions/apm</a></p>
+		
+
+<p><a href="https://www.elastic.co/solutions/apm">https://www.elastic.co/solutions/apm</a></p>
+
 <h5 id="应用程序性能监控">应用程序性能监控</h5>
+
 <h6 id="整体架构">整体架构</h6>
-<p><!-- raw HTML omitted --></p>
+
+<p><img src="images/apm.png" width="60%" height="10%" /></p>
+
 <h6 id="先搞起来">先搞起来</h6>
+
 <ul>
 <li>agent 收集信息</li>
 <li>apm-server 接受agent信息并发送到ES</li>
 <li>ES 存储信息</li>
 <li>Kibana 信息检索展示</li>
 </ul>
+
 <p>agent python django</p>
+
 <pre><code>安装扩展包
  pip install elastic-apm
 
@@ -142,11 +151,20 @@ MIDDLEWARE = (
 )
 
 
-</code></pre><p>ElasticSearch</p>
+</code></pre>
+
+<p>ElasticSearch</p>
+
 <pre><code>docker run -d -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:6.2.4
-</code></pre><p>Kibana</p>
+</code></pre>
+
+<p>Kibana</p>
+
 <pre><code>docker run -d -e ELASTICSEARCH_URL=http://10.1.88.73:9200 -p 5601:5601 docker.elastic.co/kibana/kibana:6.2.4
-</code></pre><p>APM-Server</p>
+</code></pre>
+
+<p>APM-Server</p>
+
 <pre><code>
 wget https://artifacts.elastic.co/downloads/apm-server/apm-server-6.4.2-linux-x86_64.tar.gz
 tar xf apm-server-6.4.2-linux-x86_64.tar.gz
@@ -154,12 +172,14 @@ cd apm-server-6.4.2-linux-x86_64
 ./apm-server setup
 ./apm-server -e
 
-</code></pre><p>完成之后，打开Kibana，就能看到APM增加的Dashboard和APM UI。</p>
+</code></pre>
+
+<p>完成之后，打开Kibana，就能看到APM增加的Dashboard和APM UI。</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/stat/">«Postgresql指标查看&amp;stat统计信息</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/kvm/kvm01/">KVM»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/kvm/kvm01/">«KVM</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/stat/">Postgresql指标查看&amp;stat统计信息»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

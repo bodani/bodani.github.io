@@ -94,11 +94,17 @@
 		<div class="post-meta">
 			<p>2019年12月27日</p>
 		</div>
-		<h5 id="linux分区命令parted的用法">linux分区命令parted的用法</h5>
+		
+
+<h5 id="linux分区命令parted的用法">linux分区命令parted的用法</h5>
+
 <h6 id="parted的适用场景">parted的适用场景</h6>
+
 <p>创建操作大于2T的分区
 一般情况下，我们都是选择使用fdisk工具来进行分区，但是目前在实际生产环境中使用的磁盘空间越来越大，呈TiB级别增长；而常用的fdisk这个工具对分区是有大小限制的，它只能划分小于2T的磁盘，所以在划大于2T磁盘分区的时候fdisk就无法满足要求了；这个时候有2个方法，其一是通过卷管理来实现，其二就是通过parted工具来实现对GPT磁盘进行分区操作；这里我们采用parted的方法来实现管理。</p>
+
 <h6 id="环境">环境</h6>
+
 <p>操作系统
 CentOS 7.5
 磁盘信息
@@ -108,17 +114,27 @@ CentOS 7.5
 18T
 分区需求
 将整个/dev/sdb划分到同一个分区里，并挂载到**/gfsdata01目录下。</p>
+
 <h6 id="选择操作磁盘">选择操作磁盘</h6>
+
 <p>parted命令后跟上欲操作磁盘的名字即可选择此设备进行操作。</p>
+
 <pre><code>[root@kvm ~]# parted /dev/sdb
 GNU Parted 3.1
 Using /dev/sdb
 Welcome to GNU Parted! Type 'help' to view a list of commands.
-</code></pre><p>新建磁盘标签类型为GPT</p>
+</code></pre>
+
+<p>新建磁盘标签类型为GPT</p>
+
 <p>因为parted命令只能针对gpt格式的磁盘进行操作，所以这里必须将新建的磁盘标签格式设为gpt。</p>
+
 <pre><code>(parted) mklabel gpt
 
-</code></pre><p>分区 命令格式</p>
+</code></pre>
+
+<p>分区 命令格式</p>
+
 <pre><code>mkpart PART-TYPE [FS-TYPE] START END
 PART-TYPE(分区类型)
 primary
@@ -146,7 +162,9 @@ END
 10G
 设定当前分区的结束点为磁盘的10G处；
 将/dev/sdb整个空间分给同一个分区
-</code></pre><pre><code>(parted) mkpart primary 0 -1                                              
+</code></pre>
+
+<pre><code>(parted) mkpart primary 0 -1                                              
 Warning: The resulting partition is not properly aligned for best performance.
 Ignore/Cancel? I
 (parted) p                                                                
@@ -160,8 +178,12 @@ Number  Start   End     Size    File system  Name     Flags
  1      17.4kB  18.0TB  18.0TB               primary
 (parted) q                                                                
 Information: You may need to update /etc/fstab.
-</code></pre><h5 id="格式化分区">格式化分区</h5>
+</code></pre>
+
+<h5 id="格式化分区">格式化分区</h5>
+
 <p>因为整个/dev/sdb只分了一个区，则这个分区名默认会分配为/dev/sdb1；使用mkfs命令将/dev/sdb1分区格式化为ext4。</p>
+
 <pre><code>[root@kvm ~]# mkfs -t ext4 /dev/sdb1                 
 mke2fs 1.42.9 (28-Dec-2013)
 /dev/sdb1 alignment is offset by 244736 bytes.
@@ -187,11 +209,20 @@ Allocating group tables: done
 Writing inode tables: done
 Creating journal (32768 blocks): done
 Writing superblocks and filesystem accounting information: done
-</code></pre><h5 id="设定分区label非必要">设定分区label(非必要)</h5>
+</code></pre>
+
+<h5 id="设定分区label-非必要">设定分区label(非必要)</h5>
+
 <pre><code>[root@kvm ~]# e2label /dev/sdb1 /gfsdata01
-</code></pre><h5 id="创建挂载目录">创建挂载目录</h5>
+</code></pre>
+
+<h5 id="创建挂载目录">创建挂载目录</h5>
+
 <pre><code>[root@kvm ~]# mkdir /gfsdata01
-</code></pre><h6 id="临时挂载分区">临时挂载分区</h6>
+</code></pre>
+
+<h6 id="临时挂载分区">临时挂载分区</h6>
+
 <pre><code>[root@kvm ~]# mount /dev/sdb1 /gfsdata01
 [root@kvm ~]# df -h
 Filesystem                   Size  Used Avail Use% Mounted on
@@ -207,15 +238,20 @@ tmpfs                        126G     0  126G   0% /sys/fs/cgroup
 tmpfs                         26G     0   26G   0% /run/user/1014
 tmpfs                         26G     0   26G   0% /run/user/0
 /dev/sdb1                     17T   20K   16T   1% /gfsdata01
-</code></pre><h6 id="开机自动挂载永久挂载">开机自动挂载(永久挂载)</h6>
+</code></pre>
+
+<h6 id="开机自动挂载-永久挂载">开机自动挂载(永久挂载)</h6>
+
 <p>即修改/etc/fstab文件。</p>
+
 <pre><code>[root@kvm ~]# blkid
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/time-cmd/">«linux time 命令</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/network-security/reject-ping/">Linux 禁Ping»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/reject-ping/">«Linux 禁Ping</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/time-cmd/">linux time 命令»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

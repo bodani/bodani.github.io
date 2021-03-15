@@ -94,58 +94,100 @@
 		<div class="post-meta">
 			<p>2019年2月21日</p>
 		</div>
-		<h4 id="安装--启动">安装 &amp; 启动</h4>
+		
+
+<h4 id="安装-启动">安装 &amp; 启动</h4>
+
 <h5 id="安装">安装</h5>
+
 <pre><code>rpm -i https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
 yum install mysql-community-server.x86_64
-</code></pre><h5 id="启动">启动</h5>
+</code></pre>
+
+<h5 id="启动">启动</h5>
+
 <pre><code>systemctl start mysqld
 systemctl enable mysqld
-</code></pre><h5 id="查看临时密码">查看临时密码</h5>
+</code></pre>
+
+<h5 id="查看临时密码">查看临时密码</h5>
+
 <pre><code>sudo grep 'temporary password' /var/log/mysqld.log
 2019-05-15T06:42:54.826106Z 5 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: DVjSsl-ZX5f7
-</code></pre><h5 id="修改密码">修改密码</h5>
+</code></pre>
+
+<h5 id="修改密码">修改密码</h5>
+
 <pre><code>mysql -uroot -p
 ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!';
-</code></pre><h4 id="常用命令">常用命令</h4>
+</code></pre>
+
+<h4 id="常用命令">常用命令</h4>
+
 <h5 id="连接">连接</h5>
+
 <pre><code>mysql -h127.0.0.1 -P 3306  -uroot -p
 
-</code></pre><h4 id="权限管理">权限管理</h4>
+</code></pre>
+
+<h4 id="权限管理">权限管理</h4>
+
 <p>mysql登陆用户权限校验主要是通过用户名密码+访问来源主机方式</p>
+
 <h5 id="创建用户">创建用户</h5>
+
 <pre><code>CREATE USER 'finley'@'localhost'
   IDENTIFIED BY 'password';
-</code></pre><h5 id="赋权限">赋权限</h5>
+</code></pre>
+
+<h5 id="赋权限">赋权限</h5>
+
 <pre><code>GRANT ALL
   ON *.*
   TO 'finley'@'localhost'
   WITH GRANT OPTION;
-</code></pre><h5 id="收回权限">收回权限</h5>
+</code></pre>
+
+<h5 id="收回权限">收回权限</h5>
+
 <pre><code>REVOKE ALL
   ON *.*
   FROM 'finley'@'localhost';
-</code></pre><h5 id="查看">查看</h5>
+</code></pre>
+
+<h5 id="查看">查看</h5>
+
 <pre><code>select host,user from mysql.user;
 
 SHOW GRANTS FOR 'finley'@'localhost';
-</code></pre><h5 id="删除">删除</h5>
+</code></pre>
+
+<h5 id="删除">删除</h5>
+
 <pre><code>DROP USER 'finley'@'localhost';
-</code></pre><h5 id="常见错误">常见错误</h5>
+</code></pre>
+
+<h5 id="常见错误">常见错误</h5>
+
 <pre><code>连接时被拒绝
 ERROR 1130 (HY000): Host '10.1.88.32' is not allowed to connect to this MySQL server
 
 修改访问来源IP
 update user set host = '%' where host= 'localhost' and user = 'finley';
 FLUSH PRIVILEGES;
-</code></pre><pre><code>连接时客户端报错
+</code></pre>
+
+<pre><code>连接时客户端报错
 ERROR 2059 (HY000): Authentication plugin 'caching_sha2_password' cannot be loaded: /usr/lib64/mysql/plugin/caching_sha2_password.so: cannot open shared object file: No such file or directory
 
 修改plugin类型
 ALTER USER 'custom'@'%' IDENTIFIED WITH mysql_native_password BY '1qa@WS3ed';
 FLUSH PRIVILEGES;
 select host,user ,plugin from user;
-</code></pre><h4 id="配置管理">配置管理</h4>
+</code></pre>
+
+<h4 id="配置管理">配置管理</h4>
+
 <pre><code>查看所用配置参数
 show (global) variables;
 
@@ -159,24 +201,35 @@ show variables like '%max_heap_table_size%';
 
 设置参数
 set max_heap_table_size = 167772160;                                                                                                                             
-</code></pre><h4 id="数据类型">数据类型</h4>
+</code></pre>
+
+<h4 id="数据类型">数据类型</h4>
+
 <h4 id="数据导入导出">数据导入导出</h4>
+
 <pre><code>mysqldump -h 10.1.88.74 -u custom -P 3306 --databases sbtest  -v -p &gt; backup.sql
 
 mysql -u custom -h 10.1.88.74 -P 3306  -D sbtest -p &lt; backup.sql 
-</code></pre><h4 id="高可用主从架构">高可用&amp;主从架构</h4>
+</code></pre>
+
+<h4 id="高可用-主从架构">高可用&amp;主从架构</h4>
+
 <h4 id="监控">监控</h4>
+
 <h4 id="explain执行计划">explain执行计划</h4>
-<h4 id="增量全量备份">增量，全量备份</h4>
+
+<h4 id="增量-全量备份">增量，全量备份</h4>
+
 <h4 id="周边工具">周边工具</h4>
+
 <ul>
 <li>客户端命令自动补齐工具 <a href="https://github.com/dbcli/mycli">mycli</a></li>
 </ul>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/tidb/tree/">«二叉树、B-Tree、B&#43;Tree、B*Tree</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/wind-run/">dos 常用命令»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/wind-run/">«dos 常用命令</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/tidb/tree/">二叉树、B-Tree、B&#43;Tree、B*Tree»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

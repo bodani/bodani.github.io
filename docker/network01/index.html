@@ -94,7 +94,10 @@
 		<div class="post-meta">
 			<p>2018年11月2日</p>
 		</div>
-		<h4 id="基础命令概览">基础命令概览</h4>
+		
+
+<h4 id="基础命令概览">基础命令概览</h4>
+
 <pre><code>docker network --help
 
 Usage:	docker network COMMAND
@@ -110,14 +113,20 @@ Commands:
   prune       Remove all unused networks
   rm          Remove one or more networks
 
-</code></pre><h4 id="默认网络">默认网络</h4>
+</code></pre>
+
+<h4 id="默认网络">默认网络</h4>
+
 <pre><code>docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 0770a8275bff        bridge              bridge              local
 b6617326f199        host                host                local
 31c55ffcf0a8        none                null                local
 
-</code></pre><p>创建容器时通过 &ndash;network=  指定网络类型</p>
+</code></pre>
+
+<p>创建容器时通过 &ndash;network=  指定网络类型</p>
+
 <ul>
 <li>none 这个网络下的容器除了 lo，没有其他任何网卡。</li>
 <li>host 共享Host的网络栈，容器的网络配置与 host 完全一样。
@@ -125,38 +134,51 @@ b6617326f199        host                host                local
 &ndash; 不足由于没有隔离，与host资源容易冲突。</li>
 <li>bridge 默认的网络类型</li>
 </ul>
+
 <h4 id="bridge-网络">Bridge 网络</h4>
+
 <p>Linux提供了许多虚拟设备，这些虚拟设备有助于构建复杂的网络拓扑，满足各种网络需求。</p>
+
 <ul>
-<li>网桥（bridge）
-网桥是一个二层设备，工作在链路层，主要是根据MAC学习来转发数据到不同的port。 看做物理设备中的交换机 ，或vlan</li>
-</ul>
+<li><p>网桥（bridge）
+网桥是一个二层设备，工作在链路层，主要是根据MAC学习来转发数据到不同的port。 看做物理设备中的交换机 ，或vlan</p>
+
 <pre><code># 创建网桥
 brctl addbr br0
 # 添加设备到网桥
 brctl addif br0 eth1
 # 查询网桥mac表
 brctl showmacs br0
-</code></pre><ul>
-<li>veth
-veth pair是一对虚拟网络设备，一端发送的数据会由另外一端接受，常用于不同的网络命名空间。</li>
-</ul>
+</code></pre></li>
+
+<li><p>veth
+veth pair是一对虚拟网络设备，一端发送的数据会由另外一端接受，常用于不同的网络命名空间。</p>
+
 <pre><code># 创建veth pair
 ip link add veth0 type veth peer name veth1
 # 将veth1放入另一个netns
 ip link set veth1 netns newns
-</code></pre><ul>
-<li>TAP/TUN
-TAP/TUN设备是一种让用户态程序向内核协议栈注入数据的设备，TAP等同于一个以太网设备，工作在二层；而TUN则是一个虚拟点对点设备，工作在三层。</li>
-</ul>
+</code></pre></li>
+
+<li><p>TAP/TUN
+TAP/TUN设备是一种让用户态程序向内核协议栈注入数据的设备，TAP等同于一个以太网设备，工作在二层；而TUN则是一个虚拟点对点设备，工作在三层。</p>
+
 <pre><code>ip tuntap add tap0 mode tap
 ip tuntap add tun0 mode tun
-</code></pre><p>Docker 安装后默认有一个名称为docker0 的bridge, 新建的容器都会挂接到docker0 上。</p>
+</code></pre></li>
+</ul>
+
+<p>Docker 安装后默认有一个名称为docker0 的bridge, 新建的容器都会挂接到docker0 上。</p>
+
 <pre><code>brctl show # yum install bridge-utils
 bridge name	bridge id		STP enabled	interfaces
 docker0		8000.024262081be1	no		veth16209e7
-</code></pre><p><!-- raw HTML omitted -->veth16209e7<!-- raw HTML omitted --></p>
+</code></pre>
+
+<p><font color=#0099ff face="黑体">veth16209e7</font></p>
+
 <p>实体机网络</p>
+
 <pre><code>ip a
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -173,7 +195,10 @@ docker0		8000.024262081be1	no		veth16209e7
 13: veth16209e7@if12: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue master docker0 state UP group default 
     link/ether 92:94:68:8c:0d:2a brd ff:ff:ff:ff:ff:ff link-netnsid 1
 
-</code></pre><p>容器内网络</p>
+</code></pre>
+
+<p>容器内网络</p>
+
 <pre><code> docker exec -it 8d525f4dae3c ip a
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -183,8 +208,12 @@ docker0		8000.024262081be1	no		veth16209e7
     link/ether 02:42:ac:11:00:03 brd ff:ff:ff:ff:ff:ff
     inet 172.17.0.3/16 brd 172.17.255.255 scope global eth0
        valid_lft forever preferred_lft forever
-</code></pre><h6 id="原来-veth16209e7-和-eth0if13-是一对-veth-pair">原来 veth16209e7 和 eth0@if13 是一对 veth pair</h6>
+</code></pre>
+
+<h6 id="原来-veth16209e7-和-eth0-if13-是一对-veth-pair">原来 veth16209e7 和 eth0@if13 是一对 veth pair</h6>
+
 <p>再看下现在的docker bridge network</p>
+
 <pre><code>docker inspect network bridge 
 [
     {
@@ -205,18 +234,26 @@ brew cask install emacs        &quot;IPAM&quot;: {
             ]
         },
 
-</code></pre><p>网关 172.17.0.1 是实体机中docker0 网卡</p>
+</code></pre>
+
+<p>网关 172.17.0.1 是实体机中docker0 网卡</p>
+
 <h4 id="自定义bridge-网络">自定义bridge 网络</h4>
+
 <pre><code>docker network create --driver bridge my_bridge
 a24a9805f63da7d0878e5791973cb340ab519d06c04f76c4b59503d9d1bc7797
-</code></pre><pre><code>docker network ls
+</code></pre>
+
+<pre><code>docker network ls
 NETWORK ID          NAME                DRIVER              SCOPE
 0770a8275bff        bridge              bridge              local
 b6617326f199        host                host                local
 a24a9805f63d        my_bridge           bridge              local
 31c55ffcf0a8        none                null                local
 
-</code></pre><pre><code>docker inspect network my_bridge 
+</code></pre>
+
+<pre><code>docker inspect network my_bridge 
 [
     {
         &quot;Name&quot;: &quot;my_bridge&quot;,
@@ -235,13 +272,19 @@ a24a9805f63d        my_bridge           bridge              local
                 }
             ]
         },
-</code></pre><pre><code> brctl show
+</code></pre>
+
+<pre><code> brctl show
 bridge name	bridge id		STP enabled	interfaces
 br-a24a9805f63d		8000.0242a87f1d16	no		
 docker0		8000.024262081be1	no		veth16209e7
 
-</code></pre><p>创建了一个与默认的bridge类似的network</p>
+</code></pre>
+
+<p>创建了一个与默认的bridge类似的network</p>
+
 <p>下面创建一个新的容量挂载到 my_bridge 网络中</p>
+
 <pre><code> docker run -it --network=my_bridge busybox 
 / # ip a
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue qlen 1000
@@ -252,17 +295,26 @@ docker0		8000.024262081be1	no		veth16209e7
     link/ether 02:42:ac:12:00:02 brd ff:ff:ff:ff:ff:ff
     inet 172.18.0.2/16 brd 172.18.255.255 scope global eth0
        valid_lft forever preferred_lft forever
-</code></pre><h5 id="不同的bridge间的网络不通相同bridge的网络可以通信">不同的bridge间的网络不通,相同bridge的网络可以通信。</h5>
+</code></pre>
+
+<h5 id="不同的bridge间的网络不通-相同bridge的网络可以通信">不同的bridge间的网络不通,相同bridge的网络可以通信。</h5>
+
 <h4 id="容器间的通信">容器间的通信</h4>
+
 <ul>
 <li>IP 容器创建时通过 &ndash;network 指定相应的网络，或者通过 docker network connect 将现有容器加入到指定网络</li>
 <li>DNS 通过 docker 自带的 DNS 服务, ping containername</li>
 <li>joined 共享一个网络栈，共享网卡和配置信息，joined 容器之间可以通过 127.0.0.1 直接通信. &ndash;network=container:name</li>
 </ul>
+
 <h4 id="实际应用">实际应用</h4>
-<hr>
+
+<hr />
+
 <h5 id="背景介绍">背景介绍</h5>
+
 <p>在使用过程中应用docker-compose 来管理本地的docker, docker-compose默认为每个docker-compose应用创建自己的网络.</p>
+
 <pre><code>ip r
 default via 10.1.7.50 dev eth0 proto static metric 100 
 10.1.0.0/16 dev eth0 proto kernel scope link src 10.1.88.74 metric 100 
@@ -272,9 +324,14 @@ default via 10.1.7.50 dev eth0 proto static metric 100
 172.22.0.0/16 dev br-24d29dd54a64 proto kernel scope link src 172.22.0.1 
 172.23.0.0/16 dev br-caf35e9eae30 proto kernel scope link src 172.23.0.1 
 192.168.0.0/16
-</code></pre><p>很容易与实体机的网络环境发生冲突</p>
+</code></pre>
+
+<p>很容易与实体机的网络环境发生冲突</p>
+
 <p>需要使用docker network 来统一管理分配</p>
+
 <h5 id="创建网桥">创建网桥</h5>
+
 <pre><code># 创建网络
 docker  network create --subnet 172.19.0.0/16 --gateway 172.19.0.1 service;
 docker  network create --subnet 172.18.0.0/16 --gateway 172.18.0.1 web;
@@ -293,7 +350,10 @@ ac97b8f65d31        host                host                local
 docker inspect service
 docker inspect web
 
-</code></pre><h4 id="在docker-compose-中应用网络">在docker-compose 中应用网络</h4>
+</code></pre>
+
+<h4 id="在docker-compose-中应用网络">在docker-compose 中应用网络</h4>
+
 <pre><code># 配置网络
 cat docker-compose.yaml 
 
@@ -321,10 +381,11 @@ docker-compose ps
 
 docker exec -it 容器ID ip a
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/docker/cgroup-namespaces/">«Cgroup Namespaces</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/keepalived01/">Keepalived 问题集»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/keepalived01/">«Keepalived 问题集</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/docker/cgroup-namespaces/">Cgroup Namespaces»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

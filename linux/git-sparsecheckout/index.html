@@ -94,11 +94,17 @@
 		<div class="post-meta">
 			<p>2018年10月23日</p>
 		</div>
-		<h4 id="需求">需求</h4>
-<p>　　有些时候我们只想下载项目中的部分文件或文件夹下面的内容，而不是整个项目。这个时候使用git clone难免有些过重。<br>
+		
+
+<h4 id="需求">需求</h4>
+
+<p>　　有些时候我们只想下载项目中的部分文件或文件夹下面的内容，而不是整个项目。这个时候使用git clone难免有些过重。<br />
 　　是时候来寻找一个合适的方式来满足我们的需求了。这就是Sparse Checkout模式</p>
+
 <h4 id="具体方法">具体方法</h4>
+
 <p>比如我只想下载 <a href="https://github.com/bodani/bodani.github.io.git">https://github.com/bodani/bodani.github.io.git</a> 中的k8s 目录的内容</p>
+
 <pre><code>mkdir gitSparse  
 cd gitSparse  
 git init  
@@ -108,12 +114,14 @@ echo &quot;k8s&quot; &gt;&gt; .git/info/sparse-checkout
 git checkout master  
 git pull 
 
-</code></pre><p>　</p>
+</code></pre>
+
+<p>　</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/go/install/">«Go 语言安装及配置</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/network-security/teleport/">Teleport 堡垒机»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/teleport/">«Teleport 堡垒机</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/go/install/">Go 语言安装及配置»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

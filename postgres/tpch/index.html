@@ -94,28 +94,50 @@
 		<div class="post-meta">
 			<p>2019年6月5日</p>
 		</div>
-		<h4 id="背景介绍">背景介绍</h4>
+		
+
+<h4 id="背景介绍">背景介绍</h4>
+
 <p>24sql</p>
+
 <h4 id="tpc-h-基准测试">TPC-H 基准测试</h4>
+
 <h5 id="下载安装">下载安装</h5>
+
 <p><a href="./tools/tpch-tools.tgz">tpch-tools安装包</a></p>
+
 <p>修改makefile.suite 模版</p>
+
 <pre><code>CC=gcc 
 DATABASE-TDAT
 MACHINE=LINUX
 WORKLOAD=TPCH
-</code></pre><p>执行 make 进行编译</p>
+</code></pre>
+
+<p>执行 make 进行编译</p>
+
 <h5 id="生成测试数据">生成测试数据</h5>
+
 <p>生成20G测试数据</p>
+
 <pre><code>./dbgen -s 20
 ls -lrth *.tbl
-</code></pre><p>自动生成的测试数据每行的结尾多余一个 &lsquo;|&rsquo; 需要处理</p>
+</code></pre>
+
+<p>自动生成的测试数据每行的结尾多余一个 &lsquo;|&rsquo; 需要处理</p>
+
 <pre><code>for i in `ls *.tbl`; do sed 's/|$//' $i &gt; ${i/tbl/csv}; echo $i; done;
-</code></pre><h5 id="创建表及索引">创建表及索引</h5>
+</code></pre>
+
+<h5 id="创建表及索引">创建表及索引</h5>
+
 <p>在下面的文件中分别是创建表和对应索引的sql</p>
-<p>dss.ddl   <br>
+
+<p>dss.ddl<br />
 dss.ri</p>
+
 <h5 id="导入数据">导入数据</h5>
+
 <pre><code>copy customer from '/opt/tpch-tools/dbgen/customer.csv' with DELIMITER '|';
 copy lineitem from '/opt/tpch-tools/dbgen/lineitem.csv' with DELIMITER '|';
 copy nation from '/opt/tpch-tools/dbgen/nation.csv' with DELIMITER '|';
@@ -123,13 +145,16 @@ copy orders from '/opt/tpch-tools/dbgen/orders.csv' with DELIMITER '|';
 copy partsupp from '/opt/tpch-tools/dbgen/partsupp.csv' with DELIMITER '|';
 copy region from '/opt/tpch-tools/dbgen/region.csv' with DELIMITER '|';
 copy supplier from '/opt/tpch-tools/dbgen/supplier.csv' with DELIMITER '|';
-</code></pre><h5 id="基准测试">基准测试</h5>
+</code></pre>
+
+<h5 id="基准测试">基准测试</h5>
+
 <p>在queries 目录下存放的是24条sql</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pgstattuple/">«表空间膨胀</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/citus01/">citus 简单应用»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/citus01/">«citus 简单应用</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgstattuple/">表空间膨胀»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

@@ -94,10 +94,14 @@
 		<div class="post-meta">
 			<p>2018年10月25日</p>
 		</div>
-		<h5 id="准备工作">准备工作</h5>
+		
+
+<h5 id="准备工作">准备工作</h5>
+
 <ul>
 <li>安装</li>
 </ul>
+
 <pre><code>yum install ansible-doc.noarch ansible.noarch -y
 
 tree /etc/ansible/
@@ -113,18 +117,25 @@ ansible 2.7.0
   ansible python module location = /usr/lib/python2.7/site-packages/ansible
   executable location = /usr/bin/ansible
   python version = 2.7.5 (default, Jul 13 2018, 13:06:57) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>配置清单</li>
 </ul>
+
 <pre><code>cat hosts 
 [webservers]
 10.1.88.72
 10.1.88.73
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li><a href="../linux/no-passwd">免密登录</a></li>
 </ul>
+
 <h5 id="常用命令">常用命令</h5>
+
 <pre><code>Usage: ansible &lt;host-pattern&gt; [options]
 
     常用选项：
@@ -136,10 +147,14 @@ ansible 2.7.0
 获取模块列表：ansible-doc -l
 
 获取指定模块的使用帮助：ansible-doc -s MOD_NAME
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>ping</li>
 </ul>
+
 <p>尝试连接到主机，验证并返回pong成功。</p>
+
 <pre><code>ansible all -m ping
 10.1.88.73 | SUCCESS =&gt; {
     &quot;changed&quot;: false, 
@@ -150,20 +165,28 @@ ansible 2.7.0
     &quot;ping&quot;: &quot;pong&quot;
 }
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>command</li>
 </ul>
+
 <p>在远程主机执行命令, -m 默认模块为 commend, 可以省略 。</p>
+
 <pre><code>ansible all -a 'cat /etc/centos-release' 
 10.1.88.72 | CHANGED | rc=0 &gt;&gt;
 CentOS Linux release 7.5.1804 (Core) 
 
 10.1.88.73 | CHANGED | rc=0 &gt;&gt;
 CentOS Linux release 7.5.1804 (Core) 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>shell</li>
 </ul>
-<p>与command模快使用一致，但是，变量 和操作符号 &ldquo;&lt;&rdquo;, &ldquo;&gt;&rdquo;, &ldquo;|&rdquo;, &ldquo;;&rdquo; and &ldquo;&amp;&rdquo; 能正常工作</p>
+
+<p>与command模快使用一致，但是，变量 和操作符号 &ldquo;&lt;&ldquo;, &ldquo;&gt;&rdquo;, &ldquo;|&rdquo;, &ldquo;;&rdquo; and &ldquo;&amp;&rdquo; 能正常工作</p>
+
 <pre><code>ansible all -m shell -a 'echo $LANG'
 10.1.88.73 | CHANGED | rc=0 &gt;&gt;
 en_US.UTF-8
@@ -171,10 +194,14 @@ en_US.UTF-8
 10.1.88.72 | CHANGED | rc=0 &gt;&gt;
 en_US.UTF-8
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>script</li>
 </ul>
+
 <p>把脚本复制到远程节点后，在远程节点本地运行脚本</p>
+
 <pre><code>cat script.sh 
 #!/bin/bash
 touch /tmp/a.tmp
@@ -182,19 +209,27 @@ echo 'ok'
 
 ansible all -m script -a './script.sh '
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>copy</li>
 </ul>
+
 <p>复制文件或目录到远程节点。默认会覆盖目标文件</p>
+
 <pre><code>文件
 ansible all -m copy -a &quot;src=./script.sh dest=/tmp/ mode=666&quot;
 
 目录
 ansible all -m copy -a &quot;src=/home dest=/tmp/ &quot;
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>fetch</li>
 </ul>
+
 <p>从远程获取文件（只能是文件）</p>
+
 <pre><code>单机
 ansible 10.1.88.72 -m fetch -a &quot;src=/var/log/messages dest=/tmp/&quot;
 组
@@ -211,10 +246,14 @@ tree /tmp/
 │       └── log
 │           └── messages
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>file</li>
 </ul>
+
 <p>设置远程节点的文件的文件属性</p>
+
 <pre><code>ansible all -m file -a 'path=/tmp/abc.txt state=touch mode=0666 owner=user1'   
 
 - state 参数说明 
@@ -225,14 +264,20 @@ tree /tmp/
   - touch：如果文件不存在，则会创建一个新的文件，如果文件或目录已存在，则更新其最后修改时间
   - absent：删除目录、文件或者取消链接文件。相当于rm -rf
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>cron</li>
 </ul>
+
 <p>计划任务</p>
+
 <ul>
 <li>yum</li>
 </ul>
+
 <p>程序包管理</p>
+
 <pre><code>ansible all -m yum -a 'name=ntp state=latest'
 
 - state 
@@ -242,14 +287,20 @@ tree /tmp/
 查看源　&amp; 验证
 ansible all -a 'yum info ntp'
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>yum_repository</li>
 </ul>
+
 <p>yum源管理</p>
+
 <ul>
 <li>service</li>
 </ul>
+
 <p>服务管理</p>
+
 <pre><code>ansible all -m service -a 'name=ntpd enabled=true  state=started'
 
 - name 服务名
@@ -261,10 +312,14 @@ ansible all -a 'yum info ntp'
   - started
   - stopped
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>user</li>
 </ul>
+
 <p>用户管理</p>
+
 <pre><code>新建用户
 ansible all -m user -a &quot;name=user123 state=present&quot;
 删除用户并清除home 目录
@@ -274,39 +329,58 @@ ansible all -m user -a &quot;name=user123 state=absent remove=yes&quot;
 - state 
   - present 新建
   - absent 删除
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>group</li>
 </ul>
+
 <p>用户组管理</p>
+
 <pre><code>ansible all -m group -a &quot;name=group123 state=present&quot;
 
 - name 用户组
 - state
   - present 创建
   - absent 删除
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>get_url</li>
 </ul>
+
 <p>从 HTTP, HTTPS, or FTP 下载文件</p>
+
 <pre><code>ansible all -m get_url -a &quot;url=https://resource.uucin.com/docker/docker-ce-18.03.1.ce-1.el7.centos.x86_64.rpm dest=/tmp mode=0666&quot;
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>lineinfile</li>
 </ul>
+
 <p>替换一个文件中特定的行</p>
+
 <pre><code>ansible all -m lineinfile -a &quot;path=/etc/selinux/config regexp=^SELINUX= line=SELINUX=disabled&quot;
 
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>replace</li>
 </ul>
+
 <p>替换一个文件中符合匹配的所有行</p>
+
 <ul>
 <li>setup</li>
 </ul>
+
 <p>获取系统属性变量</p>
+
 <ul>
 <li>sysctl</li>
 </ul>
+
 <pre><code>      ignoreerrors:          # Use this option to ignore errors about unknown keys.
       name:                  # (required) The dot-separated path (aka `key') specifying the sysctl variable.
       reload:                # If `yes', performs a `/sbin/sysctl -p' if the `sysctl_file' is updated. If `no', does not reload `sysctl' even if the `sysctl_file' is updated.
@@ -314,19 +388,24 @@ ansible all -m user -a &quot;name=user123 state=absent remove=yes&quot;
       sysctl_file:           # Specifies the absolute path to `sysctl.conf', if not `/etc/sysctl.conf'.
       sysctl_set:            # Verify token value with the sysctl command and set with -w if necessary
       value:                 # Desired value of the sysctl key.
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>blockinfile</li>
 </ul>
+
 <p>name: Insert/update/remove a text block surrounded by marker lines</p>
+
 <pre><code>  insertafter 修改的标记点 
   insertbefore
   path 目标文件
   block 内容
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/ansible/ansible-overview/">«Ansible Overview</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/ansible/ansible-playbooks/">Ansible Playbooks»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/ansible/ansible-playbooks/">«Ansible Playbooks</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/ansible/ansible-overview/">Ansible Overview»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

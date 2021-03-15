@@ -94,12 +94,20 @@
 		<div class="post-meta">
 			<p>2019年3月18日</p>
 		</div>
-		<h5 id="简单了解">简单了解</h5>
+		
+
+<h5 id="简单了解">简单了解</h5>
+
 <p>minio 完全实现了s3协议，使用简单方便。 支持多机模式，提高数据可用性和整体容量。</p>
+
 <p>限制， 最多5T存储。 单个文件最大5T。</p>
+
 <p>缺点， 不能在线扩容。开发者认为扩容应该是开发人员需要解决的问题。</p>
+
 <h5 id="安装及简单使用">安装及简单使用</h5>
+
 <p>服务端</p>
+
 <pre><code>#下载
 wget https://dl.minio.io/server/minio/release/linux-amd64/minio
 mv minio /usr/local/bin/
@@ -127,7 +135,10 @@ Object API (Amazon S3 compatible):
 
 #后台启动,也可做成服务模式，由systemd管理
 nohup minio server minidata/ &gt; log &amp;
-</code></pre><p>客户端</p>
+</code></pre>
+
+<p>客户端</p>
+
 <pre><code>#下载
 wget https://dl.minio.io/client/mc/release/linux-amd64/mc
 mv mc /usr/local/bin/
@@ -140,10 +151,11 @@ mc  cp  /var/lib/pgsql/10/data/pg_wal/00000001000000C40000006A myminio/mb1
 ...sql/10/data/pg_wal/00000001000000C40000006A:  16.00 MB / 16.00 MB ┃▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓┃ 100.00% 96.81 MB/s 0s
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/docker/manager/">«docker 磁盘空间管理</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/pmap/">pmap Linux 进程内存分析»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/pmap/">«pmap Linux 进程内存分析</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/docker/manager/">docker 磁盘空间管理»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

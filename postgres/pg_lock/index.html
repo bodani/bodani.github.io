@@ -94,9 +94,14 @@
 		<div class="post-meta">
 			<p>2019年1月24日</p>
 		</div>
-		<p><a href="https://blog.csdn.net/pg_hgdb/article/details/79403651">https://blog.csdn.net/pg_hgdb/article/details/79403651</a></p>
+		
+
+<p><a href="https://blog.csdn.net/pg_hgdb/article/details/79403651">https://blog.csdn.net/pg_hgdb/article/details/79403651</a></p>
+
 <p><a href="https://habr.com/en/company/postgrespro/blog/500714/">https://habr.com/en/company/postgrespro/blog/500714/</a></p>
+
 <p>表锁 <a href="https://www.modb.pro/db/26462">https://www.modb.pro/db/26462</a></p>
+
 <pre><code>查看被堵塞的任务
 select * from pg_locks where not granted;
  locktype | database | relation | page | tuple | virtualxid | transactionid | classid | objid | objsubid | virtualtransaction | pid | mode | granted | fastpath 
@@ -114,14 +119,20 @@ select pg_blocking_pids(pid);
 select pg_cancel_backend(pid);  # select 
 
 select pg_terminate_backend(pid); # update insert delete 
-</code></pre><h5 id="事务的隔离级别">事务的隔离级别</h5>
+</code></pre>
+
+<h5 id="事务的隔离级别">事务的隔离级别</h5>
+
 <p>Postgres 数据库共有三种数据隔离级别。</p>
+
 <ul>
 <li>Read Commit 读看提交  默认级别 在读开始的时候建立数据快照</li>
 <li>Repeat Read 可重复读。在事务开始的时候建立数据快照</li>
 <li>SSI Serializable 序列化 理解为只有一个用户使用的情况</li>
 </ul>
+
 <p>使用举例</p>
+
 <pre><code>postgres=# \h lock
 Command:     LOCK
 Description: lock a table
@@ -132,17 +143,21 @@ where lockmode is one of:
 
     ACCESS SHARE | ROW SHARE | ROW EXCLUSIVE | SHARE UPDATE EXCLUSIVE
     | SHARE | SHARE ROW EXCLUSIVE | EXCLUSIVE | ACCESS EXCLUSIVE
-</code></pre><p>锁定一张表</p>
+</code></pre>
+
+<p>锁定一张表</p>
+
 <pre><code>postgres=# begin ;
 BEGIN
 postgres=# lock TABLE wt IN access exclusive mode ;
 LOCK TABLE
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pitr/">«时间点恢复</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgwatch2/">pgwatch2 数据库指标监控查看»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pgwatch2/">«pgwatch2 数据库指标监控查看</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pitr/">时间点恢复»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

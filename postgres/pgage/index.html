@@ -94,23 +94,31 @@
 		<div class="post-meta">
 			<p>2020年1月7日</p>
 		</div>
-		<h5 id="背景">背景</h5>
+		
+
+<h5 id="背景">背景</h5>
+
 <p>数据库的事务标识符使用的是32位的,最大可表示42个亿。当前事务的数据在20亿个事务之后将变的不可见。为了解决这个问题（回卷），Postgres引入了一个冻结事务标识的概念。
 并实现了名为freeze的冻结过程。</p>
+
 <h5 id="冻结过程">冻结过程</h5>
+
 <p>两种模式</p>
+
 <ul>
-<li>
-<p>惰性模式</p>
-</li>
-<li>
-<p>迫切模式</p>
-</li>
+<li><p>惰性模式</p></li>
+
+<li><p>迫切模式</p></li>
 </ul>
+
 <p>惰性模式回跳过页中所有的数据都位可见的数据库块（由数据库中的vm可见性映射）</p>
+
 <p>迫切模式会扫描所有的页，检查表中的所有元组。并可能删除不必要的clog文件与页面。</p>
+
 <p>改进的迫切模式，会跳过页面中所有的元组都已被冻结过的页面</p>
+
 <p>首先介绍几个数据库值</p>
+
 <pre><code> -- 当前事务号
  select txid_current();
 
@@ -131,18 +139,26 @@
  show autovacuum_freeze_max_age ; -- 默认值2亿
 
  show autovacuum_naptime ; -- 默认值1 分钟
-</code></pre><h5 id="触发条件">触发条件</h5>
+</code></pre>
+
+<h5 id="触发条件">触发条件</h5>
+
 <p>当前年龄大于5千万时 惰性模式
 当前库年龄大于1.5亿时 迫切模式</p>
+
 <p>冻结后修改表和库的 relfrozenxid，datfrozenxid 值。</p>
+
 <h5 id="手动冻结">手动冻结</h5>
+
 <pre><code> vacuum freeze 
-</code></pre><p>由于冻结的过程会占用数据库系统的资源。可根据当前数据的年龄在业务低峰期进行手动冻结，降低对业务的影响。</p>
+</code></pre>
+
+<p>由于冻结的过程会占用数据库系统的资源。可根据当前数据的年龄在业务低峰期进行手动冻结，降低对业务的影响。</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/reject-ping/">«Linux 禁Ping</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/git-nopassword/">Git 免输入密码»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/git-nopassword/">«Git 免输入密码</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/network-security/reject-ping/">Linux 禁Ping»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

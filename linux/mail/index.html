@@ -94,20 +94,26 @@
 		<div class="post-meta">
 			<p>2018年12月29日</p>
 		</div>
-		<h5 id="介绍">介绍</h5>
-<p>电子邮件系统包括两个组件：</p>
-<ul>
-<li>MUA(Mail User Agent,邮件用户代理）为用户提供的可以读写邮件的界面,例如 Foxmail, Outlook</li>
-<li>MTA(Mail Transport Agent,邮件传送代理）MTA是运行在底层，能够处理邮件的收发工作的程序</li>
-</ul>
+		
+
+<h5 id="介绍">介绍</h5>
+
+<p>电子邮件系统包括两个组件：
+- MUA(Mail User Agent,邮件用户代理）为用户提供的可以读写邮件的界面,例如 Foxmail, Outlook
+- MTA(Mail Transport Agent,邮件传送代理）MTA是运行在底层，能够处理邮件的收发工作的程序</p>
+
 <p>邮件的接收是MTA和MUA配合完成的。远程的MUA首先向远程MTA连接并验证发信人身份，然后由远程MTA向本地MTA发送邮件。
 接受者通过本地MUA接收阅读邮件。邮件的发信也是MTA和MUA配合完成的，不过方向正好相反。本地MUA首先向本地的MTA连接并验证发信人身份，然后由本地MTA向远程MTA发送邮件，再由远程的MUA读取邮件。</p>
+
 <h5 id="mailx-和-sentmail">mailx 和 sentmail</h5>
+
 <ul>
 <li>mail和mailx即为负责查看、编写邮件和向MTA发送邮件的MUA。mailx是mail的功能加强版。</li>
 <li>sendmail即为负责邮件在网络上传输的MTA，将邮件从一个MTA传送至另一个MTA。</li>
 </ul>
+
 <h5 id="mailx-安装及配置">mailx 安装及配置</h5>
+
 <pre><code>yum install mailx -y
 
 vi /etc/mail.rc 
@@ -117,13 +123,17 @@ set from=xxx@XXX.com
 set smtp=smtp.XXX.com:25
 set smtp-auth-user=xxx@XXX.com  #认证用户
 set smtp-auth-password=xxx    #认证密码
-</code></pre><p>测试</p>
+</code></pre>
+
+<p>测试</p>
+
 <pre><code>echo&quot;zabbix test &quot; |mail -s &quot;zabbix&quot; xxx@xxx.com #如果邮箱中能收到邮件，表示测试成功。
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pgbouncer/">«pgbouncer 连接池</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/docker/troubles/">Docker 问题集»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/docker/troubles/">«Docker 问题集</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgbouncer/">pgbouncer 连接池»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

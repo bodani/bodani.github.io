@@ -94,11 +94,19 @@
 		<div class="post-meta">
 			<p>2020年4月16日</p>
 		</div>
-		<h5 id="django使用postgresql做数据库-db_index创建索引时会创建第二个索引varchar_pattern_ops问题">Django使用postgresql做数据库 db_index创建索引时会创建第二个索引varchar_pattern_ops问题</h5>
+		
+
+<h5 id="django使用postgresql做数据库-db-index创建索引时会创建第二个索引varchar-pattern-ops问题">Django使用postgresql做数据库 db_index创建索引时会创建第二个索引varchar_pattern_ops问题</h5>
+
 <h5 id="创建默认索引">创建默认索引</h5>
+
 <pre><code>minion_id = models.CharField(max_length=100, db_index=True, blank=True, null=False, default=&quot;&quot;)
-</code></pre><p>当字段类型是 models.CharField 或者 models.TextField 时 使用 db_index=True创建索引 会创建第二索引</p>
+</code></pre>
+
+<p>当字段类型是 models.CharField 或者 models.TextField 时 使用 db_index=True创建索引 会创建第二索引</p>
+
 <p>django.db.backends.postgresql.schema</p>
+
 <pre><code>class DatabaseSchemaEditor(BaseDatabaseSchemaEditor):
 
     sql_alter_column_type = &quot;ALTER COLUMN %(column)s TYPE %(type)s USING %(column)s::%(type)s&quot;
@@ -146,8 +154,12 @@
                 return self._create_index_sql(model, [field], suffix='_like', sql=self.sql_create_text_index)
         return None
 
-</code></pre><h5 id="自定义索引">自定义索引</h5>
+</code></pre>
+
+<h5 id="自定义索引">自定义索引</h5>
+
 <p>若不需要创建运算符类text_pattern_ops，varchar_pattern_ops 索引，改用：索引的基类 django.db.models.indexes.Index（fields，name）通过模型的Meta类中的索引选项使用它们</p>
+
 <pre><code>from django.db import models
 
 class Person(models.Model):
@@ -160,7 +172,10 @@ class Person(models.Model):
                 name='name_idx',
             ),
         ]
-</code></pre><h5 id="组合索引">组合索引</h5>
+</code></pre>
+
+<h5 id="组合索引">组合索引</h5>
+
 <pre><code>from django.db import models
 
 class Person(models.Model):
@@ -174,8 +189,12 @@ class Person(models.Model):
                 name='name_age_idx',
             ),
         ]
-</code></pre><h5 id="其他类型索引">其他类型索引</h5>
+</code></pre>
+
+<h5 id="其他类型索引">其他类型索引</h5>
+
 <p>非btree类型索引的创建</p>
+
 <pre><code>from django.contrib.postgres.fields import JSONField
 from django.contrib.postgres.indexes import GinIndex
 from django.db import models
@@ -191,10 +210,11 @@ class Doc(models.Model):
             ),
         ]
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/functionsandoperators/">«方法和函数</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/monitor/nginx-status/">Nginx 状态监控»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/monitor/nginx-status/">«Nginx 状态监控</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/functionsandoperators/">方法和函数»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

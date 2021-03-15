@@ -94,26 +94,38 @@
 		<div class="post-meta">
 			<p>2021年1月29日</p>
 		</div>
-		<h5 id="介绍">介绍</h5>
+		
+
+<h5 id="介绍">介绍</h5>
+
 <p>etcd 默认没有开启访问控制。 在生产环境中使用属于裸奔。</p>
+
 <p>开启访问控制有两种方式</p>
+
 <ul>
-<li>
-<p>密钥证书验证</p>
-</li>
-<li>
-<p>用户名密码验证</p>
-</li>
+<li><p>密钥证书验证</p></li>
+
+<li><p>用户名密码验证</p></li>
 </ul>
+
 <p>本篇实验用户名密码验证方式</p>
+
 <h5 id="用户">用户</h5>
+
 <p>开启访问认证需要创建root 用户，root 用户默认自动拥有root角色的权限，及超级管理员。</p>
+
 <h5 id="角色">角色</h5>
+
 <p>角色理解为指定权限的集合，权限包括 read 、write、 readwrite</p>
+
 <p>角色用于对访问权限的管理控制。</p>
+
 <p>系统默认拥有角色root 、guest。</p>
+
 <p>系统通过授权用户不同权限的角色，实现对用户的访问控制。</p>
+
 <h5 id="用户管理">用户管理</h5>
+
 <pre><code> etcdctl user --help
 NAME:
    etcdctl user - user add, grant and revoke subcommands
@@ -132,7 +144,10 @@ COMMANDS:
 
 OPTIONS:
    --help, -h  show help
-</code></pre><h5 id="角色管理">角色管理</h5>
+</code></pre>
+
+<h5 id="角色管理">角色管理</h5>
+
 <pre><code>etcdctl role --help
 NAME:
    etcdctl role - role add, grant and revoke subcommands
@@ -150,7 +165,10 @@ COMMANDS:
 
 OPTIONS:
    --help, -h  show help
-</code></pre><h5 id="一个例子">一个例子</h5>
+</code></pre>
+
+<h5 id="一个例子">一个例子</h5>
+
 <pre><code>-- 创建测试目录
 etcdctl mkdir /service001
 
@@ -184,20 +202,33 @@ KV Read:
 KV Write:
 	/service001/*
 
-</code></pre><h5 id="开启认证访问">开启认证访问</h5>
+</code></pre>
+
+<h5 id="开启认证访问">开启认证访问</h5>
+
 <pre><code>-- 开启认证需要系统拥有root用户，创建root用户会自动关联root角色
 etcdctl user add root 
 New password: 
 User root created
-</code></pre><pre><code>-- 开启认证模式
+</code></pre>
+
+<pre><code>-- 开启认证模式
 etcdctl auth enable
 Authentication Enabled
-</code></pre><pre><code>-- 无认证仍然可访问。。。
+</code></pre>
+
+<pre><code>-- 无认证仍然可访问。。。
 etcdctl ls /service001
-</code></pre><h6 id="注意事项">注意事项</h6>
+</code></pre>
+
+<h6 id="注意事项">注意事项</h6>
+
 <p>因为在 Etcd 开启 Basic Auth 之后，默认会启用两个角色 root 和 guest， root 和 guest 角色都拥有所有权限，</p>
+
 <p>当我们未指定身份的时候其实是通过 guest 角色进行的操作，这里需要注意的是两个角色都不要删除，否则你可能会遇到意想不到的Bug，既然无法删除，</p>
+
 <p>那么为们可以通过收回权限的方式对 guest 的权限进行限制</p>
+
 <pre><code>-- 回收guest角色的所有权限
 etcdctl --username root role revoke guest --path=/* --readwrite
 Password: 
@@ -209,20 +240,25 @@ Password:
 Role: guest
 KV Read:
 KV Write:
-</code></pre><pre><code>-- 无认禁止证访问
+</code></pre>
+
+<pre><code>-- 无认禁止证访问
 etcdctl get /service001/a
 Error:  110: The request requires user authentication (Insufficient credentials) [0]
-</code></pre><pre><code>-- 使用认证访问 用户名 u001 密码 123456
+</code></pre>
+
+<pre><code>-- 使用认证访问 用户名 u001 密码 123456
 etcdctl --username u001:123456 set /service001/a 1
 1
 
 etcdctl --username u001:123456 get /service001/a
 2
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/hotupdate/">«hot update</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/content/postgres/">Postgres  数据库»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/content/postgres/">«Postgres  数据库</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/hotupdate/">hot update»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

@@ -94,27 +94,48 @@
 		<div class="post-meta">
 			<p>2019年1月17日</p>
 		</div>
-		<h4 id="4k对齐">4k对齐</h4>
+		
+
+<h4 id="4k对齐">4k对齐</h4>
+
 <p>早期硬盘每个扇区以512字节为标准，新一代硬盘扇区容量为4096个字节，也就是所说的4k扇区。</p>
+
 <p>硬盘标准更新，但操作系统一直使用的是512字节扇区的标准，所以硬盘厂商为了保证兼容性，把4k扇区模拟成512字节扇区。</p>
+
 <p>通常文件系统的块（簇）是512字节的倍数，新的系统基本上都设成了4k的倍数。比如Linux的簇一般也是4k。</p>
+
 <p>簇到扇区的映射关系变成了 簇（4k）-&gt;512B扇区-&gt;4k扇区</p>
+
 <p>这就可能造成簇到扇区映射错位。</p>
-<h4 id="写放大-ssdwa">写放大 SSD(WA)</h4>
+
+<h4 id="写放大-ssd-wa">写放大 SSD(WA)</h4>
+
 <p>由于闪存必须先擦除才能再写入的特性，如果需要在写入钱清理被删除的数据，则需要把整个分块读出，然后擦除整个块，再写回去。</p>
+
 <p>举个最简单的例子：</p>
+
 <p>当要写入一个4KB的数据时，最坏的情况是一个块里已经没有干净空间了，但有无效的数据可以擦除，所以主控就把所有的数据读到缓存，擦除块，缓存里更新整个块的数据，再把新数据写回去，</p>
+
 <p>这个操作带来的写入放大就是: 实际写4K的数据，造成了整个块（共1024KB）的写入操作，那就是放大了256倍。</p>
+
 <p>同时还带来了原本只需要简单一步写入4KB的操作变成：闪存读取 (1024KB)→缓存改（4KB）→闪存擦除（1024KB）→闪存写入（1024KB），共四步操作，造成延迟大大增加，速度变慢。</p>
+
 <p>所以说WA是影响 SSD随机写入性能和寿命的关键因素。</p>
+
 <h4 id="如何实现4k对齐">如何实现4K对齐</h4>
+
 <h5 id="查看系统中磁盘物理大小扇区和逻辑大小扇区">查看系统中磁盘物理大小扇区和逻辑大小扇区</h5>
+
 <pre><code>cat /sys/block/vdg/queue/physical_block_size
 512
 cat /sys/block/vdg/queue/logical_block_size
 512
-</code></pre><p>可以看到我的这块测试磁盘的物理扇区大小是512字节，逻辑扇区大小也是512字节，这样我们物理块到逻辑块的映射都是512字节的。</p>
-<h5 id="linux查看现有磁盘是否是4k对齐可以用fdisk--l--u">linux查看现有磁盘是否是4k对齐，可以用fdisk -l -u</h5>
+</code></pre>
+
+<p>可以看到我的这块测试磁盘的物理扇区大小是512字节，逻辑扇区大小也是512字节，这样我们物理块到逻辑块的映射都是512字节的。</p>
+
+<h5 id="linux查看现有磁盘是否是4k对齐-可以用fdisk-l-u">linux查看现有磁盘是否是4k对齐，可以用fdisk -l -u</h5>
+
 <pre><code>fdisk -lu /dev/sde
 
 磁盘 /dev/sde：256.1 GB, 256060514304 字节，500118192 个扇区
@@ -131,13 +152,16 @@ I/O 大小(最小/最佳)：512 字节 / 512 字节
 /dev/sde4        94054400   500117503   203031552    5  Extended
 /dev/sde5        94056448   500117503   203030528   83  Linux
 
-</code></pre><p>Start 为 8的整数倍4k对齐,否则没有对齐。</p>
+</code></pre>
+
+<p>Start 为 8的整数倍4k对齐,否则没有对齐。</p>
+
 <p>默认情况都为4k对齐的</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/memtester/">«memtester 内存压力测试</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/qos/">Qos»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/qos/">«Qos</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/memtester/">memtester 内存压力测试»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

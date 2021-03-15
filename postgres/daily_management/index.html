@@ -94,12 +94,17 @@
 		<div class="post-meta">
 			<p>2020年4月7日</p>
 		</div>
-		<h4 id="日常管理">日常管理</h4>
+		
+
+<h4 id="日常管理">日常管理</h4>
+
 <ul>
 <li>可用性</li>
 <li>监测项</li>
 </ul>
+
 <h4 id="可用性">可用性</h4>
+
 <ul>
 <li>主从</li>
 <li>HA</li>
@@ -107,30 +112,41 @@
 <li>增量备份</li>
 <li>恢复</li>
 </ul>
+
 <h4 id="监测项">监测项</h4>
+
 <h5 id="磁盘空间">磁盘空间</h5>
+
 <ul>
 <li>全库</li>
 </ul>
+
 <pre><code>select pg_size_pretty(sum(pg_database_size(oid))) from pg_database;
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>数据库</li>
 </ul>
+
 <pre><code>select datname, pg_size_pretty(pg_database_size(oid)) from pg_database order by pg_database_size(oid) desc limit 10;
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>表总</li>
 </ul>
+
 <pre><code> SELECT table_schema || '.' || table_name AS table_full_name, pg_size_pretty(pg_total_relation_size('&quot;' || table_schema || '&quot;.&quot;' || table_name || '&quot;')) AS size
 FROM information_schema.tables where table_schema = 'public' ORDER BY pg_total_relation_size('&quot;' || table_schema || '&quot;.&quot;' || table_name || '&quot;') DESC limit 10;
-</code></pre><ul>
-<li>
-<p>表</p>
-</li>
-<li>
-<p>索引</p>
-</li>
+</code></pre>
+
+<ul>
+<li><p>表</p></li>
+
+<li><p>索引</p></li>
 </ul>
+
 <h5 id="冷热数据">冷热数据</h5>
+
 <ul>
 <li>上次统计信息更新时间</li>
 <li>热表dml
@@ -139,7 +155,9 @@ qps io</li>
 <li>冷数据</li>
 <li>冷索引</li>
 </ul>
+
 <h5 id="索引利用">索引利用</h5>
+
 <ul>
 <li>全表扫描次数</li>
 <li>全表扫描记录数</li>
@@ -147,7 +165,9 @@ qps io</li>
 <li>利用率低的索引</li>
 <li>利用率高的索引</li>
 </ul>
+
 <h5 id="表膨胀">表膨胀</h5>
+
 <ul>
 <li>表</li>
 <li>索引</li>
@@ -155,19 +175,25 @@ qps io</li>
 <li>引发自动回收次数</li>
 <li>关闭自动回收</li>
 </ul>
+
 <h5 id="checkpiont">checkpiont</h5>
+
 <ul>
 <li>频率</li>
 <li>wal膨胀</li>
 </ul>
+
 <h5 id="锁">锁</h5>
+
 <ul>
 <li>锁等待</li>
 <li>死锁次数 加入实时监控</li>
 <li>回滚次数 加入实时监控</li>
 <li>锁产生的查询取消 加入实时监控</li>
 </ul>
+
 <h5 id="sql">SQL</h5>
+
 <ul>
 <li>总耗时</li>
 <li>io耗时</li>
@@ -180,8 +206,8 @@ qps io</li>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/lock_wait/">«锁等待</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/functionsandoperators/">方法和函数»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/functionsandoperators/">«方法和函数</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/lock_wait/">锁等待»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

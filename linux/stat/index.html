@@ -94,28 +94,35 @@
 		<div class="post-meta">
 			<p>2018年12月20日</p>
 		</div>
-		<h4 id="三种时间对应关系">三种时间对应关系</h4>
+		
+
+<h4 id="三种时间对应关系">三种时间对应关系</h4>
+
 <ul>
-<li>访问时间  Access  atime</li>
+<li>访问时间  Access  atime<br /></li>
 <li>修改时间  Modify  mtime</li>
-<li>状态改动时间  Change ctime</li>
+<li>状态改动时间  Change ctime<br /></li>
 </ul>
+
 <h4 id="如何查看文件文件的三种时间戳">如何查看文件文件的三种时间戳</h4>
+
 <pre><code>stat filename
-</code></pre><h4 id="三种时间戳的解释">三种时间戳的解释</h4>
+</code></pre>
+
+<h4 id="三种时间戳的解释">三种时间戳的解释</h4>
+
 <ul>
-<li>
-<p>访问时间：读一次文件的内容，这个时间就会更新。比如more、cat等命令。ls、stat命令不会修改atime</p>
-</li>
-<li>
-<p>修改时间：修改时间是文件内容最后一次被修改的时间。比如：vim操作后保存文件。ls -l列出的就是这个时间</p>
-</li>
-<li>
-<p>状态改动时间。是该文件的inode节点最后一次被修改的时间，通过chmod、chown命令修改一次文件属性，这个时间就会更新。</p>
-</li>
+<li><p>访问时间：读一次文件的内容，这个时间就会更新。比如more、cat等命令。ls、stat命令不会修改atime</p></li>
+
+<li><p>修改时间：修改时间是文件内容最后一次被修改的时间。比如：vim操作后保存文件。ls -l列出的就是这个时间</p></li>
+
+<li><p>状态改动时间。是该文件的inode节点最后一次被修改的时间，通过chmod、chown命令修改一次文件属性，这个时间就会更新。</p></li>
 </ul>
+
 <h4 id="应用举例-查看数据库的建立时间">应用举例 查看数据库的建立时间</h4>
+
 <p>数据库的oid</p>
+
 <pre><code>select  oid , datname from pg_database ;
   oid  |   datname   
 -------+-------------
@@ -129,7 +136,10 @@
  42902 | pipelinedb
 (8 行记录)
 
-</code></pre><p>对应的存放位置</p>
+</code></pre>
+
+<p>对应的存放位置</p>
+
 <pre><code>ll base/
 总用量 216
 drwx------ 2 postgres postgres 12288 12月 19 00:54 1
@@ -142,7 +152,10 @@ drwx------ 2 postgres postgres 12288 12月 15 02:33 26557
 drwx------ 2 postgres postgres 20480 12月 18 22:11 42902
 drwx------ 2 postgres postgres     6 12月 20 14:03 pgsql_tmp
 
-</code></pre><p>查看时间</p>
+</code></pre>
+
+<p>查看时间</p>
+
 <pre><code> stat PG_VERSION 
   文件：&quot;PG_VERSION&quot;
   大小：3         	块：8          IO 块：4096   普通文件
@@ -152,7 +165,10 @@ drwx------ 2 postgres postgres     6 12月 20 14:03 pgsql_tmp
 最近更改：2018-11-30 10:46:14.736271487 +0800
 最近改动：2018-11-30 10:46:14.736271487 +0800
 创建时间：-
-</code></pre><p>禁用atime</p>
+</code></pre>
+
+<p>禁用atime</p>
+
 <pre><code>cat /etc/fstab
 
 #
@@ -168,10 +184,11 @@ UUID=9d880ea3-0a7a-4d73-aeab-e972ea2af2f6 /home                   xfs     defaul
 UUID=c63df49f-85f3-4cf8-b69c-bc10808b69e1 swap                    swap    defaults        0 0
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/role-manager/">«权限管理</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/index-invalid/">引起索引失效»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/index-invalid/">«引起索引失效</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/role-manager/">权限管理»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

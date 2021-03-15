@@ -94,32 +94,56 @@
 		<div class="post-meta">
 			<p>2019年5月22日</p>
 		</div>
-		<h4 id="背景介绍">背景介绍</h4>
+		
+
+<h4 id="背景介绍">背景介绍</h4>
+
 <p>由于mvcc机制，数据被删除后只是被标记为删除，实际空间没有被释放，这是表空间膨胀的根本原因。</p>
+
 <p>目前用于解决表空间膨胀方式有如下方式</p>
+
 <p>1 删除dead tuple</p>
+
 <ul>
 <li>vacuum  ,tuple被清理。数据库可以自动执行autovacuum</li>
 <li>vacuum full ,tuple被清理并且空间连续紧凑。弊端，在执行过程中会锁表。应用不可用</li>
 <li>为了避免锁表的影响，提供的<a href="https://github.com/cybertec-postgresql/pg_squeeze">pg_squeeze</a>拓展,使用逻辑复制。<a href="https://www.timbotetsu.com/blog/postgresql-bloatbusters/">pg_repack拓展</a>，使用了触发器，影响业务的性能。</li>
 </ul>
+
 <p>2 fillfactor</p>
+
 <p>3 vacuum_defer_cleanup_age &gt; 0, 是以事务为单位。配合pg_resetwal 可以做到flashback</p>
+
 <pre><code>代价1，主库膨胀，因为垃圾版本要延迟若干个事务后才能被回收。
 代价2，重复扫描垃圾版本，重复耗费垃圾回收进程的CPU资源。（n_dead_tup会一直处于超过垃圾回收阈值的状态，从而autovacuum 不断唤醒worker进行回收动作）。
 当主库的 autovacuum_naptime=很小的值，同时autovacuum_vacuum_scale_factor=很小的值时，尤为明显。
 代价3，如果期间发生大量垃圾，垃圾版本可能会在事务到达并解禁后，爆炸性的被回收，产生大量的WAL日志，从而造成WAL的写IO尖刺。
-</code></pre><p>4 reindex 从新建立索引，不要忽略表膨胀中索引的影响，通常来说索引所占的空间和维护成本要高于数据表，在pg version 12版本中预计reindex时不需要锁表。</p>
+</code></pre>
+
+<p>4 reindex 从新建立索引，不要忽略表膨胀中索引的影响，通常来说索引所占的空间和维护成本要高于数据表，在pg version 12版本中预计reindex时不需要锁表。</p>
+
 <h6 id="处理完毕后需要重新生成统计信息">处理完毕后需要重新生成统计信息</h6>
+
 <pre><code> ANALYZE;
-</code></pre><p>在执行以上操作时建议设置</p>
+</code></pre>
+
+<p>在执行以上操作时建议设置</p>
+
 <pre><code>set maintenance_work_mem = '10GB';
-</code></pre><h4 id="监控表空间膨胀">监控表空间膨胀</h4>
+</code></pre>
+
+<h4 id="监控表空间膨胀">监控表空间膨胀</h4>
+
 <p>pgstattuple提供了pgstatetuple()和pgstatindex()两个统计表和索引的方法，较PostgreSQL系统表pg_class的表统计信息，pgstatetuple()还统计了表中的dead tuples。</p>
+
 <p><a href="https://www.postgresql.org/docs/current/pgstattuple.html">https://www.postgresql.org/docs/current/pgstattuple.html</a></p>
+
 <p>创建拓展</p>
+
 <pre><code>create extension pgstattuple ;
-</code></pre><pre><code>表
+</code></pre>
+
+<pre><code>表
 test=&gt; SELECT * FROM pgstattuple('tablename');
 -[ RECORD 1 ]------+-------
 table_len          | 458752
@@ -175,7 +199,10 @@ deleted_pages	bigint	Number of deleted pages
 avg_leaf_density	float8	Average density of leaf pages
 leaf_fragmentation	float8	Leaf page fragmentation
 
-</code></pre><h4 id="简单使用">简单使用</h4>
+</code></pre>
+
+<h4 id="简单使用">简单使用</h4>
+
 <pre><code>--- 生成测试数据
 
 test=# create  table tb3(id integer,name character varying);
@@ -311,19 +338,35 @@ free_space         | 29388
 free_percent       | 0.05
 
 
-</code></pre><h5 id="查看每一页的空间利用">查看每一页的空间利用</h5>
+</code></pre>
+
+<h5 id="查看每一页的空间利用">查看每一页的空间利用</h5>
+
 <p>创建拓展</p>
+
 <pre><code>create extension pg_freespacemap;
 
-</code></pre><p>查看没个页的空间利用</p>
+</code></pre>
+
+<p>查看没个页的空间利用</p>
+
 <pre><code>select * from pg_freespace('tablename');
-</code></pre><p>查看表的空间利用</p>
+</code></pre>
+
+<p>查看表的空间利用</p>
+
 <pre><code>select count(*) as &quot;number of pages&quot;, pg_size_pretty(cast(avg(avail) as bigint)) as &quot;freespace size &quot;, round(100* avg(avail)/8192,2) as &quot;freespace ratio&quot; 
 from pg_freespace('tablename');
-</code></pre><p><a href="https://mp.weixin.qq.com/s/g6j3WsBTGQipgEfrkzObRw">实战</a></p>
+</code></pre>
+
+<p><a href="https://mp.weixin.qq.com/s/g6j3WsBTGQipgEfrkzObRw">实战</a></p>
+
 <h5 id="表空间数据膨胀的监控与处理">表空间数据膨胀的监控与处理</h5>
+
 <p>在实际的生产环境中，由于数据量非常大，传统方式统计表空间的膨胀率非常耗时耗资源。</p>
+
 <p>结合统计情况，利用pg_repack可不停服处理。处理前查看是否有vacuum进程正在执行，避免冲突。</p>
+
 <pre><code>-- @auth Vonng
 
 CREATE SCHEMA IF NOT EXISTS monitor;
@@ -426,31 +469,44 @@ CREATE OR REPLACE VIEW monitor.pg_index_bloat_human AS
            pg_size_pretty((size * ratio)::BIGINT) AS wasted,
            round(100 * ratio::NUMERIC, 2)         as ratio
     FROM monitor.pg_index_bloat;
-</code></pre><h5 id="主要原因分析及监控措施">主要原因分析及监控措施</h5>
+</code></pre>
+
+<h5 id="主要原因分析及监控措施">主要原因分析及监控措施</h5>
+
 <h6 id="长事务">长事务</h6>
+
 <pre><code>-- 跨事务
 SELECT pid, datname, usename, state, backend_xmin
 FROM pg_stat_activity
 WHERE backend_xmin IS NOT NULL
 ORDER BY age(backend_xmin) DESC;
-</code></pre><pre><code>-- 跨时间
+</code></pre>
+
+<pre><code>-- 跨时间
 select * from pg_stat_activity 
 where state&lt;&gt;'idle' and pg_backend_pid()!=pid and (backend_xid is not null or backend_xmin is not null) and 
 extract(epoch from(now()-xact_start))&gt;6 
 order by xact_start;
-</code></pre><h6 id="废弃的复制槽">废弃的复制槽</h6>
+</code></pre>
+
+<h6 id="废弃的复制槽">废弃的复制槽</h6>
+
 <pre><code>SELECT slot_name, slot_type, database, xmin
 FROM pg_replication_slots
 ORDER BY age(xmin) DESC;
-</code></pre><h6 id="两阶段提交">两阶段提交</h6>
+</code></pre>
+
+<h6 id="两阶段提交">两阶段提交</h6>
+
 <pre><code>SELECT gid, prepared, owner, database, transaction AS xmin
 FROM pg_prepared_xacts
 ORDER BY age(transaction) DESC;
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/nginx/">«nginx</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/tpch/">tpch AP测试»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/tpch/">«tpch AP测试</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/nginx/">nginx»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

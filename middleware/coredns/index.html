@@ -94,12 +94,20 @@
 		<div class="post-meta">
 			<p>2020年6月22日</p>
 		</div>
-		<h4 id="背景">背景</h4>
+		
+
+<h4 id="背景">背景</h4>
+
 <p>致力于打造云原生中的dns服务和服务发现。</p>
+
 <p>各种功能都是通过插件方式实现</p>
+
 <h4 id="简单例子">简单例子</h4>
+
 <p>服务</p>
+
 <p>cat /usr/lib/systemd/system/coredns.service</p>
+
 <pre><code>[Unit]
 Description=CoreDNS DNS server
 Documentation=https://coredns.io
@@ -120,8 +128,11 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-</code></pre><p>配置文件
+</code></pre>
+
+<p>配置文件
 cat /etc/coredns/Corefile</p>
+
 <pre><code>.:53 {
   # 绑定interface ip
   bind 127.0.0.1
@@ -163,15 +174,20 @@ cat /etc/coredns/Corefile</p>
     }
 }
 
-</code></pre><h4 id="更多">更多</h4>
+</code></pre>
+
+<h4 id="更多">更多</h4>
+
 <p>将服务注册在etcd中</p>
+
 <h4 id="遗留">遗留</h4>
+
 <p>不支持对后端服务的健康检查</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/redis/install/">«Redis 6.0安装配置管理</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/consul/">Consul DNS 服务发现»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/consul/">«Consul DNS 服务发现</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/redis/install/">Redis 6.0安装配置管理»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

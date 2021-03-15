@@ -95,8 +95,11 @@
 			<p>2021年2月8日</p>
 		</div>
 		<p>git目录下object文件过大清理</p>
+
 <p>一、删除仓库上的项目，重新提交代码。</p>
+
 <p>二、彻底清除历史记录</p>
+
 <pre><code>查询大文件的文件名
 git rev-list --objects --all | grep &quot;$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -5 | awk '{print$1}')&quot;
 删除历史记录
@@ -113,12 +116,14 @@ git repack -A -d
 git gc --aggressive --prune=now
 推送远端 ，本地远端空间都变小
 git push --force
-</code></pre><p>git 还是尽量不保存大文件，及时删除了遗留历史包袱。</p>
+</code></pre>
+
+<p>git 还是尽量不保存大文件，及时删除了遗留历史包袱。</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/content/postgres/">«Postgres  数据库</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/monitor/smapler/">Smapler»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/monitor/smapler/">«Smapler</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/content/postgres/">Postgres  数据库»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

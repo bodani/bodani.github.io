@@ -94,7 +94,10 @@
 		<div class="post-meta">
 			<p>2019年1月29日</p>
 		</div>
-		<h5 id="数据库分库调研">数据库分库调研</h5>
+		
+
+<h5 id="数据库分库调研">数据库分库调研</h5>
+
 <ul>
 <li>Greenplum  更适用于AP场景</li>
 <li>PGXL PGXC  社区不活跃，沟通问题反馈时间长。没找到用户群体. 在此基础上发展的有亚信antdb，腾讯tbase。没有那个研发实力，算了吧。</li>
@@ -103,10 +106,14 @@
 <li>bdr。      2ndquadrant</li>
 <li>其他       由数据库触发器实现的直接略过</li>
 </ul>
+
 <p>citus 开源社区版，如何分库及扩容，ha</p>
-<p>主要思路是通过修改系统的分区表，手动进行分库。<br>
+
+<p>主要思路是通过修改系统的分区表，手动进行分库。<br />
 ha 数据库自身的主从流复制。</p>
+
 <h5 id="实验目标">实验目标</h5>
+
 <ul>
 <li>加入数据库几点进行扩容</li>
 <li>删除数据库节点进行缩容</li>
@@ -116,8 +123,8 @@ ha 数据库自身的主从流复制。</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pgwatch2/">«pgwatch2 数据库指标监控查看</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/mysql/performance-cmd/">MySQL常用性能分析命令»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/mysql/performance-cmd/">«MySQL常用性能分析命令</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgwatch2/">pgwatch2 数据库指标监控查看»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

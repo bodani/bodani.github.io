@@ -94,27 +94,33 @@
 		<div class="post-meta">
 			<p>2018年11月5日</p>
 		</div>
-		<ul>
+		
+
+<ul>
 <li>Q1</li>
 </ul>
+
 <h5 id="问题描述">问题描述</h5>
+
 <pre><code>  ip address associated with VRID 51 not present in MASTER advert : 10.1.7.58
-</code></pre><p>其中 51 为 virtual_router_id 10.1.7.58 为虚拟IP</p>
+</code></pre>
+
+<p>其中 51 为 virtual_router_id 10.1.7.58 为虚拟IP</p>
+
 <h5 id="可能原因">可能原因</h5>
+
 <ol>
-<li>
-<p>ntp 时间不同步</p>
-</li>
-<li>
-<p>局域网内 virtual_router_id 与其他集群配置冲突。 另外 router_id 主机标示，一般为hostname即可。</p>
-</li>
+<li><p>ntp 时间不同步</p></li>
+
+<li><p>局域网内 virtual_router_id 与其他集群配置冲突。 另外 router_id 主机标示，一般为hostname即可。</p></li>
 </ol>
+
 <p>解决方法： unicast_peer{ } 配置成单播模式</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/docker/network01/">«Docker 本地网络</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/stat/">Postgresql指标查看&amp;stat统计信息»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/stat/">«Postgresql指标查看&amp;stat统计信息</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/docker/network01/">Docker 本地网络»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

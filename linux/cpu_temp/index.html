@@ -94,30 +94,47 @@
 		<div class="post-meta">
 			<p>2020年5月7日</p>
 		</div>
-		<h4 id="直接读取系统信息">直接读取系统信息</h4>
+		
+
+<h4 id="直接读取系统信息">直接读取系统信息</h4>
+
 <p>可以通过读取如下路径中的数据来获取cpu的温度信息，不过读取的数据没有经过处理。</p>
+
 <pre><code>cpu0：
 cat /sys/class/thermal/thermal_zone0/temp
 cpu1：
 cat /sys/class/thermal/thermal_zone1/temp
-</code></pre><h4 id="通过命令行的方式获取">通过命令行的方式获取</h4>
+</code></pre>
+
+<h4 id="通过命令行的方式获取">通过命令行的方式获取</h4>
+
 <p>安装 lm_sensors 软件包：</p>
+
 <pre><code># rpm
 yum install lm_sensors
-</code></pre><pre><code># deb
+</code></pre>
+
+<pre><code># deb
 apt-get install lm-sensors
-</code></pre><p>执行命令sensors-detect，进行简单配置，此命令执行后会出现一系列选项，一直yes即可；</p>
+</code></pre>
+
+<p>执行命令sensors-detect，进行简单配置，此命令执行后会出现一系列选项，一直yes即可；</p>
+
 <p>执行命令sensors，查看cpu的温度。</p>
+
 <p>sensors
 i350bb-pci-0200
 Adapter: PCI adapter
 loc1:         +42.0°C  (high = +120.0°C, crit = +110.0°C)</p>
+
 <p>i350bb-pci-0300
 Adapter: PCI adapter
 loc1:         +38.0°C  (high = +120.0°C, crit = +110.0°C)</p>
+
 <p>power_meter-acpi-0
 Adapter: ACPI interface
 power1:        4.29 MW (interval =   1.00 s)</p>
+
 <p>coretemp-isa-0000
 Adapter: ISA adapter
 Physical id 0:  +31.0°C  (high = +85.0°C, crit = +95.0°C)
@@ -133,6 +150,7 @@ Core 10:        +23.0°C  (high = +85.0°C, crit = +95.0°C)
 Core 11:        +22.0°C  (high = +85.0°C, crit = +95.0°C)
 Core 12:        +23.0°C  (high = +85.0°C, crit = +95.0°C)
 Core 13:        +25.0°C  (high = +85.0°C, crit = +95.0°C)</p>
+
 <p>coretemp-isa-0001
 Adapter: ISA adapter
 Physical id 1:  +33.0°C  (high = +85.0°C, crit = +95.0°C)
@@ -151,8 +169,8 @@ Core 13:        +30.0°C  (high = +85.0°C, crit = +95.0°C)</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/go/go_mod/">«依赖管理工具go module</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/network-security/dengbao3/">等保三指南»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/network-security/dengbao3/">«等保三指南</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/go/go_mod/">依赖管理工具go module»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

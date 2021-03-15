@@ -94,33 +94,59 @@
 		<div class="post-meta">
 			<p>2018年12月19日</p>
 		</div>
-		<h4 id="创建软连接">创建软连接</h4>
+		
+
+<h4 id="创建软连接">创建软连接</h4>
+
 <p>类似于windows中的创建快捷方式</p>
+
 <p>ln -s source target</p>
+
 <p>具体方法举例</p>
+
 <p>需求</p>
-<p>数据库的数据实际存放位置为 /data/pgsql/10/data/  <br>
+
+<p>数据库的数据实际存放位置为 /data/pgsql/10/data/<br />
 数据库的应用访问地址为 /var/lib/pgsql/10/data/</p>
+
 <p>创建软连接</p>
+
 <p>1  切换目录到需要创建快捷方式的文件目录</p>
+
 <pre><code>cd /var/lib/pgsql/10/
-</code></pre><p>2.1  创建软连接</p>
+</code></pre>
+
+<p>2.1  创建软连接</p>
+
 <pre><code>ln -s /data/pgsql/10/data/ data
-</code></pre><p>2.2 删除软连接</p>
+</code></pre>
+
+<p>2.2 删除软连接</p>
+
 <pre><code>rm data
-</code></pre><p>删除软连接和数据</p>
+</code></pre>
+
+<p>删除软连接和数据</p>
+
 <pre><code>rm data/
-</code></pre><p>3  权限和所有者</p>
+</code></pre>
+
+<p>3  权限和所有者</p>
+
 <pre><code>chmod  
 
 chown 
-</code></pre><p>修改软连接的所用者 使用 -h 参数</p>
+</code></pre>
+
+<p>修改软连接的所用者 使用 -h 参数</p>
+
 <pre><code>chown -h postgres:postgres data/
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/hdparm/">«hdparm 查看硬盘型号</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/dba/">DBA 日常»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/dba/">«DBA 日常</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/hdparm/">hdparm 查看硬盘型号»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

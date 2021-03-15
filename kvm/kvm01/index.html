@@ -94,15 +94,24 @@
 		<div class="post-meta">
 			<p>2018年11月6日</p>
 		</div>
-		<ul>
+		
+
+<ul>
 <li>安装</li>
 </ul>
-<h4 id="ubuntu1404">ubuntu14.04</h4>
-<hr>
+
+<h4 id="ubuntu14-04">ubuntu14.04</h4>
+
+<hr />
+
 <p>.安装kvm</p>
+
 <p>apt-get install qemu-kvm libvirt0 virtinst bridge-utils virt-viewer</p>
+
 <p>.配置实体机网络</p>
+
 <p>cat /etc/network/interfaces</p>
+
 <pre><code>auto lo
 iface lo inet loopback
 auto br0
@@ -113,13 +122,23 @@ gateway 10.1.0.1
 type bridge
 bridge_ports eth0
 dns-nameservers 114.114.114.114
-</code></pre><p>.创建一个虚拟机</p>
+</code></pre>
+
+<p>.创建一个虚拟机</p>
+
 <pre><code>virt-install --connect qemu:///system -n test01 -r 1024 -f /home/kvm/test01.qcow2 -s 20 -c /home/kvm/ubuntu-12.04.1-server-amd64.iso --vnc --noautoconsole --os-type linux --os-variant ubuntuPrecise --accelerate --network=bridge:br0 
-</code></pre><h4 id="centos7">centos7</h4>
-<hr>
+</code></pre>
+
+<h4 id="centos7">centos7</h4>
+
+<hr />
+
 <p>yum install qemu-kvm libvirt virt-install bridge-utils</p>
+
 <p>.配置实体机网络</p>
+
 <p>cat ifcfg-enp7s0</p>
+
 <pre><code>DEVICE=&quot;enp7s0&quot;
 ONBOOT=yes
 BOOTPROTO=static
@@ -128,7 +147,10 @@ UUID=96a09db3-9b06-4a50-8d0c-9868cf531b84
 TYPE=Ethernet
 BRIDGE=br0
 IPADDR=0.0.0.0
-</code></pre><p>cat ifcfg-br0</p>
+</code></pre>
+
+<p>cat ifcfg-br0</p>
+
 <pre><code>DEVICE=br0
 ONBOOT=yes
 BOOTPROTO=static
@@ -137,40 +159,65 @@ IPADDR=10.1.*.*
 PREFIX=16
 GATEWAY=10.1.0.1
 DNS1=223.5.5.5
-</code></pre><p>查看 brctl show</p>
+</code></pre>
+
+<p>查看 brctl show</p>
+
 <p>.启动 libvirt</p>
+
 <p>systemctl start libvirtd</p>
+
 <p>systemctl enable libvirtd</p>
+
 <p>.创建虚拟机</p>
+
 <pre><code>virt-install --virt-type kvm --name test01 --ram 1024 --vcpus 1 --cdrom=/home/kvm/CentOS-7.0-1406-x86_64-DVD.iso --disk path=/home/kvm/test01.qcow2,size=10,format=qcow2 --network bridge=br0 --graphics vnc,listen=0.0.0.0 --noautoconsole --os-type=linux --os-variant=rhel7 
-</code></pre><p>.连接道virth</p>
-<p>virsh &ndash;connect qemu:///system<br>
-.virt-viewer<br>
-连接本机的虚拟机:virt-viewer -c qemu:///system 虚拟机名<br>
-连接远程的虚拟机:virt-viewer -c qemu+ssh://ip/system 虚拟机名</p>
+</code></pre>
+
+<p>.连接道virth</p>
+
+<p>virsh &ndash;connect qemu:///system<br />
+.virt-viewer<br />
+    连接本机的虚拟机:virt-viewer -c qemu:///system 虚拟机名<br />
+    连接远程的虚拟机:virt-viewer -c qemu+ssh://ip/system 虚拟机名</p>
+
 <p>设置开机自启动 virsh autostart server01</p>
+
 <ul>
 <li>克隆</li>
 </ul>
-<hr>
+
+<hr />
+
 <pre><code>virt-clone --connect=qemu:///system -o server-02 -n server-clone -f /var/lib/libvirt/images/server-clone.img
-</code></pre><p>参数说明<br>
+</code></pre>
+
+<p>参数说明<br />
 -o &ndash;original 原始被克隆镜像
 -n &ndash;name 新镜像名称
 -f &ndash;file 镜像文件存放的物理地址</p>
+
 <p>注意事项
-被克隆镜像为关闭或停止状态<br>
+被克隆镜像为关闭或停止状态<br />
 virsh destroy server-02</p>
+
 <p>其他说明</p>
+
 <p>cat /etc/libvirt/qemu/server-02.xml | grep &ldquo;source&rdquo;
 cat /etc/libvirt/qemu/server-02.xml | grep &ldquo;mac&rdquo;</p>
+
 <p>在 vi /etc/sysconfig/network-scripts/ifcfg-eth0 中修改相应的mac</p>
+
 <ul>
 <li>修改磁盘大小</li>
 </ul>
-<hr>
+
+<hr />
+
 <p>qemu-img resize [-q] filename [+ | -]size</p>
+
 <p>1.修改前查看</p>
+
 <pre><code>qemu-img info test01.qcow2
 image: test01.qcow2
 file format: qcow2
@@ -180,12 +227,21 @@ cluster_size: 65536
 Format specific information:
     compat: 1.1
     lazy refcounts: true
-</code></pre><p>2.关闭虚拟机</p>
+</code></pre>
+
+<p>2.关闭虚拟机</p>
+
 <pre><code>virsh shutdown test01
-</code></pre><p>3.修改磁盘文件大小</p>
+</code></pre>
+
+<p>3.修改磁盘文件大小</p>
+
 <pre><code>qemu-img resize test01.qcow2 +10G
 Image resized.
-</code></pre><p>4.查看 结果</p>
+</code></pre>
+
+<p>4.查看 结果</p>
+
 <pre><code>qemu-img info test01.qcow2
 image: test01.qcow2
 file format: qcow2
@@ -195,8 +251,11 @@ cluster_size: 65536
 Format specific information:
     compat: 1.1
     lazy refcounts: true
-</code></pre><p>5.重新启动虚拟机 进入虚拟机查看
+</code></pre>
+
+<p>5.重新启动虚拟机 进入虚拟机查看
 virsh start test01</p>
+
 <pre><code>fdisk -l
  
 磁盘 /dev/vda：42.9 GB, 42949672960 字节，83886080 个扇区
@@ -210,28 +269,38 @@ I/O 大小(最小/最佳)：512 字节 / 512 字节
 /dev/vda1   *        2048     1026047      512000   83  Linux
 /dev/vda2         1026048     3123199     1048576   82  Linux swap / Solaris
 /dev/vda3         3123200    20971519     8924160   83  Linux
-</code></pre><p>磁盘空间变大</p>
+</code></pre>
+
+<p>磁盘空间变大</p>
+
 <ul>
 <li>扩容分区</li>
 </ul>
-<hr>
+
+<hr />
+
 <p>1 fdisk 修改分区表　，　删除最后一个分区，新建分区，保持退出
 echo d; echo n; echo ; echo ; echo ; echo ; echo w;) | fdisk $rootdevicepath
 重启</p>
+
 <p>resize2fs $partedpath　扩磁盘空间</p>
+
 <ul>
 <li>修改内存和CUP</li>
 </ul>
-<hr>
-<p>1 查看 virsh dominfo test01<br>
-2 改内存 virsh setmem [domain-id or domain-name] [count]<br>
+
+<hr />
+
+<p>1 查看 virsh dominfo test01<br />
+2 改内存 virsh setmem [domain-id or domain-name] [count]<br />
 3 改CUP virsh setvcpus test01 2</p>
+
 <p><a href="https://www.cnblogs.com/zhangeamon/p/6734275.html">原文</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/elk/apm/">«APM</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/istio/concept02/">蓝绿、A/B测试、金丝雀发布»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/istio/concept02/">«蓝绿、A/B测试、金丝雀发布</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/elk/apm/">APM»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

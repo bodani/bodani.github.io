@@ -94,30 +94,56 @@
 		<div class="post-meta">
 			<p>2018年12月4日</p>
 		</div>
-		<h4 id="基本概念">基本概念</h4>
+		
+
+<h4 id="基本概念">基本概念</h4>
+
 <p>使用FIO之前，首先要有一些SSD性能测试的基础知识。 包括线程，队列深度，Offset，同步异步，DirectIO，BIO。</p>
+
 <h5 id="线程">线程</h5>
+
 <p>线程指的是同时有多少个读或写任务在并行执行，一般来说，CPU里面的一个核心同一时间只能运行一个线程。如果只有一个核心，要想运行多线程，只能使用时间切片，每个线程跑一段时间片，所有线程轮流使用这个核心。Linux使用Jiffies来代表一秒钟被划分成了多少个时间片，一般来说Jiffies是1000或100，所以时间片就是1毫秒或10毫秒。</p>
+
 <h5 id="同步">同步</h5>
+
 <p>一般电脑发送一个读写命令到SSD只需要几微秒，但是SSD要花几百微秒甚至几毫秒才能执行完这个命令。如果发一个读写命令，然后线程一直休眠，等待结果回来才唤醒处理结果，这种叫做同步模式。可以想象，同步模式是很浪费SSD性能的，因为SSD里面有很多并行单元，比如一般企业级SSD内部有8-16个数据通道，每个通道内部有4-16个并行逻辑单元（LUN，Plane），所以同一时间可以执行32-256个读写命令。同步模式就意味着，只有其中一个并行单元在工作，暴殄天物。</p>
+
 <h5 id="异步">异步</h5>
+
 <p>为了提高并行性，大部分情况下SSD读写采用的是异步模式。就是用几微秒发送命令，发完线程不会傻傻的在那里等，而是继续发后面的命令。如果前面的命令执行完了，SSD通知会通过中断或者轮询等方式告诉CPU，CPU来调用该命令的回调函数来处理结果。这样的好处是，SSD里面几十上百个并行单元大家都能分到活干，效率暴增。</p>
+
 <h5 id="队列深度">队列深度</h5>
+
 <p>不过，在异步模式下，CPU不能一直无限的发命令到SSD。比如SSD执行读写如果发生了卡顿，那有可能系统会一直不停的发命令，几千个，甚至几万个，这样一方面SSD扛不住，另一方面这么多命令会很占内存，系统也要挂掉了。这样，就带来一个参数叫做队列深度。举个例子，队列深度64就是说，系统发的命令都发到一个大小为64的队列，如果填满了就不能再发。等前面的读写命令执行完了，队列里面空出位置来，才能继续填命令。</p>
+
 <h5 id="offset">offset</h5>
+
 <p>一个SSD或者文件有大小，测试读写的时候设置Offset就可以从某个偏移地址开始测试。比如从offset=4G的偏移地址开始。</p>
+
 <h5 id="directio">DirectIO</h5>
+
 <p>Linux读写的时候，内核维护了缓存，数据先写到缓存，后面再后台写到SSD。读的时候也优先读缓存里的数据。这样速度可以加快，但是一旦掉电缓存里的数据就没了。所以有一种模式叫做DirectIO，跳过缓存，直接读写SSD。</p>
+
 <h5 id="bio">BIO</h5>
+
 <p>Linux读写SSD等块设备使用的是BIO，Block-IO，这是个数据结构，包含了数据块的逻辑地址LBA，数据大小和内存地址等。</p>
+
 <h4 id="安装">安装</h4>
+
 <p><a href="https://github.com/axboe/fio">官网地址</a></p>
+
 <pre><code>./configure;make &amp;&amp; make install
-</code></pre><p>DEMO 如果缺失libaio驱动引擎可通过 yum install -y libaio-devel 安装后重新编译安装</p>
+</code></pre>
+
+<p>DEMO 如果缺失libaio驱动引擎可通过 yum install -y libaio-devel 安装后重新编译安装</p>
+
 <pre><code>fio -rw=randwrite  -ioengine=libaio -direct=1 -thread -numjobs=1  -iodepth=64 -filename=/data/1.data -size=10G \
   -name=job1 -offset=0MB -bs=4k -name=job2 -offset=10G -bs=16k \
   -output TestResult.log
-</code></pre><p>简单说明</p>
+</code></pre>
+
+<p>简单说明</p>
+
 <pre><code>fio：软件名称。
 
 -rw=randwrite：读写模式，randwrite是随机写测试，还有顺序读read，顺序写write，随机读randread，混合读写等。
@@ -143,7 +169,10 @@
 -bs=4k：每一个BIO命令包含的数据大小是4KB。一般4KB IOPS测试，就是在这里设置。
 
 -output TestResult.log：日志输出到TestResult.log。
-</code></pre><p>结果查看 TestResult.log</p>
+</code></pre>
+
+<p>结果查看 TestResult.log</p>
+
 <pre><code>job2: (g=0): rw=randwrite, bs=(R) 16.0KiB-16.0KiB, (W) 16.0KiB-16.0KiB, (T) 16.0KiB-16.0KiB, ioengine=libaio, iodepth=64
 fio-3.12
 Starting 2 threads
@@ -206,10 +235,15 @@ Disk stats (read/write):
   sdd: ios=2/1698888, merge=0/487, ticks=1/798317, in_queue=798188, util=69.86%
   sde: ios=0/1698873, merge=0/502, ticks=0/756057, in_queue=756156, util=70.32%
 
-</code></pre><p><a href="https://tobert.github.io/post/2014-04-17-fio-output-explained.html">更多详解英文</a>
+</code></pre>
+
+<p><a href="https://tobert.github.io/post/2014-04-17-fio-output-explained.html">更多详解英文</a>
 <a href="https://www.cnblogs.com/zhangeamon/p/7446814.html">更多详解中文</a></p>
+
 <h4 id="配置文件方式">配置文件方式</h4>
+
 <p>vi fio.conf</p>
+
 <pre><code>[global]
   ioengine=libaio ;同步sync 异步libaio 
   rw=randwrite ;randwrite randread wite read randrw
@@ -229,13 +263,17 @@ Disk stats (read/write):
   offset=10G 
   bs=16k
 ;--end jobs
-</code></pre><p>运行</p>
+</code></pre>
+
+<p>运行</p>
+
 <pre><code>$fio fio.conf 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/smartctl/">«smartctl 硬盘检测</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/log/">数据库日志»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/log/">«数据库日志</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/smartctl/">smartctl 硬盘检测»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

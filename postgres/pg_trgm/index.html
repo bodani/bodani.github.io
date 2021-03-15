@@ -94,13 +94,19 @@
 		<div class="post-meta">
 			<p>2019年1月7日</p>
 		</div>
-		<h4 id="背景">背景</h4>
-<p>对车牌号的记忆有时可能记住的是前几位，有时可能是后几位，不同的人记车牌号的习惯也不同。<br>
-通常是是容易记住首尾，中间不清楚。<br>
+		
+
+<h4 id="背景">背景</h4>
+
+<p>对车牌号的记忆有时可能记住的是前几位，有时可能是后几位，不同的人记车牌号的习惯也不同。<br />
+通常是是容易记住首尾，中间不清楚。<br />
 那么如何在大量已有车牌数据中快速根据模糊的信息来进行查询呢？</p>
+
 <h5 id="模拟">模拟</h5>
-<p>数据库表中约有500w条车牌号记录，对表中的车牌号进行模糊查询。<br>
+
+<p>数据库表中约有500w条车牌号记录，对表中的车牌号进行模糊查询。<br />
 即支持 car_id like &lsquo;%XXXX%XXX%&rsquo; 查询</p>
+
 <pre><code>---创建表
 create table t_car (id int , car_id text);
 
@@ -120,10 +126,14 @@ select * from t_car limit 5;
   5 | 辽Be67df
 (5 行记录)
 
-</code></pre><h4 id="索引">索引</h4>
+</code></pre>
+
+<h4 id="索引">索引</h4>
+
 <ul>
 <li>顺序扫描</li>
 </ul>
+
 <pre><code>explain analyze verbose select * from t_car where car_id = '辽Be67df';
                                                           QUERY PLAN                                                          
 ------------------------------------------------------------------------------------------------------------------------------
@@ -142,9 +152,12 @@ select * from t_car limit 5;
 (12 行记录)
 
 时间：269.684 ms
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>btree</li>
 </ul>
+
 <pre><code>创建btree类型索引
 create index btree_index_01 on t_car using btree (car_id);
 
@@ -180,7 +193,10 @@ postgres=# explain analyze verbose select * from t_car where car_id like '辽Be6
 (12 行记录)
 
 时间：282.275 ms
-</code></pre><p>以上btree索引没有起到作用的原因,是因为在创建索引时，默认的opclass为等值查询。<a href="https://www.postgresql.org/docs/10/indexes-opclass.html">详情</a></p>
+</code></pre>
+
+<p>以上btree索引没有起到作用的原因,是因为在创建索引时，默认的opclass为等值查询。<a href="https://www.postgresql.org/docs/10/indexes-opclass.html">详情</a></p>
+
 <pre><code>重新创建btree索引
 
 drop index btree_index_01;
@@ -222,10 +238,14 @@ explain analyze verbose select * from t_car where car_id like '%辽Be67df';
 
 解决前模糊查询的方法，反转查询字段。在逻辑上变成后模糊查询。
 create index btree_index_02 on t_car using btree (reverse(car_id) text_pattern_ops);
-</code></pre><ul>
+</code></pre>
+
+<ul>
 <li>gin</li>
 </ul>
+
 <p>真正的支持模糊查询</p>
+
 <pre><code>创建扩展
 create extension pg_trgm;
 
@@ -260,19 +280,28 @@ explain analyze verbose select * from t_car where car_id like '%辽Be6%df%';
  Execution time: 15.462 ms
 (9 行记录)
 
-</code></pre><h4 id="扩展阅读">扩展阅读</h4>
+</code></pre>
+
+<h4 id="扩展阅读">扩展阅读</h4>
+
 <p><a href="https://github.com/postgrespro/rum?spm=a2c4e.11153940.blogcont111793.51.50575bf0HjdIsl">rum</a> 是一个索引插件，由Postgrespro开源，适合全文检索，属于GIN的增强版本。</p>
+
 <p>增强包括：</p>
+
 <p>1、在RUM索引中，存储了lexem的位置信息，所以在计算ranking时，不需要回表查询（而GIN需要回表查询）。</p>
+
 <p>2、RUM支持phrase搜索，而GIN无法支持。</p>
+
 <p>3、在一个RUM索引中，允许用户在posting tree中存储除ctid（行号）以外的字段VALUE，例如时间戳。</p>
+
 <p>如果这种需求多了还是考虑<a href="../es">elasticsearch</a>吧</p>
+
 <p><a href="https://github.com/zombodb/zombodb">zombodb</a>是PostgreSQL与ElasticSearch结合的一个索引接口，可以直接读写ES。</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/docker/troubles/">«Docker 问题集</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/meminfo/">meminfo Linux 内存信息»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/meminfo/">«meminfo Linux 内存信息</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/docker/troubles/">Docker 问题集»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

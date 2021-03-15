@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tidbs on Let&#39;s Go!</title>
@@ -17,11 +17,11 @@
       <pubDate>Mon, 18 Feb 2019 14:00:58 +0800</pubDate>
       
       <guid>https://zhangeamon.top/tidb/tree/</guid>
-      <description>  二叉树：二叉树，每个结点只存储一个关键字，等于则命中，小于走左边，大于走右边；
-  B-Tree：多路搜索树，每个结点存储【M/2-1，M-1]个关键字，非叶子结点存储指向关键字范围的子节点；所有关键字在整棵树中出现【且只出现一次】，非叶子结点可以命中。
-  B+Tree：在B-Tree基础上，为叶子结点增加链表指针，所有关键字都在叶子结点中出现，非叶子结点作为叶子结点的索引；B+Tree总是到叶子结点才命中。
-  B*Tree：在B+Tree的基础上，为非叶子结点也增加链表指针，将结点的最低利用率从1/2提高到2/3;
-   </description>
+      <description> 二叉树：二叉树，每个结点只存储一个关键字，等于则命中，小于走左边，大于走右边；
+ B-Tree：多路搜索树，每个结点存储【M/2-1，M-1]个关键字，非叶子结点存储指向关键字范围的子节点；所有关键字在整棵树中出现【且只出现一次】，非叶子结点可以命中。
+ B+Tree：在B-Tree基础上，为叶子结点增加链表指针，所有关键字都在叶子结点中出现，非叶子结点作为叶子结点的索引；B+Tree总是到叶子结点才命中。
+ B*Tree：在B+Tree的基础上，为非叶子结点也增加链表指针，将结点的最低利用率从1/2提高到2/3;
+  </description>
     </item>
     
     <item>
@@ -51,8 +51,7 @@
 优化的阶段为IR 到生成 Plan 的过程，包括逻辑优化和物理优化
 逻辑优化 逻辑优化主要是基于规则的优化(RBO)。
 逻辑算子  DataSource 这个就是数据源，也就是表。 select * from t 里面的 t Selection 选择，就是 select xxx from t where xx = 5 里面的 where 过滤条件条件 Projection 投影，也就是 select c from t 里面的列 c Join 连接， select xx from t1, t2 where t1.c = t2.c 就是把 t1 t2 两个表做 join，这个连接条件一个简单的等值连接。join 有好多种，内关联，左关联，右关联，全关联..  列裁剪 只读取需要的列
-最大最小消除 select min(id) from t
-换成</description>
+最大最小消除 select min(id) from t</description>
     </item>
     
     <item>
@@ -61,8 +60,8 @@
       <pubDate>Wed, 14 Nov 2018 10:08:02 +0800</pubDate>
       
       <guid>https://zhangeamon.top/tidb/2013/</guid>
-      <description>ERROR 2013 (HY000) Lost connection to MySQL server during query 错误出现场景 select count(id) from account_user where id&amp;gt; 0; +----------+ | count(id) | +----------+ | 2940245 | +----------+ 1 row in set (0.78 sec) delete from account_user where id&amp;gt; 0; ERROR 2013 (HY000): Lost connection to MySQL server during query tidb.log
-2018/11/14 10:57:12.476 server.go:303: [info] con:261 new connection 10.1.88.32:54462 2018/11/14 10:57:15.387 coprocessor.go:689: [info] [TIME_COP_PROCESS] resp_time:792.561353ms txn_start_ts:404269101106331649 region_id:77367 store_addr:10.1.88.84:20160 kv_process_ms:537 2018/11/14 10:57:17.227 pd.</description>
+      <description>ERROR 2013 (HY000) Lost connection to MySQL server during query 错误出现场景 select count(id) from account_user where id&amp;gt; 0; +----------+ | count(id) | +----------+ | 2940245 | +----------+ 1 row in set (0.78 sec) delete from account_user where id&amp;gt; 0; ERROR 2013 (HY000): Lost connection to MySQL server during query  tidb.log
+2018/11/14 10:57:12.476 server.go:303: [info] con:261 new connection 10.1.88.32:54462 2018/11/14 10:57:15.387 coprocessor.go:689: [info] [TIME_COP_PROCESS] resp_time:792.561353ms txn_start_ts:404269101106331649 region_id:77367 store_addr:10.1.88.84:20160 kv_process_ms:537 2018/11/14 10:57:17.</description>
     </item>
     
     <item>

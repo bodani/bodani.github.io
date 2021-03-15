@@ -94,7 +94,10 @@
 		<div class="post-meta">
 			<p>2018年11月14日</p>
 		</div>
-		<h4 id="error-2013-hy000-lost-connection-to-mysql-server-during-query--错误出现场景">ERROR 2013 (HY000) Lost connection to MySQL server during query  错误出现场景</h4>
+		
+
+<h4 id="error-2013-hy000-lost-connection-to-mysql-server-during-query-错误出现场景">ERROR 2013 (HY000) Lost connection to MySQL server during query  错误出现场景</h4>
+
 <pre><code>select count(id) from account_user where id&gt; 0; 
 +----------+
 | count(id) |
@@ -106,7 +109,10 @@
 delete from account_user where id&gt; 0; 
 ERROR 2013 (HY000): Lost connection to MySQL server during query
 
-</code></pre><p>tidb.log</p>
+</code></pre>
+
+<p>tidb.log</p>
+
 <pre><code>2018/11/14 10:57:12.476 server.go:303: [info] con:261 new connection 10.1.88.32:54462
 2018/11/14 10:57:15.387 coprocessor.go:689: [info] [TIME_COP_PROCESS] resp_time:792.561353ms txn_start_ts:404269101106331649 region_id:77367 store_addr:10.1.88.84:20160 kv_process_ms:537
 2018/11/14 10:57:17.227 pd.go:107: [warning] get timestamp too slow: 135.012109ms
@@ -180,27 +186,37 @@ ERROR 2013 (HY000): Lost connection to MySQL server during query
 2018/11/14 10:59:13.486 http_status.go:75: [info] Listening on :10080 for status and metrics report.
 2018/11/14 10:59:13.797 domain.go:651: [info] [stats] init stats info takes 405.752354ms
 
-</code></pre><h4 id="官方对应解决方法">官方对应解决方法</h4>
-<h5 id="921-error-2013-hy000-lost-connection-to-mysql-server-during-query-问题的排查方法">9.2.1 ERROR 2013 (HY000): Lost connection to MySQL server during query 问题的排查方法？</h5>
+</code></pre>
+
+<h4 id="官方对应解决方法">官方对应解决方法</h4>
+
+<h5 id="9-2-1-error-2013-hy000-lost-connection-to-mysql-server-during-query-问题的排查方法">9.2.1 ERROR 2013 (HY000): Lost connection to MySQL server during query 问题的排查方法？</h5>
+
 <ul>
-<li>
-<p>log 中是否有 panic</p>
-<p>未发现</p>
-</li>
-<li>
-<p>dmesg 中是否有 oom，命令： dmesg -T | grep -i oom</p>
-<p>内存当时确实存在飙升，但是未达到溢出的程度 87.5%</p>
-</li>
-<li>
-<p>长时间没有访问，也会收到这个报错，一般是 tcp 超时导致的，tcp 长时间不用, 会被操作系统 kill。</p>
-<p>略</p>
-</li>
+<li>log 中是否有 panic
+<br /></li>
 </ul>
+
+<p>未发现</p>
+
+<ul>
+<li>dmesg 中是否有 oom，命令： dmesg -T | grep -i oom
+<br /></li>
+</ul>
+
+<p>内存当时确实存在飙升，但是未达到溢出的程度 87.5%</p>
+
+<ul>
+<li>长时间没有访问，也会收到这个报错，一般是 tcp 超时导致的，tcp 长时间不用, 会被操作系统 kill。
+<br /></li>
+</ul>
+
+<p>略</p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/istio/concept01/">«熔断，限流，降级</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/cmd-pstack/">pstack»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/cmd-pstack/">«pstack</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/istio/concept01/">熔断，限流，降级»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

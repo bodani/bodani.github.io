@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ansibles on Let&#39;s Go!</title>
@@ -19,10 +19,10 @@
       <guid>https://zhangeamon.top/ansible/ansible-role/</guid>
       <description>以特定的层级目录结构进行组织的tasks、variables、handlers、templates、files等
 mkdir -pv ./{os_hard,nginx,memcached}/{files,templates,vars,handlers,meta,default,tasks}/main.yaml
-tree memcached/ memcached/ ├── default 设定默认变量 │ └── main.yaml ├── files 存储由copy或script等模块调用的文件 │ └── main.yaml ├── handlers │ └── main.yaml ├── meta 定义当前角色的特殊设定及其依赖关系 │ └── main.yaml ├── tasks │ └── main.yaml ├── templates 存储由template模块调用的模板文本 │ └── main.yaml └── vars └── main.yaml ansible-galaxy https://galaxy.ansible.com 网站为他人分享的 roles， 可以下载学习并使用
+tree memcached/ memcached/ ├── default 设定默认变量 │ └── main.yaml ├── files 存储由copy或script等模块调用的文件 │ └── main.yaml ├── handlers │ └── main.yaml ├── meta 定义当前角色的特殊设定及其依赖关系 │ └── main.yaml ├── tasks │ └── main.yaml ├── templates 存储由template模块调用的模板文本 │ └── main.yaml └── vars └── main.yaml  ansible-galaxy https://galaxy.ansible.com 网站为他人分享的 roles， 可以下载学习并使用
 ansible-galaxy 语法：
 ansible-galaxy [delete|import|info|init|install|list|login|remove|search|setup] [&amp;ndash;help] [options]
- 列出已安装的galaxy  ansible-galaxy list geerlingguy.redis  安装galaxy 位置 /root/.ansible/roles/   ansible-galaxy install geerlingguy.</description>
+ 列出已安装的galaxy  ansible-galaxy list geerlingguy.redis   安装galaxy 位置 /root/.ansible/roles/   ansible-galaxy install geerlingguy.</description>
     </item>
     
     <item>
@@ -32,9 +32,9 @@ ansible-galaxy [delete|import|info|init|install|list|login|remove|search|setup] 
       
       <guid>https://zhangeamon.top/ansible/ansible-playbooks/</guid>
       <description>Playbook核心元素 hosts 一个或多个组或主机的 patterns,以逗号为分隔符 。
-- hosts: webservices remote_user: root Tasks 任务集
- tasks: - name: install httpd yum: name=httpd - name: start httpd service: name=httpd state=started Handlers 和 notity 由特定条件触发的操作，满足条件方才执行，否则不执行。 Handlers也是task列表，这些task与前述的task并没有本质上的不同,用于当关注的资源发生变化时，才会采取一定的操作。
-- hosts: webs remote_user: root tasks: - name: install httpd yum: name=httpd - name: change httpd.conf copy: src=https://zhangeamon.top/app/httpd.conf dest=/etc/httpd/conf/ backup=yes notify: restart httpd &amp;gt; 在 notify 中定义内容一定要和handlers中定义的 - name 内容一样，这样才能达到触发的效果，否则会不生效。 - name: start httpd service: name=httpd state=started - name: wall http status shell: /usr/bin/wall `ss -nltp|grep httpd` handlers: - name: restart httpd &amp;gt; 只有接收到通知才会执行这里的任务 service: name=httpd state=restarted Tags 给指定的任务定义一个调用标识 由于ansible具有幂等性，因此会自动跳过没有变化的部分，即便如此，有些代码为测试其确实没有发生变化的时间依然会非常地长。此时，如果确信其没有变化，就可以通过 tags跳过此些代码片断。</description>
+- hosts: webservices remote_user: root  Tasks 任务集
+ tasks: - name: install httpd yum: name=httpd - name: start httpd service: name=httpd state=started  Handlers 和 notity 由特定条件触发的操作，满足条件方才执行，否则不执行。 Handlers也是task列表，这些task与前述的task并没有本质上的不同,用于当关注的资源发生变化时，才会采取一定的操作。
+- hosts: webs remote_user: root tasks: - name: install httpd yum: name=httpd - name: change httpd.conf copy: src=/app/httpd.conf dest=/etc/httpd/conf/ backup=yes notify: restart httpd &amp;gt; 在 notify 中定义内容一定要和handlers中定义的 - name 内容一样，这样才能达到触发的效果，否则会不生效。 - name: start httpd service: name=httpd state=started - name: wall http status shell: /usr/bin/wall `ss -nltp|grep httpd` handlers: - name: restart httpd &amp;gt; 只有接收到通知才会执行这里的任务 service: name=httpd state=restarted  Tags 给指定的任务定义一个调用标识 由于ansible具有幂等性，因此会自动跳过没有变化的部分，即便如此，有些代码为测试其确实没有发生变化的时间依然会非常地长。此时，如果确信其没有变化，就可以通过 tags跳过此些代码片断。</description>
     </item>
     
     <item>
@@ -43,7 +43,7 @@ ansible-galaxy [delete|import|info|init|install|list|login|remove|search|setup] 
       <pubDate>Thu, 25 Oct 2018 10:12:59 +0800</pubDate>
       
       <guid>https://zhangeamon.top/ansible/ansible-modules/</guid>
-      <description>准备工作  安装  yum install ansible-doc.noarch ansible.noarch -y tree /etc/ansible/ /etc/ansible/ ├── ansible.cfg ├── hosts └── roles ansible --version ansible 2.7.0 config file = /etc/ansible/ansible.cfg configured module search path = [u&#39;/root/.ansible/plugins/modules&#39;, u&#39;/usr/share/ansible/plugins/modules&#39;] ansible python module location = /usr/lib/python2.7/site-packages/ansible executable location = /usr/bin/ansible python version = 2.7.5 (default, Jul 13 2018, 13:06:57) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]  配置清单  cat hosts [webservers] 10.1.88.72 10.1.88.73  免密登录  常用命令 Usage: ansible &amp;lt;host-pattern&amp;gt; [options] 常用选项： -m MOD_NAME -a MOD_ARGS 获取模块列表：ansible-doc -l 获取指定模块的使用帮助：ansible-doc -s MOD_NAME  ping  尝试连接到主机，验证并返回pong成功。</description>
+      <description>准备工作  安装  yum install ansible-doc.noarch ansible.noarch -y tree /etc/ansible/ /etc/ansible/ ├── ansible.cfg ├── hosts └── roles ansible --version ansible 2.7.0 config file = /etc/ansible/ansible.cfg configured module search path = [u&#39;/root/.ansible/plugins/modules&#39;, u&#39;/usr/share/ansible/plugins/modules&#39;] ansible python module location = /usr/lib/python2.7/site-packages/ansible executable location = /usr/bin/ansible python version = 2.7.5 (default, Jul 13 2018, 13:06:57) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]   配置清单  cat hosts [webservers] 10.1.88.72 10.1.88.73   免密登录  常用命令 Usage: ansible &amp;lt;host-pattern&amp;gt; [options] 常用选项： -m MOD_NAME -a MOD_ARGS 获取模块列表：ansible-doc -l 获取指定模块的使用帮助：ansible-doc -s MOD_NAME   ping  尝试连接到主机，验证并返回pong成功。</description>
     </item>
     
     <item>
@@ -53,11 +53,11 @@ ansible-galaxy [delete|import|info|init|install|list|login|remove|search|setup] 
       
       <guid>https://zhangeamon.top/ansible/ansible-overview/</guid>
       <description>主要模块
- PLAYBOOKS： 任务剧本（任务集），编排定义Ansible任务集的配置文件，由Ansible顺序依次执行，通常是JSON格式的YML文件 INVENTORY： Ansible管理主机的清单/etc/anaible/hosts MODULES： Ansible执行命令的功能模块，多数为内置的核心模块，也可自定义,ansible-doc –l 可查看模块 PLUGINS： 模块功能的补充，如连接类型插件、循环插件、变量插件、过滤插件等，该功能不常用 API： 供第三方程序调用的应用程序编程接口 ANSIBLE： ansible命令工具，其为核心执行工具    常用命令
- /usr/bin/ansible	主程序，临时命令执行工具 /usr/bin/ansible-doc	查看配置文档，模块功能查看工具 /usr/bin/ansible-playbook	定制自动化任务，编排剧本工具 /usr/bin/ansible-pull	远程执行命令的工具 /usr/bin/ansible-vault	文件加密工具 /usr/bin/ansible-console	基于Console界面与用户交互的执行工具 /usr/bin/ansible-galaxy	下载/上传优秀代码或Roles模块的官网平台    配置文件
- /etc/ansible/ansible.cfg 主配置文件，配置ansible工作特性 /etc/ansible/hosts 主机清单 /etc/ansible/roles/ 存放角色的目录    配置说明
+ PLAYBOOKS： 任务剧本（任务集），编排定义Ansible任务集的配置文件，由Ansible顺序依次执行，通常是JSON格式的YML文件 INVENTORY： Ansible管理主机的清单/etc/anaible/hosts MODULES： Ansible执行命令的功能模块，多数为内置的核心模块，也可自定义,ansible-doc –l 可查看模块 PLUGINS： 模块功能的补充，如连接类型插件、循环插件、变量插件、过滤插件等，该功能不常用 API： 供第三方程序调用的应用程序编程接口 ANSIBLE： ansible命令工具，其为核心执行工具  常用命令
+ /usr/bin/ansible 主程序，临时命令执行工具 /usr/bin/ansible-doc 查看配置文档，模块功能查看工具 /usr/bin/ansible-playbook 定制自动化任务，编排剧本工具 /usr/bin/ansible-pull 远程执行命令的工具 /usr/bin/ansible-vault 文件加密工具 /usr/bin/ansible-console 基于Console界面与用户交互的执行工具 /usr/bin/ansible-galaxy 下载/上传优秀代码或Roles模块的官网平台  配置文件
+ /etc/ansible/ansible.cfg 主配置文件，配置ansible工作特性 /etc/ansible/hosts 主机清单 /etc/ansible/roles/ 存放角色的目录  配置说明
 /etc/ansible/ansible.cfg
-   [defaults] #inventory = /etc/ansible/hosts # 主机列表配置文件 #library = /usr/share/my_modules/ # 库文件存放目录 #remote_tmp = $HOME/.ansible/tmp #临时py命令文件存放在远程主机目录 #local_tmp = $HOME/.</description>
+   [defaults] #inventory = /etc/ansible/hosts # 主机列表配置文件 #library = /usr/share/my_modules/ # 库文件存放目录 #remote_tmp = $HOME/.ansible/tmp #临时py命令文件存放在远程主机目录 #local_tmp = $HOME/.ansible/tmp # 本机的临时命令执行目录 #forks = 5 # 默认并发数 #sudo_user = root # 默认sudo 用户 #ask_sudo_pass = True #每次执行ansible命令是否询问ssh密码 #ask_pass = True #连接时提示输入ssh密码 #remote_port = 22 #远程主机的默认端口，生产中这个端口应该会不同 #log_path = /var/log/ansible.</description>
     </item>
     
   </channel>

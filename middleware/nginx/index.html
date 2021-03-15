@@ -94,17 +94,27 @@
 		<div class="post-meta">
 			<p>2019年4月9日</p>
 		</div>
-		<p><a href="https://mp.weixin.qq.com/s/YoZDzY4Tmj8HpQkSgnZLvA">性能优化</a></p>
+		
+
+<p><a href="https://mp.weixin.qq.com/s/YoZDzY4Tmj8HpQkSgnZLvA">性能优化</a></p>
+
 <ul>
 <li>错误码 502   ， error.log 中错误信息 [error] 236#236: *8371899 upstream sent too big header while reading response header from upstream,</li>
 </ul>
+
 <p>问题 header 过大</p>
+
 <pre><code>proxy_buffer_size 64k;
 proxy_buffers   4 32k;
 proxy_busy_buffers_size 64k;
-</code></pre><p><a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size">官网说明</a></p>
+</code></pre>
+
+<p><a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size">官网说明</a></p>
+
 <h4 id="利用nginx设置用户登陆认证">利用nginx设置用户登陆认证</h4>
+
 <p>如下举例设置用户访问kibana时登陆认证</p>
+
 <pre><code>server {
    listen 80;
    server_name kibana.×××.com;
@@ -119,21 +129,30 @@ proxy_busy_buffers_size 64k;
    }
    access_log off;
 }
-</code></pre><p>2、配置登录用户名(admin)，密码</p>
+</code></pre>
+
+<p>2、配置登录用户名(admin)，密码</p>
+
 <pre><code>htpasswd -c /etc/nginx/db/passwd.db admin
 New password: 
 Re-type new password: 
 Adding password for user admin
-</code></pre><p>htpasswd是apache自带的小工具，如果找不到该命令，尝试用yum install httpd安装</p>
+</code></pre>
+
+<p>htpasswd是apache自带的小工具，如果找不到该命令，尝试用yum install httpd安装</p>
+
 <pre><code>cat db/passwd.db 
 admin:$apr1$Jc.x0rme$BWrmulBqUj.g6BeeoEM79/
-</code></pre><p><a href="https://www.cnblogs.com/zhangeamon/p/9341807.html">访问频率控制</a></p>
+</code></pre>
+
+<p><a href="https://www.cnblogs.com/zhangeamon/p/9341807.html">访问频率控制</a></p>
+
 <p><a href="https://www.cnblogs.com/zhangeamon/p/9341788.html">backend 后端服务健康检测</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/bind9/">«DNS Bind9 &amp; NamedManager </a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgstattuple/">表空间膨胀»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pgstattuple/">«表空间膨胀</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/bind9/">DNS Bind9 &amp; NamedManager »</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

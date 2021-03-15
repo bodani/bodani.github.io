@@ -94,50 +94,43 @@
 		<div class="post-meta">
 			<p>2019年3月19日</p>
 		</div>
-		<h5 id="介绍">介绍</h5>
+		
+
+<h5 id="介绍">介绍</h5>
+
 <p>pmap - report memory map of a process(查看进程的内存映像信息)</p>
+
 <h5 id="参数说明">参数说明</h5>
+
 <ul>
-<li>
-<ul>
-<li>x extended       Show the extended format. 显示扩展格式</li>
+<li>- x extended       Show the extended format. 显示扩展格式<br /></li>
+<li>- d device         Show the deviceformat.   显示设备格式</li>
 </ul>
-</li>
-<li>
-<ul>
-<li>d device         Show the deviceformat.   显示设备格式</li>
-</ul>
-</li>
-</ul>
+
 <h5 id="结果查看说明">结果查看说明</h5>
+
 <ul>
-<li>
-<p>Address:  start address ofmap  映像起始地址</p>
-</li>
-<li>
-<p>Kbytes: size of map in kilobytes  映像大小</p>
-</li>
-<li>
-<p>RSS:  resident set size inkilobytes  驻留集大小</p>
-</li>
-<li>
-<p>Dirty:  dirty pages (both sharedand private) in kilobytes  脏页大小</p>
-</li>
-<li>
-<p>Mode:  permissions on map 映像权限: r=read,w=write, x=execute, s=shared, p=private (copy on write)</p>
-</li>
-<li>
-<p>Mapping:  file backing the map ,or &lsquo;[ anon ]&rsquo; for allocated memory, or &lsquo;[ stack ]&rsquo; for the program stack.  映像支持文件,[anon]为已分配内存[stack]为程序堆栈</p>
-</li>
-<li>
-<p>Offset: offset into the file  文件偏移</p>
-</li>
-<li>
-<p>Device:  device name(major:minor)  设备名</p>
-</li>
+<li><p>Address:  start address ofmap  映像起始地址</p></li>
+
+<li><p>Kbytes: size of map in kilobytes  映像大小</p></li>
+
+<li><p>RSS:  resident set size inkilobytes  驻留集大小</p></li>
+
+<li><p>Dirty:  dirty pages (both sharedand private) in kilobytes  脏页大小</p></li>
+
+<li><p>Mode:  permissions on map 映像权限: r=read,w=write, x=execute, s=shared, p=private (copy on write)</p></li>
+
+<li><p>Mapping:  file backing the map ,or &lsquo;[ anon ]&rsquo; for allocated memory, or &lsquo;[ stack ]&rsquo; for the program stack.  映像支持文件,[anon]为已分配内存[stack]为程序堆栈</p></li>
+
+<li><p>Offset: offset into the file  文件偏移</p></li>
+
+<li><p>Device:  device name(major:minor)  设备名</p></li>
 </ul>
+
 <h5 id="举例说明">举例说明</h5>
+
 <p>查看进程号为1 的进程</p>
+
 <pre><code>pmap -d 1
 1:   /usr/lib/systemd/systemd --switched-root --system --deserialize 22
 Address           Kbytes Mode  Offset           Device    Mapping
@@ -241,26 +234,29 @@ Address           Kbytes Mode  Offset           Device    Mapping
 00007ffea77cb000       8 r-x-- 0000000000000000 000:00000   [ anon ]
 ffffffffff600000       4 r-x-- 0000000000000000 000:00000   [ anon ]
 mapped: 191116K    writeable/private: 18176K    shared: 0K
-</code></pre><p>最后一行的值</p>
+</code></pre>
+
+<p>最后一行的值</p>
+
 <ul>
-<li>
-<p>mapped 表示该进程映射的虚拟地址空间大小，也就是该进程预先分配的虚拟内存大小，即ps出的vsz</p>
-</li>
-<li>
-<p>writeable/private  表示进程所占用的私有地址空间大小，也就是该进程实际使用的内存大小</p>
-</li>
-<li>
-<p>shared 表示进程和其他进程共享的内存大小</p>
-</li>
+<li><p>mapped 表示该进程映射的虚拟地址空间大小，也就是该进程预先分配的虚拟内存大小，即ps出的vsz</p></li>
+
+<li><p>writeable/private  表示进程所占用的私有地址空间大小，也就是该进程实际使用的内存大小</p></li>
+
+<li><p>shared 表示进程和其他进程共享的内存大小</p></li>
 </ul>
+
 <h5 id="实际应用">实际应用</h5>
+
 <p>每隔两秒查看进程号 21215 的状态</p>
+
 <pre><code>while true; do pmap -d  21215 | tail -1; sleep 2; done
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/storage/minio/">«minio 轻量级对象存储</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/tcpdump/">tcpdump 网络抓包工具»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/tcpdump/">«tcpdump 网络抓包工具</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/storage/minio/">minio 轻量级对象存储»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

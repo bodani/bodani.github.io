@@ -94,8 +94,12 @@
 		<div class="post-meta">
 			<p>2020年6月3日</p>
 		</div>
-		<h4 id="简单应用">简单应用</h4>
+		
+
+<h4 id="简单应用">简单应用</h4>
+
 <h6 id="服务管理">服务管理</h6>
+
 <pre><code># 查看全部支持的服务
 $ firewall-cmd --get-service
 
@@ -107,8 +111,12 @@ $ firewall-cmd --add-service=postgresql --permanent
 
 # 关闭服务
 $ firewall-cmd --remove-service=postgresql --permanent
-</code></pre><p>permanent  参数修改对应的配置文件 /etc/firewalld/zones/public.xml</p>
+</code></pre>
+
+<p>permanent  参数修改对应的配置文件 /etc/firewalld/zones/public.xml</p>
+
 <h6 id="端口管理">端口管理</h6>
+
 <pre><code># 查看开放的端口
 $ firewall-cmd --zone=public --list-ports 
 
@@ -120,7 +128,10 @@ $ firewall-cmd --zone=public --add-port=8388-8389/tcp --permanent
 
 # 关闭端口
 $ firewall-cmd --zone=public --remove-port=80/tcp --permanent 
-</code></pre><h6 id="规则管理">规则管理</h6>
+</code></pre>
+
+<h6 id="规则管理">规则管理</h6>
+
 <pre><code># 对 147.152.139.197 开放10000端口
 $ firewall-cmd --permanent --zone=public --add-rich-rule='
         rule family=&quot;ipv4&quot;
@@ -147,27 +158,37 @@ $ firewall-cmd --permanent --zone=public --add-rich-rule='
 $4 firewall-cmd --permanent --zone=public --remove-rich-rule='
               rule family=&quot;ipv4&quot;
               source address=&quot;192.168.0.0/16&quot; accept';
-</code></pre><h5 id="规则生效">规则生效</h5>
+</code></pre>
+
+<h5 id="规则生效">规则生效</h5>
+
 <pre><code># 查看所有规则
 $ firewall-cmd   --list-all
 
 规则生效
 $ firewall-cmd --reload
-</code></pre><p>tips1</p>
+</code></pre>
+
+<p>tips1</p>
+
 <pre><code>先扫描下机器的端口使用情况
 # tcp
 nmap -p0-65535 127.0.0.01 
 # udp
 nmap -sU  127.0.0.1
-</code></pre><p>tips</p>
+</code></pre>
+
+<p>tips</p>
+
 <pre><code>Panic Options 
 
 恐慌模式 ， 开启后基本等同于断网。 自身ssh 也断。
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/ssl/">«数据库 ssl认证</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/istio/servicediscovery/">服务发现»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/istio/servicediscovery/">«服务发现</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/ssl/">数据库 ssl认证»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

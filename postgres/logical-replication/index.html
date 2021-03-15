@@ -94,58 +94,100 @@
 		<div class="post-meta">
 			<p>2019年1月30日</p>
 		</div>
-		<h4 id="逻辑复制">逻辑复制</h4>
+		
+
+<h4 id="逻辑复制">逻辑复制</h4>
+
 <p>Postgres 10 版本开始， 在内核层面支持基于REDO流的逻辑复制。</p>
+
 <p>控制粒度为表级别</p>
+
 <p>物理复制相同都是基于wal</p>
+
 <p>可指定多个上游数据源</p>
+
 <p>下游数据可读可写</p>
+
 <p>可用于数据汇总，无停服数据迁移,大版本升级等。</p>
+
 <h4 id="基本概念">基本概念</h4>
-<h6 id="发布者publication-上游数据">发布者（publication）， 上游数据</h6>
+
+<h6 id="发布者-publication-上游数据">发布者（publication）， 上游数据</h6>
+
 <h6 id="订阅者-subscrition-下游数据">订阅者 (subscrition)， 下游数据</h6>
+
 <h6 id="复制槽-slot-保存逻辑复制的信息">复制槽 (slot), 保存逻辑复制的信息</h6>
+
 <h4 id="简单实践">简单实践</h4>
+
 <ul>
 <li>将10中的一张表同步到12中</li>
 </ul>
+
 <p>发布者服务器配置</p>
+
 <p>postgresql.conf</p>
+
 <pre><code>wal_level = logical
 max_replication_slots = 10 # 每个slot 需要一个
 max_wal_senders = 10 # 每个slot 需要一个
 max_worker_processes = 128 
  
-</code></pre><p>pg_hba.conf</p>
+</code></pre>
+
+<p>pg_hba.conf</p>
+
 <pre><code>host replication postgres 10.1.0.0/16 md5
-</code></pre><p>订阅者服务器配置</p>
+</code></pre>
+
+<p>订阅者服务器配置</p>
+
 <p>postgresql.conf</p>
+
 <pre><code>max_replication_slots = 10 # 每个slot 需要一个
 max_logical_replication_workers = 10 # 每个slot 需要一个
 max_worker_processes = 128
-</code></pre><p>在发布端创建发布</p>
+</code></pre>
+
+<p>在发布端创建发布</p>
+
 <pre><code>create publication test01 for table test01 ;
-</code></pre><p>在订阅端创建表结构</p>
+</code></pre>
+
+<p>在订阅端创建表结构</p>
+
 <pre><code>pg_dump -U postgres -s -t test01 pglogicaltestdb
-</code></pre><p>在订阅端创建订阅</p>
+</code></pre>
+
+<p>在订阅端创建订阅</p>
+
 <pre><code>create subscription sub1 connection 'host=10.1.7.55 port=25432 dbname=pglogicaltestdb password=123456' publication test01;
-</code></pre><h5 id="常用视图查看">常用视图查看</h5>
+</code></pre>
+
+<h5 id="常用视图查看">常用视图查看</h5>
+
 <p>发布端视图</p>
+
 <pre><code> select * from pg_stat_replication ;
 
  select * from pg_publication;
 
  select * from pg_publication_tables ;
-</code></pre><p>订阅端视图</p>
+</code></pre>
+
+<p>订阅端视图</p>
+
 <pre><code> select * from pg_stat_subscription;
 
  select * from pg_subscription
-</code></pre><p><a href="./book/PostgreSQL%E9%80%BB%E8%BE%91%E5%A4%8D%E5%88%B6%E6%8E%A2%E7%A9%B6.pdf">更多</a></p>
+</code></pre>
+
+<p><a href="./book/PostgreSQL逻辑复制探究.pdf">更多</a></p>
 
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/cluster/">«cluster 聚族表</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/pgpool2/">pgpoolii 读写分离»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/pgpool2/">«pgpoolii 读写分离</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/cluster/">cluster 聚族表»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

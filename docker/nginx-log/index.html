@@ -94,11 +94,18 @@
 		<div class="post-meta">
 			<p>2018年12月5日</p>
 		</div>
-		<h4 id="docker-nginx-日志切割">Docker nginx 日志切割</h4>
+		
+
+<h4 id="docker-nginx-日志切割">Docker nginx 日志切割</h4>
+
 <p>docker 在运行 nginx 日志容器时，将日志挂载到实体机/var/log/nginx/* .log　中.</p>
+
 <p>一般直接运行的nginx服务都会自带logrotate进行日志切分, 由docker方式安装的nginx 缺失日志切割功能!</p>
+
 <h5 id="添加logrotate">添加logrotate</h5>
+
 <p>cat /etc/logrotate.d/nginx</p>
+
 <pre><code>/var/log/nginx/*.log {
         daily
         missingok
@@ -115,10 +122,11 @@
 }
 
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/vsftp/">«Centos FTP 服务</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/explain/">Explain 执行计划»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/explain/">«Explain 执行计划</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/vsftp/">Centos FTP 服务»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

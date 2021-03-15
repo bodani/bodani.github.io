@@ -94,12 +94,21 @@
 		<div class="post-meta">
 			<p>2018年12月3日</p>
 		</div>
-		<h5 id="smart-简介">SMART 简介</h5>
+		
+
+<h5 id="smart-简介">SMART 简介</h5>
+
 <p>S.M.A.R.T.，全称为“Self-Monitoring Analysis and Reporting Technology”，即“自我监测、分析及报告技术”。是一种自动的硬盘状态检测与预警系统和规范。通过在硬盘硬件内的检测指令对硬盘的硬件如磁头、盘片、马达、电路的运行情况进行监控、记录并与厂商所设定的预设安全值进行比较，若监控情况将或已超出预设安全值的安全范围，就可以通过主机的监控硬件或软件自动向用户作出警告并进行轻微的自动修复，以提前保障硬盘数据的安全。除一些出厂时间极早的硬盘外，现在大部分硬盘均配备该项技术。</p>
+
 <p>SMART是一种磁盘自我分析检测技术，早在90年代末就基本得到了普及每一块硬盘(包括IDE、SCSI)在运行的时候，都会将自身的若干参数记录下来这些参数包括型号、容量、温度、密度、扇区、寻道时间、传输、误码率等，当硬盘运行了几千小时后，很多内在的物理参数都会发生变化某一参数超过报警阈值，则说明硬盘接近损坏，此时硬盘依然在工作，如果用户不理睬这个报警继续使用那么硬盘将变得非常不可靠，随时可能故障导致数据丢失。</p>
+
 <h4 id="smart-安装">SMART 安装</h4>
+
 <pre><code>yum install smartmontools.x86_64 -y
-</code></pre><h4 id="基本用法">基本用法</h4>
+</code></pre>
+
+<h4 id="基本用法">基本用法</h4>
+
 <pre><code>smartctl --scan 扫描当前系统中所有支持SMART的设备
 
 smartctl -i /dev/sda 查看设备SMART是否开启
@@ -129,7 +138,10 @@ smartctl -X &lt;device&gt;  中断后台检测硬盘。
 smartctl -l selftest &lt;device&gt;  显示硬盘检测日志。
 
 smartctl -l error &lt;device&gt; 显示硬盘错误汇总。
-</code></pre><p>硬盘信息</p>
+</code></pre>
+
+<p>硬盘信息</p>
+
 <pre><code>$smartctl -i /dev/sda
 smartctl 6.5 2016-05-07 r4318 [x86_64-linux-3.10.0-862.14.4.el7.x86_64] (local build)
 Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
@@ -149,17 +161,27 @@ SATA Version is:  SATA 3.2, 6.0 Gb/s (current: 3.0 Gb/s)
 Local Time is:    Mon Dec  3 14:25:44 2018 CST
 SMART support is: Available - device has SMART capability.
 SMART support is: Enabled
-</code></pre><p>如果看到SMART support is: Disabled，则表示SMART未启用</p>
+</code></pre>
+
+<p>如果看到SMART support is: Disabled，则表示SMART未启用</p>
+
 <pre><code>smartctl --smart=on --offlineauto=on --saveauto=on /dev/hd
-</code></pre><p>健康状况</p>
+</code></pre>
+
+<p>健康状况</p>
+
 <pre><code>$smartctl --health /dev/sda
 smartctl 6.5 2016-05-07 r4318 [x86_64-linux-3.10.0-862.14.4.el7.x86_64] (local build)
 Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
 
 === START OF READ SMART DATA SECTION ===
 SMART overall-health self-assessment test result: PASSED
-</code></pre><p>PASSED，这表示硬盘健康状态良好，如果这里显示Failure，那么最好立刻给服务器更换硬盘。</p>
+</code></pre>
+
+<p>PASSED，这表示硬盘健康状态良好，如果这里显示Failure，那么最好立刻给服务器更换硬盘。</p>
+
 <p>所有信息</p>
+
 <pre><code>$smartctl --all /dev/sda
 smartctl 6.5 2016-05-07 r4318 [x86_64-linux-3.10.0-862.14.4.el7.x86_64] (local build)
 Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
@@ -261,23 +283,38 @@ Selective self-test flags (0x0):
   After scanning selected spans, do NOT read-scan remainder of disk.
 If Selective self-test is pending on power-up, resume after 0 minute delay.
 
-</code></pre><p>各项 SMART 属性</p>
+</code></pre>
+
+<p>各项 SMART 属性</p>
+
 <p>ID 属性编号， 从1到255</p>
+
 <p>ATTRIBUTE_NAME 属性名称</p>
+
 <p>FLAGS 标识，K 自动保持 ,C 事件统计, R 错误率, S速度/性能 , O 在线更新, P 故障预警</p>
+
 <p>VALUE 当前Normalized value, 取值范围1到253. 越低表示越差. 越高表示越好</p>
+
 <p>WORST 历史最差值，表示SMART开启以来的, 所有Normalized values的最低值</p>
+
 <p>THRESH 阈值/极限值，当Normalized value小于等于THRESH值时, 表示这项指标已经failed了.</p>
+
 <p>FAIL 已经失效.</p>
+
 <p>RAW_VALUE 物理值(通常对应于计数或物理单位，如扇区个数，摄氏度或秒)</p>
+
 <p>TYPE (简要模式不可见)存在两种类型, Pre-failed(故障预警)和Old_age(正常损耗).</p>
+
 <p>UPDATED (简要模式不可见)存在两种更新模式 Always(持续更新)和 Offline(离线更新)</p>
+
 <h4 id="已使用寿命参考">已使用寿命参考</h4>
+
 <p>Percentage Used Endurance Indicator
 ``
 smartctl -l devstat /dev/sdb
-smartctl 7.0 2018-12-30 r4883 [x86_64-linux-3.10.0-957.10.1.el7.x86_64] (local build)
-Copyright (C) 2002-18, Bruce Allen, Christian Franke, <a href="http://www.smartmontools.org">www.smartmontools.org</a></p>
+smartctl 7.0 2018-12-30 r4883 <a href="local build">x86_64-linux-3.10.0-957.10.1.el7.x86_64</a>
+Copyright &copy; 2002-18, Bruce Allen, Christian Franke, www.smartmontools.org</p>
+
 <p>Device Statistics (GP Log 0x04)
 Page  Offset Size        Value Flags Description
 0x01  =====  =               =  ===  == General Statistics (rev 1) ==
@@ -289,25 +326,28 @@ Page  Offset Size        Value Flags Description
 0x01  0x030  6        16315927  &mdash;  Number of Read Commands
 0x07  =====  =               =  ===  == Solid State Device Statistics (rev 1) ==
 0x07  0x008  1               8  &mdash;  Percentage Used Endurance Indicator
-|||_ C monitored condition met
-||__ D supports DSN
-|___ N normalized value</p>
+                                |||_ C monitored condition met
+                                ||__ D supports DSN
+                                |___ N normalized value</p>
+
 <pre><code>
 #### TODO Smartd 服务
 
-</code></pre><p>systemctl status smartd</p>
-<pre><code>
-配置　
-
-vi /etc/smartmontools/smartd.conf
-
-
-集成监控 [smartctl_exporter](https://github.com/Sheridan/smartctl_exporter)
 </code></pre>
+
+<p>systemctl status smartd
+```</p>
+
+<p>配置　</p>
+
+<p>vi /etc/smartmontools/smartd.conf</p>
+
+<p>集成监控 <a href="https://github.com/Sheridan/smartctl_exporter">smartctl_exporter</a></p>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/mdadm/">«mdadm 软Raid 管理</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/fio/">fio 硬盘性能测试»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/linux/fio/">«fio 硬盘性能测试</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/linux/mdadm/">mdadm 软Raid 管理»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

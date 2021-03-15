@@ -94,13 +94,20 @@
 		<div class="post-meta">
 			<p>2020年6月12日</p>
 		</div>
-		<h4 id="安装">安装</h4>
+		
+
+<h4 id="安装">安装</h4>
+
 <p>yum 方式</p>
+
 <pre><code>yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
 yum --enablerepo=remi install redis
 
-</code></pre><p>make 方式</p>
+</code></pre>
+
+<p>make 方式</p>
+
 <pre><code>升级gcc 版本临时生效,否则编译错误
 
 yum -y install centos-release-scl
@@ -108,20 +115,30 @@ yum -y install centos-release-scl
 yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils
 
 scl enable devtoolset-9 bash
-</code></pre><pre><code>wget http://download.redis.io/releases/redis-6.0.1.tar.gz
+</code></pre>
+
+<pre><code>wget http://download.redis.io/releases/redis-6.0.1.tar.gz
 
 tar -xvf redis-6.0.1.tar.gz
 
 cd /usr/local/redis-6.0.1/
 
 make PREFIX=/usr/local/redis install
-</code></pre><h4 id="启动">启动</h4>
+</code></pre>
+
+<h4 id="启动">启动</h4>
+
 <pre><code>systemctl start redis 
 
 systemctl enalbe redis
-</code></pre><h4 id="配置">配置</h4>
+</code></pre>
+
+<h4 id="配置">配置</h4>
+
 <h5 id="系统参数">系统参数</h5>
+
 <p>vi /etc/sysctl.conf</p>
+
 <pre><code>net.ipv4.tcp_tw_recycle = 1
 net.ipv4.tcp_tw_reuse = 1
 kernel.shmmax = 68719476736
@@ -130,8 +147,12 @@ net.core.netdev_max_backlog = 262144
 net.core.somaxconn = 40960
 net.ipv4.tcp_max_orphans = 3276800
 net.ipv4.tcp_max_syn_backlog = 262144
-</code></pre><h5 id="服务参数">服务参数</h5>
+</code></pre>
+
+<h5 id="服务参数">服务参数</h5>
+
 <p>vi /etc/redis.conf</p>
+
 <pre><code>daemonize yes
 pidfile /var/run/redis.pid
 bind 0.0.0.0
@@ -144,24 +165,40 @@ dbfilename dump.rdb  #指定本地数据库文件名
 dir /data/redis6/  #指定本地数据库存放目录
 maxclients 1000 #设置同一时间最大客户端连接数，默认无限制
 maxmemory &lt;bytes&gt; #指定redis最大内存限制  1/4 
-</code></pre><h5 id="慢查询日志">慢查询日志</h5>
+</code></pre>
+
+<h5 id="慢查询日志">慢查询日志</h5>
+
 <pre><code>slowlog-max-len 
 slowlog-log-slower-than 
-</code></pre><h6 id="密码认证">密码认证</h6>
+</code></pre>
+
+<h6 id="密码认证">密码认证</h6>
+
 <p>永久生效</p>
+
 <pre><code>requirepass foopassword # 设置redis连接密码默认关闭
 masterauth &lt;master-password&gt; # 当master设置密码时，slave 需要设置
-</code></pre><p>临时生效</p>
+</code></pre>
+
+<p>临时生效</p>
+
 <pre><code>config set requirepass foopassword 
-</code></pre><p><a href="https://blog.csdn.net/gfl1427097103/article/details/106256691">更多</a></p>
+</code></pre>
+
+<p><a href="https://blog.csdn.net/gfl1427097103/article/details/106256691">更多</a></p>
+
 <p><a href="https://www.cnblogs.com/richiewlq/p/12191278.html">https://www.cnblogs.com/richiewlq/p/12191278.html</a></p>
+
 <h5 id="压测">压测</h5>
+
 <pre><code> redis-benchmark -h 127.0.0.1 -p 6379 -t set,lpush -n 10000 -q
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/istio/servicediscovery/">«服务发现</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/middleware/coredns/">coredns»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/middleware/coredns/">«coredns</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/istio/servicediscovery/">服务发现»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">

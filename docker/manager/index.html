@@ -94,7 +94,10 @@
 		<div class="post-meta">
 			<p>2019年3月18日</p>
 		</div>
-		<h5 id="查看docker占用的空间情况">查看docker占用的空间情况</h5>
+		
+
+<h5 id="查看docker占用的空间情况">查看docker占用的空间情况</h5>
+
 <pre><code># docker system df 
 TYPE                TOTAL               ACTIVE              SIZE                RECLAIMABLE
 Images              58                  36                  6.091GB             2.119GB (34%)
@@ -102,8 +105,12 @@ Containers          90                  89                  232.3MB             
 Local Volumes       137                 16                  232.7MB             194.2MB (83%)
 Build Cache         0                   0                   0B                  0B
 
-</code></pre><p>四大资源尽收眼底，可回收多少资源也了然于胸</p>
+</code></pre>
+
+<p>四大资源尽收眼底，可回收多少资源也了然于胸</p>
+
 <h5 id="清除不在需要的资源">清除不在需要的资源</h5>
+
 <pre><code>This will remove:
         - all stopped containers
         - all networks not used by at least one container
@@ -111,18 +118,23 @@ Build Cache         0                   0                   0B                  
         - all build cach
 
 # docker system prune  -f
-</code></pre><p>清除一切非活跃状态，将资源还给系统</p>
+</code></pre>
+
+<p>清除一切非活跃状态，将资源还给系统</p>
+
 <h5 id="清除volume">清除volume</h5>
+
 <pre><code>查看
 # docker volume ls
 
 清除
 # docker volume prune -f
 </code></pre>
+
 	</div>
 	<ul class="pager">
-		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/postgres/checkpoint/">«checkpoint 检查点</a></li>
-		 &nbsp;<li class="next"><a href="https://zhangeamon.top/storage/minio/">minio 轻量级对象存储»</a></li>
+		 &nbsp;<li class="previous"><a href="https://zhangeamon.top/storage/minio/">«minio 轻量级对象存储</a></li>
+		 &nbsp;<li class="next"><a href="https://zhangeamon.top/postgres/checkpoint/">checkpoint 检查点»</a></li>
 	</ul>
 </div>
 <footer class="site-footer">
