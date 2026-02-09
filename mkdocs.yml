@@ -137,7 +137,6 @@ nav:
           - Bloom索引: "./postgres/index/index-bloom.md"
           - 假设索引: "./postgres/index/hypopg-index.md"
           - 索引最佳实践: "./postgres/index/index.md"
-          - 表分区: "./postgres/index/partition.md"
           - Partman插件: "./postgres/index/partman.md"
           - 模板表: "./postgres/index/template.md"
           - 未记录表: "./postgres/index/unlogged_table.md"

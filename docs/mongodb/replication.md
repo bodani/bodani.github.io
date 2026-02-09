@@ -157,6 +157,8 @@ db.collection.insertOne(
 );
 ```
 
+[关于写关注](./write_concern.md)
+
 ### 读关注 (Read Concern)
 
 数据的一致性/隔离级别是什么？
@@ -241,3 +243,26 @@ cfg.members = [
 // 4. 强制重配置
 rs.reconfig(cfg, {force: true})
 ```
+
+# 安装 mgeneratejs
+
+npm install -g mgeneratejs
+
+# 创建模板文件 template.json
+
+echo '{
+"id": "$inc",
+  "name": "$name",
+"email": "$email",
+  "age": "$age",
+"timestamp": "$date",
+  "data": {
+    "field1": "$lorem",
+"field2": "$bool",
+    "field3": "$integer"
+}
+}' > template.json
+
+# 生成数据并导入 (生成1M文档，约1GB)
+
+mgeneratejs template.json -n 1000000 | mongoimport --db testdb --collection testdata
