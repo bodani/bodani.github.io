@@ -76,22 +76,8 @@ function initializeAccessibilityFeatures() {
 
 // ========== 4. 页面加载效果 ==========
 function initializePageLoadEffects() {
-    // 页面载入动画
+    // 页面载入动画 - 仅标识页面已加载，无额外动画效果
     document.body.classList.add('page-loaded');
-
-    // 为内容添加渐入动画
-    const contentElements = document.querySelectorAll('.md-content__inner > *');
-
-    contentElements.forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-
-        setTimeout(() => {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }, 150 * index);
-    });
 }
 
 // ========== 5. 返回顶部按钮 ==========
