@@ -2,1412 +2,1412 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://bodani.github.io/docs/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/test/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/benchmark/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/bestpractices/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/c1/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/ch-keeper/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/compresstion/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/demo/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/restore/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/user/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/install/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/install/install_cluster/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/install/install_s3/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/clickhouse/install/install_single/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/datalake/iceberg/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/datalake/nessie/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/db/dm/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/en/newconcept/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/en/words/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/fluentbit/intro/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/fluentbit/problems/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/grafana/alert/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/istio/quikstart/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/kubernetes/sts_update/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/4k-wa/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/at-crontab/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/backlog-config/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/bmcpasswd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cgroups/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cmd-awk/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cmd-gpasswd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cmd-pstack/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cmd-sed/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cmd-vim/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cmd-xargs/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cpu-affinity/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cpu_temp/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/cpu_utilize/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/ddrescue/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/dmidecode/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/elfutil/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/fastdeletfiles/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/findhidpid/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/fio/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/frp/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/fu-cmd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/git-nopassword/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/git-objects-clean/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/git-sparsecheckout/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/github-dns/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/hard_store/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/hdparm/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/init-centos/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/install-cmd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/iperf/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/ipmi/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/ipmitool/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/kuberctl/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/kvm01/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/kworker/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/lang/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/last/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/lightdm/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/linux_tunning/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/ln-s/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/lvm/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/mail/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/mdadm/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/meminfo/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/memtest/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/memtester/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/nice/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/no-passwd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/nospace-device/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/openvpn/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/parted/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/patch/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/perf/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/pid_m/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/pmap/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/process-comm/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/pstack_strace/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/qos/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/repo/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/resetpasswd-centos7/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/smartctl%20copy/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/smartctl/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/so/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/ssdiotimeout/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/stat/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/syslog/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/sysstat/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/tcpdump/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/terminal-reuse/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/time-cmd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/tools/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/ubuntu2004-network/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/ubuntu2004-qa/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/vm-config/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/webmanage/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/wget/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/wheel/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/wind-run/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/linux/xz/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/middleware/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/middleware/etcd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/middleware/nginx/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mongodb/backup_restore/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mongodb/config/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mongodb/gridfs/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mongodb/install/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mongodb/privilege/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mongodb/replication/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mongodb/sharding/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mongodb/sync/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mongodb/write_concern/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/monitor/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/monitor/exporter/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/monitor/grafana/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/monitor/metrics/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/monitor/prometheus/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/monitor/vm/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/MGR/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/PrivilegeManagement/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/active/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/admin/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/binary/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/clone/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/config/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/doublewrite/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/exporter/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/install/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/lock/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/memory/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/monitor/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/myshellMGR/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/mysqlmem/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/mysqlslap/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/navtree/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/ocp/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/ocp1/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/proxy/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/pt/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/replication/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/table_size/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/users/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/variables2ali/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/Backup_Restore/backup/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/changelog/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/changelog/pro1/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/changelog/pro2/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/changelog/upgrade/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/procase/mgr/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/replication/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/replication/replication/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/replication/semisync/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backup/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backup/logical-backup/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backup/pgbackrest/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backup/pgcopydb/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backup/physical-backup/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backup/pitr/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backup/reback/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backup/reback_supper_user/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backup/wal-g/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/backupandrestore/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/extention/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/hll/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/insert01/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/materialized/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/normal-form/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/pg_json/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/pg_trgm/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/upset/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/wal_lsn/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/design/wal_size/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/extentions/citus01/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/extentions/citus11/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/extentions/pg_fdw/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/extentions/pg_rman/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/extentions/pgbouncer/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/extentions/pgpool2/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/extentions/pipelinedb01/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/extentions/pipelinedb02/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/extentions/timescaledb/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/ha/adlock/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/ha/ha_fd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/ha/patroni/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/ha/patroni02/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/ha/pgautofailover/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/ha/repmgr/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/ha/repmgrd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/index/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/index/hypopg-index/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/index/index-bloom/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/index/index-invalid/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/index/index01/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/index/partition/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/index/template/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/index/unlogged_table/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/bgwriter/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/checkpoint/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/cluster/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/config/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/daily_management/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/delete/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/install/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/install01/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/install02/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/pgstattuple/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/postgres12/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/postgresql-howto/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/tablespace/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/install/toast/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/maintenance/archive/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/maintenance/compile_kylin/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/maintenance/foreign_table/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/maintenance/log/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/maintenance/partition/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/maintenance/pg_pathman/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/maintenance/pg_rewrite/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/maintenance/thinking_in_db_fd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/FunctionsandOperators/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/fillfactor/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/high_level_sql/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/hotupdate/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/params/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/stat/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/thinking_in_db_performance/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/thinking_in_db_tune/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/vacuum/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/performance/vacuum_limit/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/replication/logical-replication/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/replication/logical-replication_failover/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/replication/replication01/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/replication/replication02/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/security/login_nopasswd/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/security/prepare/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/security/readonly/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/security/role-manager/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/security/ssl/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/dba/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/lock_wait/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/monitor-sql/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/monitor/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/monitor_explain/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_activity/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_buffercache/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_citus/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_elk/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_lock/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_prewarm/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_repack/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_rewind/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_stat_kcache/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pg_stat_statements/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pgage/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pgbench/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pgfincore/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pgwatch2/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/pgxnclient/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/postgis/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/timescaledb_demo01/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/tpch/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/view_pg_stat_activity/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/tools/view_pg_stat_bgwriter/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/troubleshooting/auto_vacuum_trigger/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/troubleshooting/awsome-postgres/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/troubleshooting/debezium/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/troubleshooting/dts/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/troubleshooting/explain/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/troubleshooting/libpg/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/postgres/troubleshooting/oom/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/redis/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/tools/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/victorialogs/install/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/yugabytedb/deploy/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bodani.github.io/docs/yugabytedb/install/</loc>
-         <lastmod>2026-02-09</lastmod>
+         <lastmod>2026-02-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
