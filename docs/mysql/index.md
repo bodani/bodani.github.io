@@ -156,18 +156,23 @@
     <a href="./exporter" class="btn">详情</a>
   </div>
   
-  <div class="card-item">
-    <h3>🔍 压测</h3>
-    <p>利用 mysqlslap 等工具进行性能压力测试。</p>
-    <a href="./mysqlslap" class="btn">详情</a>
+   <div class="card-item">
+    <h3>认证</h3>
+    <p>了解 MySQL 认证流程和相关安全配置。</p>
+    <a href="./authentication" class="btn">详情</a>
   </div>
 </div>
-
 ---
 
 ## MySQL 简介
 
 MySQL 是世界上最受欢迎的开源关系型数据库管理系统之一，具有高性能、易用性和广泛的支持等特点。自 1995 年首次发布以来，MySQL 已经发展成为一个强大而稳定的数据库解决方案，被广泛用于各种规模的应用程序，从小型网站到大型企业级应用都有其身影。
+
+<!-- MySQL认证流程图 -->
+<div style="text-align: center; margin: 2rem 0;">
+  <img src="./ocpimages/4279fd710434ebb192d8fcb54206aff2.jpg" alt="MySQL OCP 认证" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <p style="margin-top: 0.5rem; font-style: italic;">MySQL OCP 认证</p>
+</div>
 
 ### 核心特性
 
@@ -279,13 +284,11 @@ graph LR
 ### 性能优化黄金法则
 
 1. **合理选择存储引擎**
-
    - 使用 InnoDB 处理事务和外键相关的应用
    - 在纯读取或临时表场景下考虑 MyISAM
    - 了解不同存储引擎的特点和使用场景
 
 2. **优化查询策略**
-
    - 合理创建索引，关注复合索引顺序
    - 避免全表扫描和过多的 JOIN
    - 合理使用缓存机制提升性能
@@ -298,7 +301,6 @@ graph LR
 ### 安全配置要点
 
 1. **权限访问控制**
-
    - 遵循最小权限原则分配用户权限
    - 定期审查和清理不必要的用户账号
    - 合理设置 IP 限制和网络访问策略

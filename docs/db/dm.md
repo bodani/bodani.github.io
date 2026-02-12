@@ -86,7 +86,9 @@ chmod -R 755 /dmdata/dmbak
 ### 挂载镜像
 
 ```
+https://www.dameng.com/download/index.html
 cd  /opt
+https://download.dameng.com/eco/adapter/DM8/202512/dm8_20251208_x86_CentOS7_64.zip
 unzip dm8_20250506_x86_rh7_64.zip
 mount -o loop dm8_20250506_x86_rh7_64.iso /mnt
 ```
