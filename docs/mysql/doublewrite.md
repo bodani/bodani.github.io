@@ -1,4 +1,5 @@
- show variables like '%double%';
+```
+show variables like '%double%';
 +-------------------------------+-------+
 | Variable_name                 | Value |
 +-------------------------------+-------+
@@ -17,3 +18,4 @@ show status like '%lwr%';
 | Innodb_dblwr_pages_written | 6339188 |
 | Innodb_dblwr_writes        | 1991962 |
 +----------------------------+---------+
+```

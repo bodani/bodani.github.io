@@ -1,16 +1,13 @@
----
-title: "Archive wal归档"
-date: 2019-01-30T14:20:38+08:00
-draft: false
----
+# archive wal归档
 
-##### 介绍
+## 介绍
 
 所谓WAL日志归档，其实就是把在线的WAL日志备份出来。
 
-##### 配置
+## 配置
 
 vi postgresql.conf
+
 ```
 wal_level='replica'
 
@@ -28,18 +25,18 @@ archive_command = 'test ! -f /mnt/backup/%f && cp %p /mnt/backup/%f'
 
 ```
 
-##### 参数说明
+## 参数说明
 
 - wal_level archive 或更高级别
 - archive_mode on 开启归档模式，always 主从模式时，从库也开启归档模式。需要重启数据库
 - archive_command 归档时触发的命令或脚本， 不需要重新启动数据库。 systemctl reload postgresql-10 即可。
-- archive_timeout 可以理解为超过指定时间强制执行  select pg_switch_wal(); 场景， 数据库不是很活跃，数据库wal日志产生的过慢时。
+- archive_timeout 可以理解为超过指定时间强制执行 select pg_switch_wal(); 场景， 数据库不是很活跃，数据库wal日志产生的过慢时。
 
 ##### 归档触发条件说明：
 
 1 手动执行 select pg_switch_wal();  
-2 WAL 日志写满后触发归档 WAL 日志文件默认为 16MB，这个值可以在编译 PostgreSQL 时通过参数 “–with-wal-segsize” 更改，编译后不能修改。      
-3 如果设置 archive_timeout， 超时触发。   
+2 WAL 日志写满后触发归档 WAL 日志文件默认为 16MB，这个值可以在编译 PostgreSQL 时通过参数 “–with-wal-segsize” 更改，编译后不能修改。  
+3 如果设置 archive_timeout， 超时触发。
 
 ##### 归档备份说明：
 
@@ -66,15 +63,15 @@ archive_command = 'test ! -f /mnt/backup/%f && cp %p /mnt/backup/%f'
 
 重启或reload 使配置生效
 
-手动触发,查看结果  select pg_switch_wal(); 
+手动触发,查看结果 select pg_switch_wal();
 
 如果遇到问题结合查看数据库日志
 
 查看归档状态
 
 ```
-postgres=# select * from pg_stat_archiver ;  
- archived_count |    last_archived_wal     |      last_archived_time       | failed_count |     last_failed_wal      |       last_failed_time        |         stats_reset          
+postgres=# select * from pg_stat_archiver ;
+ archived_count |    last_archived_wal     |      last_archived_time       | failed_count |     last_failed_wal      |       last_failed_time        |         stats_reset
 ----------------+--------------------------+-------------------------------+--------------+--------------------------+-------------------------------+------------------------------
              64 | 00000001000000C3000000A6 | 2019-03-15 09:23:46.991612+08 |           27 | 00000001000000C30000006B | 2019-03-14 14:05:04.921754+08 | 2019-03-07 10:08:45.58083+08
 ```
@@ -84,46 +81,50 @@ postgres=# select * from pg_stat_archiver ;
 目标：按日期存放wal日志到/mnt/archdir/
 
 归档脚本
+
 ```
-vi archive.sh     
-#!/bin/bash    
-    
-export LANG=en_US.utf8    
-export DATE=`date +"%Y%m%d"`    
-    
-BASEDIR="/mnt/archdir"    
-    
-if [ ! -d $BASEDIR/$DATE ]; then    
-  mkdir -p $BASEDIR/$DATE    
-  if [ ! -d $BASEDIR/$DATE ]; then    
-    echo "error mkdir -p $BASEDIR/$DATE"    
-    exit 1    
-  fi    
-fi    
-    
-cp $1 $BASEDIR/$DATE/$2    
-if [ $? -eq 0 ]; then    
-  exit 0    
-else    
-  echo -e "cp $1 $BASEDIR/$DATE/$2 error"    
-  exit 1    
-fi    
-    
-echo -e "backup failed"    
-exit 1    
+vi archive.sh
+#!/bin/bash
+
+export LANG=en_US.utf8
+export DATE=`date +"%Y%m%d"`
+
+BASEDIR="/mnt/archdir"
+
+if [ ! -d $BASEDIR/$DATE ]; then
+  mkdir -p $BASEDIR/$DATE
+  if [ ! -d $BASEDIR/$DATE ]; then
+    echo "error mkdir -p $BASEDIR/$DATE"
+    exit 1
+  fi
+fi
+
+cp $1 $BASEDIR/$DATE/$2
+if [ $? -eq 0 ]; then
+  exit 0
+else
+  echo -e "cp $1 $BASEDIR/$DATE/$2 error"
+  exit 1
+fi
+
+echo -e "backup failed"
+exit 1
 ```
 
 权限
+
 ```
-chmod 700 archive.sh  
+chmod 700 archive.sh
 ```
 
 配置调用命令
+
 ```
-archive_command = 'archive.sh %p %f'  
+archive_command = 'archive.sh %p %f'
 ```
 
 重新加载生效
+
 ```
 systemctl reload postgresql-10
 ```

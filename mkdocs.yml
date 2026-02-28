@@ -108,11 +108,41 @@ nav:
           - 组复制: "./mysql/MGR.md"
           - mysqlsh: "./mysql/myshellMGR.md"
       - 监控:
+          - 指标监控: ./mysql/monitor.md
           - exporter: ./mysql/exporter.md
+      - 优化:
+          - 内存分析: "./mysql/mysqlmem.md"
+          - 内存分析2: "./mysql/memory.md"
+          - 表存储占用分析: "./mysql/table_size.md"
+          - 实例优化: "./mysql/performance_tuning_instance.md"
+          - sql优化: "./mysql/performance_tuning_sql.md"
+          - 锁机制: "./mysql/lock.md"
+          - 双写缓冲区: "./mysql/doublewrite.md"
 
+      - 备份恢复:
+          - 备份: "./mysql/Backup_Restore/backup.md"
+      - 工具:
+          - pt-toolkit: "./mysql/pt.md"
+          - clone: "./mysql/clone.md"
+          - proxy: "./mysql/proxy.md"
       - 压测:
           - mysqlslap: "./mysql/mysqlslap.md"
           - mysql45: "https://bodani.github.io/mysql45"
+      - 运维管理:
+          - 管理命令: "./mysql/admin.md"
+          - 变量对照: "./mysql/variables2ali.md"
+          - 启动配置: "./mysql/binary.md"
+          - 激活说明: "./mysql/active.md"
+          - Shell脚本: "./mysql/shell/insert.sh"
+      - 问题案例:
+          - 专业案例: "./mysql/procase/mgr.md"
+      - 变更日志:
+          - 变更记录: "./mysql/changelog/index.md"
+          - 产品变更1: "./mysql/changelog/pro1.md"
+          - 产品变更2: "./mysql/changelog/pro2.md"
+          - 升级指南: "./mysql/changelog/upgrade.md"
+      - 分享与技术:
+          - Vitess分享: "./mysql/share/vitess.md"
 
   - PostgreSQL:
       - "./postgres/index.md"
@@ -204,7 +234,6 @@ nav:
 
       - 安全管理:
           - 角色管理: "./postgres/security/role-manager.md"
-          - 权限管理: "./mysql/PrivilegeManagement.md"
           - 连接认证: "./postgres/security/login_nopasswd.md"
           - SSL安全: "./postgres/security/ssl.md"
           - 备用服务: "./postgres/security/prepare.md"
