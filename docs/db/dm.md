@@ -161,3 +161,43 @@ systemctl disable firewalld
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 setenforce 0
 ```
+
+## DM 数据库配置
+
+### 最大连接数
+
+关于最大连接数，主要修改 MAX_SESSIONS 的值，根据用户自行赋值。建议值大小如下：
+
+以主机 CPU 4 路 8 核内存 64 GB 为例，建议值大小如下：
+
+```
+max_session=500~1000
+max_session_statnment=2000
+```
+
+修改参数在数据库实例路径下的 dm.ini 文件，修改完成后，重启数据库才生效
+
+#### 查看会话 情况
+
+```
+select from v$sessions
+```
+
+#### 关闭会话
+
+```
+select sp_close_session('||sess_id||');
+```
+
+### 查看配置中的最大Session
+
+```sql
+select * from v$dm_ini where para_name = 'MAX_SESSIONS';
+```
+
+### 查看配置中的大小写是否敏感
+
+```
+select para_name,case para_value when 1 then 'y' else 'n' end
+from v$dm_ini where para_name= 'GLOBAL_STR_CASE_SENSITIVE';
+```
