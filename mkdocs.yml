@@ -104,6 +104,7 @@ nav:
           - mysql/replication/index.md
           - 异步复制: mysql/replication/replication.md
           - 半同步复制: mysql/replication/semisync.md
+          - Shell脚本管理: mysql/replication/shellreplication.md
       - 高可用:
           - 组复制: "./mysql/MGR.md"
           - mysqlsh: "./mysql/myshellMGR.md"

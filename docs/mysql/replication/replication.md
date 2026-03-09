@@ -344,3 +344,19 @@ ORDER BY
 ```
 
 使用clone , 8.0.17 开始 推出了 clone 插件
+
+## 通过 shell 管理主从复制
+
+// 配置
+dba.configureReplicaSetInstance()
+// 创建主从复制
+dba.createReplicaSet("my")
+
+// 直接指定使用 clone
+dba.getReplicaSet().addInstance('root@ip1:3306', {
+recoveryMethod: "clone"
+})
+// 直接指定使用 clone
+dba.getReplicaSet().addInstance('root@ip2:3306', {
+recoveryMethod: "clone"
+})
