@@ -189,7 +189,7 @@ MAX_SESSIONS = xxx
 ```
 sudo su - dmdba
 cd /home/dmdba/dmdbms/bin
-./DmServiceDAMENG start
+./DmServiceDAMENG restart
 ```
 
 #### 查看会话 情况
