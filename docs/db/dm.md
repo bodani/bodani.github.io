@@ -216,3 +216,9 @@ select * from v$dm_ini where para_name = 'MAX_SESSIONS';
 select para_name,case para_value when 1 then 'y' else 'n' end
 from v$dm_ini where para_name= 'GLOBAL_STR_CASE_SENSITIVE';
 ```
+
+### 查看有效期
+
+```
+select * from SYS."V$LICENSE";
+```
