@@ -12,7 +12,7 @@ master_info_repository=table
 relay_log_info_repository=table
 slave_parallel_type=LOGICAL_CLOCK
 slave_parallel_workers=4
-</code></pre> <h2 id=_2>初始化主从复制架构</h2> <h3 id=mysql-shell_2>启动MySQL Shell</h3> <p>连接到JavaScript模式：</p> <pre><code class=language-bash>mysqlsh
+</code></pre> <p>clone 插件</p> <h2 id=_2>初始化主从复制架构</h2> <h3 id=mysql-shell_2>启动MySQL Shell</h3> <p>连接到JavaScript模式：</p> <pre><code class=language-bash>mysqlsh
 </code></pre> <p>然后连接到计划做为主服务器的MySQL实例：</p> <pre><code class=language-javascript>\connect root@master_host:3306
 </code></pre> <h3 id=_3>验证实例配置</h3> <p>确认要加入复制的每个实例都符合要求：</p> <pre><code class=language-javascript>dba.checkInstanceConfiguration(&quot;root@master_host:3306&quot;);
 dba.checkInstanceConfiguration(&quot;root@slave1_host:3306&quot;);
