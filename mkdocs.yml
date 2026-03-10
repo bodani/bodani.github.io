@@ -100,6 +100,10 @@ nav:
       - 配置: "./mysql/config.md"
       - 权限管理: "./mysql/PrivilegeManagement.md"
       - 用户管理: "./mysql/users.md"
+      - 备份恢复:
+          - mysql/backup_restore/index.md
+          - 物理备份: mysql/backup_restore/physical_backup.md
+          - 逻辑备份: mysql/backup_restore/logical_backup.md
       - 主从复制:
           - mysql/replication/index.md
           - 异步复制: mysql/replication/replication.md
@@ -119,9 +123,6 @@ nav:
           - sql优化: "./mysql/performance_tuning_sql.md"
           - 锁机制: "./mysql/lock.md"
           - 双写缓冲区: "./mysql/doublewrite.md"
-
-      - 备份恢复:
-          - 备份: "./mysql/Backup_Restore/backup.md"
       - 工具:
           - pt-toolkit: "./mysql/pt.md"
           - clone: "./mysql/clone.md"
@@ -142,8 +143,8 @@ nav:
           - 产品变更1: "./mysql/changelog/pro1.md"
           - 产品变更2: "./mysql/changelog/pro2.md"
           - 升级指南: "./mysql/changelog/upgrade.md"
-      - 分享与技术:
-          - Vitess分享: "./mysql/share/vitess.md"
+      - 集群:
+          - Vitess 水平扩容: "./mysql/share/vitess.md"
 
   - PostgreSQL:
       - "./postgres/index.md"

@@ -177,6 +177,21 @@ max_session_statnment=2000
 
 修改参数在数据库实例路径下的 dm.ini 文件，修改完成后，重启数据库才生效
 
+#### 修改参数
+
+```
+vi /dmdata/data/DAMENG/dm.ini
+MAX_SESSIONS = xxx
+```
+
+#### 重启
+
+```
+sudo su - dmdba
+cd /home/dmdba/dmdbms/bin
+./DmServiceDAMENG start
+```
+
 #### 查看会话 情况
 
 ```
