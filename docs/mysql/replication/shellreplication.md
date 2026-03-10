@@ -39,6 +39,8 @@ slave_parallel_type=LOGICAL_CLOCK
 slave_parallel_workers=4
 ```
 
+clone 插件
+
 ## 初始化主从复制架构
 
 ### 启动MySQL Shell
