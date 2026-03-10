@@ -67,7 +67,7 @@ max_session_statnment=2000
 MAX_SESSIONS = xxx
 </code></pre> <h4 id=_17>重启</h4> <pre><code>sudo su - dmdba
 cd /home/dmdba/dmdbms/bin
-./DmServiceDAMENG start
+./DmServiceDAMENG restart
 </code></pre> <h4 id=_18>查看会话 情况</h4> <pre><code>select from v$sessions
 </code></pre> <h4 id=_19>关闭会话</h4> <pre><code>select sp_close_session('||sess_id||');
 </code></pre> <h3 id=session>查看配置中的最大Session</h3> <pre><code class=language-sql>select * from v$dm_ini where para_name = 'MAX_SESSIONS';
