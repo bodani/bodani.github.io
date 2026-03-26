@@ -137,12 +137,7 @@ nav:
           - 激活说明: "./mysql/active.md"
           - Shell脚本: "./mysql/shell/insert.sh"
       - 问题案例:
-          - 专业案例: "./mysql/procase/mgr.md"
-      - 变更日志:
-          - 变更记录: "./mysql/changelog/index.md"
-          - 产品变更1: "./mysql/changelog/pro1.md"
-          - 产品变更2: "./mysql/changelog/pro2.md"
-          - 升级指南: "./mysql/changelog/upgrade.md"
+          - "./mysql/failurecase/index.md"
       - 集群:
           - Vitess 水平扩容: "./mysql/share/vitess.md"
 

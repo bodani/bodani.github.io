@@ -24,6 +24,8 @@ dba.getCluster().addInstance('administrator:cluster_password@10.10.2.12:3306',{r
 加入节点 2
 dba.getCluster().addInstance('administrator:cluster_password@10.10.2.12:3306',{recoveryMethod:'clone'})
 ```
+使用 mysqlsh 创建集群会自动创建组复制的相关用户，并不是使用的这个administrator 账号。
+
 
 查看状态
 ```
