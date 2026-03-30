@@ -11,6 +11,7 @@
 - [组复制降级 - 导出的 sql 文件中关闭 binlog](./fc5.md)
 - [集群加入节点失败 - 实例已存在于另一个集群](./fc6.md)
 - [MGR 集群脑裂 - NO_QUORUM 状态处理](./fc7.md)
+- [MGR GTID Diverged 处理](./fc8.md)
 
 ## 简述
 
