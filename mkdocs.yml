@@ -133,9 +133,10 @@ nav:
       - 运维管理:
           - 管理命令: "./mysql/admin.md"
           - 变量对照: "./mysql/variables2ali.md"
-          - 启动配置: "./mysql/binary.md"
+          - binlog管理: "./mysql/binary.md"
           - 激活说明: "./mysql/active.md"
-          - Shell脚本: "./mysql/shell/insert.sh"
+          - 批量插入数据分割脚本: "./mysql/shell/insert.md"
+          - 数据清理（Rename 方案）: "./mysql/cleanup_by_rename.md"
       - 问题案例:
           - "./mysql/failurecase/index.md"
       - 集群:

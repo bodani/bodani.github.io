@@ -1,5 +1,5 @@
 
-
+```
 #!/bin/bash
 ## source ./xxx.sql
 # 脚本用于在每5000条INSERT语句后面添加一个COMMIT语句
@@ -63,3 +63,4 @@ fi
 echo "SET autocommit=1;" >> "$OUTPUT_FILE"
 
 echo "处理完成。"
+```
