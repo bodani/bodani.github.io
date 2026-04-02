@@ -311,6 +311,7 @@ nav:
           - exporter: ./monitor/exporter.md
           - 监控指标: ./monitor/metrics.md
       - fluentbit:
+          - ./fluentbit/index.md
           - 介绍: ./fluentbit/intro.md
           - 问题排查: ./fluentbit/problems.md
   - 容器:
