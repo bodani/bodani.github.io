@@ -111,6 +111,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://bodani.github.io/docs/fluentbit/pro01/</loc>
+         <lastmod>2026-04-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://bodani.github.io/docs/fluentbit/pro02/</loc>
          <lastmod>2026-04-02</lastmod>
          <changefreq>daily</changefreq>
