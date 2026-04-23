@@ -156,12 +156,18 @@
     <a href="./exporter" class="btn">详情</a>
   </div>
   
-   <div class="card-item">
+  <!-- <div class="card-item">
     <h3>认证</h3>
     <p>了解 MySQL 认证流程和相关安全配置。</p>
     <a href="./authentication" class="btn">详情</a>
+  </div> -->
+
+  <div class="card-item">
+    <h3>📝 案例</h3>
+    <p>学习 MySQL 故障案例分析及解决方案。</p>
+    <a href="./failurecase" class="btn">详情</a>
   </div>
-</div>
+  </div>
 ---
 
 ## MySQL 简介

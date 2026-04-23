@@ -14,4 +14,4 @@ nginx manager
 
 ## 配置中心
 
-nagoc
+nacos

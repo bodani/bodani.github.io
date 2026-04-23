@@ -134,7 +134,7 @@ nav:
           - 管理命令: "./mysql/admin.md"
           - 变量对照: "./mysql/variables2ali.md"
           - binlog管理: "./mysql/binary.md"
-          - 激活说明: "./mysql/active.md"
+          - 活跃sql查看: "./mysql/active.md"
           - 批量插入数据分割脚本: "./mysql/shell/insert.md"
           - 数据清理（Rename 方案）: "./mysql/cleanup_by_rename.md"
       - 问题案例:

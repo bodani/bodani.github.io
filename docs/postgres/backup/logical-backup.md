@@ -62,6 +62,8 @@
 ```
 数据拷贝到本地： psql -U postgres -d databasename  -p 5432 -h 10.1.1.1 -c "\copy (select * from $tablename where xxx) to '/tmp/db/$tablename.csv'";
 
+数据拷贝到本地(加入csv 表头)： psql -U postgres -d databasename  -p 5432 -h 10.1.1.1 -c "\copy (select * from $tablename where xxx) to '/tmp/db/$tablename.csv' WITH (FORMAT CSV, HEADER, ENCODING 'UTF8')";
+
 数据恢复到数据库: psql -U postgres -d databasename -p 5432 -h 127.0.0.1 -c "\copy $tablename from '/tmp/db/$tablename.csv'";
 ```
 

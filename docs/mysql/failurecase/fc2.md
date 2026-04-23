@@ -9,6 +9,7 @@ Error: 2026 (HY000): connecting to destination failed with TLS error: error:0A00
 
 ## 分析
 该错误表明客户端与MySQL服务器之间的TLS/SSL协议版本不兼容。主要原因为：
+
 1. **版本不匹配**：MySQL 8.0+默认要求TLSv1.2+，而客户端可能使用旧版本TLSv1.0或TLSv1.1
 2. **配置冲突**：服务器SSL配置限制了可接受的TLS版本范围
 3. **组件过时**：客户端或服务器的OpenSSL库版本过旧，不支持新协议

@@ -326,21 +326,21 @@ util.exportTable("table_name", "/path/to/table.sql", {
 备份到s3
 
 ```
- echo "
-                  import os
-                  from datetime import datetime, timezone, timedelta
+echo "
+import os
+from datetime import datetime, timezone, timedelta
 
-                  now_utc = datetime.now(timezone.utc)
-                  cst_timezone = timezone(timedelta(hours=8))
-                  now_cst = now_utc.astimezone(cst_timezone)
-                  now_str =  now_cst.strftime('%Y%m%d%H%M')
-                  endpoint=os.getenv('AWS_ENDPOINT_URL')
-                  bucket_name=os.getenv('AWS_BUCKET_NAME')
+now_utc = datetime.now(timezone.utc)
+cst_timezone = timezone(timedelta(hours=8))
+now_cst = now_utc.astimezone(cst_timezone)
+now_str =  now_cst.strftime('%Y%m%d%H%M')
+endpoint=os.getenv('AWS_ENDPOINT_URL')
+bucket_name=os.getenv('AWS_BUCKET_NAME')
 
-                  util.dump_instance(now_str, {'s3BucketName': bucket_name, 's3EndpointOverride': endpoint, 'threads': 1, 'maxRate': '8M', 'compatibility': ['strip_restricted_grants', 'strip_definers', 'ignore_missing_pks'] ,'excludeSchemas': ['mysql_innodb_cluster_metadata','sys','information_schema','performance_schema','mondb'],'compatibility':['strip_restricted_grants', 'strip_definers', 'ignore_missing_pks'] })
-                  " > /tmp/dump_instance.py
+util.dump_instance(now_str, {'s3BucketName': bucket_name, 's3EndpointOverride': endpoint, 'threads': 1, 'maxRate': '8M', 'compatibility': ['strip_restricted_grants', 'strip_definers', 'ignore_missing_pks'] ,'excludeSchemas': ['mysql_innodb_cluster_metadata','sys','information_schema','performance_schema','mondb'],'compatibility':['strip_restricted_grants', 'strip_definers', 'ignore_missing_pks'] })
+" > /tmp/dump_instance.py
 
-                  mysqlsh --uri=${MYSQL_ROOT_USER}@${MYSQL_HOST}:${MYSQL_PORT_NUMBER} -p${MYSQL_ROOT_PASSWORD} --py < /tmp/dump_instance.py
+mysqlsh --uri=${MYSQL_ROOT_USER}@${MYSQL_HOST}:${MYSQL_PORT_NUMBER} -p${MYSQL_ROOT_PASSWORD} --py < /tmp/dump_instance.py
 ```
 
 ```

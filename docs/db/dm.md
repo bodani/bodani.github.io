@@ -5,6 +5,7 @@
 ### 更换源
 
 ```
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.back
 curl http://mirrors.aliyun.com/repo/Centos-7.repo > /etc/yum.repos.d/CentOS-Base.repo
 
 # 更新yum缓存
@@ -27,7 +28,7 @@ systemctl enable ntpd
 
 ### 下载达梦数据库安装包（请根据实际版本调整下载链接）
 
-### 系统用户
+### 系统用户 
 
 ```
 groupadd dinstall -g 2001
@@ -181,7 +182,7 @@ max_session_statnment=2000
 
 ```
 vi /dmdata/data/DAMENG/dm.ini
-MAX_SESSIONS = xxx
+MAX_SESSIONS = 500
 ```
 
 #### 重启

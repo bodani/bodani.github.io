@@ -173,3 +173,9 @@ db.createUser(
 )
 
 ```
+连接 
+```
+mongosh "mongodb://username:password@host1:27017,host2:27017,host3:27017/admin?replicaSet=rs0&authSource=admin"
+```
+
+如果有DNS，需要配合配置对应的DNS。

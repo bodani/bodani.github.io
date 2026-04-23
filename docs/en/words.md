@@ -820,5 +820,5 @@ solely
 confers
 desire
 assumptions 假设
-service:
-type: LoadBalancer
+coexist 共存
+sensitive 敏感
