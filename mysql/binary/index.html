@@ -21,7 +21,7 @@ SHOW BINARY LOGS;
 
 -- 查看当前写入的 Binlog 文件及位置
 SHOW MASTER STATUS;
-</code></pre> <h2 id=binlog_1>​​手动管理 Binlog​​</h2> <pre><code>​​刷新日志​​（强制生成新文件）
+</code></pre> <h2 id=binlog_1>​​手动管理 Binlog​​</h2> <pre><code>​​刷新日志​​（强制生成新文件,并根据过期时间清理过期数据）
 
 FLUSH BINARY LOGS;  -- 等同于 FLUSH LOGS
 
