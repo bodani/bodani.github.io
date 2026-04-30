@@ -1,31 +1,4 @@
-## 问题1
-客户端错误
-Error: 2005 (HY000): Unknown MySQL server host 'localhost' (-11)
-Error: 2005 (HY000): Unknown MySQL server host 'localhost' (-11)
-Error: 2005 (HY000): Unknown MySQL server host 'localhost' (-11)
-mysql服务 
-|4508 | unauthenticated user | localhost:38414 | NULL | Connect |    1 | login                  | NULL             |
-|24509 | unauthenticated user | localhost:38418 | NULL | Connect |    1 | login                  | NULL            |
 
-mysql配置
-max_connections
-back_log=2000
-服务器
-ulimit -n
-net.ipv4.tcp_max_syn_backlog
-
-## 问题2
-router 连接数
-
-
-### ssl version
-Error: 2026 (HY000): connecting to destination failed with TLS error: error:0A00010B:SSL routines::wrong version number
-Error: 2026 (HY000): connecting to destination failed with TLS error: error:0A00010B:SSL routines::wrong version number
-
-```
-sudo apt-get update
-sudo apt-get install --only-upgrade openssl
-```
 
 ## mysql 安装 换存储目录
 

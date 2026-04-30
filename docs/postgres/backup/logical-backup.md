@@ -72,7 +72,7 @@
 ##### 注意事项: 需要在新数据库中对序列进行更新
 
 ```
-psql -U postgres -d databasename -p 5432 -h 127.0.0.1 -c "select setval('xxxx_id_seq', max(id)) from xxx_table";
+psql -U postgres -d databasename -p 5432 -h 127. 0.0.1 -c "select setval('xxxx_id_seq', max(id)) from xxx_table";
 
 ```
 

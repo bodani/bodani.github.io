@@ -1,4 +1,6 @@
+主节点故障OOM后 不选新主
 
+主节点日志
 Defaulted container "mysql" out of: mysql, metrics
 mysql 06:00:45.69 
 mysql 06:00:45.70 Welcome to the Drycc mysql container
@@ -76,6 +78,7 @@ mysql 06:01:54.24 INFO  ==> ** Starting MySQL **
 2026-04-15T06:02:55.348540-00:00 0 [ERROR] [MY-011735] [Repl] Plugin group_replication reported: '[GCS] Error connecting to all peers. Member join failed. Local port: 3306'
 2026-04-15T06:02:55.415460-00:00 0 [ERROR] [MY-011735] [Repl] Plugin group_replication reported: '[GCS] The member was unable to join the group. Local port: 3306'
 
+登录1节点查看
  MySQL  helmbroker-mysql-1:33060+ ssl  JS > dba.getCluster().status();
 WARNING: Error connecting to Cluster: MYSQLSH 51004: Unable to find a primary member in the Cluster
 Retrying getCluster() using a secondary member
@@ -128,7 +131,8 @@ Write operations on the InnoDB cluster will not be allowed.
         "topologyMode": "Single-Primary"
     }, 
     "groupInformationSourceMember": "helmbroker-mysql-1:3306"
-} dba.getCluster();
+} 
+dba.getCluster();
 WARNING: Error connecting to Cluster: MYSQLSH 51004: Unable to find a primary member in the Cluster
 Retrying getCluster() using a secondary member
 WARNING: You are connected to an instance in state 'Read Only'
@@ -188,7 +192,7 @@ Write operations on the InnoDB cluster will not be allowed.
     }, 
     "groupInformationSourceMember": "helmbroker-mysql-1:3306"
 }
-
+重启所有节点后，重启集群查看，主节点变成了2 
 dba.getCluster();
 Dba.getCluster: This function is not available through a session to a standalone instance (metadata exists, instance belongs to that metadata, but GR is not active) (MYSQLSH 51314)
  MySQL  helmbroker-mysql-0:33060+ ssl  JS > 

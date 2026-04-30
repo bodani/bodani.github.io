@@ -5,24 +5,6 @@
 
 当fluentbit 在运行过程中如何发生错误，会导致cpu持续升高，直到资源耗尽不可用。
 
-#### 问题描述
-
-output 到minio 错误信息
-```
-[2024/08/20 01:49:40] [error] [/root/go/src/fluent-bit/src/flb_http_client.c:1201 errno=32] Broken pipe
-[2024/08/20 01:49:41] [error] [/root/go/src/fluent-bit/src/flb_http_client.c:1201 errno=32] Broken pipe
-[2024/08/20 01:49:41] [error] [output:s3:s3.0] PutObject request failed
-.....
-[2024/08/20 02:09:45] [error] [output:s3:s3.0] PutObject request failed
-[2024/08/20 02:10:05] [error] [output:s3:s3.0] PutObject API responded with error='SignatureDoesNotMatch', message='The request signature we calculated does not match the signature you provided. Check your key and signing method.'
-[2024/08/20 02:10:05] [error] [output:s3:s3.0] Raw PutObject response: HTTP/1.1 403 Forbidden
-Accept-Ranges: bytes
-```
-解决, minio 文件名过长
-```
-- s3_key_format   /$TAG/%Y/%m/%d/.log 
-+ s3_key_format   /$TAG[4]/%Y/%m/%d/%H/%M/%S.log
-```
 
 #### 问题描述
 

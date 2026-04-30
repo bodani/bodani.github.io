@@ -37,7 +37,7 @@ SHOW MASTER STATUS;
 ## ​​手动管理 Binlog​​
 
 ```
-​​刷新日志​​（强制生成新文件）
+​​刷新日志​​（强制生成新文件,并根据过期时间清理过期数据）
 
 FLUSH BINARY LOGS;  -- 等同于 FLUSH LOGS
 
