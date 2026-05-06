@@ -31,6 +31,69 @@ top pid  xxx  &&   shift + M
 
 #### smem 
 
+```language
+# 安装 (CentOS/RHEL):
+yum install smem
+
+# 查看 mysql 进程内存分布
+smem -t -p $(pgrep mysqld)
+
+# 常见的用法选项:
+smem -K                    # 显示 VSS 大小
+smem -W                    # 显示 RSS 大小
+smem -S                    # 按 PSS 排序
+smem -P                    # 按 USS 排序
+smem -t                    # 显示表格格式的汇总信息
+```
+
+常用参数说明：
+- `-t`: 使用制表符分隔的纯文本格式输出结果
+- `-c KISS`: 自定义显示的列 (K=虚拟共享、I=私有共享、M=匿名非共享)
+- `--ps`: 进程详细信息摘要输出
+- `-r` 或 `-H`: 按共享区域或进程层次排序
+- `--total`: 汇总所有进程统计信息
+
+常用筛选/查看场景:
+
+**1. 查看特定进程的详细内存分布:**
+```bash
+# MSSQL Server 通常占用较多内存 (替换为你的 mysqld 进程号)
+smem -k -t | grep $(pgrep mysqld)
+```
+
+**2. 对比 VSS/RSS/PSS/USS 四种内存视角:**
+```bash
+# -c 用于选择要显示的列，例如: 
+#  pss  = proportional set size (共享页面按比例分摊后的物理页）
+#  uss  = unique set size(当前驻留在主存里且没有和其他进程共享的独占物理分页数）。
+# rss  = resident set size(V 区常驻集的当前常驻集包含的内存量）
+# vsize = 一个虚拟内存区的内存分配总量。
+smem -c pid,pid,vsz,rss,pss,uss,command
+```
+
+smem 的输出列含义：
+
+| 列名   | 含义说明                                                     |
+|--------|--------------------------------------------------------------|
+| USS    | Unique Set Size，独占物理内存大小（不含共享页）              |
+| PSS    | Proportional Set Size，比例分配的物理内存                    |
+| CSS    | Collective Set Size，所有进程共享的页面                       |
+| Swap   | 交换到磁盘的空间                                              |
+
+查看 MySQL 相关示例：
+
+**查询 mysqld 进程的 USS：**
+```bash
+smem -c "pid,rss,pss,uss,sz,state,nthreads,name,user" | grep mysqld  
+```
+
+**查看 PSS 和 USS 对比（有助于识别内存泄漏）：**
+```bash
+watch 'echo "RSS: $(pmap -w $(pgrep mysqld) | tail -1)" && sleep 5' && \
+  watch "awk '{printf \"PSS:%s, USS:%s, VSS:%s\\n\", \$5,\$4,\$3}' /proc/\$(pgrep mysqld)/smaps \> mysqld.smaps.log; sleep 60"
+```
+
+
 #### pmap
 
 ```
