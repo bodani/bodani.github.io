@@ -263,6 +263,7 @@ nav:
           - 数据预热: "./postgres/tools/pg_prewarm.md"
           - 读写分析: "./postgres/tools/pg_lock.md"
           - CITUS扩展: "./postgres/tools/pg_citus.md"
+          - wal数量计算: "./postgres/tools/wal_count.md"
 
       - 版本与历史:
           - 12版特性: "./postgres/install/postgres12.md"
@@ -372,6 +373,7 @@ nav:
           - 系统内存大页: ./linux/memtester.md
           - I/O超时处理: ./linux/ssdiotimeout.md
           - Backlog队列管理: ./linux/backlog-config.md
+          - swap分区关闭: ./linux/swapoff.md
       - 存储与文件系统管理:
           - LVM存储管理: ./linux/lvm.md
           - 磁盘分区工具: ./linux/parted.md
