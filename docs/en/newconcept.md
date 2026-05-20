@@ -55,3 +55,4 @@ were travelling across the Channel and Jane put a piece of paper with her name a
 threw the bottle into the sea. She never thought of it again, but ten months later, she received a letter from a girl in
 Holland. Both girls write to each other regularly now. However, they have decided to use the post office. Letters
 will cost a little more, but they will certainly travel faster.
+
