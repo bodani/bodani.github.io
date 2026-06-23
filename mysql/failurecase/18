@@ -1,0 +1,370 @@
+oot@server-104-102:~# kubectl -n lasm-sy1-demo5 logs helmbroker-mysql-0 -f 
+Defaulted container "mysql" out of: mysql, metrics
+mysql 08:04:14.35 
+mysql 08:04:14.36 Welcome to the Drycc mysql container
+mysql 08:04:14.37 Subscribe to project updates by watching https://github.com/drycc/containers
+mysql 08:04:14.38 Submit issues and feature requests at https://github.com/drycc/containers/issues
+mysql 08:04:14.38 
+mysql 08:04:14.39 INFO  ==> ** Starting MySQL setup **
+mysql 08:04:14.45 INFO  ==> Validating settings in MYSQL_*/MARIADB_* env vars
+mysql 08:04:14.46 INFO  ==> Initializing mysql database
+mysql 08:04:14.51 WARN  ==> The mysql configuration file '/opt/drycc/mysql/conf/my.cnf' is not writable. Configurations based on environment variables will not be applied for this file.
+mysql 08:04:14.52 INFO  ==> Using persisted data
+mysql 08:04:14.54 INFO  ==> Running mysql_upgrade
+mysql 08:04:14.56 INFO  ==> Starting mysql in background
+2026-05-30T08:04:14.585557-00:00 0 [Warning] [MY-010140] [Server] Could not increase number of max_open_files to more than 1048576 (request: 2000000)
+2026-05-30T08:04:14.888171-00:00 0 [System] [MY-010116] [Server] /opt/drycc/mysql/bin/mysqld (mysqld 8.0.34) starting as process 40
+2026-05-30T08:04:14.898852-00:00 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-05-30T08:04:18.354097-00:00 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-05-30T08:04:18.912171-00:00 0 [System] [MY-013587] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' is starting.'
+2026-05-30T08:04:18.912425-00:00 0 [System] [MY-014010] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' has been started.'
+2026-05-30T08:04:21.726491-00:00 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2026-05-30T08:04:21.741092-00:00 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2026-05-30T08:04:23.073013-00:00 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-05-30T08:04:23.073061-00:00 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+find: ‘/docker-entrypoint-startdb.d/’: No such file or directory
+mysql 08:04:24.62 INFO  ==> Stopping mysql
+2026-05-30T08:04:26.581371-00:00 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /tmp/mysqlx.sock
+2026-05-30T08:04:26.581512-00:00 0 [System] [MY-010931] [Server] /opt/drycc/mysql/bin/mysqld: ready for connections. Version: '8.0.34'  socket: '/opt/drycc/mysql/tmp/mysql.sock'  port: 3306  Source distribution.
+2026-05-30T08:04:26.581579-00:00 0 [System] [MY-013172] [Server] Received SHUTDOWN from user <via user signal>. Shutting down mysqld (Version: 8.0.34).
+2026-05-30T08:04:26.582170-00:00 4 [ERROR] [MY-011628] [Repl] Plugin group_replication reported: 'Unable to read the server values for the read_only and super_read_only variables.'
+2026-05-30T08:04:26.582237-00:00 4 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-30T08:04:26.582267-00:00 4 [ERROR] [MY-011636] [Repl] Plugin group_replication reported: 'Could not enable the server read only mode and guarantee a safe recovery execution'
+2026-05-30T08:04:29.804171-00:00 0 [System] [MY-010910] [Server] /opt/drycc/mysql/bin/mysqld: Shutdown complete (mysqld 8.0.34)  Source distribution.
+
+mysql 08:04:30.66 INFO  ==> ** MySQL setup finished! **
+mysql 08:04:30.75 INFO  ==> ** Starting MySQL **
+2026-05-30T08:04:30.789761-00:00 0 [Warning] [MY-010140] [Server] Could not increase number of max_open_files to more than 1048576 (request: 2000000)
+2026-05-30T08:04:31.129665-00:00 0 [System] [MY-010116] [Server] /opt/drycc/mysql/bin/mysqld (mysqld 8.0.34) starting as process 1
+2026-05-30T08:04:31.141179-00:00 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-05-30T08:04:31.754212-00:00 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-05-30T08:04:32.040612-00:00 0 [System] [MY-013587] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' is starting.'
+2026-05-30T08:04:32.040902-00:00 0 [System] [MY-014010] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' has been started.'
+2026-05-30T08:04:32.215831-00:00 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-05-30T08:04:32.215907-00:00 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-05-30T08:04:33.884921-00:00 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /tmp/mysqlx.sock
+2026-05-30T08:04:33.885012-00:00 0 [System] [MY-010931] [Server] /opt/drycc/mysql/bin/mysqld: ready for connections. Version: '8.0.34'  socket: '/opt/drycc/mysql/tmp/mysql.sock'  port: 3306  Source distribution.
+2026-05-30T08:04:33.885802-00:00 4 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-30T08:04:33.898972-00:00 12 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_applier' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-05-30T08:05:33.920117-00:00 4 [ERROR] [MY-011640] [Repl] Plugin group_replication reported: 'Timeout on wait for view after joining group'
+2026-05-30T08:05:33.920377-00:00 4 [ERROR] [MY-011735] [Repl] Plugin group_replication reported: '[GCS] The member is leaving a group without being on one.'
+2026-05-30T08:06:03.934495-00:00 0 [ERROR] [MY-011735] [Repl] Plugin group_replication reported: '[GCS] Timeout while waiting for the group communication engine to exit!'
+2026-05-30T08:06:03.934600-00:00 0 [ERROR] [MY-011735] [Repl] Plugin group_replication reported: '[GCS] The member has failed to gracefully leave the group.'
+2026-05-30T12:02:15.083506-00:00 3128 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-05-30T12:02:15.096486-00:00 3128 [System] [MY-013587] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' is starting.'
+2026-05-30T12:02:15.097249-00:00 3128 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-30T12:02:15.108548-00:00 3132 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_applier' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-05-30T12:02:17.840366-00:00 3128 [System] [MY-011511] [Repl] Plugin group_replication reported: 'This server is working as secondary member with primary member address helmbroker-mysql-2:3306.'
+2026-05-30T12:02:17.840423-00:00 0 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-30T12:02:17.840617-00:00 0 [System] [MY-013471] [Repl] Plugin group_replication reported: 'Distributed recovery will transfer data using: Incremental recovery from a group donor'
+2026-05-30T12:02:17.841121-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-2:3306, helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:17.'
+2026-05-30T12:02:17.866854-00:00 3152 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='helmbroker-mysql-1', source_port= 3306, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-05-30T12:02:17.887637-00:00 3153 [Warning] [MY-010897] [Server] Storing MySQL user name or password information in the connection metadata repository is not secure and is therefore not recommended. Please consider using the USER and PASSWORD connection options for START REPLICA; see the 'START REPLICA Syntax' in the MySQL Manual for more information.
+2026-05-30T12:02:17.953698-00:00 3153 [System] [MY-014002] [Server] Replica receiver thread for channel 'group_replication_recovery': connected to source 'mysql_innodb_cluster_572@helmbroker-mysql-1:3306' with server_uuid=65504d77-2cd9-11f1-81a6-4ab418332063, server_id=575. Starting GTID-based replication.
+2026-05-30T12:02:18.840529-00:00 3128 [System] [MY-014010] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' has been started.'
+2026-05-30T12:04:21.055844-00:00 0 [Warning] [MY-011499] [Repl] Plugin group_replication reported: 'Members removed from the group: helmbroker-mysql-2:3306'
+2026-05-30T12:04:21.055926-00:00 0 [System] [MY-011500] [Repl] Plugin group_replication reported: 'Primary server with address helmbroker-mysql-2:3306 left the group. Electing new Primary.'
+2026-05-30T12:04:21.056358-00:00 0 [System] [MY-011507] [Repl] Plugin group_replication reported: 'A new primary with address helmbroker-mysql-1:3306 was elected. The new primary will execute all previous group transactions before allowing writes.'
+2026-05-30T12:04:21.057253-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:18.'
+2026-05-30T12:04:21.058645-00:00 3201 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-30T12:04:21.058704-00:00 3201 [System] [MY-011511] [Repl] Plugin group_replication reported: 'This server is working as secondary member with primary member address helmbroker-mysql-1:3306.'
+2026-05-30T12:05:24.324290-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:24.424974-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:25.525906-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:27.627557-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+^Croot@server-104-102:~# kubectl -n lasm-sy1-demo5 logs helmbroker-mysql-1 -f 
+Defaulted container "mysql" out of: mysql, metrics
+mysql 08:14:05.19 
+mysql 08:14:05.20 Welcome to the Drycc mysql container
+mysql 08:14:05.20 Subscribe to project updates by watching https://github.com/drycc/containers
+mysql 08:14:05.20 Submit issues and feature requests at https://github.com/drycc/containers/issues
+mysql 08:14:05.20 
+mysql 08:14:05.21 INFO  ==> ** Starting MySQL setup **
+mysql 08:14:05.23 INFO  ==> Validating settings in MYSQL_*/MARIADB_* env vars
+mysql 08:14:05.24 INFO  ==> Initializing mysql database
+mysql 08:14:05.25 WARN  ==> The mysql configuration file '/opt/drycc/mysql/conf/my.cnf' is not writable. Configurations based on environment variables will not be applied for this file.
+mysql 08:14:05.26 INFO  ==> Using persisted data
+mysql 08:14:05.27 INFO  ==> Running mysql_upgrade
+mysql 08:14:05.28 INFO  ==> Starting mysql in background
+2026-03-31T08:14:05.298260-00:00 0 [Warning] [MY-010140] [Server] Could not increase number of max_open_files to more than 1048576 (request: 2000000)
+2026-03-31T08:14:05.619158-00:00 0 [System] [MY-010116] [Server] /opt/drycc/mysql/bin/mysqld (mysqld 8.0.34) starting as process 41
+2026-03-31T08:14:05.628810-00:00 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-03-31T08:14:06.978352-00:00 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-03-31T08:14:07.305263-00:00 0 [System] [MY-013587] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' is starting.'
+2026-03-31T08:14:07.305518-00:00 0 [System] [MY-014010] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' has been started.'
+2026-03-31T08:14:07.436575-00:00 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-03-31T08:14:07.436624-00:00 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-03-31T08:14:07.527728-00:00 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /tmp/mysqlx.sock
+2026-03-31T08:14:07.527841-00:00 0 [System] [MY-010931] [Server] /opt/drycc/mysql/bin/mysqld: ready for connections. Version: '8.0.34'  socket: '/opt/drycc/mysql/tmp/mysql.sock'  port: 3306  Source distribution.
+2026-03-31T08:14:07.528298-00:00 4 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-03-31T08:14:07.543855-00:00 12 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_applier' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-03-31T08:14:07.736613-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-03-31T08:14:07.736682-00:00 0 [ERROR] [MY-011735] [Repl] Plugin group_replication reported: '[GCS] The group communication engine failed to test connectivity to the local group communication engine on helmbroker-mysql-1:3306. This may be due to one or more invalid configuration settings. Double-check your group replication local address, firewall, SE Linux and TLS configurations and try restarting Group Replication on this server.'
+2026-03-31T08:14:07.820222-00:00 0 [ERROR] [MY-011735] [Repl] Plugin group_replication reported: '[GCS] The member was unable to join the group. Local port: 3306'
+find: ‘/docker-entrypoint-startdb.d/’: No such file or directory
+mysql 08:14:09.30 INFO  ==> Stopping mysql
+2026-03-31T08:14:09.305512-00:00 0 [System] [MY-013172] [Server] Received SHUTDOWN from user <via user signal>. Shutting down mysqld (Version: 8.0.34).
+2026-03-31T08:14:14.821387-00:00 0 [Warning] [MY-010909] [Server] /opt/drycc/mysql/bin/mysqld: Forcing close of thread 11  user: 'mysql.session'.
+2026-03-31T08:15:07.572236-00:00 4 [ERROR] [MY-011640] [Repl] Plugin group_replication reported: 'Timeout on wait for view after joining group'
+2026-03-31T08:15:09.014282-00:00 0 [System] [MY-010910] [Server] /opt/drycc/mysql/bin/mysqld: Shutdown complete (mysqld 8.0.34)  Source distribution.
+
+mysql 08:15:09.48 INFO  ==> ** MySQL setup finished! **
+mysql 08:15:09.54 INFO  ==> ** Starting MySQL **
+2026-03-31T08:15:09.566494-00:00 0 [Warning] [MY-010140] [Server] Could not increase number of max_open_files to more than 1048576 (request: 2000000)
+2026-03-31T08:15:09.886014-00:00 0 [System] [MY-010116] [Server] /opt/drycc/mysql/bin/mysqld (mysqld 8.0.34) starting as process 1
+2026-03-31T08:15:09.896101-00:00 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-03-31T08:15:10.485304-00:00 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-03-31T08:15:10.674483-00:00 0 [System] [MY-013587] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' is starting.'
+2026-03-31T08:15:10.674761-00:00 0 [System] [MY-014010] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' has been started.'
+2026-03-31T08:15:10.819191-00:00 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-03-31T08:15:10.819238-00:00 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-03-31T08:15:10.873661-00:00 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /tmp/mysqlx.sock
+2026-03-31T08:15:10.873746-00:00 0 [System] [MY-010931] [Server] /opt/drycc/mysql/bin/mysqld: ready for connections. Version: '8.0.34'  socket: '/opt/drycc/mysql/tmp/mysql.sock'  port: 3306  Source distribution.
+2026-03-31T08:15:10.874171-00:00 4 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-03-31T08:15:10.883328-00:00 12 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_applier' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-03-31T08:15:27.322051-00:00 0 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-03-31T08:15:27.322050-00:00 4 [System] [MY-011511] [Repl] Plugin group_replication reported: 'This server is working as secondary member with primary member address helmbroker-mysql-0:3306.'
+2026-03-31T08:15:27.322101-00:00 0 [System] [MY-013471] [Repl] Plugin group_replication reported: 'Distributed recovery will transfer data using: Incremental recovery from a group donor'
+2026-03-31T08:15:27.322433-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:4.'
+2026-03-31T08:15:27.345728-00:00 35 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='', source_port= 3306, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='helmbroker-mysql-0', source_port= 3306, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-03-31T08:15:27.362740-00:00 36 [Warning] [MY-010897] [Server] Storing MySQL user name or password information in the connection metadata repository is not secure and is therefore not recommended. Please consider using the USER and PASSWORD connection options for START REPLICA; see the 'START REPLICA Syntax' in the MySQL Manual for more information.
+2026-03-31T08:15:27.436920-00:00 36 [System] [MY-014002] [Server] Replica receiver thread for channel 'group_replication_recovery': connected to source 'mysql_innodb_cluster_848@helmbroker-mysql-0:3306' with server_uuid=55b5a91e-2cd9-11f1-8167-1ec318bf7aa5, server_id=354. Starting GTID-based replication.
+2026-03-31T08:15:27.507891-00:00 35 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='helmbroker-mysql-0', source_port= 3306, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-03-31T08:15:27.529220-00:00 0 [System] [MY-011490] [Repl] Plugin group_replication reported: 'This server was declared online within the replication group.'
+2026-03-31T08:15:28.053039-00:00 46 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-03-31T08:15:28.146009-00:00 47 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-03-31T08:15:29.463222-00:00 55 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-03-31T08:15:30.434340-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-0:3306, helmbroker-mysql-1:3306, helmbroker-mysql-2:3306 on view 17749448316443447:5.'
+2026-03-31T08:15:33.334607-00:00 0 [Warning] [MY-011499] [Repl] Plugin group_replication reported: 'Members removed from the group: helmbroker-mysql-2:3306'
+2026-03-31T08:15:33.334847-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:6.'
+2026-03-31T08:16:48.612120-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-03-31T08:16:48.713594-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-03-31T08:16:49.815413-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-03-31T08:16:51.917198-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-03-31T08:16:55.021447-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-03-31T08:16:59.124659-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-03-31T08:17:11.686414-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-0:3306, helmbroker-mysql-1:3306, helmbroker-mysql-2:3306 on view 17749448316443447:7.'
+2026-03-31T08:17:11.893649-00:00 0 [System] [MY-011492] [Repl] Plugin group_replication reported: 'The member with address helmbroker-mysql-2:3306 was declared online within the replication group.'
+2026-03-31T08:17:12.251628-00:00 93 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-05-20T07:39:21.469063-00:00 0 [Warning] [MY-011499] [Repl] Plugin group_replication reported: 'Members removed from the group: helmbroker-mysql-2:3306'
+2026-05-20T07:39:21.469247-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:8.'
+2026-05-20T08:03:54.023157-00:00 935792 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-05-20T08:04:01.317662-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-2:3306, helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:9.'
+2026-05-20T08:04:23.423972-00:00 0 [Warning] [MY-011499] [Repl] Plugin group_replication reported: 'Members removed from the group: helmbroker-mysql-2:3306'
+2026-05-20T08:04:23.424049-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:10.'
+2026-05-20T08:05:37.338137-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-20T08:05:37.439080-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-20T08:05:38.540549-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-20T08:05:40.641768-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-20T08:05:52.465007-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-2:3306, helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:11.'
+2026-05-20T08:05:52.722602-00:00 0 [System] [MY-011492] [Repl] Plugin group_replication reported: 'The member with address helmbroker-mysql-2:3306 was declared online within the replication group.'
+2026-05-28T08:24:23.656212-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:24:23.757375-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:24:24.858697-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:24:26.960027-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:24:27.731179-00:00 0 [Warning] [MY-011493] [Repl] Plugin group_replication reported: 'Member with address helmbroker-mysql-0:3306 has become unreachable.'
+2026-05-28T08:24:30.114537-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:24:34.216613-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:24:39.320196-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:24:43.728304-00:00 0 [Warning] [MY-011499] [Repl] Plugin group_replication reported: 'Members removed from the group: helmbroker-mysql-0:3306'
+2026-05-28T08:24:43.728332-00:00 0 [System] [MY-011500] [Repl] Plugin group_replication reported: 'Primary server with address helmbroker-mysql-0:3306 left the group. Electing new Primary.'
+2026-05-28T08:24:43.728396-00:00 0 [System] [MY-011507] [Repl] Plugin group_replication reported: 'A new primary with address helmbroker-mysql-2:3306 was elected. The new primary will execute all previous group transactions before allowing writes.'
+2026-05-28T08:24:43.728749-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-2:3306, helmbroker-mysql-1:3306 on view 17749448316443447:12.'
+2026-05-28T08:24:43.729691-00:00 1085740 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-28T08:24:43.729751-00:00 1085740 [System] [MY-011511] [Repl] Plugin group_replication reported: 'This server is working as secondary member with primary member address helmbroker-mysql-2:3306.'
+2026-05-28T08:24:45.425530-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:24:52.529610-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:25:00.678099-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:25:09.783059-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:25:19.787418-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:25:29.791847-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:25:39.836517-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:25:49.840804-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-28T08:26:09.248886-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-2:3306, helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:13.'
+2026-05-28T08:26:54.474732-00:00 0 [System] [MY-011492] [Repl] Plugin group_replication reported: 'The member with address helmbroker-mysql-0:3306 was declared online within the replication group.'
+2026-05-29T09:24:18.014001-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-29T09:24:18.115227-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-29T09:24:19.216530-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-29T09:24:21.318070-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-29T09:24:23.347936-00:00 0 [Warning] [MY-011493] [Repl] Plugin group_replication reported: 'Member with address helmbroker-mysql-2:3306 has become unreachable.'
+2026-05-29T09:24:24.466416-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-29T09:24:28.567079-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-29T09:24:33.671887-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-29T09:24:39.345517-00:00 0 [Warning] [MY-011499] [Repl] Plugin group_replication reported: 'Members removed from the group: helmbroker-mysql-2:3306'
+2026-05-29T09:24:39.345548-00:00 0 [System] [MY-011500] [Repl] Plugin group_replication reported: 'Primary server with address helmbroker-mysql-2:3306 left the group. Electing new Primary.'
+2026-05-29T09:24:39.345608-00:00 0 [System] [MY-011507] [Repl] Plugin group_replication reported: 'A new primary with address helmbroker-mysql-0:3306 was elected. The new primary will execute all previous group transactions before allowing writes.'
+2026-05-29T09:24:39.346037-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:14.'
+2026-05-29T09:24:39.347054-00:00 1105244 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-29T09:24:39.347168-00:00 1105244 [System] [MY-011511] [Repl] Plugin group_replication reported: 'This server is working as secondary member with primary member address helmbroker-mysql-0:3306.'
+2026-05-29T09:24:39.777646-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-29T09:24:46.881367-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-29T09:25:04.531343-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-2:3306, helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:15.'
+2026-05-29T09:26:05.978537-00:00 0 [System] [MY-011492] [Repl] Plugin group_replication reported: 'The member with address helmbroker-mysql-2:3306 was declared online within the replication group.'
+2026-05-30T08:04:13.161591-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T08:04:13.263147-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T08:04:14.364931-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T08:04:16.466237-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T08:04:18.849593-00:00 0 [Warning] [MY-011493] [Repl] Plugin group_replication reported: 'Member with address helmbroker-mysql-0:3306 has become unreachable.'
+2026-05-30T08:04:19.613429-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T08:04:23.714209-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T08:04:28.817818-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T08:04:34.921530-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T08:04:42.026717-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T08:04:50.577798-00:00 0 [Warning] [MY-011499] [Repl] Plugin group_replication reported: 'Members removed from the group: helmbroker-mysql-0:3306'
+2026-05-30T08:04:50.577839-00:00 0 [System] [MY-011500] [Repl] Plugin group_replication reported: 'Primary server with address helmbroker-mysql-0:3306 left the group. Electing new Primary.'
+2026-05-30T08:04:50.577926-00:00 0 [System] [MY-011507] [Repl] Plugin group_replication reported: 'A new primary with address helmbroker-mysql-2:3306 was elected. The new primary will execute all previous group transactions before allowing writes.'
+2026-05-30T08:04:50.578310-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-2:3306, helmbroker-mysql-1:3306 on view 17749448316443447:16.'
+2026-05-30T08:04:50.578937-00:00 1122939 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-30T08:04:50.578986-00:00 1122939 [System] [MY-011511] [Repl] Plugin group_replication reported: 'This server is working as secondary member with primary member address helmbroker-mysql-2:3306.'
+2026-05-30T12:02:14.885639-00:00 1126038 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-05-30T12:02:17.178583-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-2:3306, helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:17.'
+2026-05-30T12:02:18.907523-00:00 1126046 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_recovery' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-05-30T12:04:21.064566-00:00 0 [Warning] [MY-011499] [Repl] Plugin group_replication reported: 'Members removed from the group: helmbroker-mysql-2:3306'
+2026-05-30T12:04:21.064600-00:00 0 [System] [MY-011500] [Repl] Plugin group_replication reported: 'Primary server with address helmbroker-mysql-2:3306 left the group. Electing new Primary.'
+2026-05-30T12:04:21.064767-00:00 0 [System] [MY-011507] [Repl] Plugin group_replication reported: 'A new primary with address helmbroker-mysql-1:3306 was elected. The new primary will execute all previous group transactions before allowing writes.'
+2026-05-30T12:04:21.066532-00:00 0 [System] [MY-011503] [Repl] Plugin group_replication reported: 'Group membership changed to helmbroker-mysql-0:3306, helmbroker-mysql-1:3306 on view 17749448316443447:18.'
+2026-05-30T12:04:21.067297-00:00 1126090 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-30T12:04:21.069027-00:00 24 [System] [MY-013731] [Repl] Plugin group_replication reported: 'The member action "mysql_disable_super_read_only_if_primary" for event "AFTER_PRIMARY_ELECTION" with priority "1" will be run.'
+2026-05-30T12:04:21.069080-00:00 24 [System] [MY-011566] [Repl] Plugin group_replication reported: 'Setting super_read_only=OFF.'
+2026-05-30T12:04:21.069291-00:00 24 [System] [MY-013731] [Repl] Plugin group_replication reported: 'The member action "mysql_start_failover_channels_if_primary" for event "AFTER_PRIMARY_ELECTION" with priority "10" will be run.'
+2026-05-30T12:04:21.070278-00:00 1126090 [System] [MY-011510] [Repl] Plugin group_replication reported: 'This server is working as primary member.'
+2026-05-30T12:05:24.290840-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:24.392279-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:25.493638-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:27.594540-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:30.824492-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:35.031547-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:40.224590-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:46.413863-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:53.600478-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:06:01.819348-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:06:11.001023-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+^Croot@server-104-102:~# kubectl -n lasm-sy1-demo5 logs helmbroker-mysql-2 
+Defaulted container "mysql" out of: mysql, metrics
+mysql 12:04:57.64 
+mysql 12:04:57.65 Welcome to the Drycc mysql container
+mysql 12:04:57.66 Subscribe to project updates by watching https://github.com/drycc/containers
+mysql 12:04:57.67 Submit issues and feature requests at https://github.com/drycc/containers/issues
+mysql 12:04:57.67 
+mysql 12:04:57.68 INFO  ==> ** Starting MySQL setup **
+mysql 12:04:57.72 INFO  ==> Validating settings in MYSQL_*/MARIADB_* env vars
+mysql 12:04:57.74 INFO  ==> Initializing mysql database
+mysql 12:04:57.77 WARN  ==> The mysql configuration file '/opt/drycc/mysql/conf/my.cnf' is not writable. Configurations based on environment variables will not be applied for this file.
+mysql 12:04:57.78 INFO  ==> Using persisted data
+mysql 12:04:57.80 INFO  ==> Running mysql_upgrade
+mysql 12:04:57.82 INFO  ==> Starting mysql in background
+2026-05-30T12:04:57.843966-00:00 0 [Warning] [MY-010140] [Server] Could not increase number of max_open_files to more than 1048576 (request: 2000000)
+2026-05-30T12:04:58.138913-00:00 0 [System] [MY-010116] [Server] /opt/drycc/mysql/bin/mysqld (mysqld 8.0.34) starting as process 40
+2026-05-30T12:04:58.151409-00:00 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-05-30T12:04:59.601909-00:00 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-05-30T12:05:00.295044-00:00 0 [System] [MY-013587] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' is starting.'
+2026-05-30T12:05:00.295498-00:00 0 [System] [MY-014010] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' has been started.'
+2026-05-30T12:05:05.545890-00:00 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2026-05-30T12:05:05.593003-00:00 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2026-05-30T12:05:07.432475-00:00 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-05-30T12:05:07.432514-00:00 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+find: ‘/docker-entrypoint-startdb.d/’: No such file or directory
+mysql 12:05:07.87 INFO  ==> Stopping mysql
+2026-05-30T12:05:14.996760-00:00 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /tmp/mysqlx.sock
+2026-05-30T12:05:14.996872-00:00 0 [System] [MY-010931] [Server] /opt/drycc/mysql/bin/mysqld: ready for connections. Version: '8.0.34'  socket: '/opt/drycc/mysql/tmp/mysql.sock'  port: 3306  Source distribution.
+2026-05-30T12:05:14.996928-00:00 0 [System] [MY-013172] [Server] Received SHUTDOWN from user <via user signal>. Shutting down mysqld (Version: 8.0.34).
+2026-05-30T12:05:14.997363-00:00 4 [ERROR] [MY-011628] [Repl] Plugin group_replication reported: 'Unable to read the server values for the read_only and super_read_only variables.'
+2026-05-30T12:05:14.997399-00:00 4 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-30T12:05:14.997413-00:00 4 [ERROR] [MY-011636] [Repl] Plugin group_replication reported: 'Could not enable the server read only mode and guarantee a safe recovery execution'
+mysql 12:05:17.93 INFO  ==> Stopping mysql
+2026-05-30T12:05:18.152816-00:00 0 [System] [MY-010910] [Server] /opt/drycc/mysql/bin/mysqld: Shutdown complete (mysqld 8.0.34)  Source distribution.
+mysql 12:05:18.96 INFO  ==> ** MySQL setup finished! **
+
+mysql 12:05:19.05 INFO  ==> ** Starting MySQL **
+2026-05-30T12:05:19.078816-00:00 0 [Warning] [MY-010140] [Server] Could not increase number of max_open_files to more than 1048576 (request: 2000000)
+2026-05-30T12:05:19.375178-00:00 0 [System] [MY-010116] [Server] /opt/drycc/mysql/bin/mysqld (mysqld 8.0.34) starting as process 1
+2026-05-30T12:05:19.385152-00:00 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-05-30T12:05:20.118725-00:00 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-05-30T12:05:20.522536-00:00 0 [System] [MY-013587] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' is starting.'
+2026-05-30T12:05:20.522780-00:00 0 [System] [MY-014010] [Repl] Plugin group_replication reported: 'Plugin 'group_replication' has been started.'
+2026-05-30T12:05:20.697555-00:00 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-05-30T12:05:20.697618-00:00 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-05-30T12:05:23.656392-00:00 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /tmp/mysqlx.sock
+2026-05-30T12:05:23.656479-00:00 0 [System] [MY-010931] [Server] /opt/drycc/mysql/bin/mysqld: ready for connections. Version: '8.0.34'  socket: '/opt/drycc/mysql/tmp/mysql.sock'  port: 3306  Source distribution.
+2026-05-30T12:05:23.657121-00:00 4 [System] [MY-011565] [Repl] Plugin group_replication reported: 'Setting super_read_only=ON.'
+2026-05-30T12:05:23.668748-00:00 12 [System] [MY-010597] [Server] 'CHANGE REPLICATION SOURCE TO FOR CHANNEL 'group_replication_applier' executed'. Previous state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''. New state source_host='<NULL>', source_port= 0, source_log_file='', source_log_pos= 4, source_bind=''.
+2026-05-30T12:05:24.097624-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:24.097710-00:00 0 [ERROR] [MY-011735] [Repl] Plugin group_replication reported: '[GCS] Error on opening a connection to peer node helmbroker-mysql-0:3306 when joining a group. My local port is: 3306.'
+2026-05-30T12:05:39.661457-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:39.866234-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:41.108325-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:43.283467-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:46.497983-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:50.698013-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:05:55.887244-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:06:02.091784-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:06:09.273515-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:06:17.444589-00:00 0 [ERROR] [MY-013780] [Repl] Plugin group_replication reported: 'Failed to establish MySQL client connection in Group Replication. Error establishing connection. Please refer to the manual to make sure that you configured Group Replication properly to work with MySQL Protocol connections.'
+2026-05-30T12:06:23.699368-00:00 4 [ERROR] [MY-011640] [Repl] Plugin group_replication reported: 'Timeout on wait for view after joining group'
+2026-05-30T12:06:23.699521-00:00 4 [ERROR] [MY-011735] [Repl] Plugin group_replication reported: '[GCS] The member is leaving a group without being on one.'
+root@server-104-102:~# ^C
+root@server-104-102:~# kubectl -n lasm-sy1-demo5  get pod |grep mysql 
+helmbroker-mysql-0                                                2/2     Running     2 (4h2m ago)   60d
+helmbroker-mysql-1                                                2/2     Running     1 (60d ago)    60d
+helmbroker-mysql-2                                                2/2     Running     0              95s
+helmbroker-mysql-cluster-init-bgbdm                               0/1     Completed   0              60d
+helmbroker-mysql-cluster-manager-7cbc9d9ddb-4wnb5                 1/1     Running     0              60d
+helmbroker-mysql-router-0                                         0/1     Running     1 (35s ago)    60d
+helmbroker-mysql-router-1                                         0/1     Running     1 (38s ago)    60d
+root@server-104-102:~# kubectl -n lasm-sy1-demo5  logs helmbroker-mysql-router-1 
+Defaulted container "router" out of: router, cluster-wait (init), router-config (init)
+2026-05-30 12:05:51 io INFO [7cbcfdc38b80] starting 48 io-threads, using backend 'linux_epoll'
+2026-05-30 12:05:51 http_server INFO [7cbcfdc38b80] listening on 0.0.0.0:8443
+2026-05-30 12:05:51 metadata_cache_plugin INFO [7cbce1f5b6c0] Starting Metadata Cache
+2026-05-30 12:05:51 metadata_cache INFO [7cbce1f5b6c0] Connections using ssl_mode 'PREFERRED'
+2026-05-30 12:05:51 metadata_cache INFO [7cbce07586c0] Starting metadata cache refresh thread
+2026-05-30 12:05:51 routing INFO [7cbccaffd6c0] [routing:bootstrap_ro] started: routing strategy = round-robin-with-fallback
+2026-05-30 12:05:51 routing INFO [7cbccaffd6c0] Start accepting connections for routing routing:bootstrap_ro listening on 6447
+2026-05-30 12:05:51 routing INFO [7cbcadffb6c0] [routing:bootstrap_x_rw] started: routing strategy = first-available
+2026-05-30 12:05:51 routing INFO [7cbcadffb6c0] Start accepting connections for routing routing:bootstrap_x_rw listening on 6448
+2026-05-30 12:05:52 routing INFO [7cbcaf7fe6c0] [routing:bootstrap_x_ro] started: routing strategy = round-robin-with-fallback
+2026-05-30 12:05:52 routing INFO [7cbcaf7fe6c0] Start accepting connections for routing routing:bootstrap_x_ro listening on 6449
+2026-05-30 12:05:52 routing INFO [7cbcc9ffb6c0] [routing:bootstrap_rw] started: routing strategy = first-available
+2026-05-30 12:05:52 routing INFO [7cbcc9ffb6c0] Start accepting connections for routing routing:bootstrap_rw listening on 6446
+2026-05-30 12:05:52 metadata_cache INFO [7cbce07586c0] Connected with metadata server running on helmbroker-mysql-2:3306
+2026-05-30 12:05:52 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:05:52 metadata_cache INFO [7cbce07586c0] Connected with metadata server running on helmbroker-mysql-0:3306
+2026-05-30 12:05:52 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:05:52 metadata_cache INFO [7cbce07586c0] Connected with metadata server running on helmbroker-mysql-1:3306
+2026-05-30 12:05:52 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
+2026-05-30 12:05:52 metadata_cache ERROR [7cbce07586c0] Failed fetching metadata from any of the 3 metadata servers.
+2026-05-30 12:05:57 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:05:57 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:05:57 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
+2026-05-30 12:06:02 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:06:02 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:06:03 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
+2026-05-30 12:06:08 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:06:08 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:06:08 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
+2026-05-30 12:06:09 routing WARNING [7cbce275c6c0] No available servers found for PRIMARY routing
+2026-05-30 12:06:09 routing ERROR [7cbcfb9e06c0] connecting to backend failed: not set (destinations:1)
+2026-05-30 12:06:13 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:06:13 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:06:13 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
+2026-05-30 12:06:18 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:06:19 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:06:19 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
+2026-05-30 12:06:19 routing WARNING [7cbce275c6c0] No available servers found for PRIMARY routing
+2026-05-30 12:06:19 routing ERROR [7cbcfb1df6c0] connecting to backend failed: not set (destinations:1)
+2026-05-30 12:06:24 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:06:24 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:06:24 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
+2026-05-30 12:06:29 routing WARNING [7cbce275c6c0] No available servers found for PRIMARY routing
+2026-05-30 12:06:29 routing ERROR [7cbcfa9bd6c0] connecting to backend failed: not set (destinations:1)
+2026-05-30 12:06:29 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:06:29 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:06:30 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
+2026-05-30 12:06:35 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:06:35 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:06:35 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
+2026-05-30 12:06:39 routing WARNING [7cbce275c6c0] No available servers found for PRIMARY routing
+2026-05-30 12:06:39 routing ERROR [7cbcfa1bc6c0] connecting to backend failed: not set (destinations:1)
+2026-05-30 12:06:40 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-2:3306 is not an online GR member - skipping.
+2026-05-30 12:06:40 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-0:3306 is not an online GR member - skipping.
+2026-05-30 12:06:40 metadata_cache WARNING [7cbce07586c0] Metadata server helmbroker-mysql-1:3306 is not a member of quorum group - skipping.
