@@ -104,6 +104,7 @@ nav:
           - mysql/backup_restore/index.md
           - 物理备份: mysql/backup_restore/physical_backup.md
           - 逻辑备份: mysql/backup_restore/logical_backup.md
+          - myshell: mysql/backup_restore/myshell.md
       - 主从复制:
           - mysql/replication/index.md
           - 异步复制: mysql/replication/replication.md

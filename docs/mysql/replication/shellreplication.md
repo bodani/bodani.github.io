@@ -12,6 +12,7 @@
 
 ```
 wget https://dev.mysql.com/get/Downloads/MySQL-Shell/mysql-shell-8.0.36-linux-glibc2.17-x86-64bit.tar.gz
+ln -s /opt/mysql/mysql-shell-8.0.36-linux-glibc2.17-x86-64bit/bin/mysqlsh /usr/local/bin/mysqlsh
 ```
 
 在Ubuntu系统上：

@@ -89,7 +89,8 @@ chmod -R 755 /dmdata/dmbak
 ```
 https://www.dameng.com/download/index.html
 cd  /opt
-https://download.dameng.com/eco/adapter/DM8/202512/dm8_20251208_x86_CentOS7_64.zip
+下载最新版  
+https://download.dameng.com/eco/adapter/DM8/202605/dm8_20260427_x86_CentOS7_64.zip
 unzip dm8_20250506_x86_rh7_64.zip
 mount -o loop dm8_20250506_x86_rh7_64.iso /mnt
 ```
@@ -222,4 +223,16 @@ from v$dm_ini where para_name= 'GLOBAL_STR_CASE_SENSITIVE';
 
 ```
 select * from SYS."V$LICENSE";
+```
+
+## 数据逻辑导出导入
+
+```
+源数据库导出
+/home/dmdba/dmdbms/bin/dexp USERID=SYSDBA/MMdba123@localhost:5236 FILE=full.dmp LOG=full_exp.log DIRECTORY=/dmdata/dmbak/ FULL=Y
+压缩导出，空间占用少，导出时间变长
+/home/dmdba/dmdbms/bin/dexp USERID=SYSDBA/MMdba123@localhost:5236 FILE=full1.dmp LOG=full_exp1.log DIRECTORY=/dmdata/dmbak/ FULL=Y COMPRESS=Y COMPRESS_LEVEL=8
+
+目标数据库导入
+/home/dmdba/dmdbms/bin/dimp USERID=SYSDBA/MMdba123@localhost:5236 FILE=full.dmp LOG=full_imp.log DIRECTORY=/dmdata/dmbak/ FULL=Y
 ```

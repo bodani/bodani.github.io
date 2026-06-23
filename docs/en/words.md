@@ -808,17 +808,26 @@
 
 > 该委员会是为调查政治腐败而成立的。
 
-divergent## divergent - 分歧的；发散的
-fraction
-arguably
-dramatic
-reckon
-forensic
-desirable
-apparent
-solely
-confers
-desire
-assumptions 假设
-coexist 共存
-sensitive 敏感
+divergent,
+divergent,
+fraction,
+arguably,
+dramatic,
+reckon,
+forensic,
+desirable,
+apparent,
+solely,
+confers,
+desire,
+assumptions,
+coexist,
+sensitive,
+initialisation,
+sequence,
+typically,
+initiate,
+individual, 
+associate,
+specification
+claim

@@ -323,6 +323,12 @@ util.exportTable("table_name", "/path/to/table.sql", {
 });
 ```
 
+实际案例
+```js
+util.dump_instance({dumpDir: "/path/to/dump",'threads': 1, 'maxRate': '8M', 'compatibility': ['strip_restricted_grants', 'strip_definers', 'ignore_missing_pks'] ,'excludeSchemas': ['mysql_innodb_cluster_metadata','sys','information_schema','performance_schema','mondb'],'compatibility':['strip_restricted_grants', 'strip_definers', 'ignore_missing_pks'] })
+
+```
+
 备份到s3
 
 ```

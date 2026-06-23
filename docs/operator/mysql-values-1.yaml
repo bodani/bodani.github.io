@@ -1,0 +1,54 @@
+# 保留原有配置
+backupProfiles: []
+credentials:
+  root:
+    host: '%'
+    password: Secret123
+    user: root
+datadirVolumeClaimTemplate:
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: topolvm-ssd
+imagePullPolicy: IfNotPresent
+instances: 3
+podSpec:
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 4Gi
+    requests:
+      cpu: 1000m
+      memory: 2Gi
+routerInstances: 2
+serverConfig:
+  mysqld:
+    innodb_buffer_pool_size: 1G
+    max_connections: "500"
+serverVersion: 8.0.40
+serviceAccountName: mysql-80-sa
+tls:
+  useSelfSigned: true
+version: 8.4
+service:
+ type: "LoadBalancer"
+# ============================================
+# 新增：启用原生 metrics
+# ============================================
+# MySQL Operator 原生 metrics 配置
+instanceService:
+  annotations:
+    prometheus.io/port: "9104"
+    prometheus.io/scrape: "true"
+metrics:
+  enable: true
+  image: prom/mysqld-exporter:v0.14.0
+  options:                   # 可选：传递给 exporter 的命令行参数
+      - --collect.info_schema.innodb_metrics
+      - --collect.info_schema.processlist 
+  # 创建 metrics 服务
+  service:
+    enabled: true
+    port: 9104
+    type: ClusterIP
+

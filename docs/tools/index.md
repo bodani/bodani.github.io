@@ -7,7 +7,7 @@ gotask
 ## 周期任务
 
 gocron
-
+https://github.com/jhuckaby/Cronicle
 ## nginx
 
 nginx manager

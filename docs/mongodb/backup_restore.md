@@ -374,3 +374,75 @@ mongoimport --host localhost:27017 \
   --file /export/users_to_upsert.json
 
 ```
+
+## 副本集备份及恢复
+```
+mongodb://用户名:密码@源节点1:端口,源节点2:端口,源节点3:端口/数据库?replicaSet=源RS名&authSource=admin
+```
+
+### 副本集数据导出
+
+全量
+```
+mongodump \
+  --uri="mongodb://user:pass@src1:27017,src2:27017,src3:27017/?replicaSet=rs0&authSource=admin" \
+  --out=/data/migrate_backup \
+  --oplog
+```
+指定库
+```
+mongodump \
+  --uri="mongodb://user:pass@src1:27017,src2:27017,src3:27017/?replicaSet=rs0&authSource=admin" \
+  --db=mydb \
+  --out=/data/migrate_backup \
+  --oplog
+```
+排除特定库
+```
+mongodump \
+  --uri="mongodb://user:pass@src1:27017,src2:27017,src3:27017/?replicaSet=rs0&authSource=admin" \
+  --excludeDatabase=admin \
+  --out=/data/migrate_backup \
+  --oplog
+```
+压缩导出
+```
+mongodump \
+  --uri="mongodb://user:pass@src1:27017,src2:27017,src3:27017/?replicaSet=rs0&authSource=admin" \
+  --excludeDatabase=admin \
+  --out=/data/migrate_backup \
+  --oplog --gzip
+```
+
+### 副本集数据导入
+
+全量
+```
+mongorestore \
+  --uri="mongodb://user:pass@dst1:27017,dst2:27017,dst3:27017/?replicaSet=rs1&authSource=admin" \
+  --dir=/data/migrate_backup \
+  --oplogReplay
+```
+指定库
+```
+mongorestore \
+  --uri="mongodb://user:pass@dst1:27017,dst2:27017,dst3:27017/?replicaSet=rs1&authSource=admin" \
+  --db=mydb \
+  --dir=/data/migrate_backup/mydb \
+  --drop \
+  --oplogReplay
+```
+
+ubuntu 安装客户端工具
+```
+# 1. 创建缺失的目录
+sudo mkdir -p /etc/apt/sources.list.d/
+
+# 2. 重新添加 MongoDB 8.0 源
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | \
+   sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+
+# 3. 更新并安装
+sudo apt-get update
+sudo apt-get install -y mongodb-database-tools
+```
