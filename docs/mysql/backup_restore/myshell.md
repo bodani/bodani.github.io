@@ -32,6 +32,13 @@ local_infile = ON
 
 ## 二、备份阶段（源库）
 
+
+### 登录并连接数据库
+
+```shell
+mysqlsh -h xxx -u xx -pxx
+```
+
 ### 2.1 备份命令
 
 ```javascript
@@ -149,6 +156,11 @@ tar -xzf mysql_dump.tar.gz
 
 ## 四、恢复阶段（目标库）
 
+### 登录并连接数据库
+
+```shell
+mysqlsh -h xxx -u xx -pxx
+```
 ### 4.1 推荐恢复命令
 
 ```javascript

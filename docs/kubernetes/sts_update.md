@@ -26,3 +26,6 @@ dba.getCluster().rejoinInstance('root@helmbroker-mysql-01-1:3306');
 集群主节点切换
 dba.getCluster().setPrimaryInstance('helmbroker-mysql-01-1:3306')
 ```
+
+- name: MALLOC_ARENA_MAX
+              value: "1"
