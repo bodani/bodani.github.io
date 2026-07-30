@@ -61,6 +61,7 @@ sudo systemctl status clickhouse-server
 </code></pre> <h3 id=2_2>2. 验证安装</h3> <pre><code class=language-bash># 使用clickhouse-client连接
 clickhouse-client
 
+clickhouse-client   --host xxx --port 9000   --user xxx   --password 'xxxx'
 # 或使用HTTP接口测试
 curl 'http://localhost:8123/'
 </code></pre> <p>在 ClickHouse 终端中执行测试命令:</p> <pre><code class=language-sql>-- 检查服务器版本

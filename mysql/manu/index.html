@@ -1,0 +1,522 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Welcome to Shaun's rabbit hole. This site serves as a personal knowledge base for me to record my thoughts and ideas. It is also a place for me to share my knowledge and experience with the world. I hope you find something useful here."><meta name=author content=Eamon><link href=https://bodani.github.io/docs/mysql/manu/ rel=canonical><link rel=icon href=../../assets/images/favicon.png><meta name=generator content="mkdocs-1.5.3, mkdocs-material-9.5.3"><title>MySQL DBA 应该掌握的 100 条命令 - TeaLabs</title><link rel=stylesheet href=../../assets/stylesheets/main.50c56a3b.min.css><link rel=stylesheet href=../../assets/stylesheets/palette.06af60db.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=../../stylesheets/extra.css><link rel=stylesheet href=../../custom-style/custom-styles.css><script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=slate data-md-color-primary=teal data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#mysql-dba-100 class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../.. title=TeaLabs class="md-header__button md-logo" aria-label=TeaLabs data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> TeaLabs </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> MySQL DBA 应该掌握的 100 条命令 </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media=(prefers-color-scheme) data-md-color-scheme=slate data-md-color-primary=teal data-md-color-accent=indigo aria-label="Switch to light mode" type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title="Switch to light mode" for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8v2m9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.71-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5Z"/></svg> </label> <input class=md-option data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme=default data-md-color-primary=green data-md-color-accent=deep_orange aria-label="Switch to dark mode" type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title="Switch to dark mode" for=__palette_2 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg> </label> <input class=md-option data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme=slate data-md-color-primary=teal data-md-color-accent=indigo aria-label="Switch to system preference" type=radio name=__palette id=__palette_2> <label class="md-header__button md-icon" title="Switch to system preference" for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg> </label> </form> <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg> </label> <nav class=md-search__options aria-label=Search> <a href=javascript:void(0) class="md-search__icon md-icon" title=Share aria-label=Share data-clipboard data-clipboard-text data-md-component=search-share tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg> </a> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../ class=md-tabs__link> MYSQL </a> </li> <li class=md-tabs__item> <a href=../../postgres/ class=md-tabs__link> PostgreSQL </a> </li> <li class=md-tabs__item> <a href=../../middleware/ class=md-tabs__link> 中间件 </a> </li> <li class=md-tabs__item> <a href=../../kubernetes/sts_update/ class=md-tabs__link> 容器 </a> </li> <li class=md-tabs__item> <a href=../../linux/ class=md-tabs__link> Linux </a> </li> <li class=md-tabs__item> <a href=../../postgres/maintenance/thinking_in_db_fd/ class=md-tabs__link> 数据库思考 </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../.. title=TeaLabs class="md-nav__button md-logo" aria-label=TeaLabs data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg> </a> TeaLabs </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1> <div class="md-nav__link md-nav__container"> <a href=../ class="md-nav__link "> <span class=md-ellipsis> MYSQL </span> </a> <label class="md-nav__link " for=__nav_1 id=__nav_1_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_1_label aria-expanded=false> <label class=md-nav__title for=__nav_1> <span class="md-nav__icon md-icon"></span> MYSQL </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../install/ class=md-nav__link> <span class=md-ellipsis> 安装 </span> </a> </li> <li class=md-nav__item> <a href=../config/ class=md-nav__link> <span class=md-ellipsis> 配置 </span> </a> </li> <li class=md-nav__item> <a href=../PrivilegeManagement/ class=md-nav__link> <span class=md-ellipsis> 权限管理 </span> </a> </li> <li class=md-nav__item> <a href=../users/ class=md-nav__link> <span class=md-ellipsis> 用户管理 </span> </a> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_6> <div class="md-nav__link md-nav__container"> <a href=../backup_restore/ class="md-nav__link "> <span class=md-ellipsis> 备份恢复 </span> </a> <label class="md-nav__link " for=__nav_1_6 id=__nav_1_6_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_6_label aria-expanded=false> <label class=md-nav__title for=__nav_1_6> <span class="md-nav__icon md-icon"></span> 备份恢复 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../backup_restore/physical_backup/ class=md-nav__link> <span class=md-ellipsis> 物理备份 </span> </a> </li> <li class=md-nav__item> <a href=../backup_restore/logical_backup/ class=md-nav__link> <span class=md-ellipsis> 逻辑备份 </span> </a> </li> <li class=md-nav__item> <a href=../backup_restore/myshell/ class=md-nav__link> <span class=md-ellipsis> myshell </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_7> <div class="md-nav__link md-nav__container"> <a href=../replication/ class="md-nav__link "> <span class=md-ellipsis> 主从复制 </span> </a> <label class="md-nav__link " for=__nav_1_7 id=__nav_1_7_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_7_label aria-expanded=false> <label class=md-nav__title for=__nav_1_7> <span class="md-nav__icon md-icon"></span> 主从复制 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../replication/replication/ class=md-nav__link> <span class=md-ellipsis> 异步复制 </span> </a> </li> <li class=md-nav__item> <a href=../replication/semisync/ class=md-nav__link> <span class=md-ellipsis> 半同步复制 </span> </a> </li> <li class=md-nav__item> <a href=../replication/shellreplication/ class=md-nav__link> <span class=md-ellipsis> mysqsh管理主从复制 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_8> <label class=md-nav__link for=__nav_1_8 id=__nav_1_8_label tabindex> <span class=md-ellipsis> 高可用 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_8_label aria-expanded=false> <label class=md-nav__title for=__nav_1_8> <span class="md-nav__icon md-icon"></span> 高可用 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../MGR/ class=md-nav__link> <span class=md-ellipsis> 组复制 </span> </a> </li> <li class=md-nav__item> <a href=../myshellMGR/ class=md-nav__link> <span class=md-ellipsis> mysqlsh管理组复制 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_9> <label class=md-nav__link for=__nav_1_9 id=__nav_1_9_label tabindex> <span class=md-ellipsis> 监控 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_9_label aria-expanded=false> <label class=md-nav__title for=__nav_1_9> <span class="md-nav__icon md-icon"></span> 监控 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../monitor/ class=md-nav__link> <span class=md-ellipsis> 指标监控 </span> </a> </li> <li class=md-nav__item> <a href=../exporter/ class=md-nav__link> <span class=md-ellipsis> exporter </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_10> <label class=md-nav__link for=__nav_1_10 id=__nav_1_10_label tabindex> <span class=md-ellipsis> 优化 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_10_label aria-expanded=false> <label class=md-nav__title for=__nav_1_10> <span class="md-nav__icon md-icon"></span> 优化 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../mysqlmem/ class=md-nav__link> <span class=md-ellipsis> 内存分析 </span> </a> </li> <li class=md-nav__item> <a href=../memory/ class=md-nav__link> <span class=md-ellipsis> 内存分析2 </span> </a> </li> <li class=md-nav__item> <a href=../table_size/ class=md-nav__link> <span class=md-ellipsis> 表存储占用分析 </span> </a> </li> <li class=md-nav__item> <a href=../performance_tuning_instance/ class=md-nav__link> <span class=md-ellipsis> 实例优化 </span> </a> </li> <li class=md-nav__item> <a href=../performance_tuning_sql/ class=md-nav__link> <span class=md-ellipsis> sql优化 </span> </a> </li> <li class=md-nav__item> <a href=../lock/ class=md-nav__link> <span class=md-ellipsis> 锁机制 </span> </a> </li> <li class=md-nav__item> <a href=../doublewrite/ class=md-nav__link> <span class=md-ellipsis> 双写缓冲区 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_11> <label class=md-nav__link for=__nav_1_11 id=__nav_1_11_label tabindex> <span class=md-ellipsis> 工具 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_11_label aria-expanded=false> <label class=md-nav__title for=__nav_1_11> <span class="md-nav__icon md-icon"></span> 工具 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../pt/ class=md-nav__link> <span class=md-ellipsis> pt-toolkit </span> </a> </li> <li class=md-nav__item> <a href=../clone/ class=md-nav__link> <span class=md-ellipsis> clone </span> </a> </li> <li class=md-nav__item> <a href=../proxy/ class=md-nav__link> <span class=md-ellipsis> proxy </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_12> <label class=md-nav__link for=__nav_1_12 id=__nav_1_12_label tabindex> <span class=md-ellipsis> 压测 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_12_label aria-expanded=false> <label class=md-nav__title for=__nav_1_12> <span class="md-nav__icon md-icon"></span> 压测 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../mysqlslap/ class=md-nav__link> <span class=md-ellipsis> mysqlslap </span> </a> </li> <li class=md-nav__item> <a href=https://bodani.github.io/mysql45 class=md-nav__link> <span class=md-ellipsis> mysql45 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_13> <label class=md-nav__link for=__nav_1_13 id=__nav_1_13_label tabindex> <span class=md-ellipsis> 运维管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_13_label aria-expanded=false> <label class=md-nav__title for=__nav_1_13> <span class="md-nav__icon md-icon"></span> 运维管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../admin/ class=md-nav__link> <span class=md-ellipsis> 管理命令 </span> </a> </li> <li class=md-nav__item> <a href=../variables2ali/ class=md-nav__link> <span class=md-ellipsis> 变量对照 </span> </a> </li> <li class=md-nav__item> <a href=../binary/ class=md-nav__link> <span class=md-ellipsis> binlog管理 </span> </a> </li> <li class=md-nav__item> <a href=../active/ class=md-nav__link> <span class=md-ellipsis> 活跃sql查看 </span> </a> </li> <li class=md-nav__item> <a href=../shell/insert/ class=md-nav__link> <span class=md-ellipsis> 批量插入数据分割脚本 </span> </a> </li> <li class=md-nav__item> <a href=../cleanup_by_rename/ class=md-nav__link> <span class=md-ellipsis> 数据清理（Rename 方案） </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_14> <div class="md-nav__link md-nav__container"> <a href=../failurecase/ class="md-nav__link "> <span class=md-ellipsis> 问题案例 </span> </a> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_14_label aria-expanded=false> <label class=md-nav__title for=__nav_1_14> <span class="md-nav__icon md-icon"></span> 问题案例 </label> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_15> <label class=md-nav__link for=__nav_1_15 id=__nav_1_15_label tabindex> <span class=md-ellipsis> 集群 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_15_label aria-expanded=false> <label class=md-nav__title for=__nav_1_15> <span class="md-nav__icon md-icon"></span> 集群 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../share/vitess/ class=md-nav__link> <span class=md-ellipsis> Vitess 水平扩容 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2> <div class="md-nav__link md-nav__container"> <a href=../../postgres/ class="md-nav__link "> <span class=md-ellipsis> PostgreSQL </span> </a> <label class="md-nav__link " for=__nav_2 id=__nav_2_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_2_label aria-expanded=false> <label class=md-nav__title for=__nav_2> <span class="md-nav__icon md-icon"></span> PostgreSQL </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2> <label class=md-nav__link for=__nav_2_2 id=__nav_2_2_label tabindex> <span class=md-ellipsis> 安装与配置 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_2_label aria-expanded=false> <label class=md-nav__title for=__nav_2_2> <span class="md-nav__icon md-icon"></span> 安装与配置 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/install/install01/ class=md-nav__link> <span class=md-ellipsis> 安装 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/install02/ class=md-nav__link> <span class=md-ellipsis> 安装详解 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/install/ class=md-nav__link> <span class=md-ellipsis> 安装进阶 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/config/ class=md-nav__link> <span class=md-ellipsis> 配置 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_3> <label class=md-nav__link for=__nav_2_3 id=__nav_2_3_label tabindex> <span class=md-ellipsis> 高可用 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_3_label aria-expanded=false> <label class=md-nav__title for=__nav_2_3> <span class="md-nav__icon md-icon"></span> 高可用 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/ha/ha_fd/ class=md-nav__link> <span class=md-ellipsis> 设计分析 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/ha/patroni/ class=md-nav__link> <span class=md-ellipsis> Patroni集群 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/ha/patroni02/ class=md-nav__link> <span class=md-ellipsis> Patroni高级 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/ha/pgautofailover/ class=md-nav__link> <span class=md-ellipsis> PGAutofailover </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/ha/repmgr/ class=md-nav__link> <span class=md-ellipsis> Repmgr </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/ha/repmgrd/ class=md-nav__link> <span class=md-ellipsis> RepmgrD </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/ha/adlock/ class=md-nav__link> <span class=md-ellipsis> 一致性 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_4> <div class="md-nav__link md-nav__container"> <a href=../../postgres/index/ class="md-nav__link "> <span class=md-ellipsis> 索引与查询优化 </span> </a> <label class="md-nav__link " for=__nav_2_4 id=__nav_2_4_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_4_label aria-expanded=false> <label class=md-nav__title for=__nav_2_4> <span class="md-nav__icon md-icon"></span> 索引与查询优化 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/index/index01/ class=md-nav__link> <span class=md-ellipsis> 索引类型及使用场景 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/index/index-invalid/ class=md-nav__link> <span class=md-ellipsis> 索引失效 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/index/index-bloom/ class=md-nav__link> <span class=md-ellipsis> Bloom索引 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/index/hypopg-index/ class=md-nav__link> <span class=md-ellipsis> 假设索引 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/index/template/ class=md-nav__link> <span class=md-ellipsis> 模板表 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/index/unlogged_table/ class=md-nav__link> <span class=md-ellipsis> 未记录表 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_5> <label class=md-nav__link for=__nav_2_5 id=__nav_2_5_label tabindex> <span class=md-ellipsis> 性能优化 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_5_label aria-expanded=false> <label class=md-nav__title for=__nav_2_5> <span class="md-nav__icon md-icon"></span> 性能优化 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/performance/fillfactor/ class=md-nav__link> <span class=md-ellipsis> 填充因子 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/stat/ class=md-nav__link> <span class=md-ellipsis> 统计信息 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/params/ class=md-nav__link> <span class=md-ellipsis> 参数优化 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/high_level_sql/ class=md-nav__link> <span class=md-ellipsis> 高级SQL </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/FunctionsandOperators/ class=md-nav__link> <span class=md-ellipsis> 连接函数 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/vacuum/ class=md-nav__link> <span class=md-ellipsis> VACUUM操作 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/vacuum_limit/ class=md-nav__link> <span class=md-ellipsis> VACUUM限制 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/hotupdate/ class=md-nav__link> <span class=md-ellipsis> 冻结机制 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/thinking_in_db_performance/ class=md-nav__link> <span class=md-ellipsis> 性能优化思考 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/thinking_in_db_tune/ class=md-nav__link> <span class=md-ellipsis> 系统调优 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_6> <label class=md-nav__link for=__nav_2_6 id=__nav_2_6_label tabindex> <span class=md-ellipsis> 数据维护 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_6_label aria-expanded=false> <label class=md-nav__title for=__nav_2_6> <span class="md-nav__icon md-icon"></span> 数据维护 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/install/toast/ class=md-nav__link> <span class=md-ellipsis> 事务管理 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/delete/ class=md-nav__link> <span class=md-ellipsis> 数据删除 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/checkpoint/ class=md-nav__link> <span class=md-ellipsis> 检查点 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/daily_management/ class=md-nav__link> <span class=md-ellipsis> 日常管理 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/bgwriter/ class=md-nav__link> <span class=md-ellipsis> BGWriter </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/tablespace/ class=md-nav__link> <span class=md-ellipsis> 表空间 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/pgstattuple/ class=md-nav__link> <span class=md-ellipsis> 空间分析 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/maintenance/pg_rewrite/ class=md-nav__link> <span class=md-ellipsis> 在线表重写 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_pathman.md class=md-nav__link> <span class=md-ellipsis> pg_pathman </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/maintenance/partition/ class=md-nav__link> <span class=md-ellipsis> 分区表 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_7> <label class=md-nav__link for=__nav_2_7 id=__nav_2_7_label tabindex> <span class=md-ellipsis> 监控分析 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_7_label aria-expanded=false> <label class=md-nav__title for=__nav_2_7> <span class="md-nav__icon md-icon"></span> 监控分析 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/tools/monitor/ class=md-nav__link> <span class=md-ellipsis> 监控基础 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/monitor-sql/ class=md-nav__link> <span class=md-ellipsis> SQL监控 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/view_pg_stat_activity/ class=md-nav__link> <span class=md-ellipsis> STAT视图 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/view_pg_stat_bgwriter/ class=md-nav__link> <span class=md-ellipsis> 统计BGWriter </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/monitor_explain/ class=md-nav__link> <span class=md-ellipsis> Explain分析 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_activity/ class=md-nav__link> <span class=md-ellipsis> 活动视图 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/dba/ class=md-nav__link> <span class=md-ellipsis> 数据库监控 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_8> <label class=md-nav__link for=__nav_2_8 id=__nav_2_8_label tabindex> <span class=md-ellipsis> 扩展模块 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_8_label aria-expanded=false> <label class=md-nav__title for=__nav_2_8> <span class="md-nav__icon md-icon"></span> 扩展模块 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/extentions/citus01/ class=md-nav__link> <span class=md-ellipsis> Citus分布式 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/extentions/citus11/ class=md-nav__link> <span class=md-ellipsis> Citus高级 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/extentions/timescaledb/ class=md-nav__link> <span class=md-ellipsis> TimescaleDB </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/extentions/pipelinedb01/ class=md-nav__link> <span class=md-ellipsis> PipelineDB </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/extentions/pipelinedb02/ class=md-nav__link> <span class=md-ellipsis> PipelineDB实战 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/extentions/pgpool2/ class=md-nav__link> <span class=md-ellipsis> PGPool-II </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/extentions/pgbouncer/ class=md-nav__link> <span class=md-ellipsis> PGBouncer </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/extentions/pg_rman/ class=md-nav__link> <span class=md-ellipsis> PGBackRMAN </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/extentions/pg_fdw/ class=md-nav__link> <span class=md-ellipsis> FDW外部表 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_9> <label class=md-nav__link for=__nav_2_9 id=__nav_2_9_label tabindex> <span class=md-ellipsis> 数据同步 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_9_label aria-expanded=false> <label class=md-nav__title for=__nav_2_9> <span class="md-nav__icon md-icon"></span> 数据同步 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/replication/replication01/ class=md-nav__link> <span class=md-ellipsis> 流复制 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/replication/replication02/ class=md-nav__link> <span class=md-ellipsis> 复制原理 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/replication/logical-replication/ class=md-nav__link> <span class=md-ellipsis> 逻辑复制 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/replication/logical-replication_failover/ class=md-nav__link> <span class=md-ellipsis> 逻辑复制故障切换 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_rewind/ class=md-nav__link> <span class=md-ellipsis> pg_rewind </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_10> <div class="md-nav__link md-nav__container"> <a href=../../postgres/backup/ class="md-nav__link "> <span class=md-ellipsis> 备份与恢复 </span> </a> <label class="md-nav__link " for=__nav_2_10 id=__nav_2_10_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_10_label aria-expanded=false> <label class=md-nav__title for=__nav_2_10> <span class="md-nav__icon md-icon"></span> 备份与恢复 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/backup/logical-backup/ class=md-nav__link> <span class=md-ellipsis> 逻辑备份 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/backup/physical-backup/ class=md-nav__link> <span class=md-ellipsis> 物理备份 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/backup/pgbackrest/ class=md-nav__link> <span class=md-ellipsis> pgBackRest </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/backup/wal-g/ class=md-nav__link> <span class=md-ellipsis> WAL-G备份 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/backup/pgcopydb/ class=md-nav__link> <span class=md-ellipsis> pgcopydb迁移 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/backup/reback/ class=md-nav__link> <span class=md-ellipsis> 数据恢复基础 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/backup/reback_supper_user/ class=md-nav__link> <span class=md-ellipsis> 超级用户恢复 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/backup/pitr/ class=md-nav__link> <span class=md-ellipsis> PITR备份恢复 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_11> <label class=md-nav__link for=__nav_2_11 id=__nav_2_11_label tabindex> <span class=md-ellipsis> 安全管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_11_label aria-expanded=false> <label class=md-nav__title for=__nav_2_11> <span class="md-nav__icon md-icon"></span> 安全管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/security/role-manager/ class=md-nav__link> <span class=md-ellipsis> 角色管理 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/security/login_nopasswd/ class=md-nav__link> <span class=md-ellipsis> 连接认证 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/security/ssl/ class=md-nav__link> <span class=md-ellipsis> SSL安全 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/security/prepare/ class=md-nav__link> <span class=md-ellipsis> 备用服务 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/security/readonly/ class=md-nav__link> <span class=md-ellipsis> 只读 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_12> <label class=md-nav__link for=__nav_2_12 id=__nav_2_12_label tabindex> <span class=md-ellipsis> 高级特性 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_12_label aria-expanded=false> <label class=md-nav__title for=__nav_2_12> <span class="md-nav__icon md-icon"></span> 高级特性 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/design/wal_lsn/ class=md-nav__link> <span class=md-ellipsis> WAL操作详解 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/design/wal_size/ class=md-nav__link> <span class=md-ellipsis> WAL配置大小 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/design/insert01/ class=md-nav__link> <span class=md-ellipsis> 高级插入技巧 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/design/upset/ class=md-nav__link> <span class=md-ellipsis> UPSERT </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/design/hll/ class=md-nav__link> <span class=md-ellipsis> HLL统计 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/design/pg_json/ class=md-nav__link> <span class=md-ellipsis> JSON处理 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/design/pg_trgm/ class=md-nav__link> <span class=md-ellipsis> TRGM相似搜索 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_13> <label class=md-nav__link for=__nav_2_13 id=__nav_2_13_label tabindex> <span class=md-ellipsis> 数据库设计 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_13_label aria-expanded=false> <label class=md-nav__title for=__nav_2_13> <span class="md-nav__icon md-icon"></span> 数据库设计 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/design/normal-form/ class=md-nav__link> <span class=md-ellipsis> 范式理论 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/design/materialized/ class=md-nav__link> <span class=md-ellipsis> 物化视图 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/design/extention/ class=md-nav__link> <span class=md-ellipsis> 扩展功能 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_14> <label class=md-nav__link for=__nav_2_14 id=__nav_2_14_label tabindex> <span class=md-ellipsis> 工具集 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_14_label aria-expanded=false> <label class=md-nav__title for=__nav_2_14> <span class="md-nav__icon md-icon"></span> 工具集 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/tools/pgbench/ class=md-nav__link> <span class=md-ellipsis> pgbench压测 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_elk/ class=md-nav__link> <span class=md-ellipsis> 集群扩展 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_prewarm/ class=md-nav__link> <span class=md-ellipsis> 预加载缓存 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_buffercache/ class=md-nav__link> <span class=md-ellipsis> 统计预缓存 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pgfincore/ class=md-nav__link> <span class=md-ellipsis> 模糊查询 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/lock_wait/ class=md-nav__link> <span class=md-ellipsis> 锁等待分析 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pgage/ class=md-nav__link> <span class=md-ellipsis> 行数统计 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pgwatch2/ class=md-nav__link> <span class=md-ellipsis> 监控系统 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_prewarm/ class=md-nav__link> <span class=md-ellipsis> 数据预热 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_lock/ class=md-nav__link> <span class=md-ellipsis> 读写分析 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_citus/ class=md-nav__link> <span class=md-ellipsis> CITUS扩展 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/wal_count/ class=md-nav__link> <span class=md-ellipsis> wal数量计算 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_15> <label class=md-nav__link for=__nav_2_15 id=__nav_2_15_label tabindex> <span class=md-ellipsis> 版本与历史 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_15_label aria-expanded=false> <label class=md-nav__title for=__nav_2_15> <span class="md-nav__icon md-icon"></span> 版本与历史 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/install/postgres12/ class=md-nav__link> <span class=md-ellipsis> 12版特性 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/postgresql-howto/ class=md-nav__link> <span class=md-ellipsis> 使用指南 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/tpch/ class=md-nav__link> <span class=md-ellipsis> TPC-H基准 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/maintenance/archive/ class=md-nav__link> <span class=md-ellipsis> 备份归档 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/extentions/citus01/ class=md-nav__link> <span class=md-ellipsis> 扩展目录 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/install/config/ class=md-nav__link> <span class=md-ellipsis> 配置文件目录 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/monitor/ class=md-nav__link> <span class=md-ellipsis> 监控目录 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_16> <label class=md-nav__link for=__nav_2_16 id=__nav_2_16_label tabindex> <span class=md-ellipsis> 架构与原理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_16_label aria-expanded=false> <label class=md-nav__title for=__nav_2_16> <span class="md-nav__icon md-icon"></span> 架构与原理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/install/cluster/ class=md-nav__link> <span class=md-ellipsis> 数据库架构 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/troubleshooting/debezium/ class=md-nav__link> <span class=md-ellipsis> 系统分析 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/troubleshooting/dts/ class=md-nav__link> <span class=md-ellipsis> 迁移与DTS </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/troubleshooting/explain/ class=md-nav__link> <span class=md-ellipsis> 系统锁定分析 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/troubleshooting/libpg/ class=md-nav__link> <span class=md-ellipsis> 登录处理流程 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_rewrite.md class=md-nav__link> <span class=md-ellipsis> 功能分析 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_17> <label class=md-nav__link for=__nav_2_17 id=__nav_2_17_label tabindex> <span class=md-ellipsis> 故障排除与问题解决 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_17_label aria-expanded=false> <label class=md-nav__title for=__nav_2_17> <span class="md-nav__icon md-icon"></span> 故障排除与问题解决 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/troubleshooting/oom/ class=md-nav__link> <span class=md-ellipsis> OOM问题 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/troubleshooting/auto_vacuum_trigger/ class=md-nav__link> <span class=md-ellipsis> 空间自动清理 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/tools/pg_prewarm/ class=md-nav__link> <span class=md-ellipsis> 数据预加载 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/troubleshooting/awsome-postgres/ class=md-nav__link> <span class=md-ellipsis> 案例研究 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3> <div class="md-nav__link md-nav__container"> <a href=../../middleware/ class="md-nav__link "> <span class=md-ellipsis> 中间件 </span> </a> <label class="md-nav__link " for=__nav_3 id=__nav_3_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_3_label aria-expanded=false> <label class=md-nav__title for=__nav_3> <span class="md-nav__icon md-icon"></span> 中间件 </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_2> <div class="md-nav__link md-nav__container"> <a href=../../clickhouse/install/ class="md-nav__link "> <span class=md-ellipsis> ClickHouse </span> </a> <label class="md-nav__link " for=__nav_3_2 id=__nav_3_2_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_2_label aria-expanded=false> <label class=md-nav__title for=__nav_3_2> <span class="md-nav__icon md-icon"></span> ClickHouse </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../clickhouse/install/install_single/ class=md-nav__link> <span class=md-ellipsis> 单机版 </span> </a> </li> <li class=md-nav__item> <a href=../../clickhouse/install/install_cluster/ class=md-nav__link> <span class=md-ellipsis> 集群版 </span> </a> </li> <li class=md-nav__item> <a href=../../clickhouse/ch-keeper/ class=md-nav__link> <span class=md-ellipsis> keeper </span> </a> </li> <li class=md-nav__item> <a href=../../clickhouse/demo/ class=md-nav__link> <span class=md-ellipsis> 表引擎 </span> </a> </li> <li class=md-nav__item> <a href=../../clickhouse/compresstion/ class=md-nav__link> <span class=md-ellipsis> 压缩 </span> </a> </li> <li class=md-nav__item> <a href=../../clickhouse/restore/ class=md-nav__link> <span class=md-ellipsis> 恢复 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_3> <label class=md-nav__link for=__nav_3_3 id=__nav_3_3_label tabindex> <span class=md-ellipsis> MongoDB </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_3_label aria-expanded=false> <label class=md-nav__title for=__nav_3_3> <span class="md-nav__icon md-icon"></span> MongoDB </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../mongodb/install/ class=md-nav__link> <span class=md-ellipsis> 安装 </span> </a> </li> <li class=md-nav__item> <a href=../../mongodb/config/ class=md-nav__link> <span class=md-ellipsis> 配置 </span> </a> </li> <li class=md-nav__item> <a href=../../mongodb/replication/ class=md-nav__link> <span class=md-ellipsis> 副本集 </span> </a> </li> <li class=md-nav__item> <a href=../../mongodb/write_concern/ class=md-nav__link> <span class=md-ellipsis> 写关注 </span> </a> </li> <li class=md-nav__item> <a href=../../mongodb/sharding/ class=md-nav__link> <span class=md-ellipsis> 分片集群 </span> </a> </li> <li class=md-nav__item> <a href=../../mongodb/privilege/ class=md-nav__link> <span class=md-ellipsis> 权限管理 </span> </a> </li> <li class=md-nav__item> <a href=../../mongodb/backup_restore/ class=md-nav__link> <span class=md-ellipsis> 备份恢复 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_4> <label class=md-nav__link for=__nav_3_4 id=__nav_3_4_label tabindex> <span class=md-ellipsis> 监控系统 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_4_label aria-expanded=false> <label class=md-nav__title for=__nav_3_4> <span class="md-nav__icon md-icon"></span> 监控系统 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../monitor/prometheus/ class=md-nav__link> <span class=md-ellipsis> Prometheus </span> </a> </li> <li class=md-nav__item> <a href=../../monitor/grafana/ class=md-nav__link> <span class=md-ellipsis> Grafana </span> </a> </li> <li class=md-nav__item> <a href=../../monitor/exporter/ class=md-nav__link> <span class=md-ellipsis> exporter </span> </a> </li> <li class=md-nav__item> <a href=../../monitor/metrics/ class=md-nav__link> <span class=md-ellipsis> 监控指标 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_5> <div class="md-nav__link md-nav__container"> <a href=../../fluentbit/ class="md-nav__link "> <span class=md-ellipsis> fluentbit </span> </a> <label class="md-nav__link " for=__nav_3_5 id=__nav_3_5_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_5_label aria-expanded=false> <label class=md-nav__title for=__nav_3_5> <span class="md-nav__icon md-icon"></span> fluentbit </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../fluentbit/intro/ class=md-nav__link> <span class=md-ellipsis> 介绍 </span> </a> </li> <li class=md-nav__item> <a href=../../fluentbit/problems/ class=md-nav__link> <span class=md-ellipsis> 问题排查 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_4> <label class=md-nav__link for=__nav_4 id=__nav_4_label tabindex> <span class=md-ellipsis> 容器 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_4_label aria-expanded=false> <label class=md-nav__title for=__nav_4> <span class="md-nav__icon md-icon"></span> 容器 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../kubernetes/sts_update/ class=md-nav__link> <span class=md-ellipsis> sts 滚动更新 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5> <div class="md-nav__link md-nav__container"> <a href=../../linux/ class="md-nav__link "> <span class=md-ellipsis> Linux </span> </a> <label class="md-nav__link " for=__nav_5 id=__nav_5_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_5_label aria-expanded=false> <label class=md-nav__title for=__nav_5> <span class="md-nav__icon md-icon"></span> Linux </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_2> <label class=md-nav__link for=__nav_5_2 id=__nav_5_2_label tabindex> <span class=md-ellipsis> 基础工具与系统管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_2_label aria-expanded=false> <label class=md-nav__title for=__nav_5_2> <span class="md-nav__icon md-icon"></span> 基础工具与系统管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/tools/ class=md-nav__link> <span class=md-ellipsis> 系统工具 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/process-comm/ class=md-nav__link> <span class=md-ellipsis> 进程管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/sysstat/ class=md-nav__link> <span class=md-ellipsis> 性能监控 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/meminfo/ class=md-nav__link> <span class=md-ellipsis> 内存管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/hard_store/ class=md-nav__link> <span class=md-ellipsis> 磁盘管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/findhidpid/ class=md-nav__link> <span class=md-ellipsis> 文件系统工具 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/time-cmd/ class=md-nav__link> <span class=md-ellipsis> 时间管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/mail/ class=md-nav__link> <span class=md-ellipsis> 邮件管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/cpu_temp/ class=md-nav__link> <span class=md-ellipsis> 电源管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/syslog/ class=md-nav__link> <span class=md-ellipsis> 系统日志 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_3> <label class=md-nav__link for=__nav_5_3 id=__nav_5_3_label tabindex> <span class=md-ellipsis> 命令详解与实用工具 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_3_label aria-expanded=false> <label class=md-nav__title for=__nav_5_3> <span class="md-nav__icon md-icon"></span> 命令详解与实用工具 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/cmd-awk/ class=md-nav__link> <span class=md-ellipsis> awk命令详解 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/cmd-gpasswd/ class=md-nav__link> <span class=md-ellipsis> gpasswd命令 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/cmd-sed/ class=md-nav__link> <span class=md-ellipsis> sed命令详解 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/cmd-vim/ class=md-nav__link> <span class=md-ellipsis> vim命令使用 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/cmd-xargs/ class=md-nav__link> <span class=md-ellipsis> xargs命令使用 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/fu-cmd/ class=md-nav__link> <span class=md-ellipsis> 其他常用命令 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/install-cmd/ class=md-nav__link> <span class=md-ellipsis> 系统安装相关命令 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/cmd-pstack/ class=md-nav__link> <span class=md-ellipsis> 安装相关脚本工具 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_4> <label class=md-nav__link for=__nav_5_4 id=__nav_5_4_label tabindex> <span class=md-ellipsis> 虚拟化与容器技术 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_4_label aria-expanded=false> <label class=md-nav__title for=__nav_5_4> <span class="md-nav__icon md-icon"></span> 虚拟化与容器技术 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/kvm01/ class=md-nav__link> <span class=md-ellipsis> KVM 虚拟化 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/kuberctl/ class=md-nav__link> <span class=md-ellipsis> K8s 管理工具 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/wind-run/ class=md-nav__link> <span class=md-ellipsis> 容器网络管理 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_5> <label class=md-nav__link for=__nav_5_5 id=__nav_5_5_label tabindex> <span class=md-ellipsis> 硬件与驱动管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_5_label aria-expanded=false> <label class=md-nav__title for=__nav_5_5> <span class="md-nav__icon md-icon"></span> 硬件与驱动管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/smartctl/ class=md-nav__link> <span class=md-ellipsis> 硬件监控 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/dmidecode/ class=md-nav__link> <span class=md-ellipsis> 硬件信息查询 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/mdadm/ class=md-nav__link> <span class=md-ellipsis> 磁盘阵列管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/hdparm/ class=md-nav__link> <span class=md-ellipsis> 硬盘性能检测 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/ipmitool/ class=md-nav__link> <span class=md-ellipsis> 远程硬件管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/cpu_utilize/ class=md-nav__link> <span class=md-ellipsis> CPU温度与利用率 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_6> <label class=md-nav__link for=__nav_5_6 id=__nav_5_6_label tabindex> <span class=md-ellipsis> 安全与权限管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_6_label aria-expanded=false> <label class=md-nav__title for=__nav_5_6> <span class="md-nav__icon md-icon"></span> 安全与权限管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/webmanage/ class=md-nav__link> <span class=md-ellipsis> 系统安全管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/nice/ class=md-nav__link> <span class=md-ellipsis> 用户权限管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/wheel/ class=md-nav__link> <span class=md-ellipsis> 临时用户组 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/no-passwd/ class=md-nav__link> <span class=md-ellipsis> 免密登录配置 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/bmcpasswd/ class=md-nav__link> <span class=md-ellipsis> sudo配置与BMC </span> </a> </li> <li class=md-nav__item> <a href=../../linux/git-nopassword/ class=md-nav__link> <span class=md-ellipsis> Git免密配置 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/resetpasswd-centos7/ class=md-nav__link> <span class=md-ellipsis> 账户密码重置 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/at-crontab/ class=md-nav__link> <span class=md-ellipsis> 任务调度管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/terminal-reuse/ class=md-nav__link> <span class=md-ellipsis> 终端会话复用 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/ln-s/ class=md-nav__link> <span class=md-ellipsis> SSH免密与连接 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/openvpn/ class=md-nav__link> <span class=md-ellipsis> 安全VPN管理 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_7> <label class=md-nav__link for=__nav_5_7 id=__nav_5_7_label tabindex> <span class=md-ellipsis> 系统配置与调优 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_7_label aria-expanded=false> <label class=md-nav__title for=__nav_5_7> <span class="md-nav__icon md-icon"></span> 系统配置与调优 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/linux_tunning/ class=md-nav__link> <span class=md-ellipsis> 系统参数调整 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/cpu-affinity/ class=md-nav__link> <span class=md-ellipsis> 进程优先级与CPU亲和性 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/kworker/ class=md-nav__link> <span class=md-ellipsis> 内核后台进程 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/qos/ class=md-nav__link> <span class=md-ellipsis> 网络QoS管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/init-centos/ class=md-nav__link> <span class=md-ellipsis> 系统启动优化 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/ubuntu2004-network/ class=md-nav__link> <span class=md-ellipsis> 网络配置Ubuntu </span> </a> </li> <li class=md-nav__item> <a href=../../linux/memtester/ class=md-nav__link> <span class=md-ellipsis> 系统内存大页 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/ssdiotimeout/ class=md-nav__link> <span class=md-ellipsis> I/O超时处理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/backlog-config/ class=md-nav__link> <span class=md-ellipsis> Backlog队列管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/swapoff/ class=md-nav__link> <span class=md-ellipsis> swap分区关闭 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_8> <label class=md-nav__link for=__nav_5_8 id=__nav_5_8_label tabindex> <span class=md-ellipsis> 存储与文件系统管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_8_label aria-expanded=false> <label class=md-nav__title for=__nav_5_8> <span class="md-nav__icon md-icon"></span> 存储与文件系统管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/lvm/ class=md-nav__link> <span class=md-ellipsis> LVM存储管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/parted/ class=md-nav__link> <span class=md-ellipsis> 磁盘分区工具 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/fastdeletfiles/ class=md-nav__link> <span class=md-ellipsis> 系统空间清理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/nospace-device/ class=md-nav__link> <span class=md-ellipsis> 无空间设备处理 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_9> <label class=md-nav__link for=__nav_5_9 id=__nav_5_9_label tabindex> <span class=md-ellipsis> 网络与协议分析 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_9_label aria-expanded=false> <label class=md-nav__title for=__nav_5_9> <span class="md-nav__icon md-icon"></span> 网络与协议分析 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/tcpdump/ class=md-nav__link> <span class=md-ellipsis> 网络抓包分析 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/iperf/ class=md-nav__link> <span class=md-ellipsis> 网络诊断工具 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/last/ class=md-nav__link> <span class=md-ellipsis> 网络状态监控 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/wget/ class=md-nav__link> <span class=md-ellipsis> 下载工具wget </span> </a> </li> <li class=md-nav__item> <a href=../../linux/stat/ class=md-nav__link> <span class=md-ellipsis> 系统资源统计 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_10> <label class=md-nav__link for=__nav_5_10 id=__nav_5_10_label tabindex> <span class=md-ellipsis> 数据恢复与备份 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_10_label aria-expanded=false> <label class=md-nav__title for=__nav_5_10> <span class="md-nav__icon md-icon"></span> 数据恢复与备份 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/ddrescue/ class=md-nav__link> <span class=md-ellipsis> 数据恢复ddrescue </span> </a> </li> <li class=md-nav__item> <a href=../../linux/fio/ class=md-nav__link> <span class=md-ellipsis> 磁盘性能测试fio </span> </a> </li> <li class=md-nav__item> <a href=../../linux/vm-config/ class=md-nav__link> <span class=md-ellipsis> VM性能配置 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/memtest/ class=md-nav__link> <span class=md-ellipsis> 内存测试 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/patch/ class=md-nav__link> <span class=md-ellipsis> 系统补丁管理 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_11> <label class=md-nav__link for=__nav_5_11 id=__nav_5_11_label tabindex> <span class=md-ellipsis> 调试与性能分析 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_11_label aria-expanded=false> <label class=md-nav__title for=__nav_5_11> <span class="md-nav__icon md-icon"></span> 调试与性能分析 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/perf/ class=md-nav__link> <span class=md-ellipsis> 性能分析工具perf </span> </a> </li> <li class=md-nav__item> <a href=../../linux/pmap/ class=md-nav__link> <span class=md-ellipsis> 内存映射分析pmap </span> </a> </li> <li class=md-nav__item> <a href=../../linux/pstack_strace/ class=md-nav__link> <span class=md-ellipsis> 进程调试 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/so/ class=md-nav__link> <span class=md-ellipsis> 符号表与共享库 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/cgroups/ class=md-nav__link> <span class=md-ellipsis> 硬件驱动分析 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_12> <label class=md-nav__link for=__nav_5_12 id=__nav_5_12_label tabindex> <span class=md-ellipsis> 安全增强工具 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_12_label aria-expanded=false> <label class=md-nav__title for=__nav_5_12> <span class="md-nav__icon md-icon"></span> 安全增强工具 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/elfutil/ class=md-nav__link> <span class=md-ellipsis> ELF工具详解 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/pid_m/ class=md-nav__link> <span class=md-ellipsis> 调试堆栈分析 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/lang/ class=md-nav__link> <span class=md-ellipsis> 软件包语言配置 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_13> <label class=md-nav__link for=__nav_5_13 id=__nav_5_13_label tabindex> <span class=md-ellipsis> 系统维护与问题解决 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_13_label aria-expanded=false> <label class=md-nav__title for=__nav_5_13> <span class="md-nav__icon md-icon"></span> 系统维护与问题解决 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../linux/lightdm/ class=md-nav__link> <span class=md-ellipsis> 轻量桌面管理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/4k-wa/ class=md-nav__link> <span class=md-ellipsis> 硬盘4K对齐 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/repo/ class=md-nav__link> <span class=md-ellipsis> 仓库远程配置 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/git-sparsecheckout/ class=md-nav__link> <span class=md-ellipsis> 版本控制优化 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/github-dns/ class=md-nav__link> <span class=md-ellipsis> DNS优化配置 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/ubuntu2004-qa/ class=md-nav__link> <span class=md-ellipsis> Ubuntu2004常见问题 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/git-objects-clean/ class=md-nav__link> <span class=md-ellipsis> Git对象清理 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/xz/ class=md-nav__link> <span class=md-ellipsis> 归档压缩 </span> </a> </li> <li class=md-nav__item> <a href=../../linux/frp/ class=md-nav__link> <span class=md-ellipsis> 便捷连接工具 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_6> <label class=md-nav__link for=__nav_6 id=__nav_6_label tabindex> <span class=md-ellipsis> 数据库思考 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_6_label aria-expanded=false> <label class=md-nav__title for=__nav_6> <span class="md-nav__icon md-icon"></span> 数据库思考 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../postgres/maintenance/thinking_in_db_fd/ class=md-nav__link> <span class=md-ellipsis> 结构设计 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/thinking_in_db_performance/ class=md-nav__link> <span class=md-ellipsis> 性能优化 </span> </a> </li> <li class=md-nav__item> <a href=../../postgres/performance/thinking_in_db_tune/ class=md-nav__link> <span class=md-ellipsis> 模块调优 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#_1 class=md-nav__link> <span class=md-ellipsis> 总结 </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=mysql-dba-100>MySQL DBA 应该掌握的 100 条命令</h1> <p>下面整理了 100 条 MySQL DBA 常用命令，主要面向 MySQL 8.0 和 MySQL 8.4 LTS。部分命令在生产环境中具有修改或终止操作的风险，执行前应确认影响范围。</p> <p>一、实例与版本信息</p> <p>01 查看 MySQL 版本</p> <pre><code class=language-sql>SELECT VERSION();
+</code></pre> <p>用于确认数据库版本，例如 MySQL 5.7、8.0 或 8.4。很多参数、系统视图和 SQL 语法都与版本相关，因此排查问题前应先确认版本。</p> <p>02 查看服务器基础信息</p> <pre><code class=language-sql>SELECT
+  @@hostname          AS hostname,
+  @@port              AS port,
+  @@server_uuid       AS server_uuid,
+  @@server_id         AS server_id,
+  @@version           AS version;
+</code></pre> <p>在多实例、主从复制或 MGR 环境中，这条命令可以快速确认当前连接的是哪台服务器。</p> <p>03 查看实例启动时间</p> <pre><code class=language-sql>SELECT
+    NOW() AS now_time,
+    FROM_UNIXTIME(UNIX_TIMESTAMP(NOW()) - CAST(VARIABLE_VALUE AS UNSIGNED)) AS startup_time,
+    CAST(VARIABLE_VALUE AS UNSIGNED) AS uptime_seconds
+FROM performance_schema.global_status
+WHERE VARIABLE_NAME = 'Uptime';
+</code></pre> <p>可用于判断实例是否刚刚发生过重启。</p> <p>04 查看数据库当前时间</p> <pre><code class=language-sql>SELECT NOW(), CURRENT_TIMESTAMP, UTC_TIMESTAMP();
+</code></pre> <p>排查日志时间、复制延迟和定时任务问题时，需要确认数据库本地时间和 UTC 时间是否一致。</p> <p>05 查看系统时区</p> <pre><code class=language-sql>SELECT @@global.time_zone, @@session.time_zone, @@system_time_zone;
+</code></pre> <p>应用写入时间异常、定时任务提前或延后时，应首先检查时区设置。</p> <p>06 查看数据库运行模式</p> <pre><code class=language-sql>SELECT @@global.sql_mode, @@session.sql_mode;
+</code></pre> <p>ONLY_FULL_GROUP_BY、STRICT_TRANS_TABLES、NO_ZERO_DATE 等模式会影响 SQL 执行行为。</p> <p>07 查看字符集配置</p> <pre><code class=language-sql>SELECT
+  @@character_set_server,
+  @@character_set_database,
+  @@character_set_connection,
+  @@character_set_client,
+  @@character_set_results;
+</code></pre> <p>用于排查乱码、字符转换和索引长度问题。</p> <p>08 查看排序规则配置</p> <pre><code class=language-sql>SELECT
+  @@collation_server,
+  @@collation_database,
+  @@collation_connection;
+</code></pre> <p>不同排序规则会影响字符串比较、排序和索引使用。</p> <p>09 查看数据目录</p> <pre><code class=language-sql>SELECT @@datadir;
+</code></pre> <p>确认 MySQL 数据文件所在目录。</p> <p>10 查看重要文件路径</p> <pre><code class=language-sql>SELECT
+  @@log_error,
+  @@pid_file,
+  @@socket,
+  @@tmpdir,
+  @@secure_file_priv;
+</code></pre> <p>用于定位错误日志、PID 文件、Socket 文件、临时目录以及文件导入导出限制目录。</p> <p>二、数据库与表对象</p> <p>11 查看所有数据库</p> <pre><code class=language-sql>SHOW DATABASES;
+</code></pre> <p>12 查看当前数据库</p> <pre><code class=language-sql>SELECT DATABASE();
+</code></pre> <p>13 查看数据库创建语句</p> <pre><code class=language-sql>SHOW CREATE DATABASE db_name;
+</code></pre> <p>可以确认数据库字符集和排序规则。</p> <p>14 查看数据库大小</p> <pre><code class=language-sql>SELECT
+  table_schema,
+  ROUND(SUM(data_length + index_length) / 1024 / 1024 / 1024, 2) AS size_gb
+FROM information_schema.tables
+GROUP BY table_schema
+ORDER BY size_gb DESC;
+</code></pre> <p>15 查看指定数据库中的表</p> <pre><code class=language-sql>SHOW FULL TABLES FROM db_name;
+</code></pre> <p>除了普通表，还可以识别视图。</p> <p>16 查看表结构</p> <pre><code class=language-sql>DESC db_name.table_name;
+</code></pre> <p>或：</p> <pre><code class=language-sql>SHOW COLUMNS FROM db_name.table_name;
+</code></pre> <p>17 查看完整建表语句</p> <pre><code class=language-sql>SHOW CREATE TABLE db_name.table_name\G
+</code></pre> <p>排查字段类型、索引、分区、字符集和存储引擎问题时，SHOW CREATE TABLE 比 DESC 更完整。</p> <p>18 查看表状态</p> <pre><code class=language-sql>SHOW TABLE STATUS FROM db_name LIKE 'table_name'\G
+</code></pre> <p>可查看存储引擎、估算行数、数据大小、索引大小和自增值。</p> <p>19 查看各表大小</p> <pre><code class=language-sql>SELECT
+  table_schema,
+  table_name,
+  table_rows,
+  ROUND(data_length / 1024 / 1024, 2) AS data_mb,
+  ROUND(index_length / 1024 / 1024, 2) AS index_mb,
+  ROUND((data_length + index_length) / 1024 / 1024, 2) AS total_mb
+FROM information_schema.tables
+WHERE table_schema = 'db_name'
+ORDER BY data_length + index_length DESC;
+</code></pre> <p>20 查看非 InnoDB 表</p> <pre><code class=language-sql>SELECT
+  table_schema,
+  table_name,
+  engine
+FROM information_schema.tables
+WHERE table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')
+AND engine &lt;&gt; 'InnoDB';
+</code></pre> <p>生产业务表通常建议统一使用 InnoDB。</p> <p>三、连接与会话排查</p> <p>21 查看当前连接</p> <pre><code class=language-sql>SHOW PROCESSLIST;
+</code></pre> <p>22 查看完整 SQL 的连接列表</p> <pre><code class=language-sql>SHOW FULL PROCESSLIST;
+</code></pre> <p>普通 SHOW PROCESSLIST 会截断 SQL 文本，排查长 SQL 时应使用 FULL。</p> <p>23 通过系统表查看连接详情</p> <pre><code class=language-sql>SELECT
+  id,
+  user,
+  host,
+  db,
+  command,
+  time,
+  state,
+  info
+FROM information_schema.processlist
+ORDER BY time DESC;
+</code></pre> <p>24 查看当前连接数</p> <pre><code class=language-sql>SHOW GLOBAL STATUS LIKE 'Threads_connected';
+</code></pre> <p>25 查看正在运行的线程数</p> <pre><code class=language-sql>SHOW GLOBAL STATUS LIKE 'Threads_running';
+</code></pre> <p>Threads_connected 高不一定代表数据库繁忙，真正需要重点关注的是 Threads_running。</p> <p>26 查看最大连接数</p> <pre><code class=language-sql>SHOW VARIABLES LIKE 'max_connections';
+</code></pre> <p>27 查看历史最大连接数</p> <pre><code class=language-sql>SHOW GLOBAL STATUS LIKE 'Max_used_connections';
+</code></pre> <p>28 查看连接使用率</p> <pre><code class=language-sql>SELECT
+  VARIABLE_VALUE AS current_connections,
+  @@max_connections AS max_connections,
+  ROUND(VARIABLE_VALUE / @@max_connections * 100, 2) AS usage_percent
+FROM performance_schema.global_status
+WHERE VARIABLE_NAME = 'Threads_connected';
+</code></pre> <p>29 按用户统计连接数</p> <pre><code class=language-sql>SELECT
+  user,
+COUNT(*) AS connection_count
+FROM information_schema.processlist
+GROUP BY user
+ORDER BY connection_count DESC;
+</code></pre> <p>30 按客户端地址统计连接数</p> <pre><code class=language-sql>SELECT
+  SUBSTRING_INDEX(host, ':', 1) AS client_ip,
+COUNT(*) AS connection_count
+FROM information_schema.processlist
+GROUP BY SUBSTRING_INDEX(host, ':', 1)
+ORDER BY connection_count DESC;
+</code></pre> <p>31 查看长时间运行的会话</p> <pre><code class=language-sql>SELECT
+  id,
+  user,
+  host,
+  db,
+  command,
+  time,
+  state,
+  info
+FROM information_schema.processlist
+WHERE command &lt;&gt; 'Sleep'
+AND time &gt; 60
+ORDER BY time DESC;
+</code></pre> <p>32 查看长时间空闲连接</p> <pre><code class=language-sql>SELECT
+  id,
+  user,
+  host,
+  db,
+  time
+FROM information_schema.processlist
+WHERE command = 'Sleep'
+AND time &gt; 600
+ORDER BY time DESC;
+</code></pre> <p>33 终止指定会话</p> <pre><code class=language-sql>KILL CONNECTION 12345;
+</code></pre> <p>该命令会断开整个连接，并回滚连接中的未提交事务。</p> <p>34 只终止当前 SQL</p> <pre><code class=language-sql>KILL QUERY 12345;
+</code></pre> <p>只终止正在执行的语句，不主动断开客户端连接。</p> <p>35 批量生成终止空闲连接命令</p> <pre><code class=language-sql>SELECT CONCAT('KILL CONNECTION ', id, ';')
+FROM information_schema.processlist
+WHERE command = 'Sleep'
+AND time &gt; 3600
+AND user NOT IN ('system user', 'event_scheduler');
+</code></pre> <p>建议先生成命令并人工核对，不要直接拼接后自动执行。</p> <p>四、事务、锁与阻塞</p> <p>36 查看当前 InnoDB 事务</p> <pre><code class=language-sql>SELECT *
+FROM information_schema.innodb_trx\G
+</code></pre> <p>37 查看运行时间最长的事务</p> <pre><code class=language-sql>SELECT
+  trx_id,
+  trx_mysql_thread_id,
+  trx_state,
+  trx_started,
+  TIMESTAMPDIFF(SECOND, trx_started, NOW()) AS trx_seconds,
+  trx_rows_locked,
+  trx_rows_modified,
+  trx_query
+FROM information_schema.innodb_trx
+ORDER BY trx_started;
+</code></pre> <p>38 查看超过 60 秒的事务</p> <pre><code class=language-sql>SELECT
+  trx_id,
+  trx_mysql_thread_id,
+  trx_started,
+  TIMESTAMPDIFF(SECOND, trx_started, NOW()) AS trx_seconds,
+  trx_rows_locked,
+  trx_rows_modified,
+  trx_query
+FROM information_schema.innodb_trx
+WHERE trx_started &lt; NOW() - INTERVAL 60 SECOND
+ORDER BY trx_started;
+</code></pre> <p>39 查看锁等待关系</p> <pre><code class=language-sql>SELECT *
+FROM performance_schema.data_lock_waits;
+</code></pre> <p>40 查看当前持有和等待的锁</p> <pre><code class=language-sql>SELECT *
+FROM performance_schema.data_locks;
+</code></pre> <p>41 使用 sys 视图查看锁等待</p> <pre><code class=language-sql>SELECT *
+FROM sys.innodb_lock_waits\G
+</code></pre> <p>该视图已经把阻塞会话、等待会话、SQL 和锁信息进行了关联，通常比直接查询 Performance Schema 更方便。</p> <p>42 查看元数据锁</p> <pre><code class=language-sql>SELECT *
+FROM performance_schema.metadata_locks
+WHERE LOCK_STATUS = 'PENDING';
+</code></pre> <p>当 ALTER TABLE、TRUNCATE TABLE、DROP TABLE 长时间卡住时，应重点检查元数据锁。</p> <p>43 查看元数据锁等待详情</p> <pre><code class=language-sql>SELECT
+  ml.object_schema,
+  ml.object_name,
+  ml.lock_type,
+  ml.lock_duration,
+  ml.lock_status,
+  t.processlist_id,
+  t.processlist_user,
+  t.processlist_host,
+  t.processlist_time,
+  t.processlist_info
+FROM performance_schema.metadata_locks ml
+JOIN performance_schema.threads t
+ON ml.owner_thread_id = t.thread_id
+WHERE ml.lock_status = 'PENDING';
+</code></pre> <p>44 查看未提交事务对应的连接</p> <pre><code class=language-sql>SELECT
+  trx.trx_id,
+  trx.trx_started,
+  trx.trx_mysql_thread_id,
+  p.user,
+  p.host,
+  p.db,
+  p.command,
+  p.time,
+  p.state,
+  p.info
+FROM information_schema.innodb_trx trx
+LEFT JOIN information_schema.processlist p
+ON trx.trx_mysql_thread_id = p.id
+ORDER BY trx.trx_started;
+</code></pre> <p>45 查看 InnoDB 引擎状态</p> <pre><code class=language-sql>SHOW ENGINE INNODB STATUS\G
+</code></pre> <p>这是排查死锁、事务、锁等待、Buffer Pool、I/O 和后台线程状态的核心命令。</p> <p>46 查看最近一次死锁</p> <pre><code class=language-sql>SHOW ENGINE INNODB STATUS\G
+</code></pre> <p>在输出中搜索：</p> <pre><code class=language-text>LATEST DETECTED DEADLOCK
+</code></pre> <p>47 开启全部死锁日志记录</p> <pre><code class=language-sql>SET GLOBAL innodb_print_all_deadlocks = ON;
+</code></pre> <p>开启后，所有检测到的死锁都会写入 MySQL 错误日志。该参数会增加少量日志量。</p> <p>48 查看事务隔离级别</p> <pre><code class=language-sql>SELECT
+  @@global.transaction_isolation,
+  @@session.transaction_isolation;
+</code></pre> <p>49 查看自动提交状态</p> <pre><code class=language-sql>SELECT @@global.autocommit, @@session.autocommit;
+</code></pre> <p>50 手工提交和回滚事务</p> <pre><code class=language-sql>COMMIT;
+
+ROLLBACK;
+</code></pre> <p>生产中出现长事务时，经常不是 SQL 执行慢，而是应用开启事务后长时间没有提交。</p> <p>五、SQL 性能分析</p> <p>51 查看 SQL 执行计划</p> <pre><code class=language-sql>EXPLAIN
+SELECT *
+FROM db_name.table_name
+WHERE id = 100;
+</code></pre> <p>52 查看 JSON 格式执行计划</p> <pre><code class=language-sql>EXPLAIN FORMAT=JSON
+SELECT *
+FROM db_name.table_name
+WHERE id = 100;
+</code></pre> <p>JSON 格式可以看到成本估算、条件过滤和访问路径等详细信息。</p> <p>53 查看实际执行计划</p> <pre><code class=language-sql>EXPLAIN ANALYZE
+SELECT *
+FROM db_name.table_name
+WHERE id = 100;
+</code></pre> <p>EXPLAIN ANALYZE 会真正执行 SQL。对于更新、删除或资源消耗较大的 SQL，必须谨慎使用。</p> <p>54 查看优化器执行轨迹</p> <pre><code class=language-sql>SET optimizer_trace = 'enabled=on';
+
+SELECT *
+FROM db_name.table_name
+WHERE id = 100;
+
+SELECT trace
+FROM information_schema.optimizer_trace\G
+</code></pre> <p>适用于分析优化器为何选择某个索引或执行计划。</p> <p>55 查看当前正在执行的 SQL</p> <pre><code class=language-sql>SELECT
+  processlist_id,
+  processlist_user,
+  processlist_host,
+  processlist_db,
+  processlist_time,
+  processlist_state,
+  processlist_info
+FROM performance_schema.threads
+WHERE type = 'FOREGROUND'
+AND processlist_command &lt;&gt; 'Sleep'
+ORDER BY processlist_time DESC;
+</code></pre> <p>56 查看累计执行时间最高的 SQL</p> <pre><code class=language-sql>SELECT
+  digest_text,
+  count_star,
+  ROUND(sum_timer_wait / 1000000000000, 2) AS total_seconds,
+  ROUND(avg_timer_wait / 1000000000000, 6) AS avg_seconds,
+  sum_rows_examined,
+  sum_rows_sent
+FROM performance_schema.events_statements_summary_by_digest
+WHERE digest_text IS NOT NULL
+ORDER BY sum_timer_wait DESC
+LIMIT 20;
+</code></pre> <p>57 查看平均执行时间最高的 SQL</p> <pre><code class=language-sql>SELECT
+  digest_text,
+  count_star,
+  ROUND(avg_timer_wait / 1000000000000, 6) AS avg_seconds,
+  ROUND(max_timer_wait / 1000000000000, 6) AS max_seconds,
+  sum_rows_examined,
+  sum_rows_sent
+FROM performance_schema.events_statements_summary_by_digest
+WHERE count_star &gt;= 10
+ORDER BY avg_timer_wait DESC
+LIMIT 20;
+</code></pre> <p>58 查看扫描行数最多的 SQL</p> <pre><code class=language-sql>SELECT
+  digest_text,
+  count_star,
+  sum_rows_examined,
+  sum_rows_sent,
+  ROUND(sum_rows_examined / NULLIF(sum_rows_sent, 0), 2) AS examine_send_ratio
+FROM performance_schema.events_statements_summary_by_digest
+ORDER BY sum_rows_examined DESC
+LIMIT 20;
+</code></pre> <p>59 查看未使用索引的 SQL</p> <pre><code class=language-sql>SELECT
+  digest_text,
+  count_star,
+  sum_no_index_used,
+  sum_no_good_index_used,
+  sum_rows_examined
+FROM performance_schema.events_statements_summary_by_digest
+WHERE sum_no_index_used &gt; 0
+   OR sum_no_good_index_used &gt; 0
+ORDER BY sum_no_index_used DESC
+LIMIT 20;
+</code></pre> <p>这里的“未使用索引”不一定代表 SQL 必须优化，小表全表扫描有时比走索引更合理。</p> <p>60 查看产生临时表较多的 SQL</p> <pre><code class=language-sql>SELECT
+  digest_text,
+  count_star,
+  sum_created_tmp_tables,
+  sum_created_tmp_disk_tables
+FROM performance_schema.events_statements_summary_by_digest
+WHERE sum_created_tmp_tables &gt; 0
+ORDER BY sum_created_tmp_disk_tables DESC
+LIMIT 20;
+</code></pre> <p>61 查看排序次数较多的 SQL</p> <pre><code class=language-sql>SELECT
+  digest_text,
+  count_star,
+  sum_sort_rows,
+  sum_sort_scan,
+  sum_sort_range,
+  sum_sort_merge_passes
+FROM performance_schema.events_statements_summary_by_digest
+WHERE sum_sort_rows &gt; 0
+ORDER BY sum_sort_rows DESC
+LIMIT 20;
+</code></pre> <p>62 查看全表扫描较多的表</p> <pre><code class=language-sql>SELECT *
+FROM sys.schema_tables_with_full_table_scans
+ORDER BY rows_full_scanned DESC
+LIMIT 20;
+</code></pre> <p>63 查看最耗时的 SQL</p> <pre><code class=language-sql>SELECT *
+FROM sys.statement_analysis
+ORDER BY total_latency DESC
+LIMIT 20;
+</code></pre> <p>64 查看当前会话最近执行的 SQL</p> <pre><code class=language-sql>SELECT
+  event_id,
+  sql_text,
+  rows_examined,
+  rows_sent,
+  timer_wait
+FROM performance_schema.events_statements_history
+WHERE thread_id = PS_CURRENT_THREAD_ID()
+ORDER BY event_id DESC;
+</code></pre> <p>65 清空 SQL 摘要统计</p> <pre><code class=language-sql>TRUNCATE TABLE performance_schema.events_statements_summary_by_digest;
+</code></pre> <p>该操作不会清除业务数据，但会重置 SQL 聚合统计。执行前应确认是否还需要保留历史性能数据。</p> <p>六、索引与表结构分析</p> <p>66 查看表索引</p> <pre><code class=language-sql>SHOW INDEX FROM db_name.table_name;
+</code></pre> <p>67 查看索引列顺序</p> <pre><code class=language-sql>SELECT
+  index_name,
+  non_unique,
+  seq_in_index,
+  column_name,
+  cardinality,
+  nullable
+FROM information_schema.statistics
+WHERE table_schema = 'db_name'
+AND table_name = 'table_name'
+ORDER BY index_name, seq_in_index;
+</code></pre> <p>68 查看没有主键的表</p> <pre><code class=language-sql>SELECT
+  t.table_schema,
+  t.table_name
+FROM information_schema.tables t
+LEFT JOIN information_schema.table_constraints c
+ON t.table_schema = c.table_schema
+ AND t.table_name = c.table_name
+ AND c.constraint_type = 'PRIMARY KEY'
+WHERE t.table_type = 'BASE TABLE'
+AND t.engine = 'InnoDB'
+AND t.table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')
+AND c.constraint_name IS NULL;
+</code></pre> <p>69 查看重复或冗余索引</p> <pre><code class=language-sql>SELECT *
+FROM sys.schema_redundant_indexes;
+</code></pre> <p>删除冗余索引前，应结合 SQL 使用情况和业务特征确认，不能仅凭系统视图直接删除。</p> <p>70 查看未使用索引</p> <pre><code class=language-sql>SELECT *
+FROM sys.schema_unused_indexes;
+</code></pre> <p>该视图的数据来源于实例启动后的统计。实例刚重启时，结果通常不具备参考价值。</p> <p>71 查看表的索引使用情况</p> <pre><code class=language-sql>SELECT *
+FROM sys.schema_index_statistics
+WHERE table_schema = 'db_name'
+AND table_name = 'table_name'
+ORDER BY rows_selected DESC;
+</code></pre> <p>72 更新表统计信息</p> <pre><code class=language-sql>ANALYZE TABLE db_name.table_name;
+</code></pre> <p>当表数据发生大规模变化，执行计划明显异常时，可以考虑重新收集统计信息。</p> <p>73 检查表</p> <pre><code class=language-sql>CHECK TABLE db_name.table_name;
+</code></pre> <p>74 优化表</p> <pre><code class=language-sql>OPTIMIZE TABLE db_name.table_name;
+</code></pre> <p>对于 InnoDB，通常会重建表。大表执行可能占用大量 I/O、临时空间，并造成元数据锁影响。</p> <p>75 查看表碎片估算</p> <pre><code class=language-sql>SELECT
+  table_schema,
+  table_name,
+  engine,
+  ROUND(data_length / 1024 / 1024, 2) AS data_mb,
+  ROUND(data_free / 1024 / 1024, 2) AS data_free_mb
+FROM information_schema.tables
+WHERE table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')
+AND data_free &gt; 0
+ORDER BY data_free DESC;
+</code></pre> <p>data_free 不能简单等同于真实可回收碎片，尤其在共享表空间和分区表环境中需要谨慎解释。</p> <p>七、InnoDB 与内存状态</p> <p>76 查看 Buffer Pool 大小</p> <pre><code class=language-sql>SHOW VARIABLES LIKE 'innodb_buffer_pool_size';
+</code></pre> <p>77 查看 Buffer Pool 实例数量</p> <pre><code class=language-sql>SHOW VARIABLES LIKE 'innodb_buffer_pool_instances';
+</code></pre> <p>部分新版本中该参数的行为和可配置性可能发生变化，应结合实际版本确认。</p> <p>78 查看 Buffer Pool 命中相关指标</p> <pre><code class=language-sql>SHOW GLOBAL STATUS
+WHERE Variable_name IN (
+'Innodb_buffer_pool_read_requests',
+'Innodb_buffer_pool_reads'
+);
+</code></pre> <p>逻辑读请求与物理读次数的比例可以用于估算 Buffer Pool 命中率。</p> <p>79 计算 Buffer Pool 命中率</p> <pre><code class=language-sql>SELECT
+  ROUND(
+    (
+1 -
+      reads.variable_value /
+      NULLIF(requests.variable_value, 0)
+    ) * 100,
+</code></pre> <p>4</p> <p>) AS buffer_pool_hit_percent</p> <p>FROM performance_schema.global_status reads</p> <p>JOIN performance_schema.global_status requests</p> <p>WHERE reads.variable_name = 'Innodb_buffer_pool_reads'</p> <p>AND requests.variable_name = 'Innodb_buffer_pool_read_requests';</p> <p>命中率高并不代表数据库一定没有 I/O 问题，还需要结合工作集大小、随机读延迟和 SQL 访问模式判断。</p> <p>80 查看脏页数量</p> <pre><code class=language-sql>SHOW GLOBAL STATUS LIKE 'Innodb_buffer_pool_pages_dirty';
+</code></pre> <p>81 查看 Buffer Pool 页面状态</p> <pre><code class=language-sql>SHOW GLOBAL STATUS
+WHERE Variable_name IN (
+'Innodb_buffer_pool_pages_total',
+'Innodb_buffer_pool_pages_free',
+'Innodb_buffer_pool_pages_data',
+'Innodb_buffer_pool_pages_dirty'
+);
+</code></pre> <p>82 查看 InnoDB 日志相关参数</p> <pre><code class=language-sql>SHOW VARIABLES
+WHERE Variable_name IN (
+'innodb_redo_log_capacity',
+'innodb_log_buffer_size',
+'innodb_flush_log_at_trx_commit',
+'sync_binlog'
+);
+</code></pre> <p>innodb_flush_log_at_trx_commit 与 sync_binlog 直接影响事务持久性和写入性能。</p> <p>83 查看 InnoDB 数据读写统计</p> <pre><code class=language-sql>SHOW GLOBAL STATUS
+WHERE Variable_name IN (
+'Innodb_data_reads',
+'Innodb_data_writes',
+'Innodb_data_read',
+'Innodb_data_written',
+'Innodb_os_log_written'
+);
+</code></pre> <p>84 查看行操作统计</p> <pre><code class=language-sql>SHOW GLOBAL STATUS
+WHERE Variable_name IN (
+'Innodb_rows_read',
+'Innodb_rows_inserted',
+'Innodb_rows_updated',
+'Innodb_rows_deleted'
+);
+</code></pre> <p>85 查看临时表使用情况</p> <pre><code class=language-sql>SHOW GLOBAL STATUS
+WHERE Variable_name IN (
+'Created_tmp_tables',
+'Created_tmp_disk_tables',
+'Created_tmp_files'
+);
+</code></pre> <p>磁盘临时表比例过高时，应检查 SQL、tmp_table_size、max_heap_table_size 和 TempTable 引擎配置。</p> <p>八、日志与慢 SQL</p> <p>86 查看慢查询日志配置</p> <pre><code class=language-sql>SHOW VARIABLES
+WHERE Variable_name IN (
+'slow_query_log',
+'slow_query_log_file',
+'long_query_time',
+'log_queries_not_using_indexes',
+'min_examined_row_limit'
+);
+</code></pre> <p>87 动态开启慢查询日志</p> <pre><code class=language-sql>SET GLOBAL slow_query_log = ON;
+</code></pre> <p>88 设置慢查询阈值</p> <pre><code class=language-sql>SET GLOBAL long_query_time = 1;
+</code></pre> <p>该设置只对新连接生效。已有会话可能仍使用原来的会话级参数。</p> <p>89 查看二进制日志配置</p> <pre><code class=language-sql>SHOW VARIABLES
+WHERE Variable_name IN (
+'log_bin',
+'log_bin_basename',
+'binlog_format',
+'binlog_row_image',
+'binlog_expire_logs_seconds'
+);
+</code></pre> <p>90 查看当前二进制日志位置</p> <pre><code class=language-sql>SHOW MASTER STATUS;
+</code></pre> <p>在部分较新的 MySQL 版本中，推荐使用兼容的新命令：</p> <pre><code class=language-sql>SHOW BINARY LOG STATUS;
+</code></pre> <p>91 查看所有二进制日志文件</p> <pre><code class=language-sql>SHOW BINARY LOGS;
+</code></pre> <p>92 查看二进制日志事件</p> <pre><code class=language-sql>SHOW BINLOG EVENTS
+IN 'mysql-bin.000001'
+LIMIT 100;
+</code></pre> <p>对于 Row 格式的完整行数据解析，通常需要使用 mysqlbinlog。</p> <p>93 使用 mysqlbinlog 解析日志</p> <pre><code class=language-bash>mysqlbinlog \
+  --base64-output=DECODE-ROWS \
+  -vv \
+  mysql-bin.000001
+</code></pre> <p>94 按时间范围解析 Binlog</p> <pre><code class=language-bash>mysqlbinlog \
+  --start-datetime='2026-07-16 10:00:00' \
+  --stop-datetime='2026-07-16 11:00:00' \
+  --base64-output=DECODE-ROWS \
+  -vv \
+  mysql-bin.000001
+</code></pre> <p>该命令常用于误操作恢复和数据审计。</p> <p>九、主从复制与复制延迟</p> <p>95 查看复制状态</p> <p>传统术语环境：</p> <pre><code class=language-sql>SHOW SLAVE STATUS\G
+</code></pre> <p>MySQL 8.0 推荐使用：</p> <pre><code class=language-sql>SHOW REPLICA STATUS\G
+</code></pre> <p>重点关注以下字段：</p> <pre><code class=language-text>Replica_IO_Running
+Replica_SQL_Running
+Seconds_Behind_Source
+Last_IO_Error
+Last_SQL_Error
+Retrieved_Gtid_Set
+Executed_Gtid_Set
+</code></pre> <p>96 查看复制连接和应用线程</p> <pre><code class=language-sql>SELECT *
+FROM performance_schema.replication_connection_status\G
+SELECT *
+FROM performance_schema.replication_applier_status\G
+</code></pre> <p>97 查看复制工作线程状态</p> <pre><code class=language-sql>SELECT
+  channel_name,
+  worker_id,
+  thread_id,
+  service_state,
+  last_error_number,
+  last_error_message,
+  last_error_timestamp
+FROM performance_schema.replication_applier_status_by_worker;
+</code></pre> <p>并行复制环境中，某一个 Worker 报错可能导致整个 SQL 线程停止。</p> <p>98 停止和启动复制</p> <pre><code class=language-sql>STOP REPLICA;
+
+START REPLICA;
+</code></pre> <p>只控制 I/O 线程或 SQL 线程：</p> <pre><code class=language-sql>STOP REPLICA IO_THREAD;
+
+START REPLICA IO_THREAD;
+
+STOP REPLICA SQL_THREAD;
+
+START REPLICA SQL_THREAD;
+</code></pre> <p>99 查看 GTID 状态</p> <pre><code class=language-sql>SELECT
+  @@global.gtid_executed,
+  @@global.gtid_purged,
+  @@global.enforce_gtid_consistency,
+  @@global.gtid_mode;
+</code></pre> <p>GTID 环境中，恢复、搭建复制和主从切换都需要重点确认这几个值。</p> <p>十、备份、权限与安全</p> <p>100 使用 mysqldump 进行逻辑备份</p> <pre><code class=language-bash>mysqldump \
+  -h 127.0.0.1 \
+  -P 3306 \
+  -u backup_user \
+  -p \
+  --single-transaction \
+  --routines \
+  --events \
+  --triggers \
+  --set-gtid-purged=OFF \
+  --databases db_name \
+  &gt; db_name_$(date +%F).sql
+</code></pre> <p>其中：</p> <p>• --single-transaction：对 InnoDB 表执行一致性备份，避免长时间锁表；</p> <p>• --routines：备份存储过程和函数；</p> <p>• --events：备份 Event Scheduler 事件；</p> <p>• --triggers：备份触发器；</p> <p>• --set-gtid-purged=OFF：避免导出文件自动写入 GTID 相关语句。</p> <p>恢复命令：</p> <pre><code class=language-bash>mysql \
+  -h 127.0.0.1 \
+  -P 3306 \
+  -u root \
+  -p \
+  &lt; db_name_2026-07-16.sql
+</code></pre> <p>在生产环境中，mysqldump 更适合中小规模数据库。对于数百 GB 或 TB 级数据库，应优先考虑 MySQL Enterprise Backup、Percona XtraBackup、存储快照或云数据库物理备份能力。</p> <p>DBA 经常使用的权限检查命令</p> <p>虽然前面已经列满 100 条，但权限排查同样是日常工作的高频场景，下面几条建议单独保留。</p> <p>查看用户：</p> <pre><code class=language-sql>SELECT
+  user,
+  host,
+  plugin,
+  account_locked,
+  password_expired
+FROM mysql.user;
+</code></pre> <p>查看用户权限：</p> <pre><code class=language-sql>SHOW GRANTS FOR 'app_user'@'%';
+</code></pre> <p>创建用户：</p> <pre><code class=language-sql>CREATE USER 'app_user'@'10.%'
+IDENTIFIED BY 'StrongPassword';
+</code></pre> <p>授权：</p> <pre><code class=language-sql>GRANT SELECT, INSERT, UPDATE, DELETE
+ON db_name.*
+TO 'app_user'@'10.%';
+</code></pre> <p>回收权限：</p> <pre><code class=language-sql>REVOKE DELETE
+ON db_name.*
+FROM 'app_user'@'10.%';
+</code></pre> <p>修改密码：</p> <pre><code class=language-sql>ALTER USER 'app_user'@'10.%'
+IDENTIFIED BY 'NewStrongPassword';
+</code></pre> <p>锁定用户：</p> <pre><code class=language-sql>ALTER USER 'app_user'@'10.%' ACCOUNT LOCK;
+</code></pre> <p>解锁用户：</p> <pre><code class=language-sql>ALTER USER 'app_user'@'10.%' ACCOUNT UNLOCK;
+</code></pre> <p>删除用户：</p> <pre><code class=language-sql>DROP USER 'app_user'@'10.%';
+</code></pre> <h2 id=_1>总结</h2> <p>对于 MySQL DBA 来说，这 100 条命令真正需要形成的不是记忆，而是一套排查顺序。</p> <p>当数据库出现故障时，可以按照下面的路径进行判断：</p> <ul> <li> <p>先确认实例、版本和连接对象是否正确；</p> </li> <li> <p>检查连接数、运行线程和长时间会话；</p> </li> <li> <p>检查事务、行锁、元数据锁和阻塞链；</p> </li> <li> <p>分析当前 SQL、历史高负载 SQL 和执行计划；</p> </li> <li> <p>检查 Buffer Pool、磁盘临时表、Redo 和 InnoDB I/O；</p> </li> <li> <p>检查慢查询日志、错误日志和 Binlog；</p> </li> <li> <p>在复制环境中检查 I/O 线程、SQL 线程、Worker 和 GTID；</p> </li> <li> <p>最后再决定是否终止会话、重建索引、修改参数或重启实例。</p> </li> </ul> <p>很多线上事故之所以处理时间长，并不是因为 DBA 不会执行命令，而是一开始就把排查方向选错了。CPU 高只是现象，连接数高只是现象，复制延迟同样只是现象。真正有效的排查，始终要回到会话、事务、等待、SQL 和资源消耗之间的因果关系。</p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg> Back to top </button> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> <div class=md-copyright__highlight> Copyright &copy; 2026 | Eamon </div> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <div class=md-progress data-md-component=progress role=progressbar></div> <script id=__config type=application/json>{"base": "../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.indexes", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../assets/javascripts/bundle.d7c377c4.min.js></script> <script src=../../custom-js/custom-js.js></script> <script src=../../redirect-md.js></script> </body> </html>
