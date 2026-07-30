@@ -1,8 +1,4 @@
----
-title: "Access Modify Change 三种时间戳"
-date: 2018-12-20T13:56:24+08:00
-draft: false
----
+# Access Modify Change 三种时间戳
 
 #### 三种时间对应关系
 - 访问时间  Access  atime  

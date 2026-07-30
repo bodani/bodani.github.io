@@ -1,8 +1,4 @@
----
-title: "memtest 检测内存"
-date: 2019-01-14T15:40:01+08:00
-draft: false
----
+# memtest 检测内存
 
 ```
 

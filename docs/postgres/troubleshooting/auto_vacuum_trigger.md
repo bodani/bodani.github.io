@@ -1,20 +1,16 @@
----
-title: "auto vacuum 触发机制"
-date: 2021-01-08T09:20:56+08:00
-draft: false
-categories: ["postgres"]
-toc : false
----
+# auto vacuum 触发机制
+
+分析 PostgreSQL autovacuum / autoanalyze 的触发条件，以及触发阈值两侧（配置统计与实时计数器）的来源。
 
 ## 数据库自动垃圾回收触发条件分析
 
- 在postgres 中 垃圾回收的重要意义及在执行垃圾回收时具体都做了些什么很多地方都有介绍。
+在postgres 中 垃圾回收的重要意义及在执行垃圾回收时具体都做了些什么很多地方都有介绍。
  
- 但是何时触发垃圾回收，即垃圾回收的触发条件是什么。
+但是何时触发垃圾回收，即垃圾回收的触发条件是什么。
 
- 官网的介绍一般是有如下几个参数决定
+官网的介绍一般是有如下几个参数决定
 
-```
+```ini
 #autovacuum = on                        # Enable autovacuum subprocess?  'on'
 #autovacuum_vacuum_threshold = 50       # min number of row updates before vacuum
 #autovacuum_analyze_threshold = 50      # min number of row updates before analyze
@@ -31,9 +27,9 @@ toc : false
 
 即：if (当前表更新数> 触发阀值) do ...
 
-#### 等号右边的理解
+### 等号右边的理解
 
-```
+```sql
 -- 触发自动analyze
 pg_class.reltuples*autovacuum_analyze_scale_factor+autovacuum_analyze_threshold
 -- 触发自动autovacuum
@@ -47,7 +43,7 @@ pg_class.reltuples 来自系统统计表，在analyze 后更新。
 
 [测试参考](https://blog.csdn.net/cmzhuang/article/details/84643618)
 
-#### 思考的是等号左边的事情
+### 思考的是等号左边的事情
 
 数据库是如何知道当前更新的数量, 按照已有的经验（经验不足）。
 
@@ -68,41 +64,41 @@ pg_class.reltuples 来自系统统计表，在analyze 后更新。
 首先表中更新的数据量统计应该是一个很轻量快速的方法。类似于计数器实现,并且独立于传统的统计信息。接下来在数据库开始寻找这种计数器。
 
 
-#### 真相
+### 真相
 
 ‘计数器’ 是有stats collector 进程来维护。 当数据库进行dml操作时，stats collector 进行实时计数统计。该值存在于pg_stat_all_table 中
 
 
 查看pg_stats_all_table 表定义
-```
+```sql
 postgres=# \d+ pg_stat_all_tables 
                            视图 "pg_catalog.pg_stat_all_tables"
         栏位         |           类型           | 校对规则 | 可空的 | 预设 | 存储  | 描述 
 ---------------------+--------------------------+----------+--------+------+-------+------
- relid               | oid                      |          |        |      | plain | 
- schemaname          | name                     |          |        |      | plain | 
- relname             | name                     |          |        |      | plain | 
- seq_scan            | bigint                   |          |        |      | plain | 
- seq_tup_read        | bigint                   |          |        |      | plain | 
- idx_scan            | bigint                   |          |        |      | plain | 
- idx_tup_fetch       | bigint                   |          |        |      | plain | 
- n_tup_ins           | bigint                   |          |        |      | plain | 
- n_tup_upd           | bigint                   |          |        |      | plain | 
- n_tup_del           | bigint                   |          |        |      | plain | 
- n_tup_hot_upd       | bigint                   |          |        |      | plain | 
- n_live_tup          | bigint                   |          |        |      | plain | 
- n_dead_tup          | bigint                   |          |        |      | plain | 
- n_mod_since_analyze | bigint                   |          |        |      | plain | 
- last_vacuum         | timestamp with time zone |          |        |      | plain | 
- last_autovacuum     | timestamp with time zone |          |        |      | plain | 
- last_analyze        | timestamp with time zone |          |        |      | plain | 
- last_autoanalyze    | timestamp with time zone |          |        |      | plain | 
- vacuum_count        | bigint                   |          |        |      | plain | 
- autovacuum_count    | bigint                   |          |        |      | plain | 
- analyze_count       | bigint                   |          |        |      | plain | 
- autoanalyze_count   | bigint                   |          |        |      | plain | 
+relid               | oid                      |          |        |      | plain | 
+schemaname          | name                     |          |        |      | plain | 
+relname             | name                     |          |        |      | plain | 
+seq_scan            | bigint                   |          |        |      | plain | 
+seq_tup_read        | bigint                   |          |        |      | plain | 
+idx_scan            | bigint                   |          |        |      | plain | 
+idx_tup_fetch       | bigint                   |          |        |      | plain | 
+n_tup_ins           | bigint                   |          |        |      | plain | 
+n_tup_upd           | bigint                   |          |        |      | plain | 
+n_tup_del           | bigint                   |          |        |      | plain | 
+n_tup_hot_upd       | bigint                   |          |        |      | plain | 
+n_live_tup          | bigint                   |          |        |      | plain | 
+n_dead_tup          | bigint                   |          |        |      | plain | 
+n_mod_since_analyze | bigint                   |          |        |      | plain | 
+last_vacuum         | timestamp with time zone |          |        |      | plain | 
+last_autovacuum     | timestamp with time zone |          |        |      | plain | 
+last_analyze        | timestamp with time zone |          |        |      | plain | 
+last_autoanalyze    | timestamp with time zone |          |        |      | plain | 
+vacuum_count        | bigint                   |          |        |      | plain | 
+autovacuum_count    | bigint                   |          |        |      | plain | 
+analyze_count       | bigint                   |          |        |      | plain | 
+autoanalyze_count   | bigint                   |          |        |      | plain | 
 视图定义:
- SELECT c.oid AS relid,
+SELECT c.oid AS relid,
     n.nspname AS schemaname,
     c.relname,
     pg_stat_get_numscans(c.oid) AS seq_scan,
@@ -134,44 +130,44 @@ postgres=# \d+ pg_stat_all_tables
 原来是表oid上各种维度的计数器，
 
 查看pg_class 结构
-```
+```sql
 postgres=# \d+ pg_class
                                  数据表 "pg_catalog.pg_class"
         栏位         |     类型     | 校对规则 |  可空的  | 预设 |   存储   | 统计目标 | 描述 
 ---------------------+--------------+----------+----------+------+----------+----------+------
- relname             | name         |          | not null |      | plain    |          | 
- relnamespace        | oid          |          | not null |      | plain    |          | 
- reltype             | oid          |          | not null |      | plain    |          | 
- reloftype           | oid          |          | not null |      | plain    |          | 
- relowner            | oid          |          | not null |      | plain    |          | 
- relam               | oid          |          | not null |      | plain    |          | 
- relfilenode         | oid          |          | not null |      | plain    |          | 
- reltablespace       | oid          |          | not null |      | plain    |          | 
- relpages            | integer      |          | not null |      | plain    |          | 
- reltuples           | real         |          | not null |      | plain    |          | 
- relallvisible       | integer      |          | not null |      | plain    |          | 
- reltoastrelid       | oid          |          | not null |      | plain    |          | 
- relhasindex         | boolean      |          | not null |      | plain    |          | 
- relisshared         | boolean      |          | not null |      | plain    |          | 
- relpersistence      | "char"       |          | not null |      | plain    |          | 
- relkind             | "char"       |          | not null |      | plain    |          | 
- relnatts            | smallint     |          | not null |      | plain    |          | 
- relchecks           | smallint     |          | not null |      | plain    |          | 
- relhasoids          | boolean      |          | not null |      | plain    |          | 
- relhaspkey          | boolean      |          | not null |      | plain    |          | 
- relhasrules         | boolean      |          | not null |      | plain    |          | 
- relhastriggers      | boolean      |          | not null |      | plain    |          | 
- relhassubclass      | boolean      |          | not null |      | plain    |          | 
- relrowsecurity      | boolean      |          | not null |      | plain    |          | 
- relforcerowsecurity | boolean      |          | not null |      | plain    |          | 
- relispopulated      | boolean      |          | not null |      | plain    |          | 
- relreplident        | "char"       |          | not null |      | plain    |          | 
- relispartition      | boolean      |          | not null |      | plain    |          | 
- relfrozenxid        | xid          |          | not null |      | plain    |          | 
- relminmxid          | xid          |          | not null |      | plain    |          | 
- relacl              | aclitem[]    |          |          |      | extended |          | 
- reloptions          | text[]       |          |          |      | extended |          | 
- relpartbound        | pg_node_tree |          |          |      | extended |          | 
+relname             | name         |          | not null |      | plain    |          | 
+relnamespace        | oid          |          | not null |      | plain    |          | 
+reltype             | oid          |          | not null |      | plain    |          | 
+reloftype           | oid          |          | not null |      | plain    |          | 
+relowner            | oid          |          | not null |      | plain    |          | 
+relam               | oid          |          | not null |      | plain    |          | 
+relfilenode         | oid          |          | not null |      | plain    |          | 
+reltablespace       | oid          |          | not null |      | plain    |          | 
+relpages            | integer      |          | not null |      | plain    |          | 
+reltuples           | real         |          | not null |      | plain    |          | 
+relallvisible       | integer      |          | not null |      | plain    |          | 
+reltoastrelid       | oid          |          | not null |      | plain    |          | 
+relhasindex         | boolean      |          | not null |      | plain    |          | 
+relisshared         | boolean      |          | not null |      | plain    |          | 
+relpersistence      | "char"       |          | not null |      | plain    |          | 
+relkind             | "char"       |          | not null |      | plain    |          | 
+relnatts            | smallint     |          | not null |      | plain    |          | 
+relchecks           | smallint     |          | not null |      | plain    |          | 
+relhasoids          | boolean      |          | not null |      | plain    |          | 
+relhaspkey          | boolean      |          | not null |      | plain    |          | 
+relhasrules         | boolean      |          | not null |      | plain    |          | 
+relhastriggers      | boolean      |          | not null |      | plain    |          | 
+relhassubclass      | boolean      |          | not null |      | plain    |          | 
+relrowsecurity      | boolean      |          | not null |      | plain    |          | 
+relforcerowsecurity | boolean      |          | not null |      | plain    |          | 
+relispopulated      | boolean      |          | not null |      | plain    |          | 
+relreplident        | "char"       |          | not null |      | plain    |          | 
+relispartition      | boolean      |          | not null |      | plain    |          | 
+relfrozenxid        | xid          |          | not null |      | plain    |          | 
+relminmxid          | xid          |          | not null |      | plain    |          | 
+relacl              | aclitem[]    |          |          |      | extended |          | 
+reloptions          | text[]       |          |          |      | extended |          | 
+relpartbound        | pg_node_tree |          |          |      | extended |          | 
 索引：
     "pg_class_oid_index" UNIQUE, btree (oid)
     "pg_class_relname_nsp_index" UNIQUE, btree (relname, relnamespace)
@@ -183,7 +179,7 @@ pg_class 中的信息是analyze 操作后更新，而计数器是oid上不同维
 
 统计维度设置
 
-```
+```ini
 #------------------------------------------------------------------------------
 # STATISTICS
 #------------------------------------------------------------------------------
@@ -197,7 +193,7 @@ pg_class 中的信息是analyze 操作后更新，而计数器是oid上不同维
 #track_activity_query_size = 1024       # (change requires restart)
 #stats_temp_directory = 'pg_stat_tmp  统计信息存放位置
 ```
-```
+```text
 tree pg_stat_tmp/
 pg_stat_tmp/
 ├── db_0.stat

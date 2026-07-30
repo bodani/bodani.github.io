@@ -1,10 +1,4 @@
----
-title: "Patroni 高可用管理进阶"
-date: 2021-03-05T17:06:18+08:00
-categories: ["postgres"]
-toc : true
-draft: false
----
+# Patroni 高可用管理进阶
 
 ## 完成目标
 

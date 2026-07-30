@@ -1,11 +1,4 @@
----
-title: "数据库优化思考 - 模块调优"
-date: 2021-01-13T09:04:35+08:00
-draft: false
-toc: true 
-categories: ["postgres"]
-tags: ["优化"]
----
+# 数据库优化思考 - 模块调优
 
 ## 开始乱说
 

@@ -1,11 +1,4 @@
----
-title: "Centos7 重置密码"
-date: 2021-04-09T11:26:16+08:00
-draft: false
-toc: false
-categories: ["linux"]
-tags: []
----
+# Centos7 重置密码
 
 #### 进入开机界面
 ![images](/images/resetpassword01.png)

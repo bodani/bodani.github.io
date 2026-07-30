@@ -1,8 +1,4 @@
----
-title: "wget"
-date: 2019-09-19T14:07:59+08:00
-draft: false
----
+# wget
 
 - 断点续传
 - 后台运行

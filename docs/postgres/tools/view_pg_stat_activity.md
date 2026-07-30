@@ -1,8 +1,4 @@
----
-title: "数据库视图之 pg_stat_activity"
-date: 2019-08-23T13:47:12+08:00
-draft: false
----
+# 数据库视图之 pg_stat_activity
 
 ## 介绍
 当需要了解数据库当前运行状态或需要排查问题时，首先需要查看的就是pg_stat_activity。该视图中包含了你想知道的数据库连接信息，正在执行的有哪些sql，并处于何状态。

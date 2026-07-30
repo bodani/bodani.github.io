@@ -1,11 +1,4 @@
----
-title: "Backgroud Writer 进程"
-date: 2021-03-31T15:13:50+08:00
-draft: false
-toc: false
-categories: ["postgres"]
-tags: []
----
+# Backgroud Writer 进程
 
 ## 主要作用
 

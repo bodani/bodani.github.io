@@ -1,11 +1,4 @@
----
-title: "高压缩比工具 XZ"
-date: 2021-12-22T10:08:23+08:00
-draft: false
-toc: false
-categories: ['linux']
-tags: []
----
+# 高压缩比工具 XZ
 
 ## 压缩比
 

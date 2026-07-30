@@ -1,11 +1,4 @@
----
-title: "upset 用法"
-date: 2022-07-29T08:47:34+08:00
-draft: false
-toc: false
-categories: ['postgres']
-tags: []
----
+# upset 用法
 
 ### 创建表
 

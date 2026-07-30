@@ -1,11 +1,4 @@
----
-title: "物化视图"
-date: 2021-07-21T15:43:34+08:00
-draft: false
-toc: false
-categories: []
-tags: []
----
+# 物化视图
 
 ## 物化视图
 

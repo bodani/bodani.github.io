@@ -1,8 +1,4 @@
----
-title: "postgres 12"
-date: 2019-11-19T08:43:36+08:00
-draft: false
----
+# postgres 12
 
 ##### 安装&启动
 

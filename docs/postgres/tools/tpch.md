@@ -1,8 +1,4 @@
----
-title: "tpch AP测试"
-date: 2019-06-05T09:36:21+08:00
-draft: false
----
+# tpch AP测试
 
 #### 背景介绍
 

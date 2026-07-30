@@ -1,8 +1,4 @@
----
-title: "找回supper user 权限"
-date: 2020-12-22T17:12:53+08:00
-draft: false
----
+# 找回supper user 权限
 
 ##### 背景
 

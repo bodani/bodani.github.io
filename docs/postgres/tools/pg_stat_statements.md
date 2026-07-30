@@ -1,11 +1,5 @@
----
-title: "pg_stat_statements 数据库统计信息"
-date: 2018-11-29T11:08:27+08:00
-draft: false
-toc: false 
-categories: ['postgres']
-tags: []
----
+# pg_stat_statements 数据库统计信息
+
 ## pg_stat_statements 扩展
 
 #### 安装　

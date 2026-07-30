@@ -1,11 +1,4 @@
----
-title: "利用debezium 实现数据变更捕获"
-date: 2022-07-27T10:37:46+08:00
-draft: false
-toc: true 
-categories: ['postgres']
-tags: []
----
+# 利用debezium 实现数据变更捕获
 
 整个实现以功能演示为目标，便于流程的梳理和理解。不适合正式生成环境使用。
 
@@ -106,7 +99,7 @@ $ curl -H  "Content-Type:application/json" http://localhost:8083/connectors/inve
 
 ### 观察 change events
 
-​		这里可以对mysql数据进行dml操作，实时观察数据变更捕获情况
+		这里可以对mysql数据进行dml操作，实时观察数据变更捕获情况
 
 ```shell
 $ docker run -it --rm --name watcher --link zookeeper:zookeeper --link kafka:kafka quay.io/debezium/kafka:1.9 watch-topic -a -k dbserver1.inventory.customers
@@ -186,7 +179,7 @@ services:
 #    volumes:
 #     - ./debezium-connector-postgres:/kafka/connect/debezium-connector-postgres
 ```
-​      register-postgres.json
+      register-postgres.json
 
 ```
 {
@@ -234,7 +227,7 @@ docker-compose -f docker-compose-postgres.yaml down
 
 区别与官方提供的pg docker 镜像
 
-​	官方中的pg镜像逻辑解码使用的是decoderbufs，wal2jon。对于pg版本10+ 更推荐使用 logical 。并利用pgoutput进行解析 
+	官方中的pg镜像逻辑解码使用的是decoderbufs，wal2jon。对于pg版本10+ 更推荐使用 logical 。并利用pgoutput进行解析 
 
 ### 配置管理
 
@@ -244,7 +237,7 @@ pg
 wal_level = logical
 ```
 
-​      拥有repication 权限访问数据库的用户，这里使用超级用户postgres	
+      拥有repication 权限访问数据库的用户，这里使用超级用户postgres	
 
 docker-compose-postgres.yaml
 
@@ -481,19 +474,19 @@ curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json"
 
 ### 多表
 
-​		默认情况table.name.format 的值为 topics，
+		默认情况table.name.format 的值为 topics，
 
-​        topics的名称为 source connection 中定义的database.server.name+schema+tablename
+        topics的名称为 source connection 中定义的database.server.name+schema+tablename
 
-​       这样就会对source connection  在定义时有所要求。即下游的dbname 与 database.server.name 必须保持一致
+       这样就会对source connection  在定义时有所要求。即下游的dbname 与 database.server.name 必须保持一致
 
-​       否则在创建sink connection 时将会出现如下错误
+       否则在创建sink connection 时将会出现如下错误
 
-​       `ERROR:  cross-database references are not implemented `
+       `ERROR:  cross-database references are not implemented `
 
    通过如下方式解除这种非必要的绑定
 
-​    自定义topics、  table.name.format 。映射源表与目标表之间的对应关系。好处是非常的灵活，弊端每个表之间的关系都需要定义。
+    自定义topics、  table.name.format 。映射源表与目标表之间的对应关系。好处是非常的灵活，弊端每个表之间的关系都需要定义。
 
 如果是源表与目标表名称完全一致或存在某种规律，比方加个前缀等。可通过如下方法批量处理、非常适合将数据库从一个库导到另一个库中的场景。
 

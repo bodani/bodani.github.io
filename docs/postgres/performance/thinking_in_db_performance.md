@@ -1,11 +1,4 @@
----
-title: "数据库优化思考-性能优化"
-date: 2021-02-26T13:33:23+08:00
-draft: false
-categories: ["postgres"]
-tags: ["优化"]
-toc: true
----
+# 数据库优化思考-性能优化
 
 ## 为什么要优化
 

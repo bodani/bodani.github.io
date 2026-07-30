@@ -1,9 +1,4 @@
----
-title: "终端复用"
-date: 2018-12-25T10:06:42+08:00
-draft: false
-catagories: ["linux"]
----
+# 终端复用
 
 ## 背景
 

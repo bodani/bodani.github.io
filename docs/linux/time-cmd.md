@@ -1,8 +1,4 @@
----
-title: "linux time 命令"
-date: 2019-12-10T09:04:09+08:00
-draft: false
----
+# linux time 命令
 
 Linux time命令的用途，在于量测特定指令执行时所需消耗的时间及系统资源等资讯。
 

@@ -1,8 +1,5 @@
----
-title: "锁机制"
-date: 2019-01-24T11:26:16+08:00
-draft: false
----
+# 锁机制
+
 https://blog.csdn.net/pg_hgdb/article/details/79403651
 
 https://habr.com/en/company/postgrespro/blog/500714/

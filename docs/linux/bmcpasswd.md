@@ -1,10 +1,4 @@
----
-title: "修改远程管理卡密码"
-date: 2021-03-29T16:09:34+08:00
-draft: false
-toc: false
-categories: ["linux"]
----
+# 修改远程管理卡密码
 
 ## 更改BMC密码
 

@@ -1,10 +1,4 @@
----
-title: "repmgrd介绍"
-date: 2023-03-24T16:20:16+08:00
-draft: false
-categories: ["postgres"]
-toc : true 
----
+# repmgrd介绍
 
 ## repmgrd介绍
 
@@ -941,15 +935,15 @@ Repmgr选举候选备节点会以以下顺序选举：LSN-> Priority-> Node_ID�
 
 `主库`  访问地址 ip:port/master ?xxx
 
-​      如返回码为200，当前节点为主节点并且服务正常。
+      如返回码为200，当前节点为主节点并且服务正常。
 
-​      其他返回码,暂时不能提供写服务
+      其他返回码,暂时不能提供写服务
 
-​	  主要判断逻辑: PG服务可连接性，下游节点个数
+	  主要判断逻辑: PG服务可连接性，下游节点个数
 
  `从库` 访问地址 ip:port/replocation ?xxx
 
-​      主要判断逻辑: PG服务可连接性，落后主节点的wal差值
+      主要判断逻辑: PG服务可连接性，落后主节点的wal差值
 
 #### 可解决的问题
 
@@ -979,7 +973,7 @@ switchover & failover: 故障发生后检测切换的总时间预估
 
 具体实现: 配置 `failover_validation_command`
 
-​	failover_validation_command.sh
+	failover_validation_command.sh
 
 ```
 #! bin/bash

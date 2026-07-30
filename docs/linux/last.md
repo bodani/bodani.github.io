@@ -1,11 +1,4 @@
----
-title: "Linux 系统登陆记录"
-date: 2021-10-28T16:12:40+08:00
-draft: false
-toc: false
-categories: ["linux"]
-tags: []
----
+# Linux 系统登陆记录
 
 ## 背景
 

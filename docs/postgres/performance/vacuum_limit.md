@@ -1,11 +1,4 @@
----
-title: "vacuum 限流"
-date: 2022-02-11T13:51:50+08:00
-draft: false
-toc: true 
-categories: ["postgres"]
-tags: []
----
+# vacuum 限流
 
 ## 限流目的 
 

@@ -1,11 +1,4 @@
----
-title: "网络穿透"
-date: 2020-11-01T17:03:10+08:00
-draft: false
-toc: false
-categories: ['linux']
-tags: []
----
+# 网络穿透
 
 ## 背景
 

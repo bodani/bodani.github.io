@@ -1,11 +1,4 @@
----
-title: "数据库的json类型"
-date: 2021-12-20T10:51:16+08:00
-draft: false
-toc: true 
-categories: ["postgres"]
-tags: []
----
+# 数据库的json类型
 
 ## json 与 jsonb
 

@@ -1,10 +1,4 @@
----
-title: "主从流复制"
-date: 2018-10-17T14:55:38+08:00
-categories: ["postgres"]
-toc : true
-draft: false
----
+# 主从流复制
 
 [历史演变](http://peter.eisentraut.org/blog/2015/03/03/the-history-of-replication-in-postgresql/)
 

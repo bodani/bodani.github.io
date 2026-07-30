@@ -1,8 +1,4 @@
----
-title: "no space left on device"
-date: 2019-01-09T08:32:26+08:00
-draft: false
----
+# no space left on device
 
 #### 问题描述
 

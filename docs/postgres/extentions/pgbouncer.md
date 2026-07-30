@@ -1,8 +1,4 @@
----
-title: "pgbouncer 连接池"
-date: 2018-12-27T09:00:49+08:00
-draft: false
----
+# pgbouncer 连接池
 
 #### 背景介绍
 

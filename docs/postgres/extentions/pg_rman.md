@@ -1,9 +1,4 @@
----
-title: "pg_rman 备份恢复数据库"
-date: 2021-03-09T13:35:31+08:00
-draft: false
-categories: ["postgres"]
----
+# pg_rman 备份恢复数据库
 
 ## 适用场景
 

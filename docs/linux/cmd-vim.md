@@ -1,11 +1,4 @@
----
-title: "vim 编辑"
-date: 2019-10-22T10:01:42+08:00
-draft: false
-toc: true
-categories: ['linux']
-tags: []
----
+# vim 编辑
 
 ## 字符串查找
 

@@ -1,8 +1,4 @@
----
-title: "Pipelinedb文档概览"
-date: 2018-12-12T09:46:16+08:00
-draft: false
----
+# Pipelinedb文档概览
 
 [官方文档](http://docs.pipelinedb.com/index.html)
 

@@ -1,11 +1,4 @@
----
-title: "perf linux 性能分析"
-date: 2021-12-29T14:16:15+08:00
-draft: false
-toc: false
-categories: []
-tags: []
----
+# perf linux 性能分析
 
 #### 收集数据 
 ```

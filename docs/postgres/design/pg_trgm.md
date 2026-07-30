@@ -1,8 +1,4 @@
----
-title: "pg_trgm的gist和gin索引加速字符匹配查询"
-date: 2019-01-07T09:37:23+08:00
-draft: false
----
+# pg_trgm的gist和gin索引加速字符匹配查询
 
 ## 背景
 

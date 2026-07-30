@@ -1,8 +1,4 @@
----
-title: "hot update"
-date: 2021-01-14T13:49:11+08:00
-draft: false
----
+# hot update
 
 ##### What is HOT
 

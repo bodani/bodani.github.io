@@ -1,10 +1,4 @@
----
-title: "vacuum 垃圾回收器"
-date: 2018-12-05T16:48:00+08:00
-draft: false
-categories: ["postgres"]
-toc : false
----
+# vacuum 垃圾回收器
 
 #### 介绍
 

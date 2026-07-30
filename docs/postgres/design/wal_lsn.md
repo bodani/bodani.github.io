@@ -1,12 +1,3 @@
----
-title: "LSN 和 wal日志文件名对应关系"
-date: 2022-08-08T14:58:08+08:00
-draft: false
-toc: false
-categories: ['postgres']
-tags: []
----
-
 # 例子
 
 ```

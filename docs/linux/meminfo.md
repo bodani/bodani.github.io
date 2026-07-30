@@ -1,10 +1,4 @@
----
-title: "meminfo Linux 内存信息"
-date: 2019-01-08T09:04:15+08:00
-categories: ["linux"]
-toc : true
-draft: false
----
+# meminfo Linux 内存信息
 
 ## 介绍
 

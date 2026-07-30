@@ -1,11 +1,4 @@
----
-title: "Linux 字符集"
-date: 2022-03-11T15:25:50+08:00
-draft: true 
-toc: false
-categories: ["linux"]
-tags: []
----
+# Linux 字符集
 
 ## Centos 字符集
 

@@ -1,11 +1,4 @@
----
-title: "动态库"
-date: 2021-06-01T18:47:22+08:00
-draft: false
-toc: false
-categories: []
-tags: []
----
+# 动态库
 
 ## centos中运行程序出现'GLIBCXX_3.4.21' not found
 

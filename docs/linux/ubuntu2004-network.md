@@ -1,9 +1,4 @@
----
-title: "Ubuntu 20.04 网络配置"
-date: 2020-09-21T16:48:24+08:00
-draft: false
-categories: ["linux"]
----
+# Ubuntu 20.04 网络配置
 
 ## 配置
 

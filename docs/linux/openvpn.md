@@ -1,11 +1,4 @@
----
-title: "搭建VPN服务"
-date: 2021-05-18T09:03:44+08:00
-draft: false
-toc: false
-categories: ["linux"]
-tags: []
----
+# 搭建VPN服务
 
 ## 利用Openven搭建VPN服务
 

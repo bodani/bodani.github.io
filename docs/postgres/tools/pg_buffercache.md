@@ -1,11 +1,4 @@
----
-title: "pg_buffercache"
-date: 2022-07-01T09:54:49+08:00
-draft: false
-toc: false
-categories: ['postgres']
-tags: []
----
+# pg_buffercache
 
 ## 通过插件查看PG数据缓存
 

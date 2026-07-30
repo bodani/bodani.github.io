@@ -1,9 +1,4 @@
----
-title: "Linux wheel 用户组"
-date: 2018-10-18T10:33:14+08:00
-draft: false
----
-
+# Linux wheel 用户组
 
 ### wheel 用户组
 

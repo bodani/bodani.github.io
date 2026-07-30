@@ -1,8 +1,5 @@
----
-title: "pstack"
-date: 2018-11-14T22:05:59+08:00
-draft: false
----
+# pstack
+
 安装
 ```
  yum install gdb

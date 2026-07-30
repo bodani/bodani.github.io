@@ -1,11 +1,4 @@
----
-title: "CPU亲和性(亲和力)"
-date: 2021-04-09T09:35:25+08:00
-draft: false
-toc: true 
-categories: ["linux"]
-tags: []
----
+# CPU亲和性(亲和力)
 
 ## 基础知识
 

@@ -1,8 +1,4 @@
----
-title: "Centos mail"
-date: 2018-12-29T16:53:16+08:00
-draft: false
----
+# Centos mail
 
 ##### 介绍
 

@@ -1,8 +1,4 @@
----
-title: "Bloom 索引"
-date: 2020-04-23T15:37:33+08:00
-draft: false
----
+# Bloom 索引
 
 #### Bloom 索引 
 

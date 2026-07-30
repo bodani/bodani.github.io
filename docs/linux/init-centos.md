@@ -1,9 +1,4 @@
----
-title: "Centos 初始化配置"
-date: 2018-12-03T10:34:06+08:00
-categories: ["linux"]
-draft: false
----
+# Centos 初始化配置
 
 ## 网络配置 
 

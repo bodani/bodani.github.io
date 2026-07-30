@@ -1,11 +1,4 @@
----
-title: "数据库优化思考 - 结构设计"
-date: 2021-01-11T10:10:42+08:00
-draft: false
-toc: true
-categories: ["postgres"]
-tags: ["优化"]
----
+# 数据库优化思考 - 结构设计
 
 ## DB 与 APP 的不同
 

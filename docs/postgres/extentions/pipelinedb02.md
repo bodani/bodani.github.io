@@ -1,10 +1,4 @@
----
-title: "Pipelinedb 简介"
-date: 2018-12-12T11:39:47+08:00
-categroies: ["postgres"]
-toc: true
-draft: false
----
+# Pipelinedb 简介
 
 ### 项目已经停止维护
 

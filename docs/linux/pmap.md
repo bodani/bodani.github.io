@@ -1,11 +1,4 @@
----
-title: "pmap Linux 进程内存分析"
-date: 2019-03-19T08:58:40+08:00
-draft: false
-toc: false
-categories: ["linux"]
-tags: [""]
----
+# pmap Linux 进程内存分析
 
 ## 介绍
 

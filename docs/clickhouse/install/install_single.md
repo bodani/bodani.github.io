@@ -112,6 +112,7 @@ sudo systemctl status clickhouse-server
 # 使用clickhouse-client连接
 clickhouse-client
 
+clickhouse-client   --host xxx --port 9000   --user xxx   --password 'xxxx'
 # 或使用HTTP接口测试
 curl 'http://localhost:8123/'
 ```

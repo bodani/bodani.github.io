@@ -1,8 +1,4 @@
----
-title: "数据库安装 Postgres12 Ubuntu18"
-date: 2020-03-19T15:22:09+08:00
-draft: false
----
+# 数据库安装 Postgres12 Ubuntu18
 
 软件源
 

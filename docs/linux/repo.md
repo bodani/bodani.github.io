@@ -1,8 +1,4 @@
----
-title: "Centos7 私有源搭建"
-date: 2020-05-19T10:32:33+08:00
-draft: false
----
+# Centos7 私有源搭建
 
 ## 介绍
 

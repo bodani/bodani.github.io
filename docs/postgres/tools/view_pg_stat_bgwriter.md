@@ -1,11 +1,4 @@
----
-title: "数据库试图之 pg_stat_bgwriter"
-date: 2021-03-31T09:32:17+08:00
-draft: false
-toc: false
-categories: ["postgres"]
-tags: []
----
+# 数据库试图之 pg_stat_bgwriter
 
 ## 介绍
 

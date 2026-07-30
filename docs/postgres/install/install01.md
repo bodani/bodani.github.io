@@ -1,8 +1,4 @@
----
-title: "安装 Postgresql"
-date: 2018-10-17T14:37:56+08:00
-draft: false
----
+# 安装 Postgresql
 
 [官网](https://www.postgresql.org/download/linux/redhat/)
 

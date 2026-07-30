@@ -1,11 +1,4 @@
----
-title: "数据库日志分析"
-date: 2021-11-05T09:44:17+08:00
-draft: false
-toc: false
-categories: ["postgres"]
-tags: []
----
+# 数据库日志分析
 
 ## 数据库日志分析
 

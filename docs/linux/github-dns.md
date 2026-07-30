@@ -1,9 +1,4 @@
----
-title: "Github DNS 加速"
-date: 2021-03-17T14:34:26+08:00
-draft: false
-toc: true
----
+# Github DNS 加速
 
 ## IP 查询
 

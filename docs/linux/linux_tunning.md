@@ -1,11 +1,4 @@
----
-title: "Linux 优化指南"
-date: 2023-03-16T09:03:24+08:00
-draft: false
-toc: false
-categories: []
-tags: []
----
+# Linux 优化指南
 
 [linux性能调试和优化](https://www.processon.com/view/link/62ef5b4e0791292e9d378261#outline)
 

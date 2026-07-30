@@ -1,8 +1,4 @@
----
-title: "方法和函数"
-date: 2020-04-13T16:15:51+08:00
-draft: false
----
+# 方法和函数
 
 #### 条件表达式
 https://www.postgresql.org/docs/10/functions-conditional.html

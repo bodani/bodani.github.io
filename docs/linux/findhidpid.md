@@ -1,11 +1,4 @@
----
-title: "Linux 找出隐藏进程"
-date: 2021-11-03T13:45:36+08:00
-draft: false
-toc: false
-categories: []
-tags: []
----
+# Linux 找出隐藏进程
 
 ## 原理
 

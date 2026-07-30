@@ -1,10 +1,4 @@
----
-title: "Postgres 监控常用工具"
-date: 2018-12-06T16:21:08+08:00
-draft: false
-categories: ["postgres"]
-toc : false 
----
+# Postgres 监控常用工具
 
 #### 各种监控方式
 

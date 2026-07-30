@@ -1,10 +1,5 @@
----
-title: "pg_rewind 时间线对齐"
-date: 2019-01-30T10:16:17+08:00
-categories: ["postgres"]
-toc: true
-draft: false
----
+# pg_rewind 时间线对齐
+
 pg_rewind requires that the target server either has the wal_log_hints option enabled in postgresql.conf or data checksums enabled when the cluster was initialized with initdb. Neither of these are currently on by default. full_page_writes must also be set to on, but is enabled by default.
 
 wal_log_hints

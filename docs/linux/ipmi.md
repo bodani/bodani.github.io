@@ -1,11 +1,4 @@
----
-title: "远程管理卡 命令管理IPMI"
-date: 2021-05-10T16:58:56+08:00
-draft: false
-toc: false
-categories: ['linux']
-tags: []
----
+# 远程管理卡 命令管理IPMI
 
 ## IPMI
 

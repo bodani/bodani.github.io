@@ -1,11 +1,4 @@
----
-title: "PG高可用Patroni"
-date: 2019-01-30T10:14:55+08:00
-draft: false
-toc: true
-categories: ["postgres"]
-tags: ["高可用"]
----
+# PG高可用Patroni
 
 ## 环境
 

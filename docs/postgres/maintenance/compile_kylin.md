@@ -1,8 +1,4 @@
----
-title: "kylin系统postgresql编译安装"
-date: 2020-11-16T15:26:59+08:00
-draft: false
----
+# kylin系统postgresql编译安装
 
 #### 背景
 

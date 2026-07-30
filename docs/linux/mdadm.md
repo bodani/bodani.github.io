@@ -1,8 +1,4 @@
----
-title: "mdadm 软Raid 管理"
-date: 2018-12-03T13:39:39+08:00
-draft: false
----
+# mdadm 软Raid 管理
 
 #### 背景
 

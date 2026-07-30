@@ -1,11 +1,4 @@
----
-title: "pg_pathman 分区表"
-date: 2019-01-24T10:56:06+08:00
-draft: false
-toc: true
-categories: ["postgres"]
-tags: [""]
----
+# pg_pathman 分区表
 
 ## 介绍
 

@@ -1,11 +1,4 @@
----
-title: "数据库免密码登陆"
-date: 2022-03-23T14:41:44+08:00
-draft: false
-toc: false
-categories: ['postgres']
-tags: []
----
+# 数据库免密码登陆
 
 ## 免密登陆
 

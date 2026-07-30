@@ -1,11 +1,5 @@
----
-title: "checkpoint 检查点"
-date: 2019-03-13T15:57:25+08:00
-draft: false
-toc: true
-categories: ["postgres"]
-#tags: [""]
----
+# checkpoint 检查点
+
 ## 作用
 
 一般checkpoint会将某个时间点之前的脏数据全部刷新到磁盘，以实现数据的一致性与完整性。其主要目的是为了缩短崩溃恢复时间。

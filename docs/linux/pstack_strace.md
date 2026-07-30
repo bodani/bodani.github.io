@@ -1,10 +1,4 @@
----
-title: "进程分析 strace,pstack"
-date: 2018-11-14T22:09:54+08:00
-categories: ["linux"]
-toc : true
-draft: false
----
+# 进程分析 strace,pstack
 
 https://yq.aliyun.com/articles/647468
 

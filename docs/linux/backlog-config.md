@@ -1,11 +1,4 @@
----
-title: "Linux backlog/somaxconn 内核参数"
-date: 2022-08-25T08:52:46+08:00
-draft: false
-toc: false
-categories: []
-tags: []
----
+# Linux backlog/somaxconn 内核参数
 
 ## Linux 网络状态查看
 ```

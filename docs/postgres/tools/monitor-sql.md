@@ -1,11 +1,4 @@
----
-title: "查看数据信息常用sql整理"
-date: 2022-02-10T10:21:07+08:00
-draft: false
-toc: true
-categories: ['postgres']
-tags: []
----
+# 查看数据信息常用sql整理
 
 ## 库内存命中率
 ```

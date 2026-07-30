@@ -1,11 +1,4 @@
----
-title: "Ubuntu20.04 装机后"
-date: 2021-10-20T15:04:04+08:00
-draft: false
-toc: false
-categories: ["linux"]
-tags: [""]
----
+# Ubuntu20.04 装机后
 
 ## 关闭cloud init
 

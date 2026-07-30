@@ -1,8 +1,4 @@
----
-title: "Git 文件过大清理"
-date: 2021-02-08T14:30:03+08:00
-draft: false
----
+# Git 文件过大清理
 
 git目录下object文件过大清理
 

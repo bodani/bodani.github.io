@@ -1,9 +1,4 @@
----
-title: "Linux 获取CPU温度"
-date: 2020-05-07T14:02:02+08:00
-draft: false
-categories: ["linux"]
----
+# Linux 获取CPU温度
 
 ## 直接读取系统信息
 可以通过读取如下路径中的数据来获取cpu的温度信息，不过读取的数据没有经过处理。

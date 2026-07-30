@@ -1,10 +1,4 @@
----
-title: "存储设备几个物理概念"
-date: 2021-03-29T16:16:38+08:00
-draft: false
-toc: false
-categories: ["linux"]
----
+# 存储设备几个物理概念
 
 ## 硬盘
 

@@ -1,8 +1,4 @@
----
-title: "时间点恢复"
-date: 2019-01-24T11:08:54+08:00
-draft: false
----
+# 时间点恢复
 
 ##### PITR
 Point-in-time recovery

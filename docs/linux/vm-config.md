@@ -1,8 +1,4 @@
----
-title: "内核设置"
-date: 2019-11-26T10:14:41+08:00
-draft: false
----
+# 内核设置
 
 ## 参数vm.dirty_ratio和vm.dirty_background_ratio
 

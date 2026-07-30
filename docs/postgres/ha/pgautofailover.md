@@ -1,12 +1,3 @@
----
-title: "数据库高可用pgautofailover"
-date: 2022-07-11T15:15:51+08:00
-draft: false
-toc: true 
-categories: ['postgres']
-tags: []
----
-
 # pg_auto_failover 实践
 
 ## 一个简单的架构
@@ -41,11 +32,11 @@ citus同源postgres高可用方案
 
 ### 从零开始建设
 
-​	没有任何历史包袱，包括数据库自身的搭建
+	没有任何历史包袱，包括数据库自身的搭建
 
-​	**手动安装**
+	**手动安装**
 
-​     在所有的节点上执行
+     在所有的节点上执行
 
 ```
 -- 数据库安装
@@ -62,7 +53,7 @@ yum install pg_auto_failover_14.x86_64 -y
 /usr/pgsql-14/bin/pg_autoctl --version
 ```
 
-​     创建monitor节点
+     创建monitor节点
 
 ```
 --创建监控节点
@@ -85,7 +76,7 @@ postgres://autoctl_node@node0:5432/pg_auto_failover?sslmode=require
 
 ```
 
-​		创建数据库主节点
+		创建数据库主节点
 
 ```
 -- 创建数据库节点
@@ -115,7 +106,7 @@ su - postgres -c "/usr/pgsql-14/bin/pg_autoctl -q show systemd --pgdata /var/lib
 systemctl start pgautofailover
 ```
 
-​		创建数据库从节点
+		创建数据库从节点
 
 ```
 -- 在另一个节点创建从库
@@ -158,9 +149,9 @@ su - postgres -c "/usr/pgsql-14/bin/pg_autoctl drop node  --destroy --force --na
 
 ### 现有数据库接管
 
-​	不影响现有数据库业务，使其具有高可用能力
+	不影响现有数据库业务，使其具有高可用能力
 
-​    与从零开始创建集群不同的是，在create postgres阶段，根据    --pgdata 目录所指定的 pg_controldata 来判断数据库数   据目录现有情况。包括是否需要初始化数据库，及现有数据库状态 
+    与从零开始创建集群不同的是，在create postgres阶段，根据    --pgdata 目录所指定的 pg_controldata 来判断数据库数   据目录现有情况。包括是否需要初始化数据库，及现有数据库状态 
 
 ## 集群管理
 
@@ -213,11 +204,11 @@ $ pg_autoctl disable maintenance
 
 ### 增减节点
 
-​	添加数据库节点
+	添加数据库节点
 
-​		 与前面加入从节点一致
+		 与前面加入从节点一致
 
-​     删除数据库节点
+     删除数据库节点
 
 ```
 -- 在监控点删除postgres
@@ -237,9 +228,9 @@ su - postgres -c "/usr/pgsql-14/bin/pg_autoctl drop node  --destroy --force --na
 
 ### 多集群管理说明
 
-​	多集群这里的含义是一个monitor管理多套集群
+	多集群这里的含义是一个monitor管理多套集群
 
-​	主要用到的两个概念
+	主要用到的两个概念
 
 - formation
 

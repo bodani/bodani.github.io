@@ -1,11 +1,4 @@
----
-title: "快速删除大量文件"
-date: 2021-12-29T17:27:38+08:00
-draft: false
-toc: false
-categories: []
-tags: []
----
+# 快速删除大量文件
 
 ## 生成大量文件
 ```

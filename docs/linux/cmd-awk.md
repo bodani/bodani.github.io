@@ -1,8 +1,4 @@
----
-title: "awk 命令"
-date: 2018-12-25T10:14:43+08:00
-draft: false
----
+# awk 命令
 
 #### What is awk 
 

@@ -1,12 +1,3 @@
----
-title: "利用hll数据类型进行数据统计"
-date: 2022-07-14T15:44:53+08:00
-draft: false
-toc: true
-categories: ['postgres']
-tags: []
----
-
 # HyperLogLog
 
 ## 使用场景
@@ -102,7 +93,7 @@ GROUP BY 1
 
 
 
-​	得益于hll 可以对两个或多个集合进行合并操作。
+	得益于hll 可以对两个或多个集合进行合并操作。
 
 ```
 -- 一张表搞定多维统计
@@ -174,12 +165,12 @@ ORDER BY 1;
 
 ## 分布式数据库
 
-​	在分布式数据库中进行count(distinct(xxx)) 统计，传统方式实现的逻辑
+	在分布式数据库中进行count(distinct(xxx)) 统计，传统方式实现的逻辑
 
 - 在每个分片上进行distinct的结果进行汇总后，再次count(distinct())。最终只能在一台机器上进行聚合。
 - map/reduce  性能较差
 
-​    citus利用hll 轻松解决
+    citus利用hll 轻松解决
 
 ```
 CREATE EXTENSION hll;
@@ -225,7 +216,7 @@ WHERE
 
 ## 参数优化
 
-​			在分析型数据库PostgreSQL版中, HyperLogLog 的误差与内存消耗量受如下参数控制:
+			在分析型数据库PostgreSQL版中, HyperLogLog 的误差与内存消耗量受如下参数控制:
 
 - log2m, 该参数控制着 HyperLogLog 对数据集基数估算的误差为: `1.04 / math.sqrt(2 ** log2m)`. 该参数同时也控制着 HyperLogLog 内存消耗量.
 - regwidth, 该参数与 log2m 一起决定了 HyperLogLog 内存消耗量最多为 `(2 ** log2m) * regwidth / 8` 字节. 同时该函数也决定了 HyperLogLog 所能估算数据集基数的最大值.

@@ -1,11 +1,4 @@
----
-title: "CPU频率管理"
-date: 2021-04-08T09:44:39+08:00
-draft: false
-toc: false
-categories: ["linux"]
-tags: []
----
+# CPU频率管理
 
 ## 介绍
 

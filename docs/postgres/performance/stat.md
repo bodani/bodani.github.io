@@ -1,8 +1,4 @@
----
-title: "Postgresql指标查看&stat统计信息"
-date: 2018-11-06T10:53:52+08:00
-draft: false
----
+# Postgresql指标查看&stat统计信息
 
 - 当前连接数
 
