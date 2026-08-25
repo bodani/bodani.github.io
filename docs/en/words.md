@@ -809,7 +809,6 @@
 > 该委员会是为调查政治腐败而成立的。
 
 divergent,
-divergent,
 fraction,
 arguably,
 dramatic,

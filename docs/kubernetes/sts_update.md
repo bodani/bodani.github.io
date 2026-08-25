@@ -9,6 +9,9 @@ updateStrategy:
   partition: 3
 ```
 
+- name: MALLOC_ARENA_MAX
+  value: "1"
+
 在更新 sts 时 大于 partition 的pod 将重启。 小于等于 partiton 的pod 保持不动
 
 3 个副本的 将 partition 从3 依次改成 2 ->1 -> 0 .实现分部重启
@@ -25,7 +28,8 @@ dba.getCluster().rejoinInstance('root@helmbroker-mysql-01-1:3306');
 
 集群主节点切换
 dba.getCluster().setPrimaryInstance('helmbroker-mysql-01-1:3306')
+
+dba.getCluster().status({extended:1})
 ```
 
-- name: MALLOC_ARENA_MAX
-              value: "1"
+

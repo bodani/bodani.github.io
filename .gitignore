@@ -2,3 +2,5 @@
 .venv
 site
 docs/personal/
+venv/
+docs/clickhouse/scripts/create_replicas.sql

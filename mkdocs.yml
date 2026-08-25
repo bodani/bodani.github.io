@@ -337,6 +337,7 @@ nav:
           - gpasswd命令: ./linux/cmd-gpasswd.md
           - sed命令详解: ./linux/cmd-sed.md
           - vim命令使用: ./linux/cmd-vim.md
+          - vim忘带sudo保存: ./linux/vim_w.md
           - xargs命令使用: ./linux/cmd-xargs.md
           - 其他常用命令: ./linux/fu-cmd.md
           - 系统安装相关命令: ./linux/install-cmd.md
