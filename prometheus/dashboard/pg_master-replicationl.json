@@ -88,6 +88,7 @@
                     "format": "time_series",
                     "instant": true,
                     "intervalFactor": 1,
+                    "intervalFactor": 1,
                     "legendFormat": "{{short_version}}",
                     "refId": "A"
                 }

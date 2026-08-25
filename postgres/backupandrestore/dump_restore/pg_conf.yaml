@@ -1,0 +1,32 @@
+source:
+  host: xxxx
+  port: 5432
+  user: xxxx
+  password: "xxx"
+
+target:
+  host: xxxx
+  port: 5432
+  user: xxx
+  password: "xxx"
+
+backup:
+  base_dir: ./data
+  system_roles:
+    - administrator
+    - postgres
+    - rewinder
+    - standby
+    - tea_mon
+  skip_dbs:
+    - template0
+    - template1
+    - postgres
+    - mydb1
+    - mydb2
+
+tools:
+  pg_dump: /usr/lib/postgresql/16/bin/pg_dump
+  pg_dumpall: /usr/lib/postgresql/16/bin/pg_dumpall
+  pg_restore: /usr/lib/postgresql/16/bin/pg_restore
+  psql: /usr/lib/postgresql/16/bin/psql
