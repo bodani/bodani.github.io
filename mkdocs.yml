@@ -292,13 +292,19 @@ nav:
   - 中间件:
       - middleware/index.md
       - ClickHouse:
+          - ./clickhouse/index.md
           - 安装: ./clickhouse/install/index.md
           - 单机版: ./clickhouse/install/install_single.md
           - 集群版: ./clickhouse/install/install_cluster.md
+          - 用户: ./clickhouse/user.md
           - keeper: ./clickhouse/ch-keeper.md
           - 表引擎: ./clickhouse/demo.md
           - 压缩: ./clickhouse/compresstion.md
-          - 恢复: ./clickhouse/restore.md
+          - 恢复1: ./clickhouse/restore.md
+          - 恢复2: ./clickhouse/replicatedmergetree-disk-failure-recovery.md
+          - 监控: ./clickhouse/monitor.md
+          - 系统日志清理: ./clickhouse/system_log_cleanup.md
+
       - MongoDB:
           - 安装: ./mongodb/install.md
           - 配置: ./mongodb/config.md

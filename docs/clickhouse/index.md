@@ -1,10 +1,5 @@
 # 什么是 ClickHouse
 
-Click Stream
-
-DataWare House
-
-
 ## 概述
 
 ClickHouse 是一个开源的列式数据库管理系统，主要用于在线分析处理（OLAP）查询。由 Yandex 于 2016 年开源，ClickHouse 以其高性能、高并发性和实时数据分析能力而著称，广泛应用于大数据分析、实时数据流处理、监控和日志分析等场景。
