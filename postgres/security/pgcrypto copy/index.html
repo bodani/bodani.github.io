@@ -1,0 +1,490 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Welcome to Shaun's rabbit hole. This site serves as a personal knowledge base for me to record my thoughts and ideas. It is also a place for me to share my knowledge and experience with the world. I hope you find something useful here."><meta name=author content=Eamon><link href=https://bodani.github.io/docs/postgres/security/pgcrypto%20copy/ rel=canonical><link rel=icon href=../../../assets/images/favicon.png><meta name=generator content="mkdocs-1.5.3, mkdocs-material-9.5.3"><title>Pgcrypto copy - TeaLabs</title><link rel=stylesheet href=../../../assets/stylesheets/main.50c56a3b.min.css><link rel=stylesheet href=../../../assets/stylesheets/palette.06af60db.min.css><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=../../../stylesheets/extra.css><link rel=stylesheet href=../../../custom-style/custom-styles.css><script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=slate data-md-color-primary=teal data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#postgresql-pgcrypto class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class="md-header md-header--shadow md-header--lifted" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../.. title=TeaLabs class="md-header__button md-logo" aria-label=TeaLabs data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> TeaLabs </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Pgcrypto copy </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media=(prefers-color-scheme) data-md-color-scheme=slate data-md-color-primary=teal data-md-color-accent=indigo aria-label="Switch to light mode" type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title="Switch to light mode" for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8v2m9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.71-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5Z"/></svg> </label> <input class=md-option data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme=default data-md-color-primary=green data-md-color-accent=deep_orange aria-label="Switch to dark mode" type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title="Switch to dark mode" for=__palette_2 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg> </label> <input class=md-option data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme=slate data-md-color-primary=teal data-md-color-accent=indigo aria-label="Switch to system preference" type=radio name=__palette id=__palette_2> <label class="md-header__button md-icon" title="Switch to system preference" for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg> </label> </form> <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg> </label> <nav class=md-search__options aria-label=Search> <a href=javascript:void(0) class="md-search__icon md-icon" title=Share aria-label=Share data-clipboard data-clipboard-text data-md-component=search-share tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg> </a> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg> </button> </nav> <div class=md-search__suggest data-md-component=search-suggest></div> </form> <div class=md-search__output> <div class=md-search__scrollwrap data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> </nav> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class=md-grid> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../../../mysql/ class=md-tabs__link> MYSQL </a> </li> <li class=md-tabs__item> <a href=../../ class=md-tabs__link> PostgreSQL </a> </li> <li class=md-tabs__item> <a href=../../../middleware/ class=md-tabs__link> 中间件 </a> </li> <li class=md-tabs__item> <a href=../../../kubernetes/sts_update/ class=md-tabs__link> 容器 </a> </li> <li class=md-tabs__item> <a href=../../../linux/ class=md-tabs__link> Linux </a> </li> <li class=md-tabs__item> <a href=../../maintenance/thinking_in_db_fd/ class=md-tabs__link> 数据库思考 </a> </li> </ul> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../.. title=TeaLabs class="md-nav__button md-logo" aria-label=TeaLabs data-md-component=logo> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg> </a> TeaLabs </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1> <div class="md-nav__link md-nav__container"> <a href=../../../mysql/ class="md-nav__link "> <span class=md-ellipsis> MYSQL </span> </a> <label class="md-nav__link " for=__nav_1 id=__nav_1_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_1_label aria-expanded=false> <label class=md-nav__title for=__nav_1> <span class="md-nav__icon md-icon"></span> MYSQL </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/install/ class=md-nav__link> <span class=md-ellipsis> 安装 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/config/ class=md-nav__link> <span class=md-ellipsis> 配置 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/PrivilegeManagement/ class=md-nav__link> <span class=md-ellipsis> 权限管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/users/ class=md-nav__link> <span class=md-ellipsis> 用户管理 </span> </a> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_6> <div class="md-nav__link md-nav__container"> <a href=../../../mysql/backup_restore/ class="md-nav__link "> <span class=md-ellipsis> 备份恢复 </span> </a> <label class="md-nav__link " for=__nav_1_6 id=__nav_1_6_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_6_label aria-expanded=false> <label class=md-nav__title for=__nav_1_6> <span class="md-nav__icon md-icon"></span> 备份恢复 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/backup_restore/physical_backup/ class=md-nav__link> <span class=md-ellipsis> 物理备份 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/backup_restore/logical_backup/ class=md-nav__link> <span class=md-ellipsis> 逻辑备份 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/backup_restore/myshell/ class=md-nav__link> <span class=md-ellipsis> myshell </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_7> <div class="md-nav__link md-nav__container"> <a href=../../../mysql/replication/ class="md-nav__link "> <span class=md-ellipsis> 主从复制 </span> </a> <label class="md-nav__link " for=__nav_1_7 id=__nav_1_7_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_7_label aria-expanded=false> <label class=md-nav__title for=__nav_1_7> <span class="md-nav__icon md-icon"></span> 主从复制 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/replication/replication/ class=md-nav__link> <span class=md-ellipsis> 异步复制 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/replication/semisync/ class=md-nav__link> <span class=md-ellipsis> 半同步复制 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/replication/shellreplication/ class=md-nav__link> <span class=md-ellipsis> mysqsh管理主从复制 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_8> <label class=md-nav__link for=__nav_1_8 id=__nav_1_8_label tabindex> <span class=md-ellipsis> 高可用 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_8_label aria-expanded=false> <label class=md-nav__title for=__nav_1_8> <span class="md-nav__icon md-icon"></span> 高可用 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/MGR/ class=md-nav__link> <span class=md-ellipsis> 组复制 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/myshellMGR/ class=md-nav__link> <span class=md-ellipsis> mysqlsh管理组复制 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_9> <label class=md-nav__link for=__nav_1_9 id=__nav_1_9_label tabindex> <span class=md-ellipsis> 监控 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_9_label aria-expanded=false> <label class=md-nav__title for=__nav_1_9> <span class="md-nav__icon md-icon"></span> 监控 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/monitor/ class=md-nav__link> <span class=md-ellipsis> 指标监控 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/exporter/ class=md-nav__link> <span class=md-ellipsis> exporter </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_10> <label class=md-nav__link for=__nav_1_10 id=__nav_1_10_label tabindex> <span class=md-ellipsis> 优化 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_10_label aria-expanded=false> <label class=md-nav__title for=__nav_1_10> <span class="md-nav__icon md-icon"></span> 优化 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/mysqlmem/ class=md-nav__link> <span class=md-ellipsis> 内存分析 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/memory/ class=md-nav__link> <span class=md-ellipsis> 内存分析2 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/table_size/ class=md-nav__link> <span class=md-ellipsis> 表存储占用分析 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/performance_tuning_instance/ class=md-nav__link> <span class=md-ellipsis> 实例优化 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/performance_tuning_sql/ class=md-nav__link> <span class=md-ellipsis> sql优化 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/lock/ class=md-nav__link> <span class=md-ellipsis> 锁机制 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/doublewrite/ class=md-nav__link> <span class=md-ellipsis> 双写缓冲区 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_11> <label class=md-nav__link for=__nav_1_11 id=__nav_1_11_label tabindex> <span class=md-ellipsis> 工具 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_11_label aria-expanded=false> <label class=md-nav__title for=__nav_1_11> <span class="md-nav__icon md-icon"></span> 工具 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/pt/ class=md-nav__link> <span class=md-ellipsis> pt-toolkit </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/clone/ class=md-nav__link> <span class=md-ellipsis> clone </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/proxy/ class=md-nav__link> <span class=md-ellipsis> proxy </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_12> <label class=md-nav__link for=__nav_1_12 id=__nav_1_12_label tabindex> <span class=md-ellipsis> 压测 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_12_label aria-expanded=false> <label class=md-nav__title for=__nav_1_12> <span class="md-nav__icon md-icon"></span> 压测 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/mysqlslap/ class=md-nav__link> <span class=md-ellipsis> mysqlslap </span> </a> </li> <li class=md-nav__item> <a href=https://bodani.github.io/mysql45 class=md-nav__link> <span class=md-ellipsis> mysql45 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_13> <label class=md-nav__link for=__nav_1_13 id=__nav_1_13_label tabindex> <span class=md-ellipsis> 运维管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_13_label aria-expanded=false> <label class=md-nav__title for=__nav_1_13> <span class="md-nav__icon md-icon"></span> 运维管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/admin/ class=md-nav__link> <span class=md-ellipsis> 管理命令 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/variables2ali/ class=md-nav__link> <span class=md-ellipsis> 变量对照 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/binary/ class=md-nav__link> <span class=md-ellipsis> binlog管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/active/ class=md-nav__link> <span class=md-ellipsis> 活跃sql查看 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/shell/insert/ class=md-nav__link> <span class=md-ellipsis> 批量插入数据分割脚本 </span> </a> </li> <li class=md-nav__item> <a href=../../../mysql/cleanup_by_rename/ class=md-nav__link> <span class=md-ellipsis> 数据清理（Rename 方案） </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_14> <div class="md-nav__link md-nav__container"> <a href=../../../mysql/failurecase/ class="md-nav__link "> <span class=md-ellipsis> 问题案例 </span> </a> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_14_label aria-expanded=false> <label class=md-nav__title for=__nav_1_14> <span class="md-nav__icon md-icon"></span> 问题案例 </label> <ul class=md-nav__list data-md-scrollfix> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_1_15> <label class=md-nav__link for=__nav_1_15 id=__nav_1_15_label tabindex> <span class=md-ellipsis> 集群 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_1_15_label aria-expanded=false> <label class=md-nav__title for=__nav_1_15> <span class="md-nav__icon md-icon"></span> 集群 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mysql/share/vitess/ class=md-nav__link> <span class=md-ellipsis> Vitess 水平扩容 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2> <div class="md-nav__link md-nav__container"> <a href=../../ class="md-nav__link "> <span class=md-ellipsis> PostgreSQL </span> </a> <label class="md-nav__link " for=__nav_2 id=__nav_2_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_2_label aria-expanded=false> <label class=md-nav__title for=__nav_2> <span class="md-nav__icon md-icon"></span> PostgreSQL </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_2> <label class=md-nav__link for=__nav_2_2 id=__nav_2_2_label tabindex> <span class=md-ellipsis> 安装与配置 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_2_label aria-expanded=false> <label class=md-nav__title for=__nav_2_2> <span class="md-nav__icon md-icon"></span> 安装与配置 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../install/install01/ class=md-nav__link> <span class=md-ellipsis> 安装 </span> </a> </li> <li class=md-nav__item> <a href=../../install/install02/ class=md-nav__link> <span class=md-ellipsis> 安装详解 </span> </a> </li> <li class=md-nav__item> <a href=../../install/install/ class=md-nav__link> <span class=md-ellipsis> 安装进阶 </span> </a> </li> <li class=md-nav__item> <a href=../../install/config/ class=md-nav__link> <span class=md-ellipsis> 配置 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_3> <label class=md-nav__link for=__nav_2_3 id=__nav_2_3_label tabindex> <span class=md-ellipsis> 高可用 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_3_label aria-expanded=false> <label class=md-nav__title for=__nav_2_3> <span class="md-nav__icon md-icon"></span> 高可用 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../ha/ha_fd/ class=md-nav__link> <span class=md-ellipsis> 设计分析 </span> </a> </li> <li class=md-nav__item> <a href=../../ha/patroni/ class=md-nav__link> <span class=md-ellipsis> Patroni集群 </span> </a> </li> <li class=md-nav__item> <a href=../../ha/patroni02/ class=md-nav__link> <span class=md-ellipsis> Patroni高级 </span> </a> </li> <li class=md-nav__item> <a href=../../ha/pgautofailover/ class=md-nav__link> <span class=md-ellipsis> PGAutofailover </span> </a> </li> <li class=md-nav__item> <a href=../../ha/repmgr/ class=md-nav__link> <span class=md-ellipsis> Repmgr </span> </a> </li> <li class=md-nav__item> <a href=../../ha/repmgrd/ class=md-nav__link> <span class=md-ellipsis> RepmgrD </span> </a> </li> <li class=md-nav__item> <a href=../../ha/adlock/ class=md-nav__link> <span class=md-ellipsis> 一致性 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_4> <div class="md-nav__link md-nav__container"> <a href=../../index/ class="md-nav__link "> <span class=md-ellipsis> 索引与查询优化 </span> </a> <label class="md-nav__link " for=__nav_2_4 id=__nav_2_4_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_4_label aria-expanded=false> <label class=md-nav__title for=__nav_2_4> <span class="md-nav__icon md-icon"></span> 索引与查询优化 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../index/index01/ class=md-nav__link> <span class=md-ellipsis> 索引类型及使用场景 </span> </a> </li> <li class=md-nav__item> <a href=../../index/index-invalid/ class=md-nav__link> <span class=md-ellipsis> 索引失效 </span> </a> </li> <li class=md-nav__item> <a href=../../index/index-bloom/ class=md-nav__link> <span class=md-ellipsis> Bloom索引 </span> </a> </li> <li class=md-nav__item> <a href=../../index/hypopg-index/ class=md-nav__link> <span class=md-ellipsis> 假设索引 </span> </a> </li> <li class=md-nav__item> <a href=../../index/template/ class=md-nav__link> <span class=md-ellipsis> 模板表 </span> </a> </li> <li class=md-nav__item> <a href=../../index/unlogged_table/ class=md-nav__link> <span class=md-ellipsis> 未记录表 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_5> <label class=md-nav__link for=__nav_2_5 id=__nav_2_5_label tabindex> <span class=md-ellipsis> 性能优化 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_5_label aria-expanded=false> <label class=md-nav__title for=__nav_2_5> <span class="md-nav__icon md-icon"></span> 性能优化 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../performance/fillfactor/ class=md-nav__link> <span class=md-ellipsis> 填充因子 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/stat/ class=md-nav__link> <span class=md-ellipsis> 统计信息 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/params/ class=md-nav__link> <span class=md-ellipsis> 参数优化 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/high_level_sql/ class=md-nav__link> <span class=md-ellipsis> 高级SQL </span> </a> </li> <li class=md-nav__item> <a href=../../performance/FunctionsandOperators/ class=md-nav__link> <span class=md-ellipsis> 连接函数 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/vacuum/ class=md-nav__link> <span class=md-ellipsis> VACUUM操作 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/vacuum_limit/ class=md-nav__link> <span class=md-ellipsis> VACUUM限制 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/hotupdate/ class=md-nav__link> <span class=md-ellipsis> 冻结机制 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/thinking_in_db_performance/ class=md-nav__link> <span class=md-ellipsis> 性能优化思考 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/thinking_in_db_tune/ class=md-nav__link> <span class=md-ellipsis> 系统调优 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_6> <label class=md-nav__link for=__nav_2_6 id=__nav_2_6_label tabindex> <span class=md-ellipsis> 数据维护 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_6_label aria-expanded=false> <label class=md-nav__title for=__nav_2_6> <span class="md-nav__icon md-icon"></span> 数据维护 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../install/toast/ class=md-nav__link> <span class=md-ellipsis> 事务管理 </span> </a> </li> <li class=md-nav__item> <a href=../../install/delete/ class=md-nav__link> <span class=md-ellipsis> 数据删除 </span> </a> </li> <li class=md-nav__item> <a href=../../install/checkpoint/ class=md-nav__link> <span class=md-ellipsis> 检查点 </span> </a> </li> <li class=md-nav__item> <a href=../../install/daily_management/ class=md-nav__link> <span class=md-ellipsis> 日常管理 </span> </a> </li> <li class=md-nav__item> <a href=../../install/bgwriter/ class=md-nav__link> <span class=md-ellipsis> BGWriter </span> </a> </li> <li class=md-nav__item> <a href=../../install/tablespace/ class=md-nav__link> <span class=md-ellipsis> 表空间 </span> </a> </li> <li class=md-nav__item> <a href=../../install/pgstattuple/ class=md-nav__link> <span class=md-ellipsis> 空间分析 </span> </a> </li> <li class=md-nav__item> <a href=../../maintenance/pg_rewrite/ class=md-nav__link> <span class=md-ellipsis> 在线表重写 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_pathman.md class=md-nav__link> <span class=md-ellipsis> pg_pathman </span> </a> </li> <li class=md-nav__item> <a href=../../maintenance/partition/ class=md-nav__link> <span class=md-ellipsis> 分区表 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_7> <label class=md-nav__link for=__nav_2_7 id=__nav_2_7_label tabindex> <span class=md-ellipsis> 监控分析 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_7_label aria-expanded=false> <label class=md-nav__title for=__nav_2_7> <span class="md-nav__icon md-icon"></span> 监控分析 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../tools/monitor/ class=md-nav__link> <span class=md-ellipsis> 监控基础 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/monitor-sql/ class=md-nav__link> <span class=md-ellipsis> SQL监控 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/view_pg_stat_activity/ class=md-nav__link> <span class=md-ellipsis> STAT视图 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/view_pg_stat_bgwriter/ class=md-nav__link> <span class=md-ellipsis> 统计BGWriter </span> </a> </li> <li class=md-nav__item> <a href=../../tools/monitor_explain/ class=md-nav__link> <span class=md-ellipsis> Explain分析 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_activity/ class=md-nav__link> <span class=md-ellipsis> 活动视图 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/dba/ class=md-nav__link> <span class=md-ellipsis> 数据库监控 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_8> <label class=md-nav__link for=__nav_2_8 id=__nav_2_8_label tabindex> <span class=md-ellipsis> 扩展模块 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_8_label aria-expanded=false> <label class=md-nav__title for=__nav_2_8> <span class="md-nav__icon md-icon"></span> 扩展模块 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../extentions/citus01/ class=md-nav__link> <span class=md-ellipsis> Citus分布式 </span> </a> </li> <li class=md-nav__item> <a href=../../extentions/citus11/ class=md-nav__link> <span class=md-ellipsis> Citus高级 </span> </a> </li> <li class=md-nav__item> <a href=../../extentions/timescaledb/ class=md-nav__link> <span class=md-ellipsis> TimescaleDB </span> </a> </li> <li class=md-nav__item> <a href=../../extentions/pipelinedb01/ class=md-nav__link> <span class=md-ellipsis> PipelineDB </span> </a> </li> <li class=md-nav__item> <a href=../../extentions/pipelinedb02/ class=md-nav__link> <span class=md-ellipsis> PipelineDB实战 </span> </a> </li> <li class=md-nav__item> <a href=../../extentions/pgpool2/ class=md-nav__link> <span class=md-ellipsis> PGPool-II </span> </a> </li> <li class=md-nav__item> <a href=../../extentions/pgbouncer/ class=md-nav__link> <span class=md-ellipsis> PGBouncer </span> </a> </li> <li class=md-nav__item> <a href=../../extentions/pg_rman/ class=md-nav__link> <span class=md-ellipsis> PGBackRMAN </span> </a> </li> <li class=md-nav__item> <a href=../../extentions/pg_fdw/ class=md-nav__link> <span class=md-ellipsis> FDW外部表 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_9> <label class=md-nav__link for=__nav_2_9 id=__nav_2_9_label tabindex> <span class=md-ellipsis> 数据同步 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_9_label aria-expanded=false> <label class=md-nav__title for=__nav_2_9> <span class="md-nav__icon md-icon"></span> 数据同步 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../replication/replication01/ class=md-nav__link> <span class=md-ellipsis> 流复制 </span> </a> </li> <li class=md-nav__item> <a href=../../replication/replication02/ class=md-nav__link> <span class=md-ellipsis> 复制原理 </span> </a> </li> <li class=md-nav__item> <a href=../../replication/logical-replication/ class=md-nav__link> <span class=md-ellipsis> 逻辑复制 </span> </a> </li> <li class=md-nav__item> <a href=../../replication/logical-replication_failover/ class=md-nav__link> <span class=md-ellipsis> 逻辑复制故障切换 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_rewind/ class=md-nav__link> <span class=md-ellipsis> pg_rewind </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_10> <div class="md-nav__link md-nav__container"> <a href=../../backup/ class="md-nav__link "> <span class=md-ellipsis> 备份与恢复 </span> </a> <label class="md-nav__link " for=__nav_2_10 id=__nav_2_10_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_10_label aria-expanded=false> <label class=md-nav__title for=__nav_2_10> <span class="md-nav__icon md-icon"></span> 备份与恢复 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../backup/logical-backup/ class=md-nav__link> <span class=md-ellipsis> 逻辑备份 </span> </a> </li> <li class=md-nav__item> <a href=../../backup/physical-backup/ class=md-nav__link> <span class=md-ellipsis> 物理备份 </span> </a> </li> <li class=md-nav__item> <a href=../../backup/pgbackrest/ class=md-nav__link> <span class=md-ellipsis> pgBackRest </span> </a> </li> <li class=md-nav__item> <a href=../../backup/wal-g/ class=md-nav__link> <span class=md-ellipsis> WAL-G备份 </span> </a> </li> <li class=md-nav__item> <a href=../../backup/pgcopydb/ class=md-nav__link> <span class=md-ellipsis> pgcopydb迁移 </span> </a> </li> <li class=md-nav__item> <a href=../../backup/reback/ class=md-nav__link> <span class=md-ellipsis> 数据恢复基础 </span> </a> </li> <li class=md-nav__item> <a href=../../backup/reback_supper_user/ class=md-nav__link> <span class=md-ellipsis> 超级用户恢复 </span> </a> </li> <li class=md-nav__item> <a href=../../backup/pitr/ class=md-nav__link> <span class=md-ellipsis> PITR备份恢复 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_11> <label class=md-nav__link for=__nav_2_11 id=__nav_2_11_label tabindex> <span class=md-ellipsis> 安全管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_11_label aria-expanded=false> <label class=md-nav__title for=__nav_2_11> <span class="md-nav__icon md-icon"></span> 安全管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../role-manager/ class=md-nav__link> <span class=md-ellipsis> 角色管理 </span> </a> </li> <li class=md-nav__item> <a href=../login_nopasswd/ class=md-nav__link> <span class=md-ellipsis> 连接认证 </span> </a> </li> <li class=md-nav__item> <a href=../ssl/ class=md-nav__link> <span class=md-ellipsis> SSL安全 </span> </a> </li> <li class=md-nav__item> <a href=../prepare/ class=md-nav__link> <span class=md-ellipsis> 备用服务 </span> </a> </li> <li class=md-nav__item> <a href=../readonly/ class=md-nav__link> <span class=md-ellipsis> 只读 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_12> <label class=md-nav__link for=__nav_2_12 id=__nav_2_12_label tabindex> <span class=md-ellipsis> 高级特性 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_12_label aria-expanded=false> <label class=md-nav__title for=__nav_2_12> <span class="md-nav__icon md-icon"></span> 高级特性 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../design/wal_lsn/ class=md-nav__link> <span class=md-ellipsis> WAL操作详解 </span> </a> </li> <li class=md-nav__item> <a href=../../design/wal_size/ class=md-nav__link> <span class=md-ellipsis> WAL配置大小 </span> </a> </li> <li class=md-nav__item> <a href=../../design/insert01/ class=md-nav__link> <span class=md-ellipsis> 高级插入技巧 </span> </a> </li> <li class=md-nav__item> <a href=../../design/upset/ class=md-nav__link> <span class=md-ellipsis> UPSERT </span> </a> </li> <li class=md-nav__item> <a href=../../design/hll/ class=md-nav__link> <span class=md-ellipsis> HLL统计 </span> </a> </li> <li class=md-nav__item> <a href=../../design/pg_json/ class=md-nav__link> <span class=md-ellipsis> JSON处理 </span> </a> </li> <li class=md-nav__item> <a href=../../design/pg_trgm/ class=md-nav__link> <span class=md-ellipsis> TRGM相似搜索 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_13> <label class=md-nav__link for=__nav_2_13 id=__nav_2_13_label tabindex> <span class=md-ellipsis> 数据库设计 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_13_label aria-expanded=false> <label class=md-nav__title for=__nav_2_13> <span class="md-nav__icon md-icon"></span> 数据库设计 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../design/normal-form/ class=md-nav__link> <span class=md-ellipsis> 范式理论 </span> </a> </li> <li class=md-nav__item> <a href=../../design/materialized/ class=md-nav__link> <span class=md-ellipsis> 物化视图 </span> </a> </li> <li class=md-nav__item> <a href=../../design/extention/ class=md-nav__link> <span class=md-ellipsis> 扩展功能 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_14> <label class=md-nav__link for=__nav_2_14 id=__nav_2_14_label tabindex> <span class=md-ellipsis> 工具集 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_14_label aria-expanded=false> <label class=md-nav__title for=__nav_2_14> <span class="md-nav__icon md-icon"></span> 工具集 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../tools/pgbench/ class=md-nav__link> <span class=md-ellipsis> pgbench压测 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_elk/ class=md-nav__link> <span class=md-ellipsis> 集群扩展 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_prewarm/ class=md-nav__link> <span class=md-ellipsis> 预加载缓存 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_buffercache/ class=md-nav__link> <span class=md-ellipsis> 统计预缓存 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pgfincore/ class=md-nav__link> <span class=md-ellipsis> 模糊查询 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/lock_wait/ class=md-nav__link> <span class=md-ellipsis> 锁等待分析 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pgage/ class=md-nav__link> <span class=md-ellipsis> 行数统计 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pgwatch2/ class=md-nav__link> <span class=md-ellipsis> 监控系统 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_prewarm/ class=md-nav__link> <span class=md-ellipsis> 数据预热 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_lock/ class=md-nav__link> <span class=md-ellipsis> 读写分析 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_citus/ class=md-nav__link> <span class=md-ellipsis> CITUS扩展 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/wal_count/ class=md-nav__link> <span class=md-ellipsis> wal数量计算 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_15> <label class=md-nav__link for=__nav_2_15 id=__nav_2_15_label tabindex> <span class=md-ellipsis> 版本与历史 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_15_label aria-expanded=false> <label class=md-nav__title for=__nav_2_15> <span class="md-nav__icon md-icon"></span> 版本与历史 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../install/postgres12/ class=md-nav__link> <span class=md-ellipsis> 12版特性 </span> </a> </li> <li class=md-nav__item> <a href=../../install/postgresql-howto/ class=md-nav__link> <span class=md-ellipsis> 使用指南 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/tpch/ class=md-nav__link> <span class=md-ellipsis> TPC-H基准 </span> </a> </li> <li class=md-nav__item> <a href=../../maintenance/archive/ class=md-nav__link> <span class=md-ellipsis> 备份归档 </span> </a> </li> <li class=md-nav__item> <a href=../../extentions/citus01/ class=md-nav__link> <span class=md-ellipsis> 扩展目录 </span> </a> </li> <li class=md-nav__item> <a href=../../install/config/ class=md-nav__link> <span class=md-ellipsis> 配置文件目录 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/monitor/ class=md-nav__link> <span class=md-ellipsis> 监控目录 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_16> <label class=md-nav__link for=__nav_2_16 id=__nav_2_16_label tabindex> <span class=md-ellipsis> 架构与原理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_16_label aria-expanded=false> <label class=md-nav__title for=__nav_2_16> <span class="md-nav__icon md-icon"></span> 架构与原理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../install/cluster/ class=md-nav__link> <span class=md-ellipsis> 数据库架构 </span> </a> </li> <li class=md-nav__item> <a href=../../troubleshooting/debezium/ class=md-nav__link> <span class=md-ellipsis> 系统分析 </span> </a> </li> <li class=md-nav__item> <a href=../../troubleshooting/dts/ class=md-nav__link> <span class=md-ellipsis> 迁移与DTS </span> </a> </li> <li class=md-nav__item> <a href=../../troubleshooting/explain/ class=md-nav__link> <span class=md-ellipsis> 系统锁定分析 </span> </a> </li> <li class=md-nav__item> <a href=../../troubleshooting/libpg/ class=md-nav__link> <span class=md-ellipsis> 登录处理流程 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_rewrite.md class=md-nav__link> <span class=md-ellipsis> 功能分析 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_2_17> <label class=md-nav__link for=__nav_2_17 id=__nav_2_17_label tabindex> <span class=md-ellipsis> 故障排除与问题解决 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_2_17_label aria-expanded=false> <label class=md-nav__title for=__nav_2_17> <span class="md-nav__icon md-icon"></span> 故障排除与问题解决 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../troubleshooting/oom/ class=md-nav__link> <span class=md-ellipsis> OOM问题 </span> </a> </li> <li class=md-nav__item> <a href=../../troubleshooting/auto_vacuum_trigger/ class=md-nav__link> <span class=md-ellipsis> 空间自动清理 </span> </a> </li> <li class=md-nav__item> <a href=../../tools/pg_prewarm/ class=md-nav__link> <span class=md-ellipsis> 数据预加载 </span> </a> </li> <li class=md-nav__item> <a href=../../troubleshooting/awsome-postgres/ class=md-nav__link> <span class=md-ellipsis> 案例研究 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3> <div class="md-nav__link md-nav__container"> <a href=../../../middleware/ class="md-nav__link "> <span class=md-ellipsis> 中间件 </span> </a> <label class="md-nav__link " for=__nav_3 id=__nav_3_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_3_label aria-expanded=false> <label class=md-nav__title for=__nav_3> <span class="md-nav__icon md-icon"></span> 中间件 </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_2> <div class="md-nav__link md-nav__container"> <a href=../../../clickhouse/ class="md-nav__link "> <span class=md-ellipsis> ClickHouse </span> </a> <label class="md-nav__link " for=__nav_3_2 id=__nav_3_2_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_2_label aria-expanded=false> <label class=md-nav__title for=__nav_3_2> <span class="md-nav__icon md-icon"></span> ClickHouse </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../clickhouse/install/ class=md-nav__link> <span class=md-ellipsis> 安装 </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/install/install_single/ class=md-nav__link> <span class=md-ellipsis> 单机版 </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/install/install_cluster/ class=md-nav__link> <span class=md-ellipsis> 集群版 </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/user/ class=md-nav__link> <span class=md-ellipsis> 用户 </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/ch-keeper/ class=md-nav__link> <span class=md-ellipsis> keeper </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/demo/ class=md-nav__link> <span class=md-ellipsis> 表引擎 </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/compresstion/ class=md-nav__link> <span class=md-ellipsis> 压缩 </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/restore/ class=md-nav__link> <span class=md-ellipsis> 恢复1 </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/replicatedmergetree-disk-failure-recovery/ class=md-nav__link> <span class=md-ellipsis> 恢复2 </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/monitor/ class=md-nav__link> <span class=md-ellipsis> 监控 </span> </a> </li> <li class=md-nav__item> <a href=../../../clickhouse/system_log_cleanup/ class=md-nav__link> <span class=md-ellipsis> 系统日志清理 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_3> <label class=md-nav__link for=__nav_3_3 id=__nav_3_3_label tabindex> <span class=md-ellipsis> MongoDB </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_3_label aria-expanded=false> <label class=md-nav__title for=__nav_3_3> <span class="md-nav__icon md-icon"></span> MongoDB </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../mongodb/install/ class=md-nav__link> <span class=md-ellipsis> 安装 </span> </a> </li> <li class=md-nav__item> <a href=../../../mongodb/config/ class=md-nav__link> <span class=md-ellipsis> 配置 </span> </a> </li> <li class=md-nav__item> <a href=../../../mongodb/replication/ class=md-nav__link> <span class=md-ellipsis> 副本集 </span> </a> </li> <li class=md-nav__item> <a href=../../../mongodb/write_concern/ class=md-nav__link> <span class=md-ellipsis> 写关注 </span> </a> </li> <li class=md-nav__item> <a href=../../../mongodb/sharding/ class=md-nav__link> <span class=md-ellipsis> 分片集群 </span> </a> </li> <li class=md-nav__item> <a href=../../../mongodb/privilege/ class=md-nav__link> <span class=md-ellipsis> 权限管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../mongodb/backup_restore/ class=md-nav__link> <span class=md-ellipsis> 备份恢复 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_4> <label class=md-nav__link for=__nav_3_4 id=__nav_3_4_label tabindex> <span class=md-ellipsis> 监控系统 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_4_label aria-expanded=false> <label class=md-nav__title for=__nav_3_4> <span class="md-nav__icon md-icon"></span> 监控系统 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../monitor/prometheus/ class=md-nav__link> <span class=md-ellipsis> Prometheus </span> </a> </li> <li class=md-nav__item> <a href=../../../monitor/grafana/ class=md-nav__link> <span class=md-ellipsis> Grafana </span> </a> </li> <li class=md-nav__item> <a href=../../../monitor/exporter/ class=md-nav__link> <span class=md-ellipsis> exporter </span> </a> </li> <li class=md-nav__item> <a href=../../../monitor/metrics/ class=md-nav__link> <span class=md-ellipsis> 监控指标 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_5> <div class="md-nav__link md-nav__container"> <a href=../../../fluentbit/ class="md-nav__link "> <span class=md-ellipsis> fluentbit </span> </a> <label class="md-nav__link " for=__nav_3_5 id=__nav_3_5_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_5_label aria-expanded=false> <label class=md-nav__title for=__nav_3_5> <span class="md-nav__icon md-icon"></span> fluentbit </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../fluentbit/intro/ class=md-nav__link> <span class=md-ellipsis> 介绍 </span> </a> </li> <li class=md-nav__item> <a href=../../../fluentbit/problems/ class=md-nav__link> <span class=md-ellipsis> 问题排查 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_4> <label class=md-nav__link for=__nav_4 id=__nav_4_label tabindex> <span class=md-ellipsis> 容器 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_4_label aria-expanded=false> <label class=md-nav__title for=__nav_4> <span class="md-nav__icon md-icon"></span> 容器 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../kubernetes/sts_update/ class=md-nav__link> <span class=md-ellipsis> sts 滚动更新 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5> <div class="md-nav__link md-nav__container"> <a href=../../../linux/ class="md-nav__link "> <span class=md-ellipsis> Linux </span> </a> <label class="md-nav__link " for=__nav_5 id=__nav_5_label tabindex> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_5_label aria-expanded=false> <label class=md-nav__title for=__nav_5> <span class="md-nav__icon md-icon"></span> Linux </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_2> <label class=md-nav__link for=__nav_5_2 id=__nav_5_2_label tabindex> <span class=md-ellipsis> 基础工具与系统管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_2_label aria-expanded=false> <label class=md-nav__title for=__nav_5_2> <span class="md-nav__icon md-icon"></span> 基础工具与系统管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/tools/ class=md-nav__link> <span class=md-ellipsis> 系统工具 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/process-comm/ class=md-nav__link> <span class=md-ellipsis> 进程管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/sysstat/ class=md-nav__link> <span class=md-ellipsis> 性能监控 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/meminfo/ class=md-nav__link> <span class=md-ellipsis> 内存管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/hard_store/ class=md-nav__link> <span class=md-ellipsis> 磁盘管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/findhidpid/ class=md-nav__link> <span class=md-ellipsis> 文件系统工具 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/time-cmd/ class=md-nav__link> <span class=md-ellipsis> 时间管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/mail/ class=md-nav__link> <span class=md-ellipsis> 邮件管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/cpu_temp/ class=md-nav__link> <span class=md-ellipsis> 电源管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/syslog/ class=md-nav__link> <span class=md-ellipsis> 系统日志 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_3> <label class=md-nav__link for=__nav_5_3 id=__nav_5_3_label tabindex> <span class=md-ellipsis> 命令详解与实用工具 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_3_label aria-expanded=false> <label class=md-nav__title for=__nav_5_3> <span class="md-nav__icon md-icon"></span> 命令详解与实用工具 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/cmd-awk/ class=md-nav__link> <span class=md-ellipsis> awk命令详解 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/cmd-gpasswd/ class=md-nav__link> <span class=md-ellipsis> gpasswd命令 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/cmd-sed/ class=md-nav__link> <span class=md-ellipsis> sed命令详解 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/cmd-vim/ class=md-nav__link> <span class=md-ellipsis> vim命令使用 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/vim_w/ class=md-nav__link> <span class=md-ellipsis> vim忘带sudo保存 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/cmd-xargs/ class=md-nav__link> <span class=md-ellipsis> xargs命令使用 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/fu-cmd/ class=md-nav__link> <span class=md-ellipsis> 其他常用命令 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/install-cmd/ class=md-nav__link> <span class=md-ellipsis> 系统安装相关命令 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/cmd-pstack/ class=md-nav__link> <span class=md-ellipsis> 安装相关脚本工具 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_4> <label class=md-nav__link for=__nav_5_4 id=__nav_5_4_label tabindex> <span class=md-ellipsis> 虚拟化与容器技术 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_4_label aria-expanded=false> <label class=md-nav__title for=__nav_5_4> <span class="md-nav__icon md-icon"></span> 虚拟化与容器技术 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/kvm01/ class=md-nav__link> <span class=md-ellipsis> KVM 虚拟化 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/kuberctl/ class=md-nav__link> <span class=md-ellipsis> K8s 管理工具 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/wind-run/ class=md-nav__link> <span class=md-ellipsis> 容器网络管理 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_5> <label class=md-nav__link for=__nav_5_5 id=__nav_5_5_label tabindex> <span class=md-ellipsis> 硬件与驱动管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_5_label aria-expanded=false> <label class=md-nav__title for=__nav_5_5> <span class="md-nav__icon md-icon"></span> 硬件与驱动管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/smartctl/ class=md-nav__link> <span class=md-ellipsis> 硬件监控 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/dmidecode/ class=md-nav__link> <span class=md-ellipsis> 硬件信息查询 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/mdadm/ class=md-nav__link> <span class=md-ellipsis> 磁盘阵列管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/hdparm/ class=md-nav__link> <span class=md-ellipsis> 硬盘性能检测 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/ipmitool/ class=md-nav__link> <span class=md-ellipsis> 远程硬件管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/cpu_utilize/ class=md-nav__link> <span class=md-ellipsis> CPU温度与利用率 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_6> <label class=md-nav__link for=__nav_5_6 id=__nav_5_6_label tabindex> <span class=md-ellipsis> 安全与权限管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_6_label aria-expanded=false> <label class=md-nav__title for=__nav_5_6> <span class="md-nav__icon md-icon"></span> 安全与权限管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/webmanage/ class=md-nav__link> <span class=md-ellipsis> 系统安全管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/nice/ class=md-nav__link> <span class=md-ellipsis> 用户权限管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/wheel/ class=md-nav__link> <span class=md-ellipsis> 临时用户组 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/no-passwd/ class=md-nav__link> <span class=md-ellipsis> 免密登录配置 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/bmcpasswd/ class=md-nav__link> <span class=md-ellipsis> sudo配置与BMC </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/git-nopassword/ class=md-nav__link> <span class=md-ellipsis> Git免密配置 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/resetpasswd-centos7/ class=md-nav__link> <span class=md-ellipsis> 账户密码重置 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/at-crontab/ class=md-nav__link> <span class=md-ellipsis> 任务调度管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/terminal-reuse/ class=md-nav__link> <span class=md-ellipsis> 终端会话复用 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/ln-s/ class=md-nav__link> <span class=md-ellipsis> SSH免密与连接 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/openvpn/ class=md-nav__link> <span class=md-ellipsis> 安全VPN管理 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_7> <label class=md-nav__link for=__nav_5_7 id=__nav_5_7_label tabindex> <span class=md-ellipsis> 系统配置与调优 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_7_label aria-expanded=false> <label class=md-nav__title for=__nav_5_7> <span class="md-nav__icon md-icon"></span> 系统配置与调优 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/linux_tunning/ class=md-nav__link> <span class=md-ellipsis> 系统参数调整 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/cpu-affinity/ class=md-nav__link> <span class=md-ellipsis> 进程优先级与CPU亲和性 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/kworker/ class=md-nav__link> <span class=md-ellipsis> 内核后台进程 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/qos/ class=md-nav__link> <span class=md-ellipsis> 网络QoS管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/init-centos/ class=md-nav__link> <span class=md-ellipsis> 系统启动优化 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/ubuntu2004-network/ class=md-nav__link> <span class=md-ellipsis> 网络配置Ubuntu </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/memtester/ class=md-nav__link> <span class=md-ellipsis> 系统内存大页 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/ssdiotimeout/ class=md-nav__link> <span class=md-ellipsis> I/O超时处理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/backlog-config/ class=md-nav__link> <span class=md-ellipsis> Backlog队列管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/swapoff/ class=md-nav__link> <span class=md-ellipsis> swap分区关闭 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_8> <label class=md-nav__link for=__nav_5_8 id=__nav_5_8_label tabindex> <span class=md-ellipsis> 存储与文件系统管理 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_8_label aria-expanded=false> <label class=md-nav__title for=__nav_5_8> <span class="md-nav__icon md-icon"></span> 存储与文件系统管理 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/lvm/ class=md-nav__link> <span class=md-ellipsis> LVM存储管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/parted/ class=md-nav__link> <span class=md-ellipsis> 磁盘分区工具 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/fastdeletfiles/ class=md-nav__link> <span class=md-ellipsis> 系统空间清理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/nospace-device/ class=md-nav__link> <span class=md-ellipsis> 无空间设备处理 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_9> <label class=md-nav__link for=__nav_5_9 id=__nav_5_9_label tabindex> <span class=md-ellipsis> 网络与协议分析 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_9_label aria-expanded=false> <label class=md-nav__title for=__nav_5_9> <span class="md-nav__icon md-icon"></span> 网络与协议分析 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/tcpdump/ class=md-nav__link> <span class=md-ellipsis> 网络抓包分析 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/iperf/ class=md-nav__link> <span class=md-ellipsis> 网络诊断工具 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/last/ class=md-nav__link> <span class=md-ellipsis> 网络状态监控 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/wget/ class=md-nav__link> <span class=md-ellipsis> 下载工具wget </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/stat/ class=md-nav__link> <span class=md-ellipsis> 系统资源统计 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_10> <label class=md-nav__link for=__nav_5_10 id=__nav_5_10_label tabindex> <span class=md-ellipsis> 数据恢复与备份 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_10_label aria-expanded=false> <label class=md-nav__title for=__nav_5_10> <span class="md-nav__icon md-icon"></span> 数据恢复与备份 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/ddrescue/ class=md-nav__link> <span class=md-ellipsis> 数据恢复ddrescue </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/fio/ class=md-nav__link> <span class=md-ellipsis> 磁盘性能测试fio </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/vm-config/ class=md-nav__link> <span class=md-ellipsis> VM性能配置 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/memtest/ class=md-nav__link> <span class=md-ellipsis> 内存测试 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/patch/ class=md-nav__link> <span class=md-ellipsis> 系统补丁管理 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_11> <label class=md-nav__link for=__nav_5_11 id=__nav_5_11_label tabindex> <span class=md-ellipsis> 调试与性能分析 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_11_label aria-expanded=false> <label class=md-nav__title for=__nav_5_11> <span class="md-nav__icon md-icon"></span> 调试与性能分析 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/perf/ class=md-nav__link> <span class=md-ellipsis> 性能分析工具perf </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/pmap/ class=md-nav__link> <span class=md-ellipsis> 内存映射分析pmap </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/pstack_strace/ class=md-nav__link> <span class=md-ellipsis> 进程调试 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/so/ class=md-nav__link> <span class=md-ellipsis> 符号表与共享库 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/cgroups/ class=md-nav__link> <span class=md-ellipsis> 硬件驱动分析 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_12> <label class=md-nav__link for=__nav_5_12 id=__nav_5_12_label tabindex> <span class=md-ellipsis> 安全增强工具 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_12_label aria-expanded=false> <label class=md-nav__title for=__nav_5_12> <span class="md-nav__icon md-icon"></span> 安全增强工具 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/elfutil/ class=md-nav__link> <span class=md-ellipsis> ELF工具详解 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/pid_m/ class=md-nav__link> <span class=md-ellipsis> 调试堆栈分析 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/lang/ class=md-nav__link> <span class=md-ellipsis> 软件包语言配置 </span> </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_5_13> <label class=md-nav__link for=__nav_5_13 id=__nav_5_13_label tabindex> <span class=md-ellipsis> 系统维护与问题解决 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_5_13_label aria-expanded=false> <label class=md-nav__title for=__nav_5_13> <span class="md-nav__icon md-icon"></span> 系统维护与问题解决 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../linux/lightdm/ class=md-nav__link> <span class=md-ellipsis> 轻量桌面管理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/4k-wa/ class=md-nav__link> <span class=md-ellipsis> 硬盘4K对齐 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/repo/ class=md-nav__link> <span class=md-ellipsis> 仓库远程配置 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/git-sparsecheckout/ class=md-nav__link> <span class=md-ellipsis> 版本控制优化 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/github-dns/ class=md-nav__link> <span class=md-ellipsis> DNS优化配置 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/ubuntu2004-qa/ class=md-nav__link> <span class=md-ellipsis> Ubuntu2004常见问题 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/git-objects-clean/ class=md-nav__link> <span class=md-ellipsis> Git对象清理 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/xz/ class=md-nav__link> <span class=md-ellipsis> 归档压缩 </span> </a> </li> <li class=md-nav__item> <a href=../../../linux/frp/ class=md-nav__link> <span class=md-ellipsis> 便捷连接工具 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_6> <label class=md-nav__link for=__nav_6 id=__nav_6_label tabindex> <span class=md-ellipsis> 数据库思考 </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_6_label aria-expanded=false> <label class=md-nav__title for=__nav_6> <span class="md-nav__icon md-icon"></span> 数据库思考 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../maintenance/thinking_in_db_fd/ class=md-nav__link> <span class=md-ellipsis> 结构设计 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/thinking_in_db_performance/ class=md-nav__link> <span class=md-ellipsis> 性能优化 </span> </a> </li> <li class=md-nav__item> <a href=../../performance/thinking_in_db_tune/ class=md-nav__link> <span class=md-ellipsis> 模块调优 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#postgresql class=md-nav__link> <span class=md-ellipsis> 一、PostgreSQL 加密方案全景图 </span> </a> <nav class=md-nav aria-label="一、PostgreSQL 加密方案全景图"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#_1 class=md-nav__link> <span class=md-ellipsis> 各层加密方案对比 </span> </a> </li> <li class=md-nav__item> <a href=#pgcrypto class=md-nav__link> <span class=md-ellipsis> 为什么需要 pgcrypto？ </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#pgcrypto_1 class=md-nav__link> <span class=md-ellipsis> 二、pgcrypto 详解 </span> </a> <nav class=md-nav aria-label="二、pgcrypto 详解"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#21 class=md-nav__link> <span class=md-ellipsis> 2.1 优缺点分析 </span> </a> </li> <li class=md-nav__item> <a href=#22 class=md-nav__link> <span class=md-ellipsis> 2.2 支持的加密方案 </span> </a> <nav class=md-nav aria-label="2.2 支持的加密方案"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#221 class=md-nav__link> <span class=md-ellipsis> 2.2.1 哈希函数（不可逆） </span> </a> </li> <li class=md-nav__item> <a href=#222 class=md-nav__link> <span class=md-ellipsis> 2.2.2 对称加密（可逆） </span> </a> </li> <li class=md-nav__item> <a href=#223 class=md-nav__link> <span class=md-ellipsis> 2.2.3 加密算法对照表 </span> </a> </li> <li class=md-nav__item> <a href=#224 class=md-nav__link> <span class=md-ellipsis> 2.2.4 密码哈希专用函数 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#23 class=md-nav__link> <span class=md-ellipsis> 2.3 技术原理 </span> </a> <nav class=md-nav aria-label="2.3 技术原理"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#231 class=md-nav__link> <span class=md-ellipsis> 2.3.1 加密模型 </span> </a> </li> <li class=md-nav__item> <a href=#232 class=md-nav__link> <span class=md-ellipsis> 2.3.2 两种加密模式 </span> </a> </li> <li class=md-nav__item> <a href=#233-kdf class=md-nav__link> <span class=md-ellipsis> 2.3.3 密钥派生函数 (KDF) </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#24 class=md-nav__link> <span class=md-ellipsis> 2.4 简单使用示例 </span> </a> <nav class=md-nav aria-label="2.4 简单使用示例"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#241 class=md-nav__link> <span class=md-ellipsis> 2.4.1 安装与基础配置 </span> </a> </li> <li class=md-nav__item> <a href=#242 class=md-nav__link> <span class=md-ellipsis> 2.4.2 用户密码安全存储 </span> </a> </li> <li class=md-nav__item> <a href=#243 class=md-nav__link> <span class=md-ellipsis> 2.4.3 敏感字段加解密 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_2 class=md-nav__link> <span class=md-ellipsis> 三、应用场景示例 </span> </a> <nav class=md-nav aria-label=三、应用场景示例> <ul class=md-nav__list> <li class=md-nav__item> <a href=#_3 class=md-nav__link> <span class=md-ellipsis> 场景一：用户密码安全存储 </span> </a> </li> <li class=md-nav__item> <a href=#_4 class=md-nav__link> <span class=md-ellipsis> 场景二：金融数据加密 </span> </a> </li> <li class=md-nav__item> <a href=#_5 class=md-nav__link> <span class=md-ellipsis> 场景三：医疗健康数据加密 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#pgcrypto_2 class=md-nav__link> <span class=md-ellipsis> 四、在线迁移：已有数据如何在线基本无损使用 pgcrypto </span> </a> <nav class=md-nav aria-label="四、在线迁移：已有数据如何在线基本无损使用 pgcrypto"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#41 class=md-nav__link> <span class=md-ellipsis> 4.1 迁移策略概述 </span> </a> </li> <li class=md-nav__item> <a href=#42 class=md-nav__link> <span class=md-ellipsis> 4.2 详细迁移步骤 </span> </a> <nav class=md-nav aria-label="4.2 详细迁移步骤"> <ul class=md-nav__list> <li class=md-nav__item> <a href=#_6 class=md-nav__link> <span class=md-ellipsis> 第一步：创建加密列和辅助字段 </span> </a> </li> <li class=md-nav__item> <a href=#_7 class=md-nav__link> <span class=md-ellipsis> 第二步：创建触发器和实时同步机制 </span> </a> </li> <li class=md-nav__item> <a href=#_8 class=md-nav__link> <span class=md-ellipsis> 第三步：批量迁移历史数据 </span> </a> </li> <li class=md-nav__item> <a href=#_9 class=md-nav__link> <span class=md-ellipsis> 第四步：验证数据一致性 </span> </a> </li> <li class=md-nav__item> <a href=#_10 class=md-nav__link> <span class=md-ellipsis> 第五步：平滑切换（双写阶段） </span> </a> </li> <li class=md-nav__item> <a href=#_11 class=md-nav__link> <span class=md-ellipsis> 第六步：表重命名切换（原子操作，不宕机） </span> </a> </li> <li class=md-nav__item> <a href=#_12 class=md-nav__link> <span class=md-ellipsis> 第七步：清理旧数据 </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#_13 class=md-nav__link> <span class=md-ellipsis> 五、 检索加密字段 </span> </a> </li> <li class=md-nav__item> <a href=#_14 class=md-nav__link> <span class=md-ellipsis> 六、总结 </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <hr> <h1 id=postgresql-pgcrypto>PostgreSQL 列级加密实战：pgcrypto 从入门到在线迁移</h1> <blockquote> <p><strong>作者</strong>：360智汇云（zyun360） <strong>发布日期</strong>：2026-07-29 <strong>原文链接</strong>：https://blog.csdn.net/zyun360/article/details/163310155 <strong>版权声明</strong>：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议</p> </blockquote> <hr> <h2 id=postgresql>一、PostgreSQL 加密方案全景图</h2> <p>在数据安全日益重要的今天，数据库加密已经不是"要不要做"的问题，而是"怎么做更合适"的问题。PostgreSQL 提供了多层次的加密方案：</p> <!-- 此处原图：PostgreSQL 加密方案全景图（传输层加密、存储层加密、列级加密、行级加密、备份加密、内存加密/访问控制） --> <p><img alt="Alt text" src=../pgcrypto1.png></p> <h3 id=_1>各层加密方案对比</h3> <table> <thead> <tr> <th>加密层</th> <th>保护对象</th> <th>透明度</th> <th>实现复杂度</th> <th>推荐场景</th> </tr> </thead> <tbody> <tr> <td>SSL/TLS 传输加密</td> <td>网络传输数据</td> <td>完全透明</td> <td>低</td> <td>所有生产环境</td> </tr> <tr> <td>TDE 存储加密</td> <td>磁盘数据文件</td> <td>完全透明</td> <td>中</td> <td>全盘敏感数据</td> </tr> <tr> <td>备份加密</td> <td>备份文件</td> <td>完全透明</td> <td>低</td> <td>所有生产环境</td> </tr> <tr> <td><strong>列级加密</strong></td> <td><strong>特定敏感字段</strong></td> <td>部分透明</td> <td><strong>高</strong></td> <td><strong>本文重点</strong></td> </tr> <tr> <td>行级加密</td> <td>单行数据</td> <td>不透明</td> <td>极高</td> <td>极高安全要求</td> </tr> <tr> <td>内存加密</td> <td>内存数据</td> <td>部分透明</td> <td>中</td> <td>商业/特殊场景</td> </tr> </tbody> </table> <h3 id=pgcrypto>为什么需要 pgcrypto？</h3> <p>TDE 和文件系统加密保护的是"静态数据"，一旦数据被读取到内存，加密就解除了。而 <strong>pgcrypto 提供的列级加密</strong>，可以确保敏感字段在整个生命周期中都处于密文状态——从应用写入、数据库存储、到备份文件，全程加密。</p> <blockquote> <p>💡 <strong>pgcrypto 不是银弹</strong>：它适用于需要对特定字段加密的场景。</p> </blockquote> <hr> <h2 id=pgcrypto_1>二、pgcrypto 详解</h2> <h3 id=21>2.1 优缺点分析</h3> <p><strong>✅ 优点</strong></p> <table> <thead> <tr> <th>优点</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>列级加密粒度</td> <td>可以只加密敏感字段（如手机号、身份证、密码），不影响其他字段的查询性能</td> </tr> <tr> <td>端到端安全</td> <td>数据在应用层加密后传输，即使数据库管理员直接查表也看不到明文（数据库侧仅存密文，密钥需在应用层或安全会话中管理）</td> </tr> <tr> <td>备份安全</td> <td>物理备份、逻辑备份中数据已加密，防止备份泄露</td> </tr> <tr> <td>开源免费</td> <td>PostgreSQL 内置扩展，无需额外付费</td> </tr> </tbody> </table> <p><strong>❌ 缺点</strong></p> <table> <thead> <tr> <th>缺点</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>索引限制</td> <td>加密后的数据无法建立有效索引（密文无序），范围查询困难</td> </tr> <tr> <td>查询性能下降</td> <td>每次查询都需要加解密，CPU 开销明显</td> </tr> <tr> <td>密钥管理复杂</td> <td>密钥需要单独管理，泄露风险高</td> </tr> <tr> <td>无法使用表达式索引</td> <td>如 <code>WHERE phone LIKE '138%'</code> 这类前缀查询无法实现</td> </tr> <tr> <td>不支持密文排序</td> <td><code>ORDER BY encrypted_field</code> 没有意义</td> </tr> </tbody> </table> <h3 id=22>2.2 支持的加密方案</h3> <p>pgcrypto 扩展提供了多种加密函数，按用途可分为以下几类：</p> <h4 id=221>2.2.1 哈希函数（不可逆）</h4> <pre><code class=language-sql>-- MD5 (不安全，仅用于兼容性)
+SELECT md5('password');
+-- 输出: 5f4dcc3b5aa765d61d8327deb882cf99
+
+-- SHA 系列 (适合摘要校验、完整性验证，不建议直接用于密码存储)
+SELECT encode(digest('password', 'sha256'), 'hex');
+-- 输出: 十六进制字符串
+
+SELECT encode(digest('password', 'sha512'), 'hex');
+-- 输出: 更长的十六进制字符串
+</code></pre> <blockquote> <p>⚠️ <strong>安全警告</strong>：MD5 和 SHA-1 已被破解，不应再用于密码存储。对于密码，推荐使用下面介绍的 <code>pgcrypto</code> 的 <code>crypt()</code> 系列函数，它们内置了盐值和迭代次数。</p> </blockquote> <h4 id=222>2.2.2 对称加密（可逆）</h4> <pre><code class=language-sql>-- 需要先启用 pgcrypto
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- AES 加密 (推荐, 256位)
+-- encrypt_iv(data, key, algo, iv/null)
+SELECT pgp_sym_encrypt('Sensitive Data', 'my_secret_key_256bit!!', 'cipher-algo=aes256');
+-- 存储 BYTEA 类型
+
+-- 解密
+SELECT pgp_sym_decrypt(
+    pgp_sym_encrypt('Sensitive Data', 'my_secret_key_256bit!!', 'cipher-algo=aes256'),
+    'my_secret_key_256bit!!'
+);
+-- 输出: Sensitive Data
+</code></pre> <h4 id=223>2.2.3 加密算法对照表</h4> <table> <thead> <tr> <th>算法</th> <th>类型</th> <th>密钥长度</th> <th>安全性</th> <th>推荐场景</th> </tr> </thead> <tbody> <tr> <td><strong>BF</strong> (Blowfish)</td> <td>对称加密</td> <td>128-bit</td> <td>✅ 中等</td> <td>仅用于兼容旧系统</td> </tr> <tr> <td><strong>AES</strong></td> <td>对称加密</td> <td>128/192/256-bit</td> <td>✅✅ 推荐</td> <td>通用场景</td> </tr> <tr> <td><strong>AES256</strong></td> <td>对称加密</td> <td>256-bit</td> <td>✅✅✅ 最推荐</td> <td>高敏感数据</td> </tr> <tr> <td><strong>MD5</strong></td> <td>哈希</td> <td>128-bit</td> <td>❌ 不安全</td> <td>仅兼容性</td> </tr> <tr> <td><strong>SHA1</strong></td> <td>哈希</td> <td>160-bit</td> <td>⚠️ 弱</td> <td>仅兼容性</td> </tr> <tr> <td><strong>SHA256</strong></td> <td>哈希</td> <td>256-bit</td> <td>✅ 安全</td> <td>密码存储</td> </tr> <tr> <td><strong>SHA512</strong></td> <td>哈希</td> <td>512-bit</td> <td>✅✅ 推荐</td> <td>密码存储</td> </tr> </tbody> </table> <h4 id=224>2.2.4 密码哈希专用函数</h4> <p>pgcrypto 提供了专门用于密码哈希的 <code>crypt()</code> 函数，使用内置盐值和迭代机制：</p> <pre><code class=language-sql>-- 创建密码哈希 (自动加盐)
+SELECT crypt('user_password', gen_salt('bf'));
+-- 输出: $2a$12$xxxxxx (bcrypt 格式)
+
+-- 验证密码
+SELECT crypt('user_password', '$2a$12$xxxxxx') = '$2a$12$xxxxxx';
+-- 输出: true
+
+-- 常用算法: bf (blowfish), xdes, md5
+SELECT gen_salt('bf');      -- 推荐，安全性最高
+SELECT gen_salt('md5');     -- 仅兼容性
+</code></pre> <h3 id=23>2.3 技术原理</h3> <p>pgcrypto 的核心原理可以分为以下几个层面：</p> <h4 id=231>2.3.1 加密模型</h4> <p><img alt="alt text" src=../image3.png></p> <h4 id=232>2.3.2 两种加密模式</h4> <p>pgcrypto 支持两种加密模式：</p> <ol> <li><strong>PGP 模式</strong>（推荐）：使用 OpenPGP 标准，对称加密内置盐值和会话密钥，安全性高；公钥加密支持密钥 ID 管理。</li> <li><strong>低级加密函数</strong>：需要手动管理 IV 和密钥，灵活性高但易出错。</li> </ol> <h4 id=233-kdf>2.3.3 密钥派生函数 (KDF)</h4> <p>为了防止暴力破解，pgcrypto 在内部使用了多种密钥派生机制，S2K 会自动加入随机盐值，并通过多次哈希迭代增强抗破解能力：</p> <pre><code>Key = S2K(password, salt, iterations, hash_algorithm)
+</code></pre> <h3 id=24>2.4 简单使用示例</h3> <h4 id=241>2.4.1 安装与基础配置</h4> <pre><code class=language-sql>-- 1. 创建 pgcrypto 扩展
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- 2. 验证安装
+SELECT extname, extversion FROM pg_extension WHERE extname = 'pgcrypto';
+-- 输出: pgcrypto | 1.3
+</code></pre> <h4 id=242>2.4.2 用户密码安全存储</h4> <pre><code class=language-sql>-- 创建用户表 (密码使用 bcrypt 加密)
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,  -- 存储加密后的哈希
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 注册用户 (密码加密存储)
+INSERT INTO users (username, password_hash)
+VALUES ('john_doe', crypt('SecureP@ssw0rd!', gen_salt('bf')));
+
+-- 登录验证
+CREATE OR REPLACE FUNCTION check_user_password(
+    p_username VARCHAR,
+    p_password VARCHAR
+) RETURNS BOOLEAN AS $$
+DECLARE
+    v_hash VARCHAR;
+BEGIN
+    SELECT password_hash INTO v_hash
+    FROM users
+    WHERE username = p_username;
+
+    IF v_hash IS NULL THEN
+        RETURN FALSE;
+    END IF;
+
+    RETURN crypt(p_password, v_hash) = v_hash;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 测试登录
+SELECT check_user_password('john_doe', 'SecureP@ssw0rd!');  -- true
+SELECT check_user_password('john_doe', 'WrongPassword');     -- false
+</code></pre> <h4 id=243>2.4.3 敏感字段加解密</h4> <pre><code class=language-sql>-- 创建客户表 (加密手机号和身份证)
+CREATE TABLE customers (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    phone_encrypted BYTEA,    -- 加密手机号
+    id_card_encrypted BYTEA,  -- 加密身份证
+    email_encrypted BYTEA     -- 加密邮箱
+);
+
+-- 加密和解密函数
+CREATE OR REPLACE FUNCTION encrypt_field(
+    data TEXT,
+    secret_key TEXT
+) RETURNS BYTEA AS $$
+BEGIN
+    RETURN pgp_sym_encrypt(data, secret_key, 'cipher-algo=aes256');
+END;
+$$ LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION decrypt_field(
+    encrypted_data BYTEA,
+    secret_key TEXT
+) RETURNS TEXT AS $$
+BEGIN
+    RETURN pgp_sym_decrypt(encrypted_data, secret_key);
+END;
+$$ LANGUAGE plpgsql STABLE;
+
+-- 插入加密数据
+INSERT INTO customers (name, phone_encrypted, id_card_encrypted, email_encrypted)
+VALUES (
+    '张三',
+    encrypt_field('13800138000', 'my-app-secret-key!!'),
+    encrypt_field('110101199001011234', 'my-app-secret-key!!'),
+    encrypt_field('zhangsan@example.com', 'my-app-secret-key!!')
+);
+
+-- 查询解密数据
+SELECT
+    name,
+    decrypt_field(phone_encrypted, 'my-app-secret-key!!') AS phone,
+    decrypt_field(id_card_encrypted, 'my-app-secret-key!!') AS id_card,
+    decrypt_field(email_encrypted, 'my-app-secret-key!!') AS email
+FROM customers
+WHERE name = '张三';
+</code></pre> <hr> <h2 id=_2>三、应用场景示例</h2> <h3 id=_3>场景一：用户密码安全存储</h3> <p>这是 pgcrypto 最经典的使用场景。</p> <pre><code class=language-sql>-- 使用 bcrypt 加密用户密码 (最佳实践)
+CREATE TABLE app_users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    last_login TIMESTAMP
+);
+
+-- 安全注册
+CREATE OR REPLACE FUNCTION safe_register(
+    p_email VARCHAR,
+    p_password VARCHAR
+) RETURNS INTEGER AS $$
+DECLARE
+    v_user_id INTEGER;
+BEGIN
+    -- 检查邮箱是否已注册
+    IF EXISTS (SELECT 1 FROM app_users WHERE email = p_email) THEN
+        RAISE EXCEPTION '邮箱已被注册';
+    END IF;
+
+    -- 插入用户 (密码使用 bcrypt 加密，cost factor 12)
+    INSERT INTO app_users (email, password_hash)
+    VALUES (
+        p_email,
+        crypt(p_password, gen_salt('bf', 12))
+    )
+    RETURNING id INTO v_user_id;
+
+    RETURN v_user_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 安全登录
+CREATE OR REPLACE FUNCTION safe_login(
+    p_email VARCHAR,
+    p_password VARCHAR
+) RETURNS BOOLEAN AS $$
+DECLARE
+    v_stored_hash VARCHAR;
+BEGIN
+    SELECT password_hash INTO v_stored_hash
+    FROM app_users
+    WHERE email = p_email;
+
+    IF v_stored_hash IS NULL THEN
+        RETURN FALSE;  -- 用户不存在，不透露信息
+    END IF;
+
+    -- 验证密码
+    RETURN crypt(p_password, v_stored_hash) = v_stored_hash;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 注册，返回用户 id（例如 1）
+SELECT safe_register('zhangsan@example.com', 'MySecurePass123!');
+
+-- 正确密码应返回 true
+SELECT safe_login('zhangsan@example.com', 'MySecurePass123!');
+</code></pre> <h3 id=_4>场景二：金融数据加密</h3> <pre><code class=language-sql>-- 金融交易表 (加密交易金额和账户信息)
+CREATE TABLE financial_transactions (
+    id BIGSERIAL PRIMARY KEY,
+    account_number_encrypted BYTEA NOT NULL,
+    transaction_type VARCHAR(20) NOT NULL,
+    amount_encrypted BYTEA NOT NULL,  -- 金额也加密
+    transaction_date TIMESTAMP DEFAULT NOW(),
+    description TEXT
+);
+
+-- 加密插入
+INSERT INTO financial_transactions
+    (account_number_encrypted, transaction_type, amount_encrypted, description)
+VALUES (
+    encrypt_field('6222021234567890', 'finance-dept-key-2026!'),
+    'TRANSFER',
+    encrypt_field('50000.00', 'finance-dept-key-2026!'),
+    '跨行转账'
+);
+
+-- 查询统计 (需要解密后处理)
+SELECT
+    decrypt_field(account_number_encrypted, 'finance-dept-key-2026!') AS account,
+    transaction_type,
+    decrypt_field(amount_encrypted, 'finance-dept-key-2026!') AS amount,
+    transaction_date
+FROM financial_transactions
+WHERE transaction_date &gt; NOW() - INTERVAL '30 days';
+</code></pre> <h3 id=_5>场景三：医疗健康数据加密</h3> <pre><code class=language-sql>-- 医疗记录表 (加密诊断和处方)
+CREATE TABLE medical_records (
+    id SERIAL PRIMARY KEY,
+    patient_id VARCHAR(50) NOT NULL,
+    diagnosis_encrypted BYTEA,
+    prescription_encrypted BYTEA,
+    lab_results_encrypted BYTEA,
+    record_date DATE DEFAULT CURRENT_DATE
+);
+
+-- 医生查看 (需要实现权限控制)
+CREATE OR REPLACE FUNCTION get_patient_records(
+    p_patient_id VARCHAR,
+    p_doctor_id VARCHAR  -- 应通过应用层权限验证
+) RETURNS TABLE (
+    record_id INTEGER,
+    diagnosis TEXT,
+    prescription TEXT,
+    lab_results TEXT
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        mr.id,
+        decrypt_field(mr.diagnosis_encrypted, 'test-key-2026'),
+        decrypt_field(mr.prescription_encrypted, 'test-key-2026'),
+        decrypt_field(mr.lab_results_encrypted, 'test-key-2026')
+    FROM medical_records mr
+    WHERE mr.patient_id = p_patient_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 录入数据
+INSERT INTO medical_records (patient_id, diagnosis_encrypted)
+VALUES
+    ('P001', pgp_sym_encrypt('高血压', 'test-key-2026', 'cipher-algo=aes256')),
+    ('P001', pgp_sym_encrypt('糖尿病', 'test-key-2026', 'cipher-algo=aes256')),
+    ('P002', pgp_sym_encrypt('骨折', 'test-key-2026', 'cipher-algo=aes256'));
+
+-- 解密查看
+SELECT id, patient_id, pgp_sym_decrypt(diagnosis_encrypted, 'test-key-2026')::TEXT
+FROM medical_records;
+</code></pre> <hr> <h2 id=pgcrypto_2>四、在线迁移：已有数据如何在线基本无损使用 pgcrypto</h2> <h3 id=41>4.1 迁移策略概述</h3> <p><img alt="alt text" src=../image2.png></p> <h3 id=42>4.2 详细迁移步骤</h3> <h4 id=_6>第一步：创建加密列和辅助字段</h4> <pre><code class=language-sql>-- 假设原有表结构
+CREATE TABLE customers_old (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    phone VARCHAR(20),      -- 要加密的字段
+    id_card VARCHAR(18),    -- 要加密的字段
+    email VARCHAR(100),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 插入测试数据（模拟已有记录）
+INSERT INTO customers_old (name, phone, id_card, email, updated_at) VALUES
+('张三', '13812345678', '11010119900307663X', 'zhangsan@example.com', NOW()),
+('李四', '15987654321', '310101198512124567', 'lisi@example.com', NOW()),
+('王五', '18612345678', '440301199912312345', 'wangwu@example.com', NOW()),
+('赵六', '13511112222', '510105200105011234', 'zhaoliu@example.com', NOW()),
+('孙七', '17733334444', '12010120200202222X', 'sunqi@example.com', NOW());
+
+-- 1. 添加加密列 (保持原列不变)
+ALTER TABLE customers_old
+ADD COLUMN phone_encrypted BYTEA;
+
+ALTER TABLE customers_old
+ADD COLUMN id_card_encrypted BYTEA;
+
+-- 2. 添加状态标记列 (用于追踪迁移进度)
+ALTER TABLE customers_old
+ADD COLUMN migration_status VARCHAR(20) DEFAULT 'pending';
+
+-- 添加索引 (可选，用于迁移时的查询优化)
+CREATE INDEX idx_migration_status ON customers_old(migration_status);
+</code></pre> <h4 id=_7>第二步：创建触发器和实时同步机制</h4> <pre><code class=language-sql>-- 创建加密函数
+CREATE OR REPLACE FUNCTION encrypt_customer_field()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- 当原字段有值且加密列为空时，加密并写入
+    IF NEW.phone IS NOT NULL AND NEW.phone_encrypted IS NULL THEN
+        NEW.phone_encrypted := encrypt_field(NEW.phone, 'migration-secret-key');
+        NEW.migration_status := 'synced';
+    END IF;
+
+    IF NEW.id_card IS NOT NULL AND NEW.id_card_encrypted IS NULL THEN
+        NEW.id_card_encrypted := encrypt_field(NEW.id_card, 'migration-secret-key');
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 创建触发器 (行级)
+CREATE TRIGGER trg_encrypt_customer
+BEFORE INSERT OR UPDATE ON customers_old
+FOR EACH ROW
+EXECUTE FUNCTION encrypt_customer_field();
+
+-- 注意：UPDATE 触发器需要特殊处理，避免无限循环
+CREATE OR REPLACE FUNCTION encrypt_customer_field_update()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- 仅在新数据且未加密时加密
+    IF TG_OP = 'INSERT' THEN
+        IF NEW.phone IS NOT NULL THEN
+            NEW.phone_encrypted := encrypt_field(NEW.phone, 'migration-secret-key');
+        END IF;
+        IF NEW.id_card IS NOT NULL THEN
+            NEW.id_card_encrypted := encrypt_field(NEW.id_card, 'migration-secret-key');
+        END IF;
+        NEW.migration_status := 'synced';
+        RETURN NEW;
+    END IF;
+
+    -- UPDATE: 只处理从未加密过的记录
+    IF TG_OP = 'UPDATE' THEN
+        IF OLD.phone_encrypted IS NULL AND NEW.phone IS NOT NULL THEN
+            NEW.phone_encrypted := encrypt_field(NEW.phone, 'migration-secret-key');
+        END IF;
+        IF OLD.id_card_encrypted IS NULL AND NEW.id_card IS NOT NULL THEN
+            NEW.id_card_encrypted := encrypt_field(NEW.id_card, 'migration-secret-key');
+        END IF;
+
+        -- 如果本次更新包含了加密操作，更新状态
+        IF OLD.phone_encrypted IS NULL AND NEW.phone_encrypted IS NOT NULL THEN
+            NEW.migration_status := 'synced';
+        END IF;
+
+        RETURN NEW;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 删除旧触发器并创建新的
+DROP TRIGGER IF EXISTS trg_encrypt_customer ON customers_old;
+CREATE TRIGGER trg_encrypt_customer
+BEFORE INSERT OR UPDATE ON customers_old
+FOR EACH ROW
+EXECUTE FUNCTION encrypt_customer_field_update();
+</code></pre> <h4 id=_8>第三步：批量迁移历史数据</h4> <pre><code class=language-sql>-- 创建批量迁移函数
+CREATE OR REPLACE FUNCTION migrate_customer_batch(
+    p_batch_size INTEGER DEFAULT 1000
+) RETURNS INTEGER AS $$
+DECLARE
+    v_updated INTEGER;
+BEGIN
+    -- 批量加密未迁移的数据
+    UPDATE customers_old
+    SET
+        phone_encrypted = encrypt_field(phone, 'migration-secret-key'),
+        id_card_encrypted = encrypt_field(id_card, 'migration-secret-key'),
+        migration_status = 'synced'
+    WHERE migration_status = 'pending'
+    AND id IN (
+        SELECT id FROM customers_old
+        WHERE migration_status = 'pending'
+        LIMIT p_batch_size
+    );
+
+    GET DIAGNOSTICS v_updated = ROW_COUNT;
+    RETURN v_updated;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 执行批量迁移 (循环直到全部完成)
+DO $$
+DECLARE
+    v_remaining INTEGER;
+    v_batch INTEGER;
+BEGIN
+    -- 统计待迁移数据
+    SELECT COUNT(*) INTO v_remaining
+    FROM customers_old
+    WHERE migration_status = 'pending';
+
+    RAISE NOTICE '待迁移数据: % 条', v_remaining;
+
+    -- 循环迁移，每批1000条
+    WHILE v_remaining &gt; 0 LOOP
+        SELECT migrate_customer_batch(1000) INTO v_batch;
+        v_remaining := v_remaining - v_batch;
+        RAISE NOTICE '剩余: % 条', v_remaining;
+
+        -- 每批之间休息100ms，避免CPU过载
+        PERFORM pg_sleep(0.1);
+    END LOOP;
+
+    RAISE NOTICE '迁移完成!';
+END;
+$$;
+</code></pre> <h4 id=_9>第四步：验证数据一致性</h4> <pre><code class=language-sql>-- 验证函数
+CREATE OR REPLACE FUNCTION verify_migration()
+RETURNS TABLE(status text, count BIGINT) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        CASE
+            WHEN migration_status = 'synced' AND phone_encrypted IS NOT NULL AND id_card_encrypted IS NOT NULL
+            THEN '加密成功'
+            WHEN migration_status = 'synced' AND (phone_encrypted IS NULL OR id_card_encrypted IS NULL)
+            THEN '状态异常-未加密'
+            WHEN migration_status = 'pending'
+            THEN '未迁移'
+            ELSE '其他'
+        END AS status,
+        COUNT(*) AS count
+    FROM customers_old
+    GROUP BY 1;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 执行验证
+SELECT * FROM verify_migration();
+
+-- 抽样解密验证
+SELECT
+    id,
+    phone,
+    decrypt_field(phone_encrypted, 'migration-secret-key') AS phone_decrypted,
+    CASE WHEN phone = decrypt_field(phone_encrypted, 'migration-secret-key')
+         THEN '匹配' ELSE '不匹配' END AS verify
+FROM customers_old
+WHERE migration_status = 'synced'
+LIMIT 10;
+</code></pre> <h4 id=_10>第五步：平滑切换（双写阶段）</h4> <pre><code class=language-sql>-- 创建新表结构 (生产使用)
+CREATE TABLE customers_new (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    phone_encrypted BYTEA NOT NULL,
+    id_card_encrypted BYTEA NOT NULL,
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT NOW(),
+    migrated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 从旧表迁移数据到新表
+INSERT INTO customers_new (id, name, phone_encrypted, id_card_encrypted, email, created_at)
+SELECT
+    id,
+    name,
+    phone_encrypted,
+    id_card_encrypted,
+    email,
+    updated_at
+FROM customers_old
+WHERE migration_status = 'synced';
+
+-- 验证记录数一致性
+SELECT
+    (SELECT COUNT(*) FROM customers_old WHERE migration_status = 'synced') AS old_count,
+    (SELECT COUNT(*) FROM customers_new) AS new_count,
+    (SELECT COUNT(*) FROM customers_old WHERE migration_status = 'pending') AS pending_count;
+</code></pre> <h4 id=_11>第六步：表重命名切换（原子操作，不宕机）</h4> <pre><code class=language-sql>-- 原子切换 (在业务低峰期执行，通常只需要秒级锁)
+BEGIN;
+
+-- 1. 重命名旧表
+ALTER TABLE customers_old RENAME TO customers_backup;
+
+-- 2. 重命名新表
+ALTER TABLE customers_new RENAME TO customers_old;
+
+-- 3. 重建索引
+CREATE INDEX IF NOT EXISTS idx_customer_phone ON customers_old USING BTREE(phone_encrypted);
+CREATE INDEX IF NOT EXISTS idx_customer_idcard ON customers_old USING BTREE(id_card_encrypted);
+
+COMMIT;
+
+-- 更新应用层的加解密密钥配置
+-- 在应用配置中将 'migration-secret-key' 切换为正式的生产密钥
+</code></pre> <h4 id=_12>第七步：清理旧数据</h4> <pre><code class=language-sql>-- 确认业务正常运行后，删除备份表和临时数据
+-- ⚠️ 此步骤不可逆，请确保已验证数据完整性
+DROP TABLE IF EXISTS customers_backup;
+
+-- 删除临时函数
+DROP FUNCTION IF EXISTS encrypt_customer_field_update();
+DROP FUNCTION IF EXISTS migrate_customer_batch(INTEGER);
+DROP FUNCTION IF EXISTS verify_migration();
+DROP FUNCTION IF EXISTS encrypt_field(TEXT, TEXT);
+DROP FUNCTION IF EXISTS decrypt_field(BYTEA, TEXT);
+</code></pre> <blockquote> <p>⚠️ <strong>注意</strong>：上面在线迁移只是针对小数据量的模拟案例，如果涉及线上数据转换务必进行充分测试验证。</p> </blockquote> <hr> <h2 id=_13>五、 检索加密字段</h2> <p>有些情况，可能会对加密字段进行检索， 比如手机号。</p> <p>思路， 对手机号进行不可逆hash 存储。然后创建索引。在检索的时候对手机号进行同样的hash后进行等值检索。</p> <table> <thead> <tr> <th></th> <th>裸 SHA-256</th> <th>HMAC</th> </tr> </thead> <tbody> <tr> <td>无密钥</td> <td>✅</td> <td>需要密钥</td> </tr> <tr> <td>防彩虹表</td> <td>预计算表有效</td> <td>预计算完全无效</td> </tr> <tr> <td>暴力枚举所有号码</td> <td>可行</td> <td>没有密钥无法开始算</td> </tr> <tr> <td>泄露数据库但密钥安全</td> <td>号码可被还原</td> <td>号码安全</td> </tr> </tbody> </table> <p>select encode(hmac('13800001234', '你的密钥', 'sha256'),'hex');</p> <h2 id=_14>六、总结</h2> <p>加密是安全的第一道防线，但不是唯一防线。做好权限控制、网络隔离、入侵检测等多层防护，才能构建完整的数据安全体系。</p> <p>目前智汇云 PostgreSQL 产品已支持 pgcrypto 扩展，欢迎大家使用。</p> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> <button type=button class="md-top md-icon" data-md-component=top hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg> Back to top </button> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> <div class=md-copyright__highlight> Copyright &copy; 2026 | Eamon </div> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <div class=md-progress data-md-component=progress role=progressbar></div> <script id=__config type=application/json>{"base": "../../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "navigation.indexes", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script> <script src=../../../assets/javascripts/bundle.d7c377c4.min.js></script> <script src=../../../custom-js/custom-js.js></script> <script src=../../../redirect-md.js></script> </body> </html>
