@@ -137,7 +137,7 @@ def main():
             success += 1
         except Exception as e:
             print(f"  ✗ {db}.{table} -> {rep}: {e}")
-            failed += 1
+            failed += 1 
 
     print(f"\n清理完成: 成功 {success}, 失败 {failed}")
 
