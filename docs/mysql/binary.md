@@ -107,9 +107,11 @@ FLUSH BINARY LOGS;
 -- 按文件或时间清理（从库在线时可用）
 PURGE BINARY LOGS TO 'mysql-bin.000010';
 PURGE BINARY LOGS BEFORE '2024-01-01 00:00:00';
+-- 清空所有
+PURGE BINARY LOGS BEFORE NOW();-- 删掉当前时间之前已完成写入的所有文件
 
--- 清空全部 Binlog 与 GTID 历史（慎用）
-RESET MASTER;
+-- 清空全部 Binlog 与 GTID 历史（慎用） 
+RESET MASTER; -- 删除所有 binlog 文件，重置索引，从 .000001 重新开始编号
 ```
 
 参考：[MySQL 8.0 — 控制复制源服务器的语句](https://dev.mysql.com/doc/refman/8.0/en/replication-statements-source.html)

@@ -235,8 +235,9 @@ nav:
           - 角色管理: "./postgres/security/role-manager.md"
           - 连接认证: "./postgres/security/login_nopasswd.md"
           - SSL安全: "./postgres/security/ssl.md"
-          - 备用服务: "./postgres/security/prepare.md"
+          - 预编译SQL: "./postgres/security/prepare.md"
           - 只读: "./postgres/security/readonly.md"
+          - 列级安全: "./postgres/security/pgcrypto.md"
 
       - 高级特性:
           - WAL操作详解: "./postgres/design/wal_lsn.md"
