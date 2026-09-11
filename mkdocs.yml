@@ -146,12 +146,14 @@ nav:
   - PostgreSQL:
       - "./postgres/index.md"
       - 安装与配置:
+          - "./postgres/install/index.md"
           - 安装: "./postgres/install/install01.md"
           - 安装详解: "./postgres/install/install02.md"
           - 安装进阶: "./postgres/install/install.md"
           - 配置: "./postgres/install/config.md"
 
       - 高可用:
+          - "./postgres/ha/index.md"
           - 设计分析: "./postgres/ha/ha_fd.md"
           - Patroni集群: "./postgres/ha/patroni.md"
           - Patroni高级: "./postgres/ha/patroni02.md"
@@ -161,15 +163,16 @@ nav:
           - 一致性: "./postgres/ha/adlock.md"
 
       - 索引与查询优化:
+          - "./postgres/index/index.md"
           - 索引类型及使用场景: "./postgres/index/index01.md"
           - 索引失效: "./postgres/index/index-invalid.md"
           - Bloom索引: "./postgres/index/index-bloom.md"
           - 假设索引: "./postgres/index/hypopg-index.md"
-          - 索引最佳实践: "./postgres/index/index.md"
           - 模板表: "./postgres/index/template.md"
           - 未记录表: "./postgres/index/unlogged_table.md"
 
       - 性能优化:
+          - "./postgres/performance/index.md"
           - 填充因子: "./postgres/performance/fillfactor.md"
           - 统计信息: "./postgres/performance/stat.md"
           - 参数优化: "./postgres/performance/params.md"
@@ -182,6 +185,7 @@ nav:
           - 系统调优: "./postgres/performance/thinking_in_db_tune.md"
 
       - 数据维护:
+          - "./postgres/maintenance/index.md"
           - 事务管理: "./postgres/install/toast.md"
           - 数据删除: "./postgres/install/delete.md"
           - 检查点: "./postgres/install/checkpoint.md"
@@ -194,6 +198,7 @@ nav:
           - 分区表: "./postgres/maintenance/partition.md"
 
       - 监控分析:
+          - "./postgres/tools/index.md"
           - 监控基础: "./postgres/tools/monitor.md"
           - SQL监控: "./postgres/tools/monitor-sql.md"
           - STAT视图: "./postgres/tools/view_pg_stat_activity.md"
@@ -203,6 +208,7 @@ nav:
           - 数据库监控: "./postgres/tools/dba.md"
 
       - 扩展模块:
+          - "./postgres/extentions/index.md"
           - Citus分布式: "./postgres/extentions/citus01.md"
           - Citus高级: "./postgres/extentions/citus11.md"
           - TimescaleDB: "./postgres/extentions/timescaledb.md"
@@ -214,6 +220,7 @@ nav:
           - FDW外部表: "./postgres/extentions/pg_fdw.md"
 
       - 数据同步:
+          - "./postgres/replication/index.md"
           - 流复制: "./postgres/replication/replication01.md"
           - 复制原理: "./postgres/replication/replication02.md"
           - 逻辑复制: "./postgres/replication/logical-replication.md"
@@ -221,9 +228,9 @@ nav:
           - pg_rewind: "./postgres/tools/pg_rewind.md"
 
       - 备份与恢复:
+          - "./postgres/backup/index.md"  
           - 逻辑备份: "./postgres/backup/logical-backup.md"
           - 物理备份: "./postgres/backup/physical-backup.md"
-          - 备份方案设计: "./postgres/backup/index.md"
           - pgBackRest: "./postgres/backup/pgbackrest.md"
           - WAL-G备份: "./postgres/backup/wal-g.md"
           - pgcopydb迁移: "./postgres/backup/pgcopydb.md"
@@ -232,14 +239,16 @@ nav:
           - PITR备份恢复: "./postgres/backup/pitr.md"
 
       - 安全管理:
+          - "./postgres/security/index.md"
           - 角色管理: "./postgres/security/role-manager.md"
           - 连接认证: "./postgres/security/login_nopasswd.md"
           - SSL安全: "./postgres/security/ssl.md"
           - 预编译SQL: "./postgres/security/prepare.md"
           - 只读: "./postgres/security/readonly.md"
-          - 列级安全: "./postgres/security/pgcrypto.md"
+          - 列级加密: "./postgres/security/pgcrypto.md"
 
       - 高级特性:
+          - "./postgres/design/index.md"
           - WAL操作详解: "./postgres/design/wal_lsn.md"
           - WAL配置大小: "./postgres/design/wal_size.md"
           - 高级插入技巧: "./postgres/design/insert01.md"
@@ -249,11 +258,13 @@ nav:
           - TRGM相似搜索: "./postgres/design/pg_trgm.md"
 
       - 数据库设计:
+          - "./postgres/design/index.md"
           - 范式理论: "./postgres/design/normal-form.md"
           - 物化视图: "./postgres/design/materialized.md"
           - 扩展功能: "./postgres/design/extention.md"
 
       - 工具集:
+          - "./postgres/tools/index.md"
           - pgbench压测: "./postgres/tools/pgbench.md"
           - 集群扩展: "./postgres/tools/pg_elk.md"
           - 预加载缓存: "./postgres/tools/pg_prewarm.md"
@@ -268,6 +279,7 @@ nav:
           - wal数量计算: "./postgres/tools/wal_count.md"
 
       - 版本与历史:
+          - "./postgres/install/index.md"
           - 12版特性: "./postgres/install/postgres12.md"
           - 使用指南: "./postgres/install/postgresql-howto.md"
           - TPC-H基准: "./postgres/tools/tpch.md"
@@ -277,6 +289,7 @@ nav:
           - 监控目录: "./postgres/tools/monitor.md"
 
       - 架构与原理:
+          - "./postgres/install/index.md"
           - 数据库架构: "./postgres/install/cluster.md"
           - 系统分析: "./postgres/troubleshooting/debezium.md"
           - 迁移与DTS: "./postgres/troubleshooting/dts.md"
@@ -285,6 +298,7 @@ nav:
           - 功能分析: "./postgres/tools/pg_rewrite.md"
 
       - 故障排除与问题解决:
+          - "./postgres/troubleshooting/index.md"
           - OOM问题: "./postgres/troubleshooting/oom.md"
           - 空间自动清理: "./postgres/troubleshooting/auto_vacuum_trigger.md"
           - 数据预加载: "./postgres/tools/pg_prewarm.md"

@@ -117,31 +117,31 @@
   <div class="card-item">
     <h3>🚀 安装与配置</h3>
     <p>详细了解 PostgreSQL 的安装部署和性能配置方法。</p>
-    <a href="./install/install01" class="btn">详情</a>
+    <a href="./install/" class="btn">详情</a>
   </div>
   
   <div class="card-item">
     <h3>🔐 安全管理</h3>
     <p>掌握 PostgreSQL 中的用户权限和安全认证策略。</p>
-    <a href="./security/role-manager" class="btn">详情</a>
+    <a href="./security/" class="btn">详情</a>
   </div>
   
   <div class="card-item">
     <h3>🏗️ 索引与查询优化</h3>
     <p>优化数据库索引设计和查询性能提升技术。</p>
-    <a href="./index/index01" class="btn">详情</a>
+    <a href="./index/" class="btn">详情</a>
   </div>
   
   <div class="card-item">
     <h3>⚡ 性能优化</h3>
     <p>全面的数据库性能分析与调优方法论。</p>
-    <a href="./performance/params" class="btn">详情</a>
+    <a href="./performance/" class="btn">详情</a>
   </div>
   
   <div class="card-item">
     <h3>🔄 数据同步</h3>
     <p>深入理解流复制、逻辑复制等数据同步机制。</p>
-    <a href="./replication/replication01" class="btn">详情</a>
+    <a href="./replication/" class="btn">详情</a>
   </div>
   
   <div class="card-item">
@@ -153,13 +153,13 @@
   <div class="card-item">
     <h3>🚨 高可用方案</h3>
     <p>实现业务连续性的 HA 解决方案和技术选型。</p>
-    <a href="./ha/patroni" class="btn">详情</a>
+    <a href="./ha/" class="btn">详情</a>
   </div>
   
   <div class="card-item">
     <h3>🔧 维护管理</h3>
     <p>数据库日常运维管理和维护任务处理。</p>
-    <a href="./install/daily_management" class="btn">详情</a>
+    <a href="./maintenance" class="btn">详情</a>
   </div>
 </div>
 

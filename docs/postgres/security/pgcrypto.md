@@ -1,6 +1,6 @@
 ---
 
-# PostgreSQL 列级加密实战：pgcrypto 从入门到在线迁移
+# PostgreSQL 列级加密pgcrypto
 ---
 
 ## 一、PostgreSQL 加密方案全景图
