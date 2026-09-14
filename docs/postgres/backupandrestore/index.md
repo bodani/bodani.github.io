@@ -20,3 +20,9 @@
 
 - [pg_migrate.py](pg_migrate.py) - PostgreSQL 迁移脚本
 - [依赖说明](requestments.txt) - 迁移脚本依赖包
+
+## 逻辑备份恢复脚本
+
+- [备份脚本](dump_restore/backup.py) - PostgreSQL 逻辑备份脚本
+- [恢复脚本](dump_restore/restore.py) - PostgreSQL 逻辑恢复脚本
+- [配置文件](dump_restore/pg_conf.yaml) - 备份恢复配置文件
