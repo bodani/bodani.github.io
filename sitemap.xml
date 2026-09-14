@@ -766,11 +766,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://bodani.github.io/docs/mysql/binary/</loc>
-         <lastmod>2026-09-14</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://bodani.github.io/docs/mysql/cleanup_by_rename/</loc>
          <lastmod>2026-09-14</lastmod>
          <changefreq>daily</changefreq>
@@ -1007,6 +1002,16 @@
     </url>
     <url>
          <loc>https://bodani.github.io/docs/mysql/failurecase/pro1/</loc>
+         <lastmod>2026-09-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bodani.github.io/docs/mysql/log/</loc>
+         <lastmod>2026-09-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bodani.github.io/docs/mysql/log/binary/</loc>
          <lastmod>2026-09-14</lastmod>
          <changefreq>daily</changefreq>
     </url>
