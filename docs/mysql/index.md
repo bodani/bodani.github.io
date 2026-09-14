@@ -155,7 +155,11 @@
     <p>使用 exporter 等工具进行数据库性能监控。</p>
     <a href="./exporter" class="btn">详情</a>
   </div>
-  
+   <div class="card-item">
+    <h3>📋 日志</h3>
+    <p>管理 MySQL 二进制日志、错误日志、慢查询日志等各类日志。</p>
+    <a href="./log" class="btn">详情</a>
+  </div>
   <!-- <div class="card-item">
     <h3>认证</h3>
     <p>了解 MySQL 认证流程和相关安全配置。</p>
