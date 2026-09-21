@@ -365,10 +365,10 @@ pg_receivewal
 
 ```
 #数据延迟
-select pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),replay_lsn)) as latency from pg_stat_replication ;
+select client_addr, pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),replay_lsn)) as latency from pg_stat_replication ;
 
 #wal 不同阶段延迟
-select pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),sent_lsn)) as sent_latency, pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),write_lsn)) as write_latency ,pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),flush_lsn)) as flush_latency,pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),replay_lsn)) as replay_latency from pg_stat_replication ;
+select client_addr, pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),sent_lsn)) as sent_latency, pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),write_lsn)) as write_latency ,pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),flush_lsn)) as flush_latency,pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(),replay_lsn)) as replay_latency from pg_stat_replication ;
 
 ```
 

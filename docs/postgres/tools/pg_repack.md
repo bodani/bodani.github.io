@@ -125,11 +125,13 @@ sudo chmod 700 /data/pgdata/pg_tblspc/new_fast_ssd
 
 这是将原始数据导入到新表中。
 
-修改对于 sql 加入 where 过滤条件 如: 根据 metric_time 字段保留 时间 2025-10-23 之后的数据。
+修改对于 sql 加入 where 过滤条件 如: 根据 created_time 字段保留 时间 2025-10-23 之后的数据。
 
 ```
-'INSERT INTO repack.table_' || R.oid || ' SELECT ' || repack.get_columns_for_create_as(R.oid) || ' FROM  ' || repack.oid2text(R.oid) || format(' WHERE metric_time > %L', '2025-10-23 00:00:00'::timestamp)  AS copy_data,
+'INSERT INTO repack.table_' || R.oid || ' SELECT ' || repack.get_columns_for_create_as(R.oid) || ' FROM ONLY ' || repack.oid2text(R.oid) || format(' WHERE created_time > %L', '2025-10-23 00:00:00'::timestamp)  AS copy_data,
 
 ```
 
 确保非保留数据不在变动，否则数据重放阶段可能出问题，找不到更新的数据。（待验证）
+
+注意，有外键数据约束的情况。

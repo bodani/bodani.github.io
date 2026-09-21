@@ -194,8 +194,9 @@ nav:
           - 表空间: "./postgres/install/tablespace.md"
           - 空间分析: "./postgres/install/pgstattuple.md"
           - 在线表重写: "./postgres/maintenance/pg_rewrite.md"
-          - pg_pathman: "./postgres/tools/pg_pathman.md"
-          - 分区表: "./postgres/maintenance/partition.md"
+          - 原始分区表: "./postgres/maintenance/partition.md"
+          - pg_pathman: "./postgres/maintenance/pg_pathman.md"
+          - pg_partman: "./postgres/maintenance/pg_partman.md"
 
       - 监控分析:
           - "./postgres/tools/index.md"
@@ -277,6 +278,7 @@ nav:
           - 读写分析: "./postgres/tools/pg_lock.md"
           - CITUS扩展: "./postgres/tools/pg_citus.md"
           - wal数量计算: "./postgres/tools/wal_count.md"
+          - pg_repack: "./postgres/tools/pg_repack.md"
 
       - 版本与历史:
           - "./postgres/install/index.md"

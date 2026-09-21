@@ -233,7 +233,7 @@ INSERT INTO employees VALUES (3, 'Charlie', 'charlie@example.com');
 
 ### 分区大小考虑
 
-一般认为一个分区表大小达到几GB到几十GB时才考虑使用分区。一个分区应该足够大以获得性能提升，但也不能过大以确保管理和维护的便利性。对于TB级的数据量，可以将每个月或每季度的数据放在一个分区中；对于较小的数据量（几百GB），则可能将每个季度或每年数据作为一个分区。
+一般认为一个表大小达到几GB到几十GB时（官方推荐当数据量到达物理内存大小时）才考虑使用分区。一个分区应该足够大以获得性能提升，但也不能过大以确保管理和维护的便利性。对于TB级的数据量，可以将每个月或每季度的数据放在一个分区中；对于较小的数据量（几百GB），则可能将每个季度或每年数据作为一个分区。
 
 ### 分区数量管理
 
@@ -246,7 +246,8 @@ INSERT INTO employees VALUES (3, 'Charlie', 'charlie@example.com');
 
 ### 默认分区
 
-在使用 RANGE 或 LIST 分区时，可以创建一个默认分区来处理不在已定义分区范围内的数据：
+在使用 RANGE 或 LIST 分区时，可以创建一个默认分区来处理不在已定义分区范围内的数据。
+默认分区，不建议存储大量数据。会对新分区性能等带来影响。挂载默认分区会对分区进行全表扫描。可提前创建check约束避免数据检查而进行数据全表扫描。挂载后可将数据约束删除。
 
 ```sql
 CREATE TABLE measurement_default PARTITION OF measurement DEFAULT;
@@ -261,15 +262,11 @@ CREATE TABLE measurement_default PARTITION OF measurement DEFAULT;
 - 增加列（WITH DEFAULT 或 NULL）会传递到所有子分区
 - 修改列数据类型可能会影响现有数据
 - 删除列也会影响子分区
-- 对现有子表结构的更改不会自动应用到新建分区
 
 ### 索引操作
 
-在父表上创建的索引对新增分区生效，但不会对已存在的分区生效。这意味着需要为所有现有分区单独创建相应的索引：
-
-- 使用 CONCURRENTLY 选项以避免锁定整个分区表
-- 通过 pg_partman 等工具可帮助批量处理
-- 考虑为高频查询字段在所有分区上都建立相应索引
+当前不支持在分区表上并发生成索引。 然而，你可以在每个分区上单独的并发构建索引，然后最终以非并发的方式创建分区索引，以减少对分区表的写入被锁定的时间。
+在这种情况下，生成分区索引仅是元数据操作。
 
 ### 分区键更新
 
@@ -571,17 +568,19 @@ CALL partman.analyze_inherit('sales_data');
 - 合理使用默认分区: 当遇到未知分区值时，默认分区能防止查询失败
 - 索引操作对子表无效: 在父表创建的索引对新增分区生效，但对已存在的分区可能不生效
 
-### 关于表转换的澄清
+### 普通表转换分区表
 
-根据最新的理解，**不能直接将常规表转换为分区表，反之亦然**。但是，可以将现有的常规或分区表添加为分区表的分区，或从分区表中删除分区，将其转换为独立表。
+**不能直接将常规表转换为分区表，反之亦然**。但是，可以将现有的常规或分区表添加为分区表的分区，或从分区表中删除分区，将其转换为独立表。
 
 #### 传统迁移方式
 
-1. 停机：CREATE TABLE AS / 重建序列
-2. 不停机：
-   - 逻辑复制
-   - 双写机制
-   - 触发器+复制机制
+停机：CREATE TABLE AS / 重建序列
+
+不停机：
+
+- pg_rewrite
+- 双写机制
+- 触发器+复制机制
 
 #### 现代迁移方式（通过将常规表作为分区）
 
@@ -616,13 +615,13 @@ CREATE TABLE products_2024_mar PARTITION OF products_new
 -- 首先重命名老表
 ALTER TABLE products_large RENAME TO products_2023_and_before;
 
--- 将历史数据表添加为新分区表的一个分区
-ALTER TABLE products_2023_and_before NO INHERIT products_large; -- 如果有继承
-ALTER TABLE products_2023_and_before INHERIT products_new;
+alter  table products_2023_and_before  alter COLUMN create_time set not null;
+ALTER TABLE products_2023_and_before drop CONSTRAINT products_large_pkey ;
 
--- 或者使用 ATTACH PARTITION (PG11及以后版本)
 -- 注意，这种方法需要先修改历史表使其结构完全匹配
--- ALTER TABLE products_new ATTACH PARTITION products_2023_and_before FOR VALUES FROM ('2000-01-01') TO ('2024-02-01');
+ALTER TABLE products_new ATTACH PARTITION products_2023_and_before FOR VALUES FROM ('2000-01-01') TO ('2024-02-01');
+
+ALTER TABLE products_new RENAME TO products;
 ```
 
 ## 将现有常规表作为分区表的分区
@@ -695,102 +694,14 @@ SELECT COUNT(*) FROM orders_old;
 
 不停机转换对于关键业务非常有价值，尽管过程更复杂。
 
-#### 逻辑复制
 
-使用 PostgreSQL 的逻辑复制特性，设置一个复制源表并逐步迁移:
+####  pg_rewrite
 
-```sql
--- 创建目标分区表，包含正确的主键/唯一约束
-CREATE TABLE orders_subscription (
-    id SERIAL,
-    customer_id INT,
-    order_date DATE,
-    amount DECIMAL(10,2),
-    PRIMARY KEY (order_date, id)
-) PARTITION BY RANGE (order_date);
 
--- 为各个时段创建分区
-CREATE TABLE orders_sub_2023 PARTITION OF orders_subscription
-    FOR VALUES FROM ('2023-01-01') TO ('2024-01-01');
-CREATE TABLE orders_sub_2024 PARTITION OF orders_subscription
-    FOR VALUES FROM ('2024-01-01') TO ('2025-01-01');
-
--- 创建所需的索引
-CREATE INDEX orders_sub_customer_idx ON orders_subscription (customer_id);
-
--- 在源库创建publication
-CREATE PUBLICATION orders_pub FOR TABLE orders;
-
--- 在目标库创建subscription，连接到源库
-CREATE SUBSCRIPTION orders_sub
-  CONNECTION 'host=source_server port=5432 dbname=db_name'
-  PUBLICATION orders_pub;
-
--- 等待复制开始，然后执行上面停机方法的数据插入部分:
-INSERT INTO orders_subscription (id, customer_id, order_date, amount) SELECT * FROM orders;
-
--- 最后切换应用连接到分区表，并删除临时表和逻辑复制设施
-```
-
-此方法需要注意:
-
-- 初次数据同步期间需要等待复制完成
-- 需要考虑网络中断等情况
-- 资源开销较大
-
-#### pg_partman + pg_write
-
-PostgreSQL 版本 13 及以后内置的分区表功能已经非常强大和灵活。
-
-使用 `pg_partman` 可自动化管理数据的移动和归档。首先确保你安装了 `pg_partman`:
-
-```sql
--- 安装扩展
-CREATE EXTENSION IF NOT EXISTS pg_partman;
-
--- 创建符合主键/索引要求的新分区表
-CREATE TABLE orders_new (
-    id BIGSERIAL,
-    customer_id INT,
-    order_date DATE NOT NULL,
-    amount DECIMAL(10,2),
-    PRIMARY KEY (order_date, id)  -- 必须包含分区键
-) PARTITION BY RANGE (order_date);
-
--- 在已有表上启用分区
-SELECT partman.create_parent('public.orders_new', 'order_date', 'time', 'monthly');
-
--- 也可以为现有分区创建历史记录
-SELECT partman.undo_partition('public.orders_history', 'table_loop', 2);
-```
-
-这样可以将表在线转化为分区表，并自动处理后续的分区管理工作。
-
-不停机转换的流程通常涉及:
-
-1. 创建一个新的符合分区要求的分区表
-2. 同时插入两个表（双写）
-3. 使用某种机制对比两表是否同步
-4. 将读操作切换到新表
-5. 检查一致后移除老表
 
 ## 表分区管理
 
 随着应用的发展，分区表管理成为一个关键任务，主要包括增加新分区、移除旧分区等操作。
-
-### pg_pathman
-
-pg_pathman 是一个 PostgreSQL 扩展，为 PostgreSQL 10 之前缺乏的声明式分区功能提供了高效的支持。在 Postgres 10 引入了原生的分区表功能后，它的价值逐渐降低。尤其在 PG 13+ 版本，官方原生分区性能大幅提升，pg_pathman 的维护也就逐渐停止。
-
-尽管不再被积极开发，但 pg_pathman 仍提供一些原生分区功能所没有的功能，比如:
-
-```sql
--- 注意：此仅为 pg_pathman 示例，非标准 SQL
--- CREATE INDEX ON partition_table_pathman(id);
--- 会自动在子分区创建对应的索引
-```
-
-不过，对于新项目，推荐使用官方提供的分区功能以获得更好的兼容性支持。
 
 ### pg_partman
 
