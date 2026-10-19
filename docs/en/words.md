@@ -831,3 +831,8 @@ associate,
 specification
 claim
 critically
+regarding
+realistically
+outage
+slightly
+caveats

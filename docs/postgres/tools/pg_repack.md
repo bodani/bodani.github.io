@@ -135,3 +135,19 @@ sudo chmod 700 /data/pgdata/pg_tblspc/new_fast_ssd
 确保非保留数据不在变动，否则数据重放阶段可能出问题，找不到更新的数据。（待验证）
 
 注意，有外键数据约束的情况。
+
+### 问题列表
+
+```
+ERROR: query failed: FATAL:  terminating connection due to idle-in-transaction timeout
+server closed the connection unexpectedly
+        This probably means the server terminated abnormally
+        before or while processing the request.
+```
+
+```
+export PGOPTIONS="-c idle_in_transaction_session_timeout=0 -c statement_timeout=300000"
+
+pg_repack -t xxxx 
+
+```

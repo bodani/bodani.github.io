@@ -194,7 +194,7 @@ nav:
           - 表空间: "./postgres/install/tablespace.md"
           - 空间分析: "./postgres/install/pgstattuple.md"
           - 在线表重写: "./postgres/maintenance/pg_rewrite.md"
-          - 原始分区表: "./postgres/maintenance/partition.md"
+          - 声明式分区表: "./postgres/maintenance/partition.md"
           - pg_pathman: "./postgres/maintenance/pg_pathman.md"
           - pg_partman: "./postgres/maintenance/pg_partman.md"
 

@@ -1,4 +1,4 @@
-# 分区表
+# 声明式分区表
 
 在现代数据库管理中，数据量不断增长导致单表性能下降成为常见的问题。PostgreSQL 的表分区功能可以帮助将大表拆分成更小的、更易管理的部分，从而提高性能并简化数据管理。
 
@@ -17,9 +17,13 @@ PostgreSQL 自 10 版本开始提供原生的分区支持，之后的版本也�
 
 ## 分区表设计
 
-在设计分区表时，正确处理主键、唯一约束和索引是确保数据完整性和查询性能的重要环节。
+在设计分区表时，正确处理主键、唯一约束、索引和序列是确保数据完整性和查询性能的重要环节。
 
-### 主键与分区键的关系
+### 分区键选取
+
+应当基于表的常用查询模式选择合适的分区键，如记录的创建时间、区域编码等。分区键最好是 WHERE 条件中频繁使用的字段，便于利用分区裁剪只扫描涉及的分区。同时分区键应取值稳定、不会频繁更新（分区键更新会导致行在分区间的移动）。
+
+### 主键与唯一约束（必须包含分区键）
 
 在 PostgreSQL 分区表中，主键和唯一约束有特殊的要求：它们必须包含分区键。
 
@@ -34,9 +38,10 @@ CREATE TABLE measurement_bad (
     logdate         date not null,
     peaktemp        int,
     unitsales       int,
-    PRIMARY KEY (city_id)  -- 这将失败，因为分区键 logdate 不在主键中
+    PRIMARY KEY (city_id)  -- 将失败，因为分区键 logdate 不在主键中
 ) PARTITION BY RANGE (logdate);
-错误:  unique constraint on partitioned table must include all partitioning columns
+-- 错误:  unique constraint on partitioned table must include all partitioning columns
+
 -- 正确示例：主键或唯一约束必须包含分区键
 CREATE TABLE measurement_good (
     city_id         int not null,
@@ -68,18 +73,29 @@ CREATE TABLE measurement_y2024m01 PARTITION OF measurement
 CREATE TABLE measurement_y2024m02 PARTITION OF measurement
     FOR VALUES FROM ('2024-02-01') TO ('2024-03-01');
 
--- 这样确保了主键的全局唯一性
+-- 主键（logdate, city_id）保证了全局唯一性
 INSERT INTO measurement VALUES (1, '2024-01-15', 45, 100);  -- OK
 INSERT INTO measurement VALUES (1, '2024-01-15', 40, 120);  -- 将违反唯一性约束，被拒绝
-
--- 大数据量插入演示，以便展示分区表性能优势
-INSERT INTO measurement SELECT
-    floor(random()*1000)::int,
-    '2024-01-01'::date + (random() * 30)::int,
-    floor(random()*100)::int,
-    floor(random()*1000)::int
-FROM generate_series(1, 500000);  -- 插入50万条记录
 ```
+**凡是在分区表上声明的主键或唯一约束，都必须把分区键（列或表达式）纳入其中**。
+
+### 分区大小考虑
+
+一般认为一个表大小达到几GB到几十GB时（官方推荐当数据量到达物理内存大小时）才考虑使用分区。对于TB级的数据量，可以将每个月或每季度的数据放在一个分区中；对于较小的数据量（几百GB），则可能将每个季度或每年数据作为一个分区。
+
+### 分区数量管理
+
+过多的分区可能会导致：
+
+- 过多的子表元数据，影响 catalog 扫描性能
+- 更多的后台进程和内存开销
+- 复杂的管理操作
+
+通常建议控制分区数量，根据业务需要在颗粒度和管理复杂度间找到平衡点。
+
+### 分区键更新
+
+直接更新分区键字段会变成复杂的动作，实际上是删除旧记录并在新分区中创建新记录。在应用中应避免频繁修改分区键的值。
 
 ## 分区表使用
 
@@ -87,37 +103,17 @@ PostgreSQL 提供了多种表分区的方式以适应不同的应用场景。
 
 ### 范围分区
 
-范围分区基于某个列的值区间进行划分，适用于按日期、数值范围等维度分区的场景。
+范围分区基于某个列的值区间进行划分，适用于按日期、数值范围等维度分区的场景。以下沿用第一节定义好的 measurement 分区表：
 
 ```sql
--- 范围分区，包含适当的主键设计
-CREATE TABLE measurement (
-    city_id         int not null,
-    logdate         date not null,
-    peaktemp        int,
-    unitsales       int,
-    PRIMARY KEY (logdate, city_id)  -- 主键包含分区键 logdate
-) PARTITION BY RANGE (logdate);
-
--- 创建具体分区
-CREATE TABLE measurement_y2024m01 PARTITION OF measurement
-    FOR VALUES FROM ('2024-01-01') TO ('2024-02-01');
-
-CREATE TABLE measurement_y2024m02 PARTITION OF measurement
-    FOR VALUES FROM ('2024-02-01') TO ('2024-03-01');
-
-CREATE TABLE measurement_y2024m03 PARTITION OF measurement
-    FOR VALUES FROM ('2024-03-01') TO ('2024-04-01');
-
--- 插入数据
+-- 查看数据被路由到哪个分区（tableoid 表示物理分区）
 INSERT INTO measurement VALUES (1, '2024-01-15', 45, 100);
 INSERT INTO measurement VALUES (2, '2024-02-15', 50, 120);
 
--- 查看分区
 SELECT tableoid::regclass, * FROM measurement WHERE city_id = 1;
 ```
 
-还可以通过指定更多分区键创建更复杂的多维范围分区:
+还可以通过指定更多分区键创建更复杂的多维范围分区：
 
 ```sql
 -- 多列范围分区
@@ -225,35 +221,83 @@ INSERT INTO employees VALUES (3, 'Charlie', 'charlie@example.com');
 | List     | 按预定义列表值   | 易于控制具体分区         | 限制固定值集合       |
 | Hash     | 需要随机均匀分布 | 均匀分布数据             | 对查询优化有一定难度 |
 
-## 其他重要注意事项
+## 序列（Sequence）注意事项
 
-### 分区键选取
+分区表通常需要一个自增 id 列，其底层是序列（sequence）。序列在分区表上的行为与普通表存在差异，全局唯一性以及迁移时的序列同步等问题。
 
-应当基于表的常用查询模式选择合适的分区键，如表单的创建时间、区域编码等。分区键通常是WHERE条件中频繁使用的字段，例如日期字段或地域编码。
+### 序列是全局共享的
 
-### 分区大小考虑
+- 分区表的 `SERIAL/BIGSERIAL` 或 `IDENTITY` 列在父表上只创建一个序列，**所有分区共享同一个序列**，从而保证跨分区的自增值全局唯一。
+- 通过 `PARTITION OF` 创建的新分区会继承父表列的默认值：对 `SERIAL/BIGSERIAL`（本质是 `nextval('父表序列')` 默认值）各版本都继承，因此直接往分区插入也能自动生成 id。
+- 一个使用 `BIGSERIAL` 的设计提醒：序列是全局递增的，直接向某个分区插入时生成的 id 必须落在该分区的取值范围内，否则会违反分区约束。
 
-一般认为一个表大小达到几GB到几十GB时（官方推荐当数据量到达物理内存大小时）才考虑使用分区。一个分区应该足够大以获得性能提升，但也不能过大以确保管理和维护的便利性。对于TB级的数据量，可以将每个月或每季度的数据放在一个分区中；对于较小的数据量（几百GB），则可能将每个季度或每年数据作为一个分区。
+### 唯一性由什么保证？
 
-### 分区数量管理
+- 序列能保证"实际写进去的自增 id 不冲突"，但它不是唯一性约束，数据库不会因此拦截重复值。
+- 真正的唯一性只能靠主键/唯一约束来强制，而它们必须包含分区键。若业务主键是 `id`、分区键是其他列（如 `sale_date`），`PRIMARY KEY (id)` 会因不包含分区键而创建失败。
 
-过多的分区可能会导致：
+此时通常有两种取舍：
 
-- 过多的子表元数据，影响catalog扫描性能
-- 更多的后台进程和内存开销
-- 复杂的管理操作
-  通常建议控制分区数量，根据业务需要在颗粒度和管理复杂度间找到平衡点。
+- 将分区键并入主键，如 `PRIMARY KEY (sale_date, id)`（推荐，可用数据库强制唯一）；
+- 或只在每个分区上单独建 `PRIMARY KEY (id)`，依赖共享序列保证实际值不重复，但数据库无法强制全局唯一，需要应用层保证。
+
+### 迁移、挂载分区时的序列同步
+
+这是最容易出问题的地方：老表与新分区表各带一条独立序列，数据搬过去后若序列值区间重叠，就会产生重复 id。
+
+```sql
+-- 场景：老表 products_large(id SERIAL) 迁移到分区表 products_new(id SERIAL)
+-- 两条序列各自从 1 开始，直接搬运数据会造成主键冲突。
+-- 迁移完成后，务必将新表序列推进到大于现有数据最大值：
+
+SELECT setval(
+    pg_get_serial_sequence('products_new', 'id'),
+    (SELECT COALESCE(max(id)::bigint, 1) FROM products_new)
+);
+```
+
+用 `ATTACH PARTITION` 挂载历史表时，被挂载的表会保留它自己的序列和默认值（ATTACH 只校验结构、NOT NULL 与约束，不会统一默认值与序列）：
+
+```sql
+-- 挂载后建议把历史分区的默认值改为父表序列，并重绑序列归属，避免出现两套编号
+ALTER TABLE products_2023_and_before ALTER COLUMN id SET DEFAULT nextval('products_new_id_seq');
+ALTER SEQUENCE products_new_id_seq OWNED BY products_new.id;
+```
+
+### 其他序列注意事项
+
+- `nextval()` 不随事务回滚：即使 INSERT 失败、事务回滚，已取出的序列值也不会退回，之后会出现 id 空洞。这是正常现象，不应作为主键乱序的判断依据。
+- 需要"每个分区独立编号自 1 开始"（如按日的流水号、班次号）时，父表单序列无法满足，应该改为：`(分区键, 序号)` 复合唯一键，或在业务层/每个分区内维护独立计数器。
+- 优先使用 `GENERATED ALWAYS AS IDENTITY`（禁止应用显式指定 id）。当需要导入历史数据时，用 `OVERRIDING SYSTEM VALUE` 强制写入既有 id：
+
+```sql
+INSERT INTO products_new (id, name, category_id, price, create_time) OVERRIDING SYSTEM VALUE
+SELECT * FROM products_old;
+```
+
+
+## 其他注意事项
 
 ### 默认分区
 
 在使用 RANGE 或 LIST 分区时，可以创建一个默认分区来处理不在已定义分区范围内的数据。
-默认分区，不建议存储大量数据。会对新分区性能等带来影响。挂载默认分区会对分区进行全表扫描。可提前创建check约束避免数据检查而进行数据全表扫描。挂载后可将数据约束删除。
 
 ```sql
 CREATE TABLE measurement_default PARTITION OF measurement DEFAULT;
 ```
 
 这样当尝试插入不符合任何已定义分区条件的值时，不会报错，而是将数据存入默认分区。
+
+默认分区不建议存储大量数据：它会拖慢新分区的挂载，因为挂载分区时需要扫描默认分区来检查数据是否满足新分区的约束。若默认分区数据量很大，可提前在被挂载分区上手工创建匹配的 CHECK 约束，避免挂载时做全表数据检查；挂载完成后可删除该 CHECK 约束。
+
+### 索引操作
+
+当前不支持在分区表上并发(concurrently)生成索引。 然而，你可以在每个分区上单独的并发构建索引，然后最终以非并发的方式创建分区索引，以减少对分区表的写入被锁定的时间。在这种情况下，生成分区索引仅是元数据操作。
+
+需要区分以下两种行为：
+
+- `CREATE INDEX ... ON parent (...)`（父表上建索引）：会自动递归应用到所有现存分区，此后新建的分区也会自动继承同样的索引结构。
+- `CREATE INDEX ... ON ONLY parent (...)`（只在父表建索引）：不会应用到现有分区，之后新建的分区也不会被包含。仅在极特殊场景下使用。
 
 ### 表结构变更的影响
 
@@ -263,21 +307,6 @@ CREATE TABLE measurement_default PARTITION OF measurement DEFAULT;
 - 修改列数据类型可能会影响现有数据
 - 删除列也会影响子分区
 
-### 索引操作
-
-当前不支持在分区表上并发生成索引。 然而，你可以在每个分区上单独的并发构建索引，然后最终以非并发的方式创建分区索引，以减少对分区表的写入被锁定的时间。
-在这种情况下，生成分区索引仅是元数据操作。
-
-### 分区键更新
-
-直接更新分区键字段会变成复杂的动作，实际上是删除旧记录并在新分区中创建新记录。在应用中应避免频繁修改分区键的值。
-
-### 主键和唯一约束注意事项
-
-- 主键和唯一键必须包含分区键，否则无法保证跨分区的唯一性
-- 本地唯一索引（只应用于分区）在跨分区操作中不能提供整体唯一性
-- 为了在全局级别（跨越所有分区）实现主键或唯一性约束，必须包含分区键在内
-
 ### 分区创建管理
 
 - 手动管理方式适用于分区较少且规律固定的场景
@@ -286,7 +315,7 @@ CREATE TABLE measurement_default PARTITION OF measurement DEFAULT;
 
 ### 分区裁剪参数优化
 
-为了充分发挥分区表的性能优势，必须确保 enable_partition_pruning 参数被开启以激活分区裁剪功能。当 WHERE 子句包含分区键条件时，优化器会选择仅扫描相关的分区，大大提高了查询性能。
+为了充分发挥分区表的性能优势，必须确保 `enable_partition_pruning` 参数被开启以激活分区裁剪功能。当 WHERE 子句包含分区键条件时，优化器会选择仅扫描相关的分区，大大提高了查询性能。
 
 - 检查当前设置：`SHOW enable_partition_pruning;`
 - 启用参数：`SET enable_partition_pruning = on;` （会话级）
@@ -296,7 +325,6 @@ CREATE TABLE measurement_default PARTITION OF measurement DEFAULT;
 
 - enable_bitmapscan = on
 - enable_indexonlyscan = on
-- 对于复杂查询，确保约束排除功能有效（对于传统继承表，需要 enable_inheritance_optimization_parameters）
 
 ### 事务与锁定注意事项
 
@@ -306,7 +334,8 @@ CREATE TABLE measurement_default PARTITION OF measurement DEFAULT;
 - 对单个分区的操作只会影响特定分区的锁定
 - 批量操作前评估对整体系统的影响
 
-## 唯一约束与索引在分区表中的行为
+
+## 唯一约束、索引与性能
 
 ### 跨分区唯一约束
 
@@ -322,6 +351,8 @@ CREATE TABLE orders (
     UNIQUE (customer_id)  -- 这个约束只会在各自分区内部强制执行
 ) PARTITION BY RANGE (order_date);
 
+错误:  unique constraint on partitioned table must include all partitioning columns
+
 -- 正确：若要实现 customer_id 全局唯一，需要将其与分区键一起构成唯一约束
 CREATE TABLE orders_fixed (
     order_id    int not null,
@@ -331,7 +362,7 @@ CREATE TABLE orders_fixed (
     UNIQUE (customer_id, order_date)  -- 这确保了跨分区的唯一性
 ) PARTITION BY RANGE (order_date);
 
--- 或者创建单独的索引来实现特定查询需求
+-- 或者创建单独的索引来实现特定查询需求（索引不是约束，不强制唯一）
 CREATE TABLE orders_indexed (
     order_id    int not null,
     order_date  date not null,
@@ -339,8 +370,7 @@ CREATE TABLE orders_indexed (
     PRIMARY KEY (order_date, order_id)
 ) PARTITION BY RANGE (order_date);
 
--- 可以为特定查询创建局部索引
--- 这个索引将在每个分区上分别创建
+-- 可以为特定查询创建索引，这个索引将在每个分区上分别创建
 CREATE INDEX orders_customer_idx ON orders_indexed (customer_id);
 ```
 
@@ -349,7 +379,7 @@ CREATE INDEX orders_customer_idx ON orders_indexed (customer_id);
 在分区表中，创建索引需要特别注意：
 
 1. 索引需要包含分区键以确保全局查询的有效性
-2. 局部索引（每一分区一个）vs 全局索引（跨所有分区）的选择
+2. 局部索引（每一分区一个）vs 全局索引（父表一个，自动复制到各分区）的选择
 3. 如何为频繁查询的字段创建合适索引
 
 ```sql
@@ -360,21 +390,29 @@ CREATE TABLE orders_composite (
     customer_id  int,
     product_id   int,
     quantity     int,
-    PRIMARY KEY (order_date, order_id)
+    PRIMARY KEY (order_date, order_id) 
 ) PARTITION BY RANGE (order_date);
 
 -- 创建包含分区键的复合索引，用于客户产品组合查询
 CREATE INDEX orders_customer_product_idx ON orders_composite (customer_id, product_id, order_date);
 
--- 局部索引，在每一子分区上独立创建
+-- 局部索引：只在父表上创建，不复制到分区（不推荐，除非明确知道目的）
 CREATE INDEX orders_quantity_idx ON ONLY orders_composite (quantity);
 
--- 为新分区创建索引时，需要确保它们继承正确的索引结构
+-- 新增分区时，父表上的索引会自动应用到新分区
 CREATE TABLE orders_2024 PARTITION OF orders_composite
     FOR VALUES FROM ('2024-01-01') TO ('2025-01-01');
+```
 
--- 对大数据量测试，我们可以使用以下示例
--- 创建一个更大的表用于演示分区性能
+### 大数据量性能对比测试
+
+为了充分展示分区表在处理大数据量时的优势，这里提供具体的测试用例和方法。
+
+#### 测试数据准备
+
+创建一个基于日期的分区表，以及一个普通表作为对照（插入都经由父表进行，identity 各版本均可用，细节见「序列（Sequence）注意事项」一节）：
+
+```sql
 CREATE TABLE sales_data (
     sale_id         bigint generated always as identity,
     sale_date       date not null,
@@ -412,8 +450,7 @@ CREATE TABLE sales_nov2024 PARTITION OF sales_data
 CREATE TABLE sales_dec2024 PARTITION OF sales_data
     FOR VALUES FROM ('2024-12-01') TO ('2025-01-01');
 
--- 生成模拟销售数据，用于展示大数据量下的性能差异
--- 这里将生成 300万 条记录用于演示
+-- 生成模拟销售数据（300万条），用于展示大数据量下的性能差异
 INSERT INTO sales_data (sale_date, product_id, customer_id, quantity_sold, sale_amount, region)
 SELECT
     '2024-01-01'::date + (floor(random() * 365))::int as sale_date,
@@ -433,14 +470,9 @@ FROM generate_series(1, 3000000) s(i);
 CREATE INDEX idx_sales_product_date ON sales_data (product_id, sale_date);
 CREATE INDEX idx_sales_customer ON sales_data (customer_id);
 CREATE INDEX idx_sales_region ON sales_data (region);
-```
+ANALYZE VERBOSE sales_data;
 
-### 大数据量性能对比测试
-
-为了充分展示分区表在处理大数据量时的优势，这里提供具体的测试用例和方法。
-
-```sql
--- 为了比较分区表和普通表的性能差异，我们创建一个非分区对照表
+-- 创建非分区的对照表，并填充相同的数据集
 CREATE TABLE sales_data_unpartitioned (
     sale_id         bigint generated always as identity,
     sale_date       date not null,
@@ -452,12 +484,6 @@ CREATE TABLE sales_data_unpartitioned (
     PRIMARY KEY (sale_date, sale_id)
 );
 
--- 在普通表上也创建相同的索引
-CREATE INDEX idx_sales_product_date_unpart ON sales_data_unpartitioned (product_id, sale_date);
-CREATE INDEX idx_sales_customer_unpart ON sales_data_unpartitioned (customer_id);
-CREATE INDEX idx_sales_region_unpart ON sales_data_unpartitioned (region);
-
--- 往对照表中填充相同的数据集
 INSERT INTO sales_data_unpartitioned (sale_date, product_id, customer_id, quantity_sold, sale_amount, region)
 SELECT
     '2024-01-01'::date + (floor(random() * 365))::int as sale_date,
@@ -473,23 +499,31 @@ SELECT
     end as region
 FROM generate_series(1, 3000000) s(i);  -- 同样生成300万条记录
 
--- 现在可以通过 EXPLAIN ANALYZE 来比较两种方式的性能
+CREATE INDEX idx_sales_product_date_unpart ON sales_data_unpartitioned (product_id, sale_date);
+CREATE INDEX idx_sales_customer_unpart ON sales_data_unpartitioned (customer_id);
+CREATE INDEX idx_sales_region_unpart ON sales_data_unpartitioned (region);
 
--- 比较1：查询特定日期范围的数据
--- 分区表的查询计划
+ANALYZE VERBOSE sales_data_unpartitioned;
+```
+
+#### 性能对比查询
+
+通过 `EXPLAIN ANALYZE` 对比分区表与普通表的执行计划：
+
+```sql
+-- 比较1：查询特定日期范围的数据（分区裁剪生效，只扫描单个分区）
 EXPLAIN ANALYZE
 SELECT COUNT(*), SUM(sale_amount)
 FROM sales_data
 WHERE sale_date >= '2024-06-01' AND sale_date < '2024-07-01';
 
--- 非分区表的相同查询
+-- 非分区表的相同查询（扫描全表）
 EXPLAIN ANALYZE
 SELECT COUNT(*), SUM(sale_amount)
 FROM sales_data_unpartitioned
 WHERE sale_date >= '2024-06-01' AND sale_date < '2024-07-01';
 
 -- 比较2：按产品ID查找
--- 分区表的查询
 EXPLAIN ANALYZE
 SELECT sale_id, sale_date, sale_amount
 FROM sales_data
@@ -497,7 +531,6 @@ WHERE product_id = 1234
 ORDER BY sale_date DESC
 LIMIT 10;
 
--- 非分区表的相同查询
 EXPLAIN ANALYZE
 SELECT sale_id, sale_date, sale_amount
 FROM sales_data_unpartitioned
@@ -506,7 +539,6 @@ ORDER BY sale_date DESC
 LIMIT 10;
 
 -- 比较3：聚合查询
--- 分区表的聚合操作
 EXPLAIN ANALYZE
 SELECT
     region,
@@ -515,7 +547,6 @@ SELECT
 FROM sales_data
 GROUP BY region;
 
--- 非分区表的聚合操作
 EXPLAIN ANALYZE
 SELECT
     region,
@@ -523,116 +554,38 @@ SELECT
     SUM(sale_amount) as total_sales
 FROM sales_data_unpartitioned
 GROUP BY region;
-
--- 在真实的性能测试中，你会发现：
--- 1. 对于只涉及单个分区的查询，分区表性能会显著优于普通表
--- 2. 跨分区查询的性能则更依赖于具体的条件和索引配置
--- 3. 随着数据量的增加，优势会更明显
 ```
 
-在大数据量的情况下，你还会遇到其他优化点和注意事项：
+在真实的性能测试中，你会发现：
 
-#### 数据分布
+1. 对于只涉及单个分区的查询（分区裁剪生效），分区表性能会显著优于普通表
+2. 跨分区查询的性能则更依赖于具体的条件和索引配置
+3. 随着数据量的增加，优势会更明显
 
-确保数据分布到各个分区中以均衡I/O操作：
+#### 数据分布检查
+
+确保数据分布到各个分区中以均衡 I/O 操作：
 
 ```sql
 -- 检查各分区的数据分布
 SELECT
     schemaname,
-    tablename,
+    relname,
     n_tup_ins - n_tup_del as approx_count
 FROM pg_stat_user_tables
-WHERE tablename LIKE 'sales%'
-ORDER BY tablename;
+WHERE relname LIKE 'sales%'
+ORDER BY relname;
 ```
 
-#### 统计信息收集
+## 普通表转换分区表
 
-对于大数据量分区表，需要定期更新统计信息：
-
-```sql
--- 为单个分区收集统计信息
-ANALYZE sales_jan2024;
-
--- 为所有分区收集统计信息
-CALL partman.analyze_inherit('sales_data');
-```
-
-#### 重要的实现细节和注意事项
-
-- 分区键选取: 应基于表的常用查询模式选择合适的分区键，如表单的创建时间、区域编码等
-- 分区大小的划分: 通常建议单个分区表大小不要超过数十GB到上百GB，以确保管理和维护的便利性
-- 分区表数量控制: 过多的分区可能造成元数据管理的开销过大，需要在粒度和管理复杂度间找平衡
-- 启用分区剪枝: 确保启用参数 enable_partition_pruning 来优化查询计划
-- 合理使用默认分区: 当遇到未知分区值时，默认分区能防止查询失败
-- 索引操作对子表无效: 在父表创建的索引对新增分区生效，但对已存在的分区可能不生效
-
-### 普通表转换分区表
-
-**不能直接将常规表转换为分区表，反之亦然**。但是，可以将现有的常规或分区表添加为分区表的分区，或从分区表中删除分区，将其转换为独立表。
-
-#### 传统迁移方式
-
-停机：CREATE TABLE AS / 重建序列
-
-不停机：
-
-- pg_rewrite
-- 双写机制
-- 触发器+复制机制
-
-#### 现代迁移方式（通过将常规表作为分区）
-
-```sql
--- 场景：有一个很大的常规表包含所有数据
-CREATE TABLE products_large (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    category_id INTEGER,
-    price DECIMAL,
-    create_time DATE
-);
--- 例如此表包含了多年的累积数据
-
--- 步骤1：创建新的分区表框架
-CREATE TABLE products_new (
-    id SERIAL,
-    name VARCHAR(255),
-    category_id INTEGER,
-    price DECIMAL,
-    create_time DATE,
-    PRIMARY KEY (create_time, id)
-) PARTITION BY RANGE (create_time);
-
--- 步骤2：为新分区创建未来月份的分区
-CREATE TABLE products_2024_feb PARTITION OF products_new
-    FOR VALUES FROM ('2024-02-01') TO ('2024-03-01');
-CREATE TABLE products_2024_mar PARTITION OF products_new
-    FOR VALUES FROM ('2024-03-01') TO ('2024-04-01');
-
--- 步骤3：将老表作为分区添加（将大表作为历史数据分区）
--- 首先重命名老表
-ALTER TABLE products_large RENAME TO products_2023_and_before;
-
-alter  table products_2023_and_before  alter COLUMN create_time set not null;
-ALTER TABLE products_2023_and_before drop CONSTRAINT products_large_pkey ;
-
--- 注意，这种方法需要先修改历史表使其结构完全匹配
-ALTER TABLE products_new ATTACH PARTITION products_2023_and_before FOR VALUES FROM ('2000-01-01') TO ('2024-02-01');
-
-ALTER TABLE products_new RENAME TO products;
-```
-
-## 将现有常规表作为分区表的分区
-
-当表的尺寸超过了数据库服务器物理内存时，需要考虑转为分区表。这个过程有停机和不停机两种方式。
+**不能直接将常规表转换为分区表，反之亦然**。但是，可以将现有的常规表（或分区表）添加为分区表的分区，或从分区表中删除分区，将其转换为独立表。当表尺寸超过了数据库服务器物理内存时，通常需要考虑转为分区表，迁移方式有停机和不停机两种。
 
 ### 停机迁移
 
-这种方法简单直观，但需要业务暂时停止服务。
+简单直观，但需要业务暂时停止服务。
 
-#### SELECT INTO 方式
+#### SELECT INTO / CREATE TABLE AS 方式
 
 ```sql
 -- 假设有个现有的表 orders，需要转换为基于日期的分区表
@@ -643,9 +596,22 @@ CREATE TABLE orders (
     amount DECIMAL(10,2)
 );
 
--- 在创建分区表时需要考虑原来的主键/唯一约束
+-- 批量插入 300 万条模拟数据
+INSERT INTO orders (customer_id, order_date, amount)
+SELECT
+    -- 随机生成 customer_id (1 到 50,000)
+    floor(random() * 50000 + 1)::int AS customer_id,
+    -- 随机生成 order_date (覆盖 2023-01-01 到 2025-12-31)
+    -- 基础日期 '2023-01-01' + 随机天数 (0 到 1095 天，约3年)
+    ('2023-01-01'::date + (floor(random() * 1095))::int)::date AS order_date,
+    -- 随机生成 amount (10.00 到 1010.00)
+    round((random() * 1000 + 10)::numeric, 2) AS amount
+FROM generate_series(1, 3000000) s(i);
+
+-- 创建分区表。id 用 bigserial 而不是 ALWAYS identity：迁移时要显式插入历史 id，而
+-- ALWAYS identity 拒绝应用显式指定值（除非 OVERRIDING SYSTEM VALUE）
 CREATE TABLE orders_partitioned (
-    id SERIAL,
+    id bigserial,
     customer_id INT,
     order_date DATE,
     amount DECIMAL(10,2),
@@ -660,12 +626,20 @@ CREATE TABLE orders_2024 PARTITION OF orders_partitioned
 CREATE TABLE orders_2025 PARTITION OF orders_partitioned
     FOR VALUES FROM ('2025-01-01') TO ('2026-01-01');
 
--- 将数据迁移至新的分区表
+
+-- 将数据迁移至新的分区表， 单次迁移数量过大可进行多次批量迁移。
 INSERT INTO orders_partitioned (id, customer_id, order_date, amount) SELECT * FROM orders;
+VACUUM ANALYZE orders_partitioned;
 
 -- 重建索引
 CREATE INDEX idx_orders_customer ON orders_partitioned (customer_id);
 CREATE INDEX idx_orders_amount ON orders_partitioned (amount);
+
+-- 数据迁移完成后，务必同步序列，避免新旧编号冲突（见「序列（Sequence）注意事项」）
+SELECT setval(
+    pg_get_serial_sequence('orders_partitioned', 'id'),
+    (SELECT COALESCE(max(id)::bigint, 1) FROM orders_partitioned)
+);
 
 -- 停机操作: 重命名表
 ALTER TABLE orders RENAME TO orders_old;
@@ -677,7 +651,7 @@ ALTER TABLE orders_partitioned RENAME TO orders;
 此方式适合非常大的数据迁移，因为 COPY 在大批量数据迁移方面有更好的性能表现。
 
 ```sql
--- 创建临时文件
+-- 创建临时文件（psql 元命令）
 \copy (SELECT * FROM orders) TO 'orders_backup.dump' WITH CSV HEADER;
 
 -- 按上述相同步骤创建分区表...
@@ -685,67 +659,234 @@ ALTER TABLE orders_partitioned RENAME TO orders;
 -- 然后批量载入数据
 \copy orders_partitioned FROM 'orders_backup.dump' WITH CSV HEADER;
 
+-- 序列同步与重命名操作参照上一节
+
 -- 验证数据
 SELECT COUNT(*) FROM orders_partitioned;
 SELECT COUNT(*) FROM orders_old;
 ```
 
-### 不停机迁移
+### 不停机迁移：将老表挂载为分区
 
-不停机转换对于关键业务非常有价值，尽管过程更复杂。
+通过 `ATTACH PARTITION` 将现有大表（作为历史数据分区）挂载到新建的分区表上，无需移动历史数据，实现不停机迁移。
 
+```
+-- 场景：有一个很大的常规表包含所有数据（例如此表包含多年的累积数据）
+CREATE TABLE products_large (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    category_id INTEGER,
+    price DECIMAL,
+    create_time DATE
+);
+```
 
-####  pg_rewrite
+```sql
+-- 插入 300万条 数据
+INSERT INTO products_large (name, category_id, price, create_time)
+SELECT
+    -- 1. 随机生成产品名称 (例如: Product_12345)
+    'Product_' || floor(random() * 100000)::int AS name,
+    -- 2. 随机生成分类 ID (1 到 50)
+    floor(random() * 50 + 1)::int AS category_id,
+    -- 3. 随机生成价格 (10.00 到 1000.00)
+    round((random() * 990 + 10)::numeric, 2) AS price,
+    -- 4. 随机生成日期 (覆盖 2024-02-01 到 2024-03-31)
+    -- 基础日期 '2024-02-01' + 随机天数 (0 到 59 天，共60天)
+    ('2024-02-01'::date + (floor(random() * 60))::int)::date AS create_time
+FROM generate_series(1, 3000000) AS s(i);
+```
 
+```sql
+-- 查看数据分别边界
+select min(create_time), max(create_time) from products;
+    min     |    max     
+------------+------------
+ 2024-02-01 | 2024-03-31
+```
 
+```sql
+-- 步骤1：创建新的分区表框架
+CREATE TABLE products_new (
+    id SERIAL,
+    name VARCHAR(255),
+    category_id INTEGER,
+    price DECIMAL,
+    create_time DATE,
+    PRIMARY KEY (create_time, id)
+) PARTITION BY RANGE (create_time);
+```
+```sql
+-- 步骤2：为新分区创建未来月份的分区。 根据现有数据边界范围进行创建。
+CREATE TABLE products_202404 PARTITION OF products_new
+    FOR VALUES FROM ('2024-04-01') TO ('2024-05-01');
+CREATE TABLE products_202405 PARTITION OF products_new
+    FOR VALUES FROM ('2024-05-01') TO ('2024-06-01');
+```
+```sql
+-- 步骤3：将老表作为分区添加（先重命名，并让结构与分区表一致）
+ALTER TABLE products_large RENAME TO products_2023_and_before;
+ALTER TABLE products_2023_and_before ALTER COLUMN create_time SET NOT NULL;
+ALTER TABLE products_2023_and_before DROP CONSTRAINT products_large_pkey;
+
+-- ATTACH 前验证结构与约束（如 NOT NULL、CHECK）与分区表完全匹配
+ALTER TABLE products_new ATTACH PARTITION products_2023_and_before default;
+```
+
+```sql
+-- 步骤4：序列同步（老表保留了它自己的序列与默认值）
+-- 将历史分区的默认值统一到父表序列，并重绑归属，避免生成重复 id
+ALTER TABLE products_2023_and_before ALTER COLUMN id SET DEFAULT nextval('products_new_id_seq');
+ALTER SEQUENCE products_new_id_seq OWNED BY products_new.id;
+
+ALTER TABLE products_new RENAME TO products;
+```
+挂载前注意：ATTACH PARTITION 会扫描老表数据做约束校验（校验失败则回滚），数据量很大时会消耗较长时间和资源；老表上的索引不会被自动继承，需按分区表索引结构补齐。
+
+### 不停机迁移：其他工具与机制
+
+- **pg_rewrite**：第三方扩展，通过在源表上安装触发器，把增删改操作实时同步复制到目标分区表，待数据追平后在低峰期切换流量并校验一致性。适合不允许断写的核心业务，但对存量数据的批量搬迁仍需要单独处理（COPY）。
+- **双写机制**：应用层同时写入新旧表，待老表数据与存量核对一致后切换读/写流量。
+- **触发器 + 复制机制**：通过触发器或逻辑复制同步写入，切换到新表后清理触发器。
 
 ## 表分区管理
 
 随着应用的发展，分区表管理成为一个关键任务，主要包括增加新分区、移除旧分区等操作。
 
-### pg_partman
 
-`pg_partman` 扩展专门用于自动化管理 PostgreSQL 的分区表。它允许根据时间或序列自动创建、管理分区。对于需要按时间管理大量数据的应用特别有用。
-
-安装:
-
-```sql
--- 安装扩展
-CREATE EXTENSION pg_partman;
+### 创建分区表
+```
+CREATE TABLE measurement (
+    city_id         int not null,
+    logdate         date not null,
+    peaktemp        int,
+    unitsales       int
+) PARTITION BY RANGE (logdate);
+```
+### 添加分区
+方式一， 直接在父表上创建分区
+```
+CREATE TABLE measurement_y2006m02 PARTITION OF measurement
+    FOR VALUES FROM ('2006-02-01') TO ('2006-03-01');
 ```
 
-使用 pg_partman 自动创建分区:
+方式二, 创建子表并挂载到父表
+```
+CREATE TABLE measurement_y2008m02
+  (LIKE measurement INCLUDING DEFAULTS INCLUDING CONSTRAINTS)
+  TABLESPACE fasttablespace;
 
-```sql
--- 创建父表，确保包含适当主键和唯一约束
-CREATE TABLE test_data_time (
-    id BIGSERIAL,
-    created_time TIMESTAMPTZ NOT NULL DEFAULT now(),
-    data TEXT,
-    PRIMARY KEY (created_time, id)  -- 主键包含分区键
-) PARTITION BY RANGE (created_time);
+ALTER TABLE measurement_y2008m02 ADD CONSTRAINT y2008m02
+   CHECK ( logdate >= DATE '2008-02-01' AND logdate < DATE '2008-03-01' );
 
--- 启用自动分区管理
-SELECT partman.create_parent('public.test_data_time', 'created_time', 'time', 'daily',
-                              p_premake := 2, -- 预创建2个未来分区
-                              p_start_partition := to_char(CURRENT_TIMESTAMP, 'YYYY-MM-DD'));
+ALTER TABLE measurement ATTACH PARTITION measurement_y2008m02
+    FOR VALUES FROM ('2008-02-01') TO ('2008-03-01' ); 
+```
+### 删除分区
 
--- 查看自动创建的分区
-SELECT child_table, value_from, value_to
-FROM partman.show_partition_info('test_data_time');
+方式一， 直接删除分区子表， 需要在父表上拿到ACCESS EXCLUSIVE锁
+```
+DROP TABLE measurement_y2006m02;
+```
+方式二， 卸载分区为独立的表
+```
+ALTER TABLE measurement DETACH PARTITION measurement_y2006m02;
+ALTER TABLE measurement DETACH PARTITION measurement_y2006m02 CONCURRENTLY; --只需要父表上的SHARE UPDATE EXCLUSIVE锁
 ```
 
-常见自动化管理功能:
+## 核心要点回顾
 
-- 定期创建未来分区
-- 归档或删除旧分区
-- 自动优化索引维护策略
+- 主键/唯一约束必须包含分区键，否则无法跨分区强制唯一
+- 分区键应选取 WHERE 条件频繁使用、取值稳定的字段
+- 序列属于父表、所有分区共享，保证自增 id 全局不冲突，但不是唯一性约束
+- identity 列自 PG 10 起即可用于分区表；PG 17 前分区不继承 identity 属性（写入须经由父表）
+- 迁移/挂载分区后务必同步序列（setval），避免新旧编号冲突
+- 启用 enable_partition_pruning 以发挥分区裁剪优势
+- 默认分区不要存放大量数据，否则会拖慢后续分区挂载
 
-对于分区维护工作来说，pg_partman 可以极大地减少管理开销。
+## 分区表订单 ID 唯一性设计
 
-```sql
--- 转换回非分区表
-SELECT partman.undo_partition('public.test_data_time', 'table_loop', 2);
+PostgreSQL 分区表无全局索引，唯一约束通过各分区的本地唯一索引实现，由此产生两条铁律：
+
+主键/唯一约束必须包含全部分区键，否则 DDL 直接报错：
+
+```Text
+ERROR: unique constraint on partitioned table must include all partitioning columns
+原理：分区路由是分区键的确定性函数，约束含分区键时，重复行必然落入同一分区，"本地唯一" ⟹ "全局唯一"。
 ```
 
-这些管理策略和工具可确保分区表随时间推移仍保持高性能及可管理性，为大规模数据库应用提供了可靠的基础。
+复合主键 PRIMARY KEY (order_date, order_id) 只保证组合唯一：
+
+```Sql
+INSERT INTO orders VALUES (100, '2024-01-15');  -- ✅
+INSERT INTO orders VALUES (100, '2024-01-16');  -- ✅ 也成功！order_id=100 重复
+```
+
+### 业务上如何保证 order_id 全局唯一
+
+#### 方案 1：靠生成器保证"天然唯一"（最常用）
+```sql
+CREATE TABLE orders (
+    order_id    bigint GENERATED ALWAYS AS IDENTITY,  -- 全局序列发号
+    order_date  date not null,
+    ...
+    PRIMARY KEY (order_date, order_id)
+) PARTITION BY RANGE (order_date);
+```
+单一序列发号，order_id 事实上不会重复；
+⚠️ 但这是"生成器保证"，不是数据库约束——OVERRIDING SYSTEM VALUE 手动插值仍可制造重复，属约定而非强约束。
+
+#### 方案 2：订单号内嵌日期，直接按 order_id 分区（两全其美，推荐）(uuidv7)
+
+让 ID 自带路由信息（雪花算法 / 日期前缀发号，大型订单系统的典型做法）：
+
+```sql
+-- order_id 高位编码日期，如 2024011500000123
+CREATE TABLE orders (
+    order_id    bigint not null,
+    customer_id int,
+    ...
+    PRIMARY KEY (order_id)          -- ✅ 合法！分区键就是 order_id
+) PARTITION BY RANGE (order_id);
+CREATE TABLE orders_2024_01 PARTITION OF orders
+    FOR VALUES FROM (2024010100000000) TO (2024020100000000);
+```
+
+收益非常全面：
+
+| 能力 | 效果 |
+|---|---|
+| order_id 全局唯一 | ✅ 数据库级强约束（分区键=主键，本地检查⟹全局唯一） |
+| WHERE order_id = ? | ✅ 分区裁剪，只查 1 个分区 |
+| 按月份查/删旧数据 | ✅ 范围条件 order_id >= ... AND order_id < ... 同样裁剪，DROP PARTITION 照常 |
+| 无需应用额外传 order_date | ✅ ID 自带日期 |
+
+#### 方案 3：UUID / 应用层保证 (uuidv4)
+
+最轻量，但无数据库兜底，且 UUID 无序会加剧索引膨胀，订单场景一般不推荐作主键。
+
+
+#### tips uuid
+
+UUIDv4——除了 6 个固定 bit，全是随机数
+```text
+f47ac10b-58cc-4372-a567-0e02b2c3d479
+                 ↑    ↑
+              version variant
+                 4    8~b
+```
+
+UUIDv7——前 48 bit 是时间戳，天然按时间排序
+```text
+018cc251-f400-7f3a-8c1e-5b2d9f0a1b3c
+└─48bit Unix毫秒─┘ │ └12b┘│ └───62bit 随机───┘
+                  版本7 rand_a   rand_b
+```
+
+| 生成方式 | 版本 | 依赖 |
+|---|---|---|
+| `gen_random_uuid()` | v4 | PG13+ 内置 |
+| `uuid_generate_v4()` | v4 | uuid-ossp 扩展 |
+| `uuid_generate_v7()` | v7 | pg_uuidv7 扩展 |
+| `uuidv7()` | v7 | **PG18 内置** |
+| 应用代码生成 | 取决于库 | Java/Python/Go 库版本各异 |
